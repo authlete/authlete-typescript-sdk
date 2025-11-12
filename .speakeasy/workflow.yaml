@@ -16,7 +16,6 @@ targets:
         publish:
             npm:
                 token: $npm_token
-                tag: latest
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/authlete/sdk-workspace/authlete-api-explorer-typescript-code-samples
