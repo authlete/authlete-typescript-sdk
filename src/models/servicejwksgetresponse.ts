@@ -7,33 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-/**
- * An object representing JWK. See [RFC 7517](https://datatracker.ietf.org/doc/html/rfc7517) for more details.
- *
- * @remarks
- */
-export type Key = {};
-
 export type ServiceJwksGetResponse = {
   /**
    * An array of [JWK](https://datatracker.ietf.org/doc/html/rfc7517)s.
    */
-  keys?: Array<Key> | undefined;
+  keys?: Array<{ [k: string]: any }> | undefined;
 };
-
-/** @internal */
-export const Key$inboundSchema: z.ZodType<Key, z.ZodTypeDef, unknown> = z
-  .object({});
-
-export function keyFromJSON(
-  jsonString: string,
-): SafeParseResult<Key, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Key$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Key' from JSON`,
-  );
-}
 
 /** @internal */
 export const ServiceJwksGetResponse$inboundSchema: z.ZodType<
@@ -41,7 +20,7 @@ export const ServiceJwksGetResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  keys: z.array(z.lazy(() => Key$inboundSchema)).optional(),
+  keys: z.array(z.record(z.any())).optional(),
 });
 
 export function serviceJwksGetResponseFromJSON(

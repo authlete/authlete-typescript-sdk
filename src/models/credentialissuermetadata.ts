@@ -23,7 +23,7 @@ export type CredentialIssuerMetadata = {
   /**
    * The URL of the credential endpoint of the credential issuer.
    */
-  credentialEndpoint?: boolean | undefined;
+  credentialEndpoint?: string | undefined;
   /**
    * The URL of the batch credential endpoint of the credential issuer.
    */
@@ -33,9 +33,13 @@ export type CredentialIssuerMetadata = {
    */
   deferredCredentialEndpoint?: string | undefined;
   /**
-   * A JSON array describing supported credentials.
+   * A JSON object describing supported credential configurations.
+   *
+   * @remarks
+   * This property corresponds to the credential_configurations_supported metadata.
+   * Note: Due to a breaking change in December 2023, this was changed from a JSON array to a JSON object.
    */
-  credentialsSupported?: boolean | undefined;
+  credentialsSupported?: string | undefined;
   /**
    * The supported JWE `alg` algorithms for credential response encryption. This property corresponds
    *
@@ -69,10 +73,10 @@ export const CredentialIssuerMetadata$inboundSchema: z.ZodType<
 > = z.object({
   authorizationServers: z.array(z.string()).optional(),
   credentialIssuer: z.string().optional(),
-  credentialEndpoint: z.boolean().optional(),
+  credentialEndpoint: z.string().optional(),
   batchCredentialEndpoint: z.string().optional(),
   deferredCredentialEndpoint: z.string().optional(),
-  credentialsSupported: z.boolean().optional(),
+  credentialsSupported: z.string().optional(),
   credentialResponseEncryptionAlgValuesSupported: z.array(z.string())
     .optional(),
   credentialResponseEncryptionEncValuesSupported: z.array(z.string())
@@ -83,10 +87,10 @@ export const CredentialIssuerMetadata$inboundSchema: z.ZodType<
 export type CredentialIssuerMetadata$Outbound = {
   authorizationServers?: Array<string> | undefined;
   credentialIssuer?: string | undefined;
-  credentialEndpoint?: boolean | undefined;
+  credentialEndpoint?: string | undefined;
   batchCredentialEndpoint?: string | undefined;
   deferredCredentialEndpoint?: string | undefined;
-  credentialsSupported?: boolean | undefined;
+  credentialsSupported?: string | undefined;
   credentialResponseEncryptionAlgValuesSupported?: Array<string> | undefined;
   credentialResponseEncryptionEncValuesSupported?: Array<string> | undefined;
   requireCredentialResponseEncryption?: boolean | undefined;
@@ -100,10 +104,10 @@ export const CredentialIssuerMetadata$outboundSchema: z.ZodType<
 > = z.object({
   authorizationServers: z.array(z.string()).optional(),
   credentialIssuer: z.string().optional(),
-  credentialEndpoint: z.boolean().optional(),
+  credentialEndpoint: z.string().optional(),
   batchCredentialEndpoint: z.string().optional(),
   deferredCredentialEndpoint: z.string().optional(),
-  credentialsSupported: z.boolean().optional(),
+  credentialsSupported: z.string().optional(),
   credentialResponseEncryptionAlgValuesSupported: z.array(z.string())
     .optional(),
   credentialResponseEncryptionEncValuesSupported: z.array(z.string())
