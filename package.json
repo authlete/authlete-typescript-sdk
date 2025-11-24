@@ -1,6 +1,6 @@
 {
   "name": "@authlete/typescript-sdk",
-  "version": "0.0.2-beta",
+  "version": "0.0.2-beta.1",
   "author": "Speakeasy",
   "publishConfig": {
     "access": "public",

@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: b46c9081-6a59-4f57-9207-8f7715e429dc
 management:
-  docChecksum: be3df6a3380e25269ed5c6a5204c3972
+  docChecksum: 0aa8415ff85fe126a360338d5cbaebba
   docVersion: 3.0.16
-  speakeasyVersion: 1.656.1
-  generationVersion: 2.753.1
-  releaseVersion: 0.0.2-beta
-  configChecksum: 951ddac7003d0fab32774a7304965610
+  speakeasyVersion: 1.660.0
+  generationVersion: 2.760.2
+  releaseVersion: 0.0.2-beta.1
+  configChecksum: 9bb8a7e31e6209c47a8e7dfe9152968b
   repoURL: https://github.com/authlete/authlete-typescript-sdk.git
   installationURL: https://github.com/authlete/authlete-typescript-sdk
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.26.6
+    core: 3.26.9
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -152,7 +152,6 @@ generatedFiles:
   - docs/models/jwealg.md
   - docs/models/jweenc.md
   - docs/models/jwsalg.md
-  - docs/models/key.md
   - docs/models/nameduri.md
   - docs/models/nativessologoutrequest.md
   - docs/models/nativessologoutresponse.md
@@ -721,6 +720,7 @@ generatedFiles:
   - src/types/operations.ts
   - src/types/rfcdate.ts
   - src/types/streams.ts
+  - src/types/unrecognized.ts
   - tsconfig.json
 examples:
   service_get_api:
@@ -1837,3 +1837,4 @@ examples:
         "500":
           application/json: {}
 examplesVersion: 1.0.2
+releaseNotes: "## Typescript SDK Changes Detected:\n* `authlete.service.get()`:  `response.credentialissuermetadata` **Changed** **Breaking** :warning:\n* `authlete.service.list()`:  `response.services.[].credentialIssuerMetadata` **Changed** **Breaking** :warning:\n* `authlete.service.create()`: \n  *  `request.credentialIssuerMetadata` **Changed** **Breaking** :warning:\n  *  `response.credentialissuermetadata` **Changed** **Breaking** :warning:\n* `authlete.service.update()`: \n  *  `request.service.credentialIssuerMetadata` **Changed** **Breaking** :warning:\n  *  `response.credentialissuermetadata` **Changed** **Breaking** :warning:\n* `authlete.authorization.processRequest()`:  `response.service.credentialIssuerMetadata` **Changed** **Breaking** :warning:\n* `authlete.jwkSetEndpoint.serviceJwksGetApi()`:  `response.keys.[]` **Changed** **Breaking** :warning:\n"
