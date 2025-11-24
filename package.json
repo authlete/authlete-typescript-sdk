@@ -3,8 +3,8 @@
   "version": "0.0.3-beta",
   "author": "Speakeasy",
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "type": "module",
   "tshy": {

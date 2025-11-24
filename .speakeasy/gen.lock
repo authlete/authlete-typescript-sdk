@@ -5,8 +5,8 @@ management:
   docVersion: 3.0.16
   speakeasyVersion: 1.660.0
   generationVersion: 2.760.2
-  releaseVersion: 0.0.2-beta.1
-  configChecksum: 9bb8a7e31e6209c47a8e7dfe9152968b
+  releaseVersion: 0.0.3-beta
+  configChecksum: 223724e09376e752424aafdbe2ad827d
   repoURL: https://github.com/authlete/authlete-typescript-sdk.git
   installationURL: https://github.com/authlete/authlete-typescript-sdk
   published: true
@@ -1837,4 +1837,3 @@ examples:
         "500":
           application/json: {}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes Detected:\n* `authlete.service.get()`:  `response.credentialissuermetadata` **Changed** **Breaking** :warning:\n* `authlete.service.list()`:  `response.services.[].credentialIssuerMetadata` **Changed** **Breaking** :warning:\n* `authlete.service.create()`: \n  *  `request.credentialIssuerMetadata` **Changed** **Breaking** :warning:\n  *  `response.credentialissuermetadata` **Changed** **Breaking** :warning:\n* `authlete.service.update()`: \n  *  `request.service.credentialIssuerMetadata` **Changed** **Breaking** :warning:\n  *  `response.credentialissuermetadata` **Changed** **Breaking** :warning:\n* `authlete.authorization.processRequest()`:  `response.service.credentialIssuerMetadata` **Changed** **Breaking** :warning:\n* `authlete.jwkSetEndpoint.serviceJwksGetApi()`:  `response.keys.[]` **Changed** **Breaking** :warning:\n"
