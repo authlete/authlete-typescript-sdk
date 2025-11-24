@@ -6,7 +6,7 @@ sources:
         sourceBlobDigest: sha256:714da17b6b38e60e74cf3c81f9b529ea4eeadf5ec4d2f1784cf7337d1ba59788
         tags:
             - latest
-            - speakeasy-sdk-regen-1763975281
+            - speakeasy-sdk-regen-1763976773
             - 3.0.16
 targets:
     authlete:
@@ -15,7 +15,7 @@ targets:
         sourceRevisionDigest: sha256:f7ebf28bfd218746c3d712335bc6c780627e80c6177dcc6c3bc2d894b3350397
         sourceBlobDigest: sha256:714da17b6b38e60e74cf3c81f9b529ea4eeadf5ec4d2f1784cf7337d1ba59788
         codeSamplesNamespace: authlete-api-explorer-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:a9035630efd481c847bc99bf0544fefbc2078b07d07869fd2acd442a434d249b
+        codeSamplesRevisionDigest: sha256:3be359427c206dc34ce7812c326259281ae62fd9a1ce868f737ae660719f7af2
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
