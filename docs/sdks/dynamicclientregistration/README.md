@@ -1,5 +1,4 @@
 # DynamicClientRegistration
-(*dynamicClientRegistration*)
 
 ## Overview
 

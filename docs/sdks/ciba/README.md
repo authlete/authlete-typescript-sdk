@@ -1,5 +1,4 @@
 # Ciba
-(*ciba*)
 
 ## Overview
 

@@ -1,5 +1,4 @@
 # Userinfo
-(*userinfo*)
 
 ## Overview
 

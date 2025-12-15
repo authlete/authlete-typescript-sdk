@@ -326,7 +326,7 @@ export type Client = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  authorizationSignAlg?: JwsAlg | undefined;
+  authorizationSignAlg?: JwsAlg | null | undefined;
   /**
    * this is the 'alg' header value for encrypted JWT tokens.
    *
@@ -338,7 +338,7 @@ export type Client = {
    *
    * **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
    */
-  authorizationEncryptionAlg?: JweAlg | undefined;
+  authorizationEncryptionAlg?: JweAlg | null | undefined;
   /**
    * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
    *
@@ -348,7 +348,7 @@ export type Client = {
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
    */
-  authorizationEncryptionEnc?: JweEnc | undefined;
+  authorizationEncryptionEnc?: JweEnc | null | undefined;
   /**
    * The client authentication method that the client application declares that it uses at the token
    *
@@ -368,7 +368,7 @@ export type Client = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  tokenAuthSignAlg?: JwsAlg | undefined;
+  tokenAuthSignAlg?: JwsAlg | null | undefined;
   /**
    * The key ID of a JWK containing a self-signed certificate of this client.
    *
@@ -455,7 +455,7 @@ export type Client = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  requestSignAlg?: JwsAlg | undefined;
+  requestSignAlg?: JwsAlg | null | undefined;
   /**
    * this is the 'alg' header value for encrypted JWT tokens.
    *
@@ -467,7 +467,7 @@ export type Client = {
    *
    * **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
    */
-  requestEncryptionAlg?: JweAlg | undefined;
+  requestEncryptionAlg?: JweAlg | null | undefined;
   /**
    * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
    *
@@ -477,7 +477,7 @@ export type Client = {
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
    */
-  requestEncryptionEnc?: JweEnc | undefined;
+  requestEncryptionEnc?: JweEnc | null | undefined;
   /**
    * An array of URLs each of which points to a request object.
    *
@@ -516,7 +516,7 @@ export type Client = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  idTokenSignAlg?: JwsAlg | undefined;
+  idTokenSignAlg?: JwsAlg | null | undefined;
   /**
    * this is the 'alg' header value for encrypted JWT tokens.
    *
@@ -528,7 +528,7 @@ export type Client = {
    *
    * **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
    */
-  idTokenEncryptionAlg?: JweAlg | undefined;
+  idTokenEncryptionAlg?: JweAlg | null | undefined;
   /**
    * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
    *
@@ -538,7 +538,7 @@ export type Client = {
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
    */
-  idTokenEncryptionEnc?: JweEnc | undefined;
+  idTokenEncryptionEnc?: JweEnc | null | undefined;
   /**
    * The flag to indicate whether this client requires `auth_time` claim to be embedded in the ID token.
    *
@@ -624,7 +624,7 @@ export type Client = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  userInfoSignAlg?: JwsAlg | undefined;
+  userInfoSignAlg?: JwsAlg | null | undefined;
   /**
    * this is the 'alg' header value for encrypted JWT tokens.
    *
@@ -636,7 +636,7 @@ export type Client = {
    *
    * **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
    */
-  userInfoEncryptionAlg?: JweAlg | undefined;
+  userInfoEncryptionAlg?: JweAlg | null | undefined;
   /**
    * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
    *
@@ -646,7 +646,7 @@ export type Client = {
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
    */
-  userInfoEncryptionEnc?: JweEnc | undefined;
+  userInfoEncryptionEnc?: JweEnc | null | undefined;
   /**
    * The URL which a third party can use to initiate a login by the client application.
    *
@@ -738,7 +738,7 @@ export type Client = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  bcRequestSignAlg?: JwsAlg | undefined;
+  bcRequestSignAlg?: JwsAlg | null | undefined;
   /**
    * The boolean flag to indicate whether a user code is required when this client makes a backchannel
    *
@@ -1234,7 +1234,7 @@ export type ClientInput = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  authorizationSignAlg?: JwsAlg | undefined;
+  authorizationSignAlg?: JwsAlg | null | undefined;
   /**
    * this is the 'alg' header value for encrypted JWT tokens.
    *
@@ -1246,7 +1246,7 @@ export type ClientInput = {
    *
    * **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
    */
-  authorizationEncryptionAlg?: JweAlg | undefined;
+  authorizationEncryptionAlg?: JweAlg | null | undefined;
   /**
    * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
    *
@@ -1256,7 +1256,7 @@ export type ClientInput = {
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
    */
-  authorizationEncryptionEnc?: JweEnc | undefined;
+  authorizationEncryptionEnc?: JweEnc | null | undefined;
   /**
    * The client authentication method that the client application declares that it uses at the token
    *
@@ -1276,7 +1276,7 @@ export type ClientInput = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  tokenAuthSignAlg?: JwsAlg | undefined;
+  tokenAuthSignAlg?: JwsAlg | null | undefined;
   /**
    * The key ID of a JWK containing a self-signed certificate of this client.
    *
@@ -1363,7 +1363,7 @@ export type ClientInput = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  requestSignAlg?: JwsAlg | undefined;
+  requestSignAlg?: JwsAlg | null | undefined;
   /**
    * this is the 'alg' header value for encrypted JWT tokens.
    *
@@ -1375,7 +1375,7 @@ export type ClientInput = {
    *
    * **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
    */
-  requestEncryptionAlg?: JweAlg | undefined;
+  requestEncryptionAlg?: JweAlg | null | undefined;
   /**
    * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
    *
@@ -1385,7 +1385,7 @@ export type ClientInput = {
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
    */
-  requestEncryptionEnc?: JweEnc | undefined;
+  requestEncryptionEnc?: JweEnc | null | undefined;
   /**
    * An array of URLs each of which points to a request object.
    *
@@ -1424,7 +1424,7 @@ export type ClientInput = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  idTokenSignAlg?: JwsAlg | undefined;
+  idTokenSignAlg?: JwsAlg | null | undefined;
   /**
    * this is the 'alg' header value for encrypted JWT tokens.
    *
@@ -1436,7 +1436,7 @@ export type ClientInput = {
    *
    * **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
    */
-  idTokenEncryptionAlg?: JweAlg | undefined;
+  idTokenEncryptionAlg?: JweAlg | null | undefined;
   /**
    * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
    *
@@ -1446,7 +1446,7 @@ export type ClientInput = {
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
    */
-  idTokenEncryptionEnc?: JweEnc | undefined;
+  idTokenEncryptionEnc?: JweEnc | null | undefined;
   /**
    * The flag to indicate whether this client requires `auth_time` claim to be embedded in the ID token.
    *
@@ -1524,7 +1524,7 @@ export type ClientInput = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  userInfoSignAlg?: JwsAlg | undefined;
+  userInfoSignAlg?: JwsAlg | null | undefined;
   /**
    * this is the 'alg' header value for encrypted JWT tokens.
    *
@@ -1536,7 +1536,7 @@ export type ClientInput = {
    *
    * **Please note that some of the algorithms are more secure than others, some are not supported very well cross platforms and some (like RSA1_5) is known to be weak**.
    */
-  userInfoEncryptionAlg?: JweAlg | undefined;
+  userInfoEncryptionAlg?: JweAlg | null | undefined;
   /**
    * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
    *
@@ -1546,7 +1546,7 @@ export type ClientInput = {
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
    */
-  userInfoEncryptionEnc?: JweEnc | undefined;
+  userInfoEncryptionEnc?: JweEnc | null | undefined;
   /**
    * The URL which a third party can use to initiate a login by the client application.
    *
@@ -1638,7 +1638,7 @@ export type ClientInput = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  bcRequestSignAlg?: JwsAlg | undefined;
+  bcRequestSignAlg?: JwsAlg | null | undefined;
   /**
    * The boolean flag to indicate whether a user code is required when this client makes a backchannel
    *
@@ -1985,11 +1985,11 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> = z
     grantTypes: z.array(GrantType$inboundSchema).optional(),
     responseTypes: z.array(ResponseType$inboundSchema).optional(),
     redirectUris: z.array(z.string()).optional(),
-    authorizationSignAlg: JwsAlg$inboundSchema.optional(),
-    authorizationEncryptionAlg: JweAlg$inboundSchema.optional(),
-    authorizationEncryptionEnc: JweEnc$inboundSchema.optional(),
+    authorizationSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+    authorizationEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
+    authorizationEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
     tokenAuthMethod: ClientAuthMethod$inboundSchema.optional(),
-    tokenAuthSignAlg: JwsAlg$inboundSchema.optional(),
+    tokenAuthSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
     selfSignedCertificateKeyId: z.string().optional(),
     tlsClientAuthSubjectDn: z.string().optional(),
     tlsClientAuthSanDns: z.string().optional(),
@@ -1998,24 +1998,24 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> = z
     tlsClientAuthSanEmail: z.string().optional(),
     parRequired: z.boolean().optional(),
     requestObjectRequired: z.boolean().optional(),
-    requestSignAlg: JwsAlg$inboundSchema.optional(),
-    requestEncryptionAlg: JweAlg$inboundSchema.optional(),
-    requestEncryptionEnc: JweEnc$inboundSchema.optional(),
+    requestSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+    requestEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
+    requestEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
     requestUris: z.array(z.string()).optional(),
     defaultMaxAge: z.number().int().optional(),
     defaultAcrs: z.array(z.string()).optional(),
-    idTokenSignAlg: JwsAlg$inboundSchema.optional(),
-    idTokenEncryptionAlg: JweAlg$inboundSchema.optional(),
-    idTokenEncryptionEnc: JweEnc$inboundSchema.optional(),
+    idTokenSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+    idTokenEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
+    idTokenEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
     authTimeRequired: z.boolean().optional(),
     subjectType: SubjectType$inboundSchema.optional(),
     sectorIdentifierUri: z.string().optional(),
     derivedSectorIdentifier: z.string().optional(),
     jwksUri: z.string().optional(),
     jwks: z.string().optional(),
-    userInfoSignAlg: JwsAlg$inboundSchema.optional(),
-    userInfoEncryptionAlg: JweAlg$inboundSchema.optional(),
-    userInfoEncryptionEnc: JweEnc$inboundSchema.optional(),
+    userInfoSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+    userInfoEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
+    userInfoEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
     loginUri: z.string().optional(),
     tosUri: z.string().optional(),
     tosUris: z.array(TaggedValue$inboundSchema).optional(),
@@ -2025,7 +2025,7 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> = z
     clientUris: z.array(TaggedValue$inboundSchema).optional(),
     bcDeliveryMode: z.string().optional(),
     bcNotificationEndpoint: z.string().optional(),
-    bcRequestSignAlg: JwsAlg$inboundSchema.optional(),
+    bcRequestSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
     bcUserCodeRequired: z.boolean().optional(),
     attributes: z.array(Pair$inboundSchema).optional(),
     extension: ClientExtension$inboundSchema.optional(),
@@ -2092,11 +2092,11 @@ export type ClientInput$Outbound = {
   grantTypes?: Array<string> | undefined;
   responseTypes?: Array<string> | undefined;
   redirectUris?: Array<string> | undefined;
-  authorizationSignAlg?: string | undefined;
-  authorizationEncryptionAlg?: string | undefined;
-  authorizationEncryptionEnc?: string | undefined;
+  authorizationSignAlg?: string | null | undefined;
+  authorizationEncryptionAlg?: string | null | undefined;
+  authorizationEncryptionEnc?: string | null | undefined;
   tokenAuthMethod?: string | undefined;
-  tokenAuthSignAlg?: string | undefined;
+  tokenAuthSignAlg?: string | null | undefined;
   selfSignedCertificateKeyId?: string | undefined;
   tlsClientAuthSubjectDn?: string | undefined;
   tlsClientAuthSanDns?: string | undefined;
@@ -2105,23 +2105,23 @@ export type ClientInput$Outbound = {
   tlsClientAuthSanEmail?: string | undefined;
   parRequired?: boolean | undefined;
   requestObjectRequired?: boolean | undefined;
-  requestSignAlg?: string | undefined;
-  requestEncryptionAlg?: string | undefined;
-  requestEncryptionEnc?: string | undefined;
+  requestSignAlg?: string | null | undefined;
+  requestEncryptionAlg?: string | null | undefined;
+  requestEncryptionEnc?: string | null | undefined;
   requestUris?: Array<string> | undefined;
   defaultMaxAge?: number | undefined;
   defaultAcrs?: Array<string> | undefined;
-  idTokenSignAlg?: string | undefined;
-  idTokenEncryptionAlg?: string | undefined;
-  idTokenEncryptionEnc?: string | undefined;
+  idTokenSignAlg?: string | null | undefined;
+  idTokenEncryptionAlg?: string | null | undefined;
+  idTokenEncryptionEnc?: string | null | undefined;
   authTimeRequired?: boolean | undefined;
   subjectType?: string | undefined;
   sectorIdentifierUri?: string | undefined;
   jwksUri?: string | undefined;
   jwks?: string | undefined;
-  userInfoSignAlg?: string | undefined;
-  userInfoEncryptionAlg?: string | undefined;
-  userInfoEncryptionEnc?: string | undefined;
+  userInfoSignAlg?: string | null | undefined;
+  userInfoEncryptionAlg?: string | null | undefined;
+  userInfoEncryptionEnc?: string | null | undefined;
   loginUri?: string | undefined;
   tosUri?: string | undefined;
   tosUris?: Array<TaggedValue$Outbound> | undefined;
@@ -2131,7 +2131,7 @@ export type ClientInput$Outbound = {
   clientUris?: Array<TaggedValue$Outbound> | undefined;
   bcDeliveryMode?: string | undefined;
   bcNotificationEndpoint?: string | undefined;
-  bcRequestSignAlg?: string | undefined;
+  bcRequestSignAlg?: string | null | undefined;
   bcUserCodeRequired?: boolean | undefined;
   attributes?: Array<Pair$Outbound> | undefined;
   extension?: ClientExtension$Outbound | undefined;
@@ -2191,11 +2191,11 @@ export const ClientInput$outboundSchema: z.ZodType<
   grantTypes: z.array(GrantType$outboundSchema).optional(),
   responseTypes: z.array(ResponseType$outboundSchema).optional(),
   redirectUris: z.array(z.string()).optional(),
-  authorizationSignAlg: JwsAlg$outboundSchema.optional(),
-  authorizationEncryptionAlg: JweAlg$outboundSchema.optional(),
-  authorizationEncryptionEnc: JweEnc$outboundSchema.optional(),
+  authorizationSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
+  authorizationEncryptionAlg: z.nullable(JweAlg$outboundSchema).optional(),
+  authorizationEncryptionEnc: z.nullable(JweEnc$outboundSchema).optional(),
   tokenAuthMethod: ClientAuthMethod$outboundSchema.optional(),
-  tokenAuthSignAlg: JwsAlg$outboundSchema.optional(),
+  tokenAuthSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
   selfSignedCertificateKeyId: z.string().optional(),
   tlsClientAuthSubjectDn: z.string().optional(),
   tlsClientAuthSanDns: z.string().optional(),
@@ -2204,23 +2204,23 @@ export const ClientInput$outboundSchema: z.ZodType<
   tlsClientAuthSanEmail: z.string().optional(),
   parRequired: z.boolean().optional(),
   requestObjectRequired: z.boolean().optional(),
-  requestSignAlg: JwsAlg$outboundSchema.optional(),
-  requestEncryptionAlg: JweAlg$outboundSchema.optional(),
-  requestEncryptionEnc: JweEnc$outboundSchema.optional(),
+  requestSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
+  requestEncryptionAlg: z.nullable(JweAlg$outboundSchema).optional(),
+  requestEncryptionEnc: z.nullable(JweEnc$outboundSchema).optional(),
   requestUris: z.array(z.string()).optional(),
   defaultMaxAge: z.number().int().optional(),
   defaultAcrs: z.array(z.string()).optional(),
-  idTokenSignAlg: JwsAlg$outboundSchema.optional(),
-  idTokenEncryptionAlg: JweAlg$outboundSchema.optional(),
-  idTokenEncryptionEnc: JweEnc$outboundSchema.optional(),
+  idTokenSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
+  idTokenEncryptionAlg: z.nullable(JweAlg$outboundSchema).optional(),
+  idTokenEncryptionEnc: z.nullable(JweEnc$outboundSchema).optional(),
   authTimeRequired: z.boolean().optional(),
   subjectType: SubjectType$outboundSchema.optional(),
   sectorIdentifierUri: z.string().optional(),
   jwksUri: z.string().optional(),
   jwks: z.string().optional(),
-  userInfoSignAlg: JwsAlg$outboundSchema.optional(),
-  userInfoEncryptionAlg: JweAlg$outboundSchema.optional(),
-  userInfoEncryptionEnc: JweEnc$outboundSchema.optional(),
+  userInfoSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
+  userInfoEncryptionAlg: z.nullable(JweAlg$outboundSchema).optional(),
+  userInfoEncryptionEnc: z.nullable(JweEnc$outboundSchema).optional(),
   loginUri: z.string().optional(),
   tosUri: z.string().optional(),
   tosUris: z.array(TaggedValue$outboundSchema).optional(),
@@ -2230,7 +2230,7 @@ export const ClientInput$outboundSchema: z.ZodType<
   clientUris: z.array(TaggedValue$outboundSchema).optional(),
   bcDeliveryMode: z.string().optional(),
   bcNotificationEndpoint: z.string().optional(),
-  bcRequestSignAlg: JwsAlg$outboundSchema.optional(),
+  bcRequestSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
   bcUserCodeRequired: z.boolean().optional(),
   attributes: z.array(Pair$outboundSchema).optional(),
   extension: ClientExtension$outboundSchema.optional(),

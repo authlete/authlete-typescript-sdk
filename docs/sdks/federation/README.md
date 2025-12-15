@@ -1,5 +1,4 @@
 # Federation
-(*federation*)
 
 ## Overview
 

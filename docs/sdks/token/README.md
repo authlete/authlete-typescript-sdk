@@ -1,5 +1,4 @@
 # Token
-(*token*)
 
 ## Overview
 

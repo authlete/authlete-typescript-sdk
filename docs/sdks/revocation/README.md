@@ -1,5 +1,4 @@
 # Revocation
-(*revocation*)
 
 ## Overview
 

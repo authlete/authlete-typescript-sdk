@@ -1,5 +1,4 @@
 # JWKSetEndpoint
-(*jwkSetEndpoint*)
 
 ## Overview
 
