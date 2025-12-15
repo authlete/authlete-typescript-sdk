@@ -1841,6 +1841,42 @@ export type Service = {
    */
   cimdMetadataPolicyEnabled?: boolean | undefined;
   /**
+   * Indicates whether the Client ID Metadata Document (CIMD) mechanism is
+   *
+   * @remarks
+   * supported. When `true`, the service will attempt to retrieve client
+   * metadata via CIMD where applicable.
+   */
+  clientIdMetadataDocumentSupported?: boolean | undefined;
+  /**
+   * Enables the allowlist for CIMD. When `true`, only CIMD endpoints that are
+   *
+   * @remarks
+   * on the allowlist are used.
+   */
+  cimdAllowlistEnabled?: boolean | undefined;
+  /**
+   * If `true`, CIMD retrieval is always attempted for clients, regardless of
+   *
+   * @remarks
+   * other conditions.
+   */
+  cimdAlwaysRetrieved?: boolean | undefined;
+  /**
+   * Allows CIMD retrieval over plain HTTP. When `false`, only HTTPS CIMD
+   *
+   * @remarks
+   * endpoints are allowed.
+   */
+  cimdHttpPermitted?: boolean | undefined;
+  /**
+   * Allows the use of query parameters when retrieving CIMD metadata. When
+   *
+   * @remarks
+   * `false`, query parameters are disallowed for CIMD requests.
+   */
+  cimdQueryPermitted?: boolean | undefined;
+  /**
    * The metadata policy applied to client metadata obtained through the CIMD
    *
    * @remarks
@@ -3521,6 +3557,42 @@ export type ServiceInput = {
    */
   cimdMetadataPolicyEnabled?: boolean | undefined;
   /**
+   * Indicates whether the Client ID Metadata Document (CIMD) mechanism is
+   *
+   * @remarks
+   * supported. When `true`, the service will attempt to retrieve client
+   * metadata via CIMD where applicable.
+   */
+  clientIdMetadataDocumentSupported?: boolean | undefined;
+  /**
+   * Enables the allowlist for CIMD. When `true`, only CIMD endpoints that are
+   *
+   * @remarks
+   * on the allowlist are used.
+   */
+  cimdAllowlistEnabled?: boolean | undefined;
+  /**
+   * If `true`, CIMD retrieval is always attempted for clients, regardless of
+   *
+   * @remarks
+   * other conditions.
+   */
+  cimdAlwaysRetrieved?: boolean | undefined;
+  /**
+   * Allows CIMD retrieval over plain HTTP. When `false`, only HTTPS CIMD
+   *
+   * @remarks
+   * endpoints are allowed.
+   */
+  cimdHttpPermitted?: boolean | undefined;
+  /**
+   * Allows the use of query parameters when retrieving CIMD metadata. When
+   *
+   * @remarks
+   * `false`, query parameters are disallowed for CIMD requests.
+   */
+  cimdQueryPermitted?: boolean | undefined;
+  /**
    * The metadata policy applied to client metadata obtained through the CIMD
    *
    * @remarks
@@ -3724,6 +3796,11 @@ export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
     nativeSsoSupported: z.boolean().optional(),
     oid4vciVersion: z.string().optional(),
     cimdMetadataPolicyEnabled: z.boolean().optional(),
+    clientIdMetadataDocumentSupported: z.boolean().optional(),
+    cimdAllowlistEnabled: z.boolean().optional(),
+    cimdAlwaysRetrieved: z.boolean().optional(),
+    cimdHttpPermitted: z.boolean().optional(),
+    cimdQueryPermitted: z.boolean().optional(),
     cimdMetadataPolicy: z.string().optional(),
   });
 
@@ -3907,6 +3984,11 @@ export type ServiceInput$Outbound = {
   nativeSsoSupported?: boolean | undefined;
   oid4vciVersion?: string | undefined;
   cimdMetadataPolicyEnabled?: boolean | undefined;
+  clientIdMetadataDocumentSupported?: boolean | undefined;
+  cimdAllowlistEnabled?: boolean | undefined;
+  cimdAlwaysRetrieved?: boolean | undefined;
+  cimdHttpPermitted?: boolean | undefined;
+  cimdQueryPermitted?: boolean | undefined;
   cimdMetadataPolicy?: string | undefined;
 };
 
@@ -4091,6 +4173,11 @@ export const ServiceInput$outboundSchema: z.ZodType<
   nativeSsoSupported: z.boolean().optional(),
   oid4vciVersion: z.string().optional(),
   cimdMetadataPolicyEnabled: z.boolean().optional(),
+  clientIdMetadataDocumentSupported: z.boolean().optional(),
+  cimdAllowlistEnabled: z.boolean().optional(),
+  cimdAlwaysRetrieved: z.boolean().optional(),
+  cimdHttpPermitted: z.boolean().optional(),
+  cimdQueryPermitted: z.boolean().optional(),
   cimdMetadataPolicy: z.string().optional(),
 });
 
