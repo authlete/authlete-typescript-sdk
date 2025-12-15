@@ -1,5 +1,4 @@
 # Service
-(*service*)
 
 ## Overview
 

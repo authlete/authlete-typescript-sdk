@@ -1,5 +1,4 @@
 # Introspection
-(*introspection*)
 
 ## Overview
 

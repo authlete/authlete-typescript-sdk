@@ -1,5 +1,4 @@
 # Authorization
-(*authorization*)
 
 ## Overview
 

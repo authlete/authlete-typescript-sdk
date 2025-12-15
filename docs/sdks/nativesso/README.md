@@ -1,5 +1,4 @@
 # NativeSso
-(*nativeSso*)
 
 ## Overview
 

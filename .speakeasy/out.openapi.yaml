@@ -9434,10 +9434,13 @@ components:
             This property corresponds to `jwks_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2.
             Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
         userInfoSignAlg:
+          nullable: true
           $ref: '#/components/schemas/jws_alg'
         userInfoEncryptionAlg:
+          nullable: true
           $ref: '#/components/schemas/jwe_alg'
         userInfoEncryptionEnc:
+          nullable: true
           $ref: '#/components/schemas/jwe_enc'
         loginUri:
           type: string
@@ -9827,6 +9830,7 @@ components:
         - PRE_AUTHORIZED_CODE
     jwe_alg:
       type: string
+      nullable: true
       description: |
         this is the 'alg' header value for encrypted JWT tokens.
         Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
@@ -9855,6 +9859,7 @@ components:
         - PBES2_HS512_A256KW
     jwe_enc:
       type: string
+      nullable: true
       description: |
         This is the encryption algorithm to be used when encrypting a JWT on client or server side.
         Depending upon the context, this refers to encryption done by the client or by the server. For instance:
@@ -9870,6 +9875,7 @@ components:
         - A256GCM
     jws_alg:
       type: string
+      nullable: true
       description: |
         The signature algorithm for JWT. This value is represented on 'alg' attribute
         of the header of JWT.
@@ -11472,6 +11478,18 @@ components:
             * `"1.0"` or `"1.0-Final"` → Final 1.0 specification.
 
             Choose the value that matches the OID4VCI behaviour your service should expose. See the OID4VCI documentation for details.
+        cimdMetadataPolicyEnabled:
+          type: boolean
+          description: |
+            Flag that controls whether the CIMD metadata policy is applied to client
+            metadata obtained through the Client ID Metadata Document (CIMD)
+            mechanism.
+        cimdMetadataPolicy:
+          type: string
+          description: |
+            The metadata policy applied to client metadata obtained through the CIMD
+            mechanism. The value must follow the metadata policy grammar defined in
+            [OpenID Federation 1.0 §6.1 Metadata Policy](https://openid.net/specs/openid-federation-1_0.html#name-metadata-policy).
     sns_credentials:
       type: object
       properties:

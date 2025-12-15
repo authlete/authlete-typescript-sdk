@@ -1,5 +1,4 @@
-# TokenManagement
-(*token.management*)
+# Token.Management
 
 ## Overview
 

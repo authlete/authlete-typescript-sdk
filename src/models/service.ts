@@ -623,7 +623,7 @@ export type Service = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  accessTokenSignAlg?: JwsAlg | undefined;
+  accessTokenSignAlg?: JwsAlg | null | undefined;
   /**
    * The key ID to identify a JWK used for signing access tokens.
    *
@@ -1832,6 +1832,22 @@ export type Service = {
    * Choose the value that matches the OID4VCI behaviour your service should expose. See the OID4VCI documentation for details.
    */
   oid4vciVersion?: string | undefined;
+  /**
+   * Flag that controls whether the CIMD metadata policy is applied to client
+   *
+   * @remarks
+   * metadata obtained through the Client ID Metadata Document (CIMD)
+   * mechanism.
+   */
+  cimdMetadataPolicyEnabled?: boolean | undefined;
+  /**
+   * The metadata policy applied to client metadata obtained through the CIMD
+   *
+   * @remarks
+   * mechanism. The value must follow the metadata policy grammar defined in
+   * [OpenID Federation 1.0 §6.1 Metadata Policy](https://openid.net/specs/openid-federation-1_0.html#name-metadata-policy).
+   */
+  cimdMetadataPolicy?: string | undefined;
 };
 
 export type ServiceInput = {
@@ -2287,7 +2303,7 @@ export type ServiceInput = {
    *   - as client authorizationSignAlg value, it represents the signature algorithm used when [creating a JARM response](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/enabling-jarm).
    *   - or as client requestSignAlg value, it specifies which is the expected signature used by [client on a Request Object](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/request-objects).
    */
-  accessTokenSignAlg?: JwsAlg | undefined;
+  accessTokenSignAlg?: JwsAlg | null | undefined;
   /**
    * The key ID to identify a JWK used for signing access tokens.
    *
@@ -3496,6 +3512,22 @@ export type ServiceInput = {
    * Choose the value that matches the OID4VCI behaviour your service should expose. See the OID4VCI documentation for details.
    */
   oid4vciVersion?: string | undefined;
+  /**
+   * Flag that controls whether the CIMD metadata policy is applied to client
+   *
+   * @remarks
+   * metadata obtained through the Client ID Metadata Document (CIMD)
+   * mechanism.
+   */
+  cimdMetadataPolicyEnabled?: boolean | undefined;
+  /**
+   * The metadata policy applied to client metadata obtained through the CIMD
+   *
+   * @remarks
+   * mechanism. The value must follow the metadata policy grammar defined in
+   * [OpenID Federation 1.0 §6.1 Metadata Policy](https://openid.net/specs/openid-federation-1_0.html#name-metadata-policy).
+   */
+  cimdMetadataPolicy?: string | undefined;
 };
 
 /** @internal */
@@ -3571,7 +3603,7 @@ export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
     tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
     accessTokenDuration: z.number().int().optional(),
     singleAccessTokenPerSubject: z.boolean().optional(),
-    accessTokenSignAlg: JwsAlg$inboundSchema.optional(),
+    accessTokenSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
     accessTokenSignatureKeyId: z.string().optional(),
     refreshTokenDuration: z.number().int().optional(),
     refreshTokenDurationKept: z.boolean().optional(),
@@ -3691,6 +3723,8 @@ export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
     idTokenAudType: z.string().optional(),
     nativeSsoSupported: z.boolean().optional(),
     oid4vciVersion: z.string().optional(),
+    cimdMetadataPolicyEnabled: z.boolean().optional(),
+    cimdMetadataPolicy: z.string().optional(),
   });
 
 export function serviceFromJSON(
@@ -3756,7 +3790,7 @@ export type ServiceInput$Outbound = {
   tlsClientCertificateBoundAccessTokens?: boolean | undefined;
   accessTokenDuration?: number | undefined;
   singleAccessTokenPerSubject?: boolean | undefined;
-  accessTokenSignAlg?: string | undefined;
+  accessTokenSignAlg?: string | null | undefined;
   accessTokenSignatureKeyId?: string | undefined;
   refreshTokenDuration?: number | undefined;
   refreshTokenDurationKept?: boolean | undefined;
@@ -3872,6 +3906,8 @@ export type ServiceInput$Outbound = {
   idTokenAudType?: string | undefined;
   nativeSsoSupported?: boolean | undefined;
   oid4vciVersion?: string | undefined;
+  cimdMetadataPolicyEnabled?: boolean | undefined;
+  cimdMetadataPolicy?: string | undefined;
 };
 
 /** @internal */
@@ -3934,7 +3970,7 @@ export const ServiceInput$outboundSchema: z.ZodType<
   tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
   accessTokenDuration: z.number().int().optional(),
   singleAccessTokenPerSubject: z.boolean().optional(),
-  accessTokenSignAlg: JwsAlg$outboundSchema.optional(),
+  accessTokenSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
   accessTokenSignatureKeyId: z.string().optional(),
   refreshTokenDuration: z.number().int().optional(),
   refreshTokenDurationKept: z.boolean().optional(),
@@ -4054,6 +4090,8 @@ export const ServiceInput$outboundSchema: z.ZodType<
   idTokenAudType: z.string().optional(),
   nativeSsoSupported: z.boolean().optional(),
   oid4vciVersion: z.string().optional(),
+  cimdMetadataPolicyEnabled: z.boolean().optional(),
+  cimdMetadataPolicy: z.string().optional(),
 });
 
 export function serviceInputToJSON(serviceInput: ServiceInput): string {

@@ -1,5 +1,4 @@
-# AuthorizationManagement
-(*authorization.management*)
+# Authorization.Management
 
 ## Overview
 

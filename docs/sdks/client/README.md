@@ -1,5 +1,4 @@
 # Client
-(*client*)
 
 ## Overview
 
