@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: b46c9081-6a59-4f57-9207-8f7715e429dc
 management:
-  docChecksum: 4901ab9c1a57ac1c91215dfc02f40bbb
+  docChecksum: 39c0da05dedbf7b343f8ea9b6ef8bd90
   docVersion: 3.0.16
   speakeasyVersion: 1.676.1
   generationVersion: 2.781.2
-  releaseVersion: 0.0.4-beta
-  configChecksum: 31085b2164992e56c20d2000aca8f5de
+  releaseVersion: 0.0.5-beta
+  configChecksum: 0634ef6af17edaddad19178291a6801e
   repoURL: https://github.com/authlete/authlete-typescript-sdk.git
   installationURL: https://github.com/authlete/authlete-typescript-sdk
   published: true
 persistentEdits:
-  generation_id: 49605e06-c6c0-4031-bdaf-01bb2c6e4d88
-  pristine_commit_hash: 3a28321098692033e7e51b4ded06f79de685d7af
-  pristine_tree_hash: 91c5d60722d40c3f201f62467aa4dff69e010aa1
+  generation_id: 21ec53e5-1dbd-445d-b01b-e76958e3eddc
+  pristine_commit_hash: 6210a15b360de9418543e5e3c50a9e16d61c18d1
+  pristine_tree_hash: 999514a146021c3840365c2c62e0c2c1b7009805
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -929,16 +929,16 @@ trackedFiles:
     pristine_git_object: a7b575757a20958701ab77fb84bdd41e14a233cf
   docs/models/service.md:
     id: d38041323049
-    last_write_checksum: sha1:9a60408a63a1410c296c87040233632357cda0c6
-    pristine_git_object: b6cb07f07023fd43ad373b9dccb74960f60a6177
+    last_write_checksum: sha1:0f20ec7ae585242f3e056755981bd456eaa34137
+    pristine_git_object: 1e8a9736653bdfcfd7b8f9b5eea46b84fa12050d
   docs/models/servicegetlistresponse.md:
     id: d7abd9ebba96
     last_write_checksum: sha1:f539d61833513a6979dd9771da77f0645cd3b308
     pristine_git_object: b06c54fa16360e98df5b45f3bf0eeaa0aa0726ae
   docs/models/serviceinput.md:
     id: 37bb4eaf55d5
-    last_write_checksum: sha1:97aeaa9c4e6d1c8272a0e666e2e70d9e5ebb3ca8
-    pristine_git_object: 9480d8c33b886e5c5a5950b873e1d8a8e471e4dc
+    last_write_checksum: sha1:dc4964f909b3f18291e13c13bf7eb5ecdb02ef21
+    pristine_git_object: b4f8d8c69d46ad7ead8037fc9b680df897418598
   docs/models/servicejwksgetresponse.md:
     id: 91cb44f455b9
     last_write_checksum: sha1:9e0d3fffc781effb454ca57e07d73e64591e835d
@@ -1333,12 +1333,12 @@ trackedFiles:
     pristine_git_object: 2f7b714bbe12442f6ed257ace618d48767cf552c
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:4ed61a871d2a1a08a1c9d64050d2184181ee8d2b
-    pristine_git_object: da7a43c7448359279f0a78ac99e5934298e7ad88
+    last_write_checksum: sha1:ae4567117600fd8173a5ba42b6b1f9001c0a6ff4
+    pristine_git_object: 015e9e3305156e022459f84e251d205478b48dff
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:182d27d8117880e6043672a43a92017375360c6e
-    pristine_git_object: 990525c8d46de6069b70fbb05e3723a506af5f08
+    last_write_checksum: sha1:ddd2400f6f4591652f7753356cf74a97a7667cfe
+    pristine_git_object: 091ace05b4c7980c43e72e63a182bf1a66694d13
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d2e0ad6b984b5be0cd66f84e06b451806539d6d0
@@ -1665,8 +1665,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:e513356a4386070e904c3bf5c959534906a39e9e
-    pristine_git_object: 8fd6e0d41a93f0c1af30e74c5b35656c958cc6ef
+    last_write_checksum: sha1:3afce8474042eb7d8856005dd038c845d2dc9c90
+    pristine_git_object: b572163e1c44b3d674bc732837437bddf1e887d2
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -2457,8 +2457,8 @@ trackedFiles:
     pristine_git_object: 69a462764d21ec50a2844e73267b6a89aa91fdcb
   src/models/service.ts:
     id: e985740d0845
-    last_write_checksum: sha1:412c4f2dd3a2d9b5558a5a013135b35355c6155f
-    pristine_git_object: 2f5e3920fbdc2fd31b4d74826f0fa052881dd057
+    last_write_checksum: sha1:bee26cfd0657f9e02cb0f88bb8551c0cd8897d2a
+    pristine_git_object: 0c92a35d5508d0e516253f42529457207382988e
   src/models/servicegetlistresponse.ts:
     id: 6ac8810938b7
     last_write_checksum: sha1:3e02e53e5392db475abf2f9d91bacfe29bb94847
@@ -3918,7 +3918,7 @@ examples:
         "500":
           application/json: {}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `authlete.service.get()`:  `response` **Changed** **Breaking** :warning:\n* `authlete.service.list()`:  `response.services.[]` **Changed** **Breaking** :warning:\n* `authlete.service.create()`: \n  *  `request` **Changed**\n  *  `response` **Changed** **Breaking** :warning:\n* `authlete.service.update()`: \n  *  `request.service` **Changed**\n  *  `response` **Changed** **Breaking** :warning:\n* `authlete.client.get()`:  `response` **Changed** **Breaking** :warning:\n* `authlete.client.list()`:  `response.clients.[]` **Changed** **Breaking** :warning:\n* `authlete.client.create()`: \n  *  `request.client` **Changed**\n  *  `response` **Changed** **Breaking** :warning:\n* `authlete.client.update()`: \n  *  `request.client` **Changed**\n  *  `response` **Changed** **Breaking** :warning:\n* `authlete.authorization.processRequest()`:  `response.service` **Changed** **Breaking** :warning:\n* `authlete.dynamicClientRegistration.register()`:  `response.client` **Changed** **Breaking** :warning:\n* `authlete.dynamicClientRegistration.get()`:  `response.client` **Changed** **Breaking** :warning:\n* `authlete.dynamicClientRegistration.update()`:  `response.client` **Changed** **Breaking** :warning:\n* `authlete.dynamicClientRegistration.delete()`:  `response.client` **Changed** **Breaking** :warning:\n* `authlete.federation.registration()`:  `response.client` **Changed** **Breaking** :warning:\n"
+releaseNotes: "## Typescript SDK Changes:\n* `authlete.service.get()`:  `response` **Changed**\n* `authlete.service.list()`:  `response.services.[]` **Changed**\n* `authlete.service.create()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n* `authlete.service.update()`: \n  *  `request.service` **Changed**\n  *  `response` **Changed**\n* `authlete.authorization.processRequest()`:  `response.service` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
