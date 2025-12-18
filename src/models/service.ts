@@ -1856,6 +1856,13 @@ export type Service = {
    */
   cimdAllowlistEnabled?: boolean | undefined;
   /**
+   * The allowlist of CIMD endpoints (hosts/URIs) that may be used when
+   *
+   * @remarks
+   * retrieving client metadata via Client ID Metadata Documents.
+   */
+  cimdAllowlist?: Array<string> | undefined;
+  /**
    * If `true`, CIMD retrieval is always attempted for clients, regardless of
    *
    * @remarks
@@ -1884,6 +1891,13 @@ export type Service = {
    * [OpenID Federation 1.0 §6.1 Metadata Policy](https://openid.net/specs/openid-federation-1_0.html#name-metadata-policy).
    */
   cimdMetadataPolicy?: string | undefined;
+  /**
+   * When `true`, client ID aliases starting with `https://` or `http://` are
+   *
+   * @remarks
+   * prohibited.
+   */
+  httpAliasProhibited?: boolean | undefined;
 };
 
 export type ServiceInput = {
@@ -3572,6 +3586,13 @@ export type ServiceInput = {
    */
   cimdAllowlistEnabled?: boolean | undefined;
   /**
+   * The allowlist of CIMD endpoints (hosts/URIs) that may be used when
+   *
+   * @remarks
+   * retrieving client metadata via Client ID Metadata Documents.
+   */
+  cimdAllowlist?: Array<string> | undefined;
+  /**
    * If `true`, CIMD retrieval is always attempted for clients, regardless of
    *
    * @remarks
@@ -3600,6 +3621,13 @@ export type ServiceInput = {
    * [OpenID Federation 1.0 §6.1 Metadata Policy](https://openid.net/specs/openid-federation-1_0.html#name-metadata-policy).
    */
   cimdMetadataPolicy?: string | undefined;
+  /**
+   * When `true`, client ID aliases starting with `https://` or `http://` are
+   *
+   * @remarks
+   * prohibited.
+   */
+  httpAliasProhibited?: boolean | undefined;
 };
 
 /** @internal */
@@ -3798,10 +3826,12 @@ export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
     cimdMetadataPolicyEnabled: z.boolean().optional(),
     clientIdMetadataDocumentSupported: z.boolean().optional(),
     cimdAllowlistEnabled: z.boolean().optional(),
+    cimdAllowlist: z.array(z.string()).optional(),
     cimdAlwaysRetrieved: z.boolean().optional(),
     cimdHttpPermitted: z.boolean().optional(),
     cimdQueryPermitted: z.boolean().optional(),
     cimdMetadataPolicy: z.string().optional(),
+    httpAliasProhibited: z.boolean().optional(),
   });
 
 export function serviceFromJSON(
@@ -3986,10 +4016,12 @@ export type ServiceInput$Outbound = {
   cimdMetadataPolicyEnabled?: boolean | undefined;
   clientIdMetadataDocumentSupported?: boolean | undefined;
   cimdAllowlistEnabled?: boolean | undefined;
+  cimdAllowlist?: Array<string> | undefined;
   cimdAlwaysRetrieved?: boolean | undefined;
   cimdHttpPermitted?: boolean | undefined;
   cimdQueryPermitted?: boolean | undefined;
   cimdMetadataPolicy?: string | undefined;
+  httpAliasProhibited?: boolean | undefined;
 };
 
 /** @internal */
@@ -4175,10 +4207,12 @@ export const ServiceInput$outboundSchema: z.ZodType<
   cimdMetadataPolicyEnabled: z.boolean().optional(),
   clientIdMetadataDocumentSupported: z.boolean().optional(),
   cimdAllowlistEnabled: z.boolean().optional(),
+  cimdAllowlist: z.array(z.string()).optional(),
   cimdAlwaysRetrieved: z.boolean().optional(),
   cimdHttpPermitted: z.boolean().optional(),
   cimdQueryPermitted: z.boolean().optional(),
   cimdMetadataPolicy: z.string().optional(),
+  httpAliasProhibited: z.boolean().optional(),
 });
 
 export function serviceInputToJSON(serviceInput: ServiceInput): string {

@@ -92,6 +92,25 @@ export const ResponseMode = {
 } as const;
 export type ResponseMode = ClosedEnum<typeof ResponseMode>;
 
+/**
+ * Source of this client record.
+ *
+ * @remarks
+ */
+export const ClientSource = {
+  DynamicRegistration: "DYNAMIC_REGISTRATION",
+  AutomaticRegistration: "AUTOMATIC_REGISTRATION",
+  ExplicitRegistration: "EXPLICIT_REGISTRATION",
+  MetadataDocument: "METADATA_DOCUMENT",
+  StaticRegistration: "STATIC_REGISTRATION",
+} as const;
+/**
+ * Source of this client record.
+ *
+ * @remarks
+ */
+export type ClientSource = ClosedEnum<typeof ClientSource>;
+
 export type Client = {
   /**
    * The sequential number of the client. The value of this property is assigned by Authlete.
@@ -1047,6 +1066,36 @@ export type Client = {
    * operations.
    */
   inScopeForTokenMigration?: boolean | undefined;
+  /**
+   * Location of the Client ID Metadata Document that was used for this client.
+   *
+   * @remarks
+   */
+  metadataDocumentLocation?: string | undefined;
+  /**
+   * Expiration time of the metadata document (UNIX time in milliseconds).
+   *
+   * @remarks
+   */
+  metadataDocumentExpiresAt?: number | undefined;
+  /**
+   * Last-updated time of the metadata document (UNIX time in milliseconds).
+   *
+   * @remarks
+   */
+  metadataDocumentUpdatedAt?: number | undefined;
+  /**
+   * Indicates whether this client was discovered via a Client ID Metadata Document.
+   *
+   * @remarks
+   */
+  discoveredByMetadataDocument?: boolean | undefined;
+  /**
+   * Source of this client record.
+   *
+   * @remarks
+   */
+  clientSource?: ClientSource | undefined;
 };
 
 export type ClientInput = {
@@ -1947,6 +1996,36 @@ export type ClientInput = {
    * operations.
    */
   inScopeForTokenMigration?: boolean | undefined;
+  /**
+   * Location of the Client ID Metadata Document that was used for this client.
+   *
+   * @remarks
+   */
+  metadataDocumentLocation?: string | undefined;
+  /**
+   * Expiration time of the metadata document (UNIX time in milliseconds).
+   *
+   * @remarks
+   */
+  metadataDocumentExpiresAt?: number | undefined;
+  /**
+   * Last-updated time of the metadata document (UNIX time in milliseconds).
+   *
+   * @remarks
+   */
+  metadataDocumentUpdatedAt?: number | undefined;
+  /**
+   * Indicates whether this client was discovered via a Client ID Metadata Document.
+   *
+   * @remarks
+   */
+  discoveredByMetadataDocument?: boolean | undefined;
+  /**
+   * Source of this client record.
+   *
+   * @remarks
+   */
+  clientSource?: ClientSource | undefined;
 };
 
 /** @internal */
@@ -1955,6 +2034,13 @@ export const ResponseMode$inboundSchema: z.ZodNativeEnum<typeof ResponseMode> =
 /** @internal */
 export const ResponseMode$outboundSchema: z.ZodNativeEnum<typeof ResponseMode> =
   ResponseMode$inboundSchema;
+
+/** @internal */
+export const ClientSource$inboundSchema: z.ZodNativeEnum<typeof ClientSource> =
+  z.nativeEnum(ClientSource);
+/** @internal */
+export const ClientSource$outboundSchema: z.ZodNativeEnum<typeof ClientSource> =
+  ClientSource$inboundSchema;
 
 /** @internal */
 export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> = z
@@ -2059,6 +2145,11 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> = z
     credentialResponseEncryptionRequired: z.boolean().optional(),
     mtlsEndpointAliasesUsed: z.boolean().optional(),
     inScopeForTokenMigration: z.boolean().optional(),
+    metadataDocumentLocation: z.string().optional(),
+    metadataDocumentExpiresAt: z.number().int().optional(),
+    metadataDocumentUpdatedAt: z.number().int().optional(),
+    discoveredByMetadataDocument: z.boolean().optional(),
+    clientSource: ClientSource$inboundSchema.optional(),
   });
 
 export function clientFromJSON(
@@ -2164,6 +2255,11 @@ export type ClientInput$Outbound = {
   credentialResponseEncryptionRequired?: boolean | undefined;
   mtlsEndpointAliasesUsed?: boolean | undefined;
   inScopeForTokenMigration?: boolean | undefined;
+  metadataDocumentLocation?: string | undefined;
+  metadataDocumentExpiresAt?: number | undefined;
+  metadataDocumentUpdatedAt?: number | undefined;
+  discoveredByMetadataDocument?: boolean | undefined;
+  clientSource?: string | undefined;
 };
 
 /** @internal */
@@ -2264,6 +2360,11 @@ export const ClientInput$outboundSchema: z.ZodType<
   credentialResponseEncryptionRequired: z.boolean().optional(),
   mtlsEndpointAliasesUsed: z.boolean().optional(),
   inScopeForTokenMigration: z.boolean().optional(),
+  metadataDocumentLocation: z.string().optional(),
+  metadataDocumentExpiresAt: z.number().int().optional(),
+  metadataDocumentUpdatedAt: z.number().int().optional(),
+  discoveredByMetadataDocument: z.boolean().optional(),
+  clientSource: ClientSource$outboundSchema.optional(),
 });
 
 export function clientInputToJSON(clientInput: ClientInput): string {

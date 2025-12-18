@@ -2,7 +2,7 @@
 
 {
   "name": "@authlete/typescript-sdk",
-  "version": "0.0.5-beta",
+  "version": "0.0.6-beta",
   "exports": {
     ".": "./src/index.ts",    
     "./models/errors": "./src/models/errors/index.ts",    

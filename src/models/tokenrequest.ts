@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import {
+  CimdOptions,
+  CimdOptions$Outbound,
+  CimdOptions$outboundSchema,
+} from "./cimdoptions.js";
 
 export type TokenRequest = {
   /**
@@ -137,6 +142,14 @@ export type TokenRequest = {
    * JWT includes the expected `nonce` value.
    */
   dpopNonceRequired?: boolean | undefined;
+  /**
+   * Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+   *
+   * @remarks
+   *
+   * These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
+   */
+  cimdOptions?: CimdOptions | undefined;
 };
 
 /** @internal */
@@ -157,6 +170,7 @@ export type TokenRequest$Outbound = {
   accessTokenDuration?: number | undefined;
   refreshTokenDuration?: number | undefined;
   dpopNonceRequired?: boolean | undefined;
+  cimdOptions?: CimdOptions$Outbound | undefined;
 };
 
 /** @internal */
@@ -181,6 +195,7 @@ export const TokenRequest$outboundSchema: z.ZodType<
   accessTokenDuration: z.number().int().optional(),
   refreshTokenDuration: z.number().int().optional(),
   dpopNonceRequired: z.boolean().optional(),
+  cimdOptions: CimdOptions$outboundSchema.optional(),
 });
 
 export function tokenRequestToJSON(tokenRequest: TokenRequest): string {

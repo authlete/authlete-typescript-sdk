@@ -208,6 +208,14 @@ export type TokenCreateRequest = {
    * created access token.
    */
   sessionId?: string | undefined;
+  /**
+   * Flag indicating whether a metadata document was used to resolve client metadata for this request.
+   *
+   * @remarks
+   *
+   * When `true`, the client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism rather than from the Authlete database.
+   */
+  metadataDocumentUsed?: boolean | undefined;
 };
 
 /** @internal */
@@ -234,6 +242,7 @@ export type TokenCreateRequest$Outbound = {
   clientEntityIdUsed?: boolean | undefined;
   clientIdentifier?: string | undefined;
   sessionId?: string | undefined;
+  metadataDocumentUsed?: boolean | undefined;
 };
 
 /** @internal */
@@ -264,6 +273,7 @@ export const TokenCreateRequest$outboundSchema: z.ZodType<
   clientEntityIdUsed: z.boolean().optional(),
   clientIdentifier: z.string().optional(),
   sessionId: z.string().optional(),
+  metadataDocumentUsed: z.boolean().optional(),
 });
 
 export function tokenCreateRequestToJSON(
