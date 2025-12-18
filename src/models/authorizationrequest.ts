@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import {
+  CimdOptions,
+  CimdOptions$Outbound,
+  CimdOptions$outboundSchema,
+} from "./cimdoptions.js";
 
 export type AuthorizationRequest = {
   /**
@@ -28,12 +33,21 @@ export type AuthorizationRequest = {
    * The text will be compressed and encrypted when it is saved in the Authlete database.
    */
   context?: string | undefined;
+  /**
+   * Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+   *
+   * @remarks
+   *
+   * These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
+   */
+  cimdOptions?: CimdOptions | undefined;
 };
 
 /** @internal */
 export type AuthorizationRequest$Outbound = {
   parameters: string;
   context?: string | undefined;
+  cimdOptions?: CimdOptions$Outbound | undefined;
 };
 
 /** @internal */
@@ -44,6 +58,7 @@ export const AuthorizationRequest$outboundSchema: z.ZodType<
 > = z.object({
   parameters: z.string(),
   context: z.string().optional(),
+  cimdOptions: CimdOptions$outboundSchema.optional(),
 });
 
 export function authorizationRequestToJSON(

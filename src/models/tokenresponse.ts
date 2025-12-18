@@ -345,6 +345,22 @@ export type TokenResponse = {
    * parameter is omitted.
    */
   deviceSecretHash?: string | undefined;
+  /**
+   * The location of the client's metadata document that was used to resolve client metadata.
+   *
+   * @remarks
+   *
+   * This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+   */
+  metadataDocumentLocation?: string | undefined;
+  /**
+   * Flag indicating whether a metadata document was used to resolve client metadata for this request.
+   *
+   * @remarks
+   *
+   * When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
+   */
+  metadataDocumentUsed?: boolean | undefined;
 };
 
 /** @internal */
@@ -408,6 +424,8 @@ export const TokenResponse$inboundSchema: z.ZodType<
   sessionId: z.string().optional(),
   deviceSecret: z.string().optional(),
   deviceSecretHash: z.string().optional(),
+  metadataDocumentLocation: z.string().optional(),
+  metadataDocumentUsed: z.boolean().optional(),
 });
 
 export function tokenResponseFromJSON(

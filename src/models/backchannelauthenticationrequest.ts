@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import {
+  CimdOptions,
+  CimdOptions$Outbound,
+  CimdOptions$outboundSchema,
+} from "./cimdoptions.js";
 
 export type BackchannelAuthenticationRequest = {
   /**
@@ -67,6 +72,14 @@ export type BackchannelAuthenticationRequest = {
    * of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    */
   oauthClientAttestationPop?: string | undefined;
+  /**
+   * Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+   *
+   * @remarks
+   *
+   * These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
+   */
+  cimdOptions?: CimdOptions | undefined;
 };
 
 /** @internal */
@@ -78,6 +91,7 @@ export type BackchannelAuthenticationRequest$Outbound = {
   clientCertificatePath?: Array<string> | undefined;
   oauthClientAttestation?: string | undefined;
   oauthClientAttestationPop?: string | undefined;
+  cimdOptions?: CimdOptions$Outbound | undefined;
 };
 
 /** @internal */
@@ -93,6 +107,7 @@ export const BackchannelAuthenticationRequest$outboundSchema: z.ZodType<
   clientCertificatePath: z.array(z.string()).optional(),
   oauthClientAttestation: z.string().optional(),
   oauthClientAttestationPop: z.string().optional(),
+  cimdOptions: CimdOptions$outboundSchema.optional(),
 });
 
 export function backchannelAuthenticationRequestToJSON(

@@ -26,6 +26,7 @@ export * from "./backchannelauthenticationissuerequest.js";
 export * from "./backchannelauthenticationissueresponse.js";
 export * from "./backchannelauthenticationrequest.js";
 export * from "./backchannelauthenticationresponse.js";
+export * from "./cimdoptions.js";
 export * from "./claimtype.js";
 export * from "./client.js";
 export * from "./clientauthmethod.js";

@@ -9781,6 +9781,35 @@ components:
         inScopeForTokenMigration:
           type: boolean
           description: "The flag indicating whether this client is in scope for token migration \noperations.\n"
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            Location of the Client ID Metadata Document that was used for this client.
+        metadataDocumentExpiresAt:
+          type: integer
+          format: int64
+          description: |
+            Expiration time of the metadata document (UNIX time in milliseconds).
+        metadataDocumentUpdatedAt:
+          type: integer
+          format: int64
+          description: |
+            Last-updated time of the metadata document (UNIX time in milliseconds).
+        discoveredByMetadataDocument:
+          type: boolean
+          description: |
+            Indicates whether this client was discovered via a Client ID Metadata Document.
+        clientSource:
+          type: string
+          description: |
+            Source of this client record.
+          enum:
+            - DYNAMIC_REGISTRATION
+            - AUTOMATIC_REGISTRATION
+            - EXPLICIT_REGISTRATION
+            - METADATA_DOCUMENT
+            - STATIC_REGISTRATION
     delivery_mode:
       type: string
       enum:
@@ -11495,6 +11524,13 @@ components:
           description: |
             Enables the allowlist for CIMD. When `true`, only CIMD endpoints that are
             on the allowlist are used.
+        cimdAllowlist:
+          type: array
+          items:
+            type: string
+          description: |
+            The allowlist of CIMD endpoints (hosts/URIs) that may be used when
+            retrieving client metadata via Client ID Metadata Documents.
         cimdAlwaysRetrieved:
           type: boolean
           description: |
@@ -11516,6 +11552,11 @@ components:
             The metadata policy applied to client metadata obtained through the CIMD
             mechanism. The value must follow the metadata policy grammar defined in
             [OpenID Federation 1.0 §6.1 Metadata Policy](https://openid.net/specs/openid-federation-1_0.html#name-metadata-policy).
+        httpAliasProhibited:
+          type: boolean
+          description: |
+            When `true`, client ID aliases starting with `https://` or `http://` are
+            prohibited.
     sns_credentials:
       type: object
       properties:
@@ -12126,6 +12167,45 @@ components:
         resultMessage:
           type: string
           description: A short message which explains the result of the API call.
+    cimd_options:
+      type: object
+      description: |
+        Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+
+        These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
+      properties:
+        alwaysRetrieved:
+          type: boolean
+          description: |
+            Whether to always retrieve client metadata in the CIMD context regardless of the cache's validity.
+
+            Under normal circumstances, client metadata retrieved from the location referenced by the client ID is stored in the database with an expiration time calculated using HTTP caching mechanisms (see [RFC 9111 HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111.html)). Until that expiration time is reached, Authlete does not attempt to retrieve the client metadata again.
+
+            When this flag is set to `true`, Authlete retrieves the client metadata regardless of the cache's validity.
+
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdAlwaysRetrieved`).
+
+            This flag is effective only when the service supports CIMD (see `Service.clientIdMetadataDocumentSupported`) and CIMD is actually used to resolve client metadata. For example, if the client ID in a request does not appear to be a valid URI, CIMD will not be used even if the service is configured to support it. In such cases, this flag has no effect.
+
+            Client metadata retrieval is performed only in the initiating request of an authorization flow, and not in any subsequent requests. For example, in the authorization code flow, metadata may be retrieved during the authorization request, but not during the subsequent token request. In contrast, in the client credentials flow, metadata retrieval may occur because the token request itself is the initiating request in the flow.
+        httpPermitted:
+          type: boolean
+          description: |
+            Whether to allow the `http` scheme in client IDs in the CIMD context.
+
+            The specification requires the `https` scheme, but if this flag is set to `true`, Authlete also allows the `http` scheme. The main purpose of this option is to make development easier for developers who run CIMD-enabled servers and a web server publishing client metadata on their local machines without TLS.
+
+            Given this purpose, it is not recommended to enable this option in production environments unless an allowlist is used (see `Service.cimdAllowlistEnabled`).
+
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdHttpPermitted`).
+        queryPermitted:
+          type: boolean
+          description: |
+            Whether to allow a query component in client IDs in the CIMD context.
+
+            Although the specification states that a client ID "SHOULD NOT include a query string component," it does technically allow it. However, query components are prone to misuse. Therefore, Authlete does not allow them by default. Setting this flag to `true` relaxes that restriction.
+
+            If this flag is included in an Authlete API call and its value is `true`, it takes precedence over the corresponding service configuration (see `Service.cimdQueryPermitted`).
     authorization_request:
       type: object
       required:
@@ -12150,6 +12230,12 @@ components:
             by the `/auth/authorization/ticket/update` API.
 
             The text will be compressed and encrypted when it is saved in the Authlete database.
+        cimdOptions:
+          $ref: '#/components/schemas/cimd_options'
+          description: |
+            Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+
+            These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
     client_limited_authorization:
       type: object
       properties:
@@ -12690,6 +12776,19 @@ components:
 
             NOTE: If this property is set to `true`, the `sessionId` request parameter must be provided
             to the `/auth/authorization/issue` API.
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            The location of the client's metadata document that was used to resolve client metadata.
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
     authorization_fail_request:
       type: object
       required:
@@ -13193,6 +13292,12 @@ components:
             the service's `dpopNonceRequired` property is `false`, calling the `/auth/token` API with this
             `dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP proof
             JWT includes the expected `nonce` value.
+        cimdOptions:
+          $ref: '#/components/schemas/cimd_options'
+          description: |
+            Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+
+            These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
     token_type:
       type: string
       description: |
@@ -13252,6 +13357,19 @@ components:
           type: boolean
           description: |
             Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            The location of the client's metadata document that was used to resolve client metadata.
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
     token_response:
       type: object
       properties:
@@ -13511,6 +13629,19 @@ components:
             it with base64url. Note that this hash computation logic is not a rule defined in the Native SSO
             specification; rather, it is Authlete-specific fallback logic used when the `deviceSecretHash`
             parameter is omitted.
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            The location of the client's metadata document that was used to resolve client metadata.
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
     token_fail_request:
       type: object
       required:
@@ -13718,6 +13849,19 @@ components:
             type: string
           description: |
             The scopes associated with the refresh token. May be null.
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            The location of the client's metadata document that was used to resolve client metadata.
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
     introspection_request:
       type: object
       required:
@@ -14049,6 +14193,19 @@ components:
 
             When this response parameter is `true`, the HTTP response from the protected resource endpoint
             must include the `Signature` and `Signature-Input` HTTP fields.
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            The location of the client's metadata document that was used to resolve client metadata.
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
     standard_introspection_request:
       type: object
       required:
@@ -14551,6 +14708,19 @@ components:
           description: |
             The expected nonce value for DPoP proof JWT, which should be used
             as the value of the `DPoP-Nonce` HTTP header.
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            The location of the client's metadata document that was used to resolve client metadata.
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
     userinfo_issue_request:
       type: object
       required:
@@ -14958,6 +15128,12 @@ components:
           description: |
             The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification
             of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
+        cimdOptions:
+          $ref: '#/components/schemas/cimd_options'
+          description: |
+            Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+
+            These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
     backchannel_authentication_response:
       type: object
       properties:
@@ -15167,6 +15343,19 @@ components:
           type: boolean
           description: |
             Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            The location of the client's metadata document that was used to resolve client metadata.
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
     backchannel_authentication_issue_request:
       type: object
       required:
@@ -15516,6 +15705,19 @@ components:
           type: boolean
           description: |
             Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            The location of the client's metadata document that was used to resolve client metadata.
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
     device_authorization_request:
       type: object
       required:
@@ -15571,6 +15773,12 @@ components:
           description: |
             The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification
             of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
+        cimdOptions:
+          $ref: '#/components/schemas/cimd_options'
+          description: |
+            Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
+
+            These options allow per-request control over CIMD behavior, taking precedence over service-level configuration when provided.
     device_authorization_response:
       type: object
       properties:
@@ -15758,6 +15966,19 @@ components:
           type: boolean
           description: |
             Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            The location of the client's metadata document that was used to resolve client metadata.
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
     device_verification_request:
       type: object
       required:
@@ -15904,6 +16125,19 @@ components:
           type: boolean
           description: |
             Flag which indicates whether the entity ID of the client was used when the request for the access token was made.
+        metadataDocumentLocation:
+          type: string
+          format: uri
+          description: |
+            The location of the client's metadata document that was used to resolve client metadata.
+
+            This property is set when client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
     device_complete_request:
       type: object
       required:
@@ -16223,6 +16457,12 @@ components:
           description: |
             The session ID, which is the ID of the user's authentication session, associated with a newly
             created access token.
+        metadataDocumentUsed:
+          type: boolean
+          description: |
+            Flag indicating whether a metadata document was used to resolve client metadata for this request.
+
+            When `true`, the client metadata was retrieved via the [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD) mechanism rather than from the Authlete database.
     token_create_response:
       type: object
       properties:
