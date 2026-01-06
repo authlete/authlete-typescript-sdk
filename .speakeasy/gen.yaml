@@ -30,7 +30,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.0.6-beta
+  version: 0.0.7-beta
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -53,6 +53,7 @@ typescript:
   enumFormat: union
   envVarPrefix: AUTHLETE
   exportZodModelNamespace: false
+  flatAdditionalProperties: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   formStringArrayEncodeMode: encoded-string

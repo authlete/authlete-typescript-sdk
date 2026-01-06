@@ -3,7 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { remap as remap$ } from "../lib/primitives.js";
+import {
+  collectExtraKeys as collectExtraKeys$,
+  safeParse,
+} from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
@@ -1096,6 +1100,7 @@ export type Client = {
    * @remarks
    */
   clientSource?: ClientSource | undefined;
+  additionalProperties?: { [k: string]: any } | undefined;
 };
 
 export type ClientInput = {
@@ -2026,6 +2031,7 @@ export type ClientInput = {
    * @remarks
    */
   clientSource?: ClientSource | undefined;
+  additionalProperties?: { [k: string]: any } | undefined;
 };
 
 /** @internal */
@@ -2043,114 +2049,118 @@ export const ClientSource$outboundSchema: z.ZodNativeEnum<typeof ClientSource> =
   ClientSource$inboundSchema;
 
 /** @internal */
-export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> = z
-  .object({
-    number: z.number().int().optional(),
-    serviceNumber: z.number().int().optional(),
-    clientName: z.string().optional(),
-    clientNames: z.array(TaggedValue$inboundSchema).optional(),
-    description: z.string().optional(),
-    descriptions: z.array(TaggedValue$inboundSchema).optional(),
-    clientId: z.number().int().optional(),
-    clientSecret: z.string().optional(),
-    clientIdAlias: z.string().optional(),
-    clientIdAliasEnabled: z.boolean().optional(),
-    clientType: ClientType$inboundSchema.optional(),
-    applicationType: ApplicationType$inboundSchema.optional(),
-    logoUri: z.string().optional(),
-    logoUris: z.array(TaggedValue$inboundSchema).optional(),
-    contacts: z.array(z.string()).optional(),
-    tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
-    dynamicallyRegistered: z.boolean().optional(),
-    softwareId: z.string().optional(),
-    developer: z.string().optional(),
-    softwareVersion: z.string().optional(),
-    registrationAccessTokenHash: z.string().optional(),
-    createdAt: z.number().int().optional(),
-    modifiedAt: z.number().int().optional(),
-    grantTypes: z.array(GrantType$inboundSchema).optional(),
-    responseTypes: z.array(ResponseType$inboundSchema).optional(),
-    redirectUris: z.array(z.string()).optional(),
-    authorizationSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
-    authorizationEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
-    authorizationEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
-    tokenAuthMethod: ClientAuthMethod$inboundSchema.optional(),
-    tokenAuthSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
-    selfSignedCertificateKeyId: z.string().optional(),
-    tlsClientAuthSubjectDn: z.string().optional(),
-    tlsClientAuthSanDns: z.string().optional(),
-    tlsClientAuthSanUri: z.string().optional(),
-    tlsClientAuthSanIp: z.string().optional(),
-    tlsClientAuthSanEmail: z.string().optional(),
-    parRequired: z.boolean().optional(),
-    requestObjectRequired: z.boolean().optional(),
-    requestSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
-    requestEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
-    requestEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
-    requestUris: z.array(z.string()).optional(),
-    defaultMaxAge: z.number().int().optional(),
-    defaultAcrs: z.array(z.string()).optional(),
-    idTokenSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
-    idTokenEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
-    idTokenEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
-    authTimeRequired: z.boolean().optional(),
-    subjectType: SubjectType$inboundSchema.optional(),
-    sectorIdentifierUri: z.string().optional(),
-    derivedSectorIdentifier: z.string().optional(),
-    jwksUri: z.string().optional(),
-    jwks: z.string().optional(),
-    userInfoSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
-    userInfoEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
-    userInfoEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
-    loginUri: z.string().optional(),
-    tosUri: z.string().optional(),
-    tosUris: z.array(TaggedValue$inboundSchema).optional(),
-    policyUri: z.string().optional(),
-    policyUris: z.array(TaggedValue$inboundSchema).optional(),
-    clientUri: z.string().optional(),
-    clientUris: z.array(TaggedValue$inboundSchema).optional(),
-    bcDeliveryMode: z.string().optional(),
-    bcNotificationEndpoint: z.string().optional(),
-    bcRequestSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
-    bcUserCodeRequired: z.boolean().optional(),
-    attributes: z.array(Pair$inboundSchema).optional(),
-    extension: ClientExtension$inboundSchema.optional(),
-    authorizationDetailsTypes: z.array(z.string()).optional(),
-    customMetadata: z.string().optional(),
-    frontChannelRequestObjectEncryptionRequired: z.boolean().optional(),
-    requestObjectEncryptionAlgMatchRequired: z.boolean().optional(),
-    requestObjectEncryptionEncMatchRequired: z.boolean().optional(),
-    digestAlgorithm: z.string().optional(),
-    singleAccessTokenPerSubject: z.boolean().optional(),
-    pkceRequired: z.boolean().optional(),
-    pkceS256Required: z.boolean().optional(),
-    dpopRequired: z.boolean().optional(),
-    automaticallyRegistered: z.boolean().optional(),
-    explicitlyRegistered: z.boolean().optional(),
-    rsRequestSigned: z.boolean().optional(),
-    rsSignedRequestKeyId: z.string().optional(),
-    clientRegistrationTypes: z.array(ClientRegistrationType$inboundSchema)
-      .optional(),
-    organizationName: z.string().optional(),
-    signedJwksUri: z.string().optional(),
-    entityId: z.string().optional(),
-    trustAnchorId: z.string().optional(),
-    trustChain: z.array(z.string()).optional(),
-    trustChainExpiresAt: z.number().int().optional(),
-    trustChainUpdatedAt: z.number().int().optional(),
-    locked: z.boolean().optional(),
-    credentialOfferEndpoint: z.string().optional(),
-    fapiModes: z.array(FapiMode$inboundSchema).optional(),
-    responseModes: z.array(ResponseMode$inboundSchema).optional(),
-    credentialResponseEncryptionRequired: z.boolean().optional(),
-    mtlsEndpointAliasesUsed: z.boolean().optional(),
-    inScopeForTokenMigration: z.boolean().optional(),
-    metadataDocumentLocation: z.string().optional(),
-    metadataDocumentExpiresAt: z.number().int().optional(),
-    metadataDocumentUpdatedAt: z.number().int().optional(),
-    discoveredByMetadataDocument: z.boolean().optional(),
-    clientSource: ClientSource$inboundSchema.optional(),
-  });
+export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> =
+  collectExtraKeys$(
+    z.object({
+      number: z.number().int().optional(),
+      serviceNumber: z.number().int().optional(),
+      clientName: z.string().optional(),
+      clientNames: z.array(TaggedValue$inboundSchema).optional(),
+      description: z.string().optional(),
+      descriptions: z.array(TaggedValue$inboundSchema).optional(),
+      clientId: z.number().int().optional(),
+      clientSecret: z.string().optional(),
+      clientIdAlias: z.string().optional(),
+      clientIdAliasEnabled: z.boolean().optional(),
+      clientType: ClientType$inboundSchema.optional(),
+      applicationType: ApplicationType$inboundSchema.optional(),
+      logoUri: z.string().optional(),
+      logoUris: z.array(TaggedValue$inboundSchema).optional(),
+      contacts: z.array(z.string()).optional(),
+      tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
+      dynamicallyRegistered: z.boolean().optional(),
+      softwareId: z.string().optional(),
+      developer: z.string().optional(),
+      softwareVersion: z.string().optional(),
+      registrationAccessTokenHash: z.string().optional(),
+      createdAt: z.number().int().optional(),
+      modifiedAt: z.number().int().optional(),
+      grantTypes: z.array(GrantType$inboundSchema).optional(),
+      responseTypes: z.array(ResponseType$inboundSchema).optional(),
+      redirectUris: z.array(z.string()).optional(),
+      authorizationSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+      authorizationEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
+      authorizationEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
+      tokenAuthMethod: ClientAuthMethod$inboundSchema.optional(),
+      tokenAuthSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+      selfSignedCertificateKeyId: z.string().optional(),
+      tlsClientAuthSubjectDn: z.string().optional(),
+      tlsClientAuthSanDns: z.string().optional(),
+      tlsClientAuthSanUri: z.string().optional(),
+      tlsClientAuthSanIp: z.string().optional(),
+      tlsClientAuthSanEmail: z.string().optional(),
+      parRequired: z.boolean().optional(),
+      requestObjectRequired: z.boolean().optional(),
+      requestSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+      requestEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
+      requestEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
+      requestUris: z.array(z.string()).optional(),
+      defaultMaxAge: z.number().int().optional(),
+      defaultAcrs: z.array(z.string()).optional(),
+      idTokenSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+      idTokenEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
+      idTokenEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
+      authTimeRequired: z.boolean().optional(),
+      subjectType: SubjectType$inboundSchema.optional(),
+      sectorIdentifierUri: z.string().optional(),
+      derivedSectorIdentifier: z.string().optional(),
+      jwksUri: z.string().optional(),
+      jwks: z.string().optional(),
+      userInfoSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+      userInfoEncryptionAlg: z.nullable(JweAlg$inboundSchema).optional(),
+      userInfoEncryptionEnc: z.nullable(JweEnc$inboundSchema).optional(),
+      loginUri: z.string().optional(),
+      tosUri: z.string().optional(),
+      tosUris: z.array(TaggedValue$inboundSchema).optional(),
+      policyUri: z.string().optional(),
+      policyUris: z.array(TaggedValue$inboundSchema).optional(),
+      clientUri: z.string().optional(),
+      clientUris: z.array(TaggedValue$inboundSchema).optional(),
+      bcDeliveryMode: z.string().optional(),
+      bcNotificationEndpoint: z.string().optional(),
+      bcRequestSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+      bcUserCodeRequired: z.boolean().optional(),
+      attributes: z.array(Pair$inboundSchema).optional(),
+      extension: ClientExtension$inboundSchema.optional(),
+      authorizationDetailsTypes: z.array(z.string()).optional(),
+      customMetadata: z.string().optional(),
+      frontChannelRequestObjectEncryptionRequired: z.boolean().optional(),
+      requestObjectEncryptionAlgMatchRequired: z.boolean().optional(),
+      requestObjectEncryptionEncMatchRequired: z.boolean().optional(),
+      digestAlgorithm: z.string().optional(),
+      singleAccessTokenPerSubject: z.boolean().optional(),
+      pkceRequired: z.boolean().optional(),
+      pkceS256Required: z.boolean().optional(),
+      dpopRequired: z.boolean().optional(),
+      automaticallyRegistered: z.boolean().optional(),
+      explicitlyRegistered: z.boolean().optional(),
+      rsRequestSigned: z.boolean().optional(),
+      rsSignedRequestKeyId: z.string().optional(),
+      clientRegistrationTypes: z.array(ClientRegistrationType$inboundSchema)
+        .optional(),
+      organizationName: z.string().optional(),
+      signedJwksUri: z.string().optional(),
+      entityId: z.string().optional(),
+      trustAnchorId: z.string().optional(),
+      trustChain: z.array(z.string()).optional(),
+      trustChainExpiresAt: z.number().int().optional(),
+      trustChainUpdatedAt: z.number().int().optional(),
+      locked: z.boolean().optional(),
+      credentialOfferEndpoint: z.string().optional(),
+      fapiModes: z.array(FapiMode$inboundSchema).optional(),
+      responseModes: z.array(ResponseMode$inboundSchema).optional(),
+      credentialResponseEncryptionRequired: z.boolean().optional(),
+      mtlsEndpointAliasesUsed: z.boolean().optional(),
+      inScopeForTokenMigration: z.boolean().optional(),
+      metadataDocumentLocation: z.string().optional(),
+      metadataDocumentExpiresAt: z.number().int().optional(),
+      metadataDocumentUpdatedAt: z.number().int().optional(),
+      discoveredByMetadataDocument: z.boolean().optional(),
+      clientSource: ClientSource$inboundSchema.optional(),
+    }).catchall(z.any()),
+    "additionalProperties",
+    true,
+  );
 
 export function clientFromJSON(
   jsonString: string,
@@ -2260,6 +2270,7 @@ export type ClientInput$Outbound = {
   metadataDocumentUpdatedAt?: number | undefined;
   discoveredByMetadataDocument?: boolean | undefined;
   clientSource?: string | undefined;
+  [additionalProperties: string]: unknown;
 };
 
 /** @internal */
@@ -2365,6 +2376,14 @@ export const ClientInput$outboundSchema: z.ZodType<
   metadataDocumentUpdatedAt: z.number().int().optional(),
   discoveredByMetadataDocument: z.boolean().optional(),
   clientSource: ClientSource$outboundSchema.optional(),
+  additionalProperties: z.record(z.any()).optional(),
+}).transform((v) => {
+  return {
+    ...v.additionalProperties,
+    ...remap$(v, {
+      additionalProperties: null,
+    }),
+  };
 });
 
 export function clientInputToJSON(clientInput: ClientInput): string {

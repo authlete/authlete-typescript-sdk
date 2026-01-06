@@ -277,6 +277,7 @@ run();
 * [list](docs/sdks/client/README.md#list) - List Clients
 * [create](docs/sdks/client/README.md#create) - Create Client
 * [update](docs/sdks/client/README.md#update) - Update Client
+* [updateForm](docs/sdks/client/README.md#updateform) - Update Client
 * [delete](docs/sdks/client/README.md#delete) - Delete Client ⚡
 
 #### [Client.Management](docs/sdks/clientmanagement/README.md)
@@ -434,6 +435,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`clientManagementUpdateRequestableScopes`](docs/sdks/clientmanagement/README.md#updaterequestablescopes) - Update Requestable Scopes
 - [`clientManagementUpdateSecret`](docs/sdks/clientmanagement/README.md#updatesecret) - Update Client Secret
 - [`clientUpdate`](docs/sdks/client/README.md#update) - Update Client
+- [`clientUpdateForm`](docs/sdks/client/README.md#updateform) - Update Client
 - [`deviceFlowAuthorization`](docs/sdks/deviceflow/README.md#authorization) - Process Device Authorization Request
 - [`deviceFlowComplete`](docs/sdks/deviceflow/README.md#complete) - Complete Device Authorization
 - [`deviceFlowVerification`](docs/sdks/deviceflow/README.md#verification) - Process Device Verification Request

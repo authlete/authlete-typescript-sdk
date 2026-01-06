@@ -7,6 +7,7 @@ import { clientDelete } from "../funcs/clientDelete.js";
 import { clientGet } from "../funcs/clientGet.js";
 import { clientList } from "../funcs/clientList.js";
 import { clientUpdate } from "../funcs/clientUpdate.js";
+import { clientUpdateForm } from "../funcs/clientUpdateForm.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
@@ -86,6 +87,23 @@ export class Client extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.Client> {
     return unwrapAsync(clientUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Client
+   *
+   * @remarks
+   * Update a client.
+   */
+  async updateForm(
+    request: operations.ClientUpdateApiFormRequest,
+    options?: RequestOptions,
+  ): Promise<models.Client> {
+    return unwrapAsync(clientUpdateForm(
       this,
       request,
       options,

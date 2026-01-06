@@ -124,7 +124,7 @@ export class Service extends ClientSDK {
   async getConfiguration(
     request: operations.ServiceConfigurationApiRequest,
     options?: RequestOptions,
-  ): Promise<operations.ServiceConfigurationApiResponse> {
+  ): Promise<{ [k: string]: any }> {
     return unwrapAsync(serviceGetConfiguration(
       this,
       request,
