@@ -767,7 +767,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ServiceConfigurationApiResponse](../../models/operations/serviceconfigurationapiresponse.md)\>**
+**Promise\<[{ [k: string]: any }](../../models/.md)\>**
 
 ### Errors
 

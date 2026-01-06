@@ -4956,6 +4956,7 @@ paths:
             application/json:
               schema:
                 type: object
+                additionalProperties: true
                 description: |
                   An object representing OpenID Provider configuration information. See [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata) and [OpenID Provider Configuration Response](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationResponse) for more details.
               example:
@@ -9060,6 +9061,7 @@ components:
             permission to make token exchange requests ([RFC 8693][https://www.rfc-editor.org/rfc/rfc8693.html])
     client:
       type: object
+      additionalProperties: true
       example:
         number: 1140735077
         serviceNumber: 715948317

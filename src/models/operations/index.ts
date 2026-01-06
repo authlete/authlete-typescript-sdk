@@ -43,6 +43,7 @@ export * from "./clientregistrationupdateapi.js";
 export * from "./clientsecretrefreshapi.js";
 export * from "./clientsecretupdateapi.js";
 export * from "./clientupdateapi.js";
+export * from "./clientupdateapiform.js";
 export * from "./deviceauthorizationapi.js";
 export * from "./devicecompleteapi.js";
 export * from "./deviceverificationapi.js";

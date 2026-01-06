@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ServiceConfigurationApiRequest = {
   /**
@@ -21,13 +18,6 @@ export type ServiceConfigurationApiRequest = {
    */
   patch?: string | undefined;
 };
-
-/**
- * An object representing OpenID Provider configuration information. See [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata) and [OpenID Provider Configuration Response](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationResponse) for more details.
- *
- * @remarks
- */
-export type ServiceConfigurationApiResponse = {};
 
 /** @internal */
 export type ServiceConfigurationApiRequest$Outbound = {
@@ -54,22 +44,5 @@ export function serviceConfigurationApiRequestToJSON(
     ServiceConfigurationApiRequest$outboundSchema.parse(
       serviceConfigurationApiRequest,
     ),
-  );
-}
-
-/** @internal */
-export const ServiceConfigurationApiResponse$inboundSchema: z.ZodType<
-  ServiceConfigurationApiResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function serviceConfigurationApiResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<ServiceConfigurationApiResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServiceConfigurationApiResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServiceConfigurationApiResponse' from JSON`,
   );
 }
