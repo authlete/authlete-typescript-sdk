@@ -25,7 +25,7 @@ export class JWKSetEndpoint extends ClientSDK {
   async serviceJwksGetApi(
     request: operations.ServiceJwksGetApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ServiceJwksGetResponse> {
+  ): Promise<models.ServiceJwksGetResponse | undefined> {
     return unwrapAsync(jwkSetEndpointServiceJwksGetApi(
       this,
       request,

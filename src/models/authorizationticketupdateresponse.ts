@@ -6,6 +6,10 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthorizationTicketInfo,
+  AuthorizationTicketInfo$inboundSchema,
+} from "./authorizationticketinfo.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -25,10 +29,7 @@ export type AuthorizationTicketUpdateResponseAction = ClosedEnum<
 >;
 
 export type AuthorizationTicketUpdateResponse = {
-  /**
-   * Information about the ticket.
-   */
-  info?: string | undefined;
+  info?: AuthorizationTicketInfo | undefined;
   /**
    * The result of the /auth/authorization/ticket/info API call.
    */
@@ -54,7 +55,7 @@ export const AuthorizationTicketUpdateResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  info: z.string().optional(),
+  info: AuthorizationTicketInfo$inboundSchema.optional(),
   action: AuthorizationTicketUpdateResponseAction$inboundSchema.optional(),
   resultCode: z.string().optional(),
   resultMessage: z.string().optional(),

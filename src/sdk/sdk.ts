@@ -6,6 +6,7 @@ import { ClientSDK } from "../lib/sdks.js";
 import { Authorization } from "./authorization.js";
 import { Ciba } from "./ciba.js";
 import { Client } from "./client.js";
+import { ClientManagement2 } from "./clientmanagement2.js";
 import { DeviceFlow } from "./deviceflow.js";
 import { DynamicClientRegistration } from "./dynamicclientregistration.js";
 import { Federation } from "./federation.js";
@@ -14,11 +15,13 @@ import { HardwareSecurityKeys } from "./hardwaresecuritykeys.js";
 import { Introspection } from "./introspection.js";
 import { JoseObject } from "./joseobject.js";
 import { JWKSetEndpoint } from "./jwksetendpoint.js";
+import { Lifecycle } from "./lifecycle.js";
 import { NativeSso } from "./nativesso.js";
 import { PushedAuthorization } from "./pushedauthorization.js";
 import { Revocation } from "./revocation.js";
 import { Service } from "./service.js";
 import { Token } from "./token.js";
+import { TokenOperations } from "./tokenoperations.js";
 import { Userinfo } from "./userinfo.js";
 import { VerifiableCredentials } from "./verifiablecredentials.js";
 
@@ -31,6 +34,11 @@ export class Authlete extends ClientSDK {
   private _client?: Client;
   get client(): Client {
     return (this._client ??= new Client(this._options));
+  }
+
+  private _clientManagement2?: ClientManagement2;
+  get clientManagement2(): ClientManagement2 {
+    return (this._clientManagement2 ??= new ClientManagement2(this._options));
   }
 
   private _authorization?: Authorization;
@@ -92,6 +100,11 @@ export class Authlete extends ClientSDK {
     return (this._deviceFlow ??= new DeviceFlow(this._options));
   }
 
+  private _tokenOperations?: TokenOperations;
+  get tokenOperations(): TokenOperations {
+    return (this._tokenOperations ??= new TokenOperations(this._options));
+  }
+
   private _joseObject?: JoseObject;
   get joseObject(): JoseObject {
     return (this._joseObject ??= new JoseObject(this._options));
@@ -114,6 +127,11 @@ export class Authlete extends ClientSDK {
     return (this._verifiableCredentials ??= new VerifiableCredentials(
       this._options,
     ));
+  }
+
+  private _lifecycle?: Lifecycle;
+  get lifecycle(): Lifecycle {
+    return (this._lifecycle ??= new Lifecycle(this._options));
   }
 
   private _nativeSso?: NativeSso;

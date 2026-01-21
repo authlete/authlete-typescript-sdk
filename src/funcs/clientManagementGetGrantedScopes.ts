@@ -3,7 +3,7 @@
  */
 
 import { AuthleteCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,27 +27,15 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get Granted Scopes
+ * Get Granted Scopes (by Subject)
  *
  * @remarks
  * Get the set of scopes that a user has granted to a client application.
- * ### Description
- * Possible values for `requestableScopes` parameter in the response from this API are as follows.
- * **null**
- * The user has not granted authorization to the client application in the past, or records about the
- * combination of the user and the client application have been deleted from Authlete's DB.
- * **An empty set**
- * The user has granted authorization to the client application in the past, but no scopes are associated
- * with the authorization.
- * **A set with at least one element**
- * The user has granted authorization to the client application in the past and some scopes are associated
- * with the authorization. These scopes are returned.
- * Example: `[ "profile", "email" ]`
- * The subject parameter is required and can be provided either in the path or as a query parameter.
+ * In this variant, the subject is provided in the path.
  */
 export function clientManagementGetGrantedScopes(
   client: AuthleteCore,
-  request: operations.ClientGrantedScopesGetApiRequest,
+  request: operations.ClientGrantedScopesGetBySubjectApiRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -72,7 +60,7 @@ export function clientManagementGetGrantedScopes(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.ClientGrantedScopesGetApiRequest,
+  request: operations.ClientGrantedScopesGetBySubjectApiRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -94,7 +82,9 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.ClientGrantedScopesGetApiRequest$outboundSchema.parse(value),
+      operations.ClientGrantedScopesGetBySubjectApiRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -112,7 +102,7 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    subject: encodeSimple("subject", payload.subjectPathParameter, {
+    subject: encodeSimple("subject", payload.subject, {
       explode: false,
       charEncoding: "percent",
     }),
@@ -121,10 +111,6 @@ async function $do(
   const path = pathToFunc(
     "/api/{serviceId}/client/granted_scopes/get/{clientId}/{subject}",
   )(pathParams);
-
-  const query = encodeFormQuery({
-    "subject": payload.subjectQueryParameter,
-  });
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -137,7 +123,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "client_granted_scopes_get_api",
+    operationID: "client_granted_scopes_get_by_subject_api",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -155,7 +141,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,

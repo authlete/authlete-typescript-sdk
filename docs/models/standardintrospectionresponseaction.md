@@ -13,5 +13,5 @@ let value: StandardIntrospectionResponseAction = "BAD_REQUEST";
 ## Values
 
 ```typescript
-"INTERNAL_SERVER_ERROR" | "BAD_REQUEST" | "OK"
+"INTERNAL_SERVER_ERROR" | "BAD_REQUEST" | "OK" | "JWT"
 ```

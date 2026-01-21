@@ -15,6 +15,7 @@ export const StandardIntrospectionResponseAction = {
   InternalServerError: "INTERNAL_SERVER_ERROR",
   BadRequest: "BAD_REQUEST",
   Ok: "OK",
+  Jwt: "JWT",
 } as const;
 /**
  * The next action that the authorization server implementation should take.

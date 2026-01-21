@@ -45,7 +45,7 @@ export function jwkSetEndpointServiceJwksGetApi(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.ServiceJwksGetResponse,
+    models.ServiceJwksGetResponse | undefined,
     | errors.ResultError
     | AuthleteError
     | ResponseValidationError
@@ -71,7 +71,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.ServiceJwksGetResponse,
+      models.ServiceJwksGetResponse | undefined,
       | errors.ResultError
       | AuthleteError
       | ResponseValidationError
@@ -165,7 +165,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.ServiceJwksGetResponse,
+    models.ServiceJwksGetResponse | undefined,
     | errors.ResultError
     | AuthleteError
     | ResponseValidationError
@@ -176,7 +176,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.ServiceJwksGetResponse$inboundSchema),
+    M.json(200, models.ServiceJwksGetResponse$inboundSchema.optional()),
+    M.nil(204, models.ServiceJwksGetResponse$inboundSchema.optional()),
     M.jsonErr([400, 401, 403], errors.ResultError$inboundSchema),
     M.jsonErr(500, errors.ResultError$inboundSchema),
     M.fail("4XX"),

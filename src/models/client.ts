@@ -101,7 +101,7 @@ export type ResponseMode = ClosedEnum<typeof ResponseMode>;
  *
  * @remarks
  */
-export const ClientSource = {
+export const ClientClientSource = {
   DynamicRegistration: "DYNAMIC_REGISTRATION",
   AutomaticRegistration: "AUTOMATIC_REGISTRATION",
   ExplicitRegistration: "EXPLICIT_REGISTRATION",
@@ -113,7 +113,7 @@ export const ClientSource = {
  *
  * @remarks
  */
-export type ClientSource = ClosedEnum<typeof ClientSource>;
+export type ClientClientSource = ClosedEnum<typeof ClientClientSource>;
 
 export type Client = {
   /**
@@ -1099,7 +1099,7 @@ export type Client = {
    *
    * @remarks
    */
-  clientSource?: ClientSource | undefined;
+  clientSource?: ClientClientSource | undefined;
   additionalProperties?: { [k: string]: any } | undefined;
 };
 
@@ -2030,7 +2030,7 @@ export type ClientInput = {
    *
    * @remarks
    */
-  clientSource?: ClientSource | undefined;
+  clientSource?: ClientClientSource | undefined;
   additionalProperties?: { [k: string]: any } | undefined;
 };
 
@@ -2042,11 +2042,13 @@ export const ResponseMode$outboundSchema: z.ZodNativeEnum<typeof ResponseMode> =
   ResponseMode$inboundSchema;
 
 /** @internal */
-export const ClientSource$inboundSchema: z.ZodNativeEnum<typeof ClientSource> =
-  z.nativeEnum(ClientSource);
+export const ClientClientSource$inboundSchema: z.ZodNativeEnum<
+  typeof ClientClientSource
+> = z.nativeEnum(ClientClientSource);
 /** @internal */
-export const ClientSource$outboundSchema: z.ZodNativeEnum<typeof ClientSource> =
-  ClientSource$inboundSchema;
+export const ClientClientSource$outboundSchema: z.ZodNativeEnum<
+  typeof ClientClientSource
+> = ClientClientSource$inboundSchema;
 
 /** @internal */
 export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> =
@@ -2156,7 +2158,7 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> =
       metadataDocumentExpiresAt: z.number().int().optional(),
       metadataDocumentUpdatedAt: z.number().int().optional(),
       discoveredByMetadataDocument: z.boolean().optional(),
-      clientSource: ClientSource$inboundSchema.optional(),
+      clientSource: ClientClientSource$inboundSchema.optional(),
     }).catchall(z.any()),
     "additionalProperties",
     true,
@@ -2375,7 +2377,7 @@ export const ClientInput$outboundSchema: z.ZodType<
   metadataDocumentExpiresAt: z.number().int().optional(),
   metadataDocumentUpdatedAt: z.number().int().optional(),
   discoveredByMetadataDocument: z.boolean().optional(),
-  clientSource: ClientSource$outboundSchema.optional(),
+  clientSource: ClientClientSource$outboundSchema.optional(),
   additionalProperties: z.record(z.any()).optional(),
 }).transform((v) => {
   return {

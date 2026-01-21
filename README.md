@@ -31,12 +31,12 @@ If you have any questions or need assistance, our team is here to help:
 
 Authlete API: Welcome to the **Authlete API documentation**. Authlete is an **API-first service** where every aspect of the 
 platform is configurable via API. This documentation will help you authenticate and integrate with Authlete to 
-build powerful OAuth 2.0 and OpenID Connect servers. 🚀
+build powerful OAuth 2.0 and OpenID Connect servers.
 
 At a high level, the Authlete API is grouped into two categories:
 
-- **Management APIs**: Enable you to manage services and clients. 🔧
-- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers. 🔐
+- **Management APIs**: Enable you to manage services and clients.
+- **Runtime APIs**: Allow you to build your own Authorization Servers or Verifiable Credential (VC) issuers.
 
 ## 🌐 API Servers
 
@@ -98,8 +98,8 @@ curl -X GET https://us.authlete.com/api/service/get/list \
 
 If you're new to Authlete or want to see sample implementations, these resources will help you get started:
 
-- [🚀 Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)
-- [🔑 From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)
+- [Getting Started with Authlete](https://www.authlete.com/developers/getting_started/)
+- [From Sign-Up to the First API Request](https://www.authlete.com/developers/tutorial/signup/)
 
 ## 🛠 Contact Us
 
@@ -280,19 +280,30 @@ run();
 * [updateForm](docs/sdks/client/README.md#updateform) - Update Client
 * [delete](docs/sdks/client/README.md#delete) - Delete Client ⚡
 
-#### [Client.Management](docs/sdks/clientmanagement/README.md)
+#### [Client.Management](docs/sdks/clientmanagement1/README.md)
 
-* [updateLockFlag](docs/sdks/clientmanagement/README.md#updatelockflag) - Update Client Lock
-* [refreshSecret](docs/sdks/clientmanagement/README.md#refreshsecret) - Rotate Client Secret
-* [updateSecret](docs/sdks/clientmanagement/README.md#updatesecret) - Update Client Secret
-* [listAuthorizations](docs/sdks/clientmanagement/README.md#listauthorizations) - Get Authorized Applications
-* [updateAuthorizations](docs/sdks/clientmanagement/README.md#updateauthorizations) - Update Client Tokens
-* [deleteAuthorizations](docs/sdks/clientmanagement/README.md#deleteauthorizations) - Delete Client Tokens
-* [getGrantedScopes](docs/sdks/clientmanagement/README.md#getgrantedscopes) - Get Granted Scopes
-* [deleteGrantedScopes](docs/sdks/clientmanagement/README.md#deletegrantedscopes) - Delete Granted Scopes
-* [getRequestableScopes](docs/sdks/clientmanagement/README.md#getrequestablescopes) - Get Requestable Scopes
-* [updateRequestableScopes](docs/sdks/clientmanagement/README.md#updaterequestablescopes) - Update Requestable Scopes
-* [deleteRequestableScopes](docs/sdks/clientmanagement/README.md#deleterequestablescopes) - Delete Requestable Scopes
+* [updateLockFlag](docs/sdks/clientmanagement1/README.md#updatelockflag) - Update Client Lock
+* [refreshSecret](docs/sdks/clientmanagement1/README.md#refreshsecret) - Rotate Client Secret
+* [updateSecret](docs/sdks/clientmanagement1/README.md#updatesecret) - Update Client Secret
+* [listAuthorizations](docs/sdks/clientmanagement1/README.md#listauthorizations) - Get Authorized Applications (by Subject)
+* [updateAuthorizations](docs/sdks/clientmanagement1/README.md#updateauthorizations) - Update Client Tokens
+* [deleteAuthorizations](docs/sdks/clientmanagement1/README.md#deleteauthorizations) - Delete Client Tokens (by Subject)
+* [getGrantedScopes](docs/sdks/clientmanagement1/README.md#getgrantedscopes) - Get Granted Scopes (by Subject)
+* [deleteGrantedScopes](docs/sdks/clientmanagement1/README.md#deletegrantedscopes) - Delete Granted Scopes (by Subject)
+* [getRequestableScopes](docs/sdks/clientmanagement1/README.md#getrequestablescopes) - Get Requestable Scopes
+* [updateRequestableScopes](docs/sdks/clientmanagement1/README.md#updaterequestablescopes) - Update Requestable Scopes
+* [deleteRequestableScopes](docs/sdks/clientmanagement1/README.md#deleterequestablescopes) - Delete Requestable Scopes
+
+### [ClientManagement](docs/sdks/clientmanagement2/README.md)
+
+* [clientAuthorizationGetListApi](docs/sdks/clientmanagement2/README.md#clientauthorizationgetlistapi) - Get Authorized Applications
+* [clientAuthorizationGetListApiPost](docs/sdks/clientmanagement2/README.md#clientauthorizationgetlistapipost) - Get Authorized Applications
+* [clientAuthorizationDeleteApi](docs/sdks/clientmanagement2/README.md#clientauthorizationdeleteapi) - Delete Client Tokens
+* [clientAuthorizationDeleteApiPost](docs/sdks/clientmanagement2/README.md#clientauthorizationdeleteapipost) - Delete Client Tokens
+* [clientGrantedScopesGetApi](docs/sdks/clientmanagement2/README.md#clientgrantedscopesgetapi) - Get Granted Scopes
+* [clientGrantedScopesGetApiPost](docs/sdks/clientmanagement2/README.md#clientgrantedscopesgetapipost) - Get Granted Scopes
+* [clientGrantedScopesDeleteApi](docs/sdks/clientmanagement2/README.md#clientgrantedscopesdeleteapi) - Delete Granted Scopes
+* [clientExtensionRequestablesScopesUpdateApiPost](docs/sdks/clientmanagement2/README.md#clientextensionrequestablesscopesupdateapipost) - Update Requestable Scopes
 
 ### [DeviceFlow](docs/sdks/deviceflow/README.md)
 
@@ -336,6 +347,10 @@ run();
 
 * [serviceJwksGetApi](docs/sdks/jwksetendpoint/README.md#servicejwksgetapi) - Get JWK Set
 
+### [Lifecycle](docs/sdks/lifecycle/README.md)
+
+* [getApiLifecycleHealthcheck](docs/sdks/lifecycle/README.md#getapilifecyclehealthcheck) - Health Check
+
 ### [NativeSso](docs/sdks/nativesso/README.md)
 
 * [process](docs/sdks/nativesso/README.md#process) - Native SSO Processing
@@ -372,6 +387,11 @@ run();
 * [update](docs/sdks/tokenmanagement/README.md#update) - Update Access Token
 * [delete](docs/sdks/tokenmanagement/README.md#delete) - Delete Access Token
 * [revoke](docs/sdks/tokenmanagement/README.md#revoke) - Revoke Access Token
+
+### [TokenOperations](docs/sdks/tokenoperations/README.md)
+
+* [authTokenCreateBatchApi](docs/sdks/tokenoperations/README.md#authtokencreatebatchapi) - Create Access Tokens in Batch
+* [authTokenCreateBatchStatusApi](docs/sdks/tokenoperations/README.md#authtokencreatebatchstatusapi) - Get Batch Token Creation Status
 
 ### [Userinfo](docs/sdks/userinfo/README.md)
 
@@ -423,17 +443,25 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`clientDelete`](docs/sdks/client/README.md#delete) - Delete Client ⚡
 - [`clientGet`](docs/sdks/client/README.md#get) - Get Client
 - [`clientList`](docs/sdks/client/README.md#list) - List Clients
-- [`clientManagementDeleteAuthorizations`](docs/sdks/clientmanagement/README.md#deleteauthorizations) - Delete Client Tokens
-- [`clientManagementDeleteGrantedScopes`](docs/sdks/clientmanagement/README.md#deletegrantedscopes) - Delete Granted Scopes
-- [`clientManagementDeleteRequestableScopes`](docs/sdks/clientmanagement/README.md#deleterequestablescopes) - Delete Requestable Scopes
-- [`clientManagementGetGrantedScopes`](docs/sdks/clientmanagement/README.md#getgrantedscopes) - Get Granted Scopes
-- [`clientManagementGetRequestableScopes`](docs/sdks/clientmanagement/README.md#getrequestablescopes) - Get Requestable Scopes
-- [`clientManagementListAuthorizations`](docs/sdks/clientmanagement/README.md#listauthorizations) - Get Authorized Applications
-- [`clientManagementRefreshSecret`](docs/sdks/clientmanagement/README.md#refreshsecret) - Rotate Client Secret
-- [`clientManagementUpdateAuthorizations`](docs/sdks/clientmanagement/README.md#updateauthorizations) - Update Client Tokens
-- [`clientManagementUpdateLockFlag`](docs/sdks/clientmanagement/README.md#updatelockflag) - Update Client Lock
-- [`clientManagementUpdateRequestableScopes`](docs/sdks/clientmanagement/README.md#updaterequestablescopes) - Update Requestable Scopes
-- [`clientManagementUpdateSecret`](docs/sdks/clientmanagement/README.md#updatesecret) - Update Client Secret
+- [`clientManagementClientAuthorizationDeleteApi`](docs/sdks/clientmanagement2/README.md#clientauthorizationdeleteapi) - Delete Client Tokens
+- [`clientManagementClientAuthorizationDeleteApiPost`](docs/sdks/clientmanagement2/README.md#clientauthorizationdeleteapipost) - Delete Client Tokens
+- [`clientManagementClientAuthorizationGetListApi`](docs/sdks/clientmanagement2/README.md#clientauthorizationgetlistapi) - Get Authorized Applications
+- [`clientManagementClientAuthorizationGetListApiPost`](docs/sdks/clientmanagement2/README.md#clientauthorizationgetlistapipost) - Get Authorized Applications
+- [`clientManagementClientExtensionRequestablesScopesUpdateApiPost`](docs/sdks/clientmanagement2/README.md#clientextensionrequestablesscopesupdateapipost) - Update Requestable Scopes
+- [`clientManagementClientGrantedScopesDeleteApi`](docs/sdks/clientmanagement2/README.md#clientgrantedscopesdeleteapi) - Delete Granted Scopes
+- [`clientManagementClientGrantedScopesGetApi`](docs/sdks/clientmanagement2/README.md#clientgrantedscopesgetapi) - Get Granted Scopes
+- [`clientManagementClientGrantedScopesGetApiPost`](docs/sdks/clientmanagement2/README.md#clientgrantedscopesgetapipost) - Get Granted Scopes
+- [`clientManagementDeleteAuthorizations`](docs/sdks/clientmanagement1/README.md#deleteauthorizations) - Delete Client Tokens (by Subject)
+- [`clientManagementDeleteGrantedScopes`](docs/sdks/clientmanagement1/README.md#deletegrantedscopes) - Delete Granted Scopes (by Subject)
+- [`clientManagementDeleteRequestableScopes`](docs/sdks/clientmanagement1/README.md#deleterequestablescopes) - Delete Requestable Scopes
+- [`clientManagementGetGrantedScopes`](docs/sdks/clientmanagement1/README.md#getgrantedscopes) - Get Granted Scopes (by Subject)
+- [`clientManagementGetRequestableScopes`](docs/sdks/clientmanagement1/README.md#getrequestablescopes) - Get Requestable Scopes
+- [`clientManagementListAuthorizations`](docs/sdks/clientmanagement1/README.md#listauthorizations) - Get Authorized Applications (by Subject)
+- [`clientManagementRefreshSecret`](docs/sdks/clientmanagement1/README.md#refreshsecret) - Rotate Client Secret
+- [`clientManagementUpdateAuthorizations`](docs/sdks/clientmanagement1/README.md#updateauthorizations) - Update Client Tokens
+- [`clientManagementUpdateLockFlag`](docs/sdks/clientmanagement1/README.md#updatelockflag) - Update Client Lock
+- [`clientManagementUpdateRequestableScopes`](docs/sdks/clientmanagement1/README.md#updaterequestablescopes) - Update Requestable Scopes
+- [`clientManagementUpdateSecret`](docs/sdks/clientmanagement1/README.md#updatesecret) - Update Client Secret
 - [`clientUpdate`](docs/sdks/client/README.md#update) - Update Client
 - [`clientUpdateForm`](docs/sdks/client/README.md#updateform) - Update Client
 - [`deviceFlowAuthorization`](docs/sdks/deviceflow/README.md#authorization) - Process Device Authorization Request
@@ -454,6 +482,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`introspectionStandardProcess`](docs/sdks/introspection/README.md#standardprocess) - Process OAuth 2.0 Introspection Request
 - [`joseObjectJoseVerifyApi`](docs/sdks/joseobject/README.md#joseverifyapi) - Verify JOSE
 - [`jwkSetEndpointServiceJwksGetApi`](docs/sdks/jwksetendpoint/README.md#servicejwksgetapi) - Get JWK Set
+- [`lifecycleGetApiLifecycleHealthcheck`](docs/sdks/lifecycle/README.md#getapilifecyclehealthcheck) - Health Check
 - [`nativeSsoLogout`](docs/sdks/nativesso/README.md#logout) - Native SSO Logout Processing
 - [`nativeSsoProcess`](docs/sdks/nativesso/README.md#process) - Native SSO Processing
 - [`pushedAuthorizationCreate`](docs/sdks/pushedauthorization/README.md#create) - Process Pushed Authorization Request
@@ -472,6 +501,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`tokenManagementReissueIdToken`](docs/sdks/tokenmanagement/README.md#reissueidtoken) - Reissue ID Token
 - [`tokenManagementRevoke`](docs/sdks/tokenmanagement/README.md#revoke) - Revoke Access Token
 - [`tokenManagementUpdate`](docs/sdks/tokenmanagement/README.md#update) - Update Access Token
+- [`tokenOperationsAuthTokenCreateBatchApi`](docs/sdks/tokenoperations/README.md#authtokencreatebatchapi) - Create Access Tokens in Batch
+- [`tokenOperationsAuthTokenCreateBatchStatusApi`](docs/sdks/tokenoperations/README.md#authtokencreatebatchstatusapi) - Get Batch Token Creation Status
 - [`tokenProcess`](docs/sdks/token/README.md#process) - Process Token Request
 - [`userinfoIssue`](docs/sdks/userinfo/README.md#issue) - Issue UserInfo Response
 - [`userinfoProcess`](docs/sdks/userinfo/README.md#process) - Process UserInfo Request
@@ -611,7 +642,7 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`AuthleteError`](./src/models/errors/authleteerror.ts): The base class for HTTP error responses.
-  * [`ResultError`](./src/models/errors/resulterror.ts): .
+  * [`ResultError`](./src/models/errors/resulterror.ts): . *
 
 <details><summary>Less common errors (6)</summary>
 
@@ -629,6 +660,8 @@ run();
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
+
+\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->

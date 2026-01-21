@@ -41,6 +41,7 @@ export const PushedAuthorizationResponseClientAuthMethod = {
   PrivateKeyJwt: "PRIVATE_KEY_JWT",
   TlsClientAuth: "TLS_CLIENT_AUTH",
   SelfSignedTlsClientAuth: "SELF_SIGNED_TLS_CLIENT_AUTH",
+  AttestJwtClientAuth: "ATTEST_JWT_CLIENT_AUTH",
 } as const;
 /**
  * The client authentication method that the client application declares that it uses at the token
