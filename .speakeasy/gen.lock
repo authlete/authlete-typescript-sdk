@@ -5,15 +5,15 @@ management:
   docVersion: 3.0.16
   speakeasyVersion: 1.691.0
   generationVersion: 2.797.1
-  releaseVersion: 0.0.7-beta.1
-  configChecksum: 16842f57c84c3858a883ed6c373e2f44
+  releaseVersion: 0.0.8-beta
+  configChecksum: 9fcf8b453313c6708f005f2b5f38a1ce
   repoURL: https://github.com/authlete/authlete-typescript-sdk.git
   installationURL: https://github.com/authlete/authlete-typescript-sdk
   published: true
 persistentEdits:
-  generation_id: b983e56d-d267-4f6d-b861-218e6a011a11
-  pristine_commit_hash: 218e5e4bc128fe1dd27b00375df213feffe7a36a
-  pristine_tree_hash: 7b79412583ea3e6527912b692cf265e89f0c64b9
+  generation_id: cf9ac5a1-bed2-46d9-993c-84e54be07bce
+  pristine_commit_hash: e776ba82da45f5a928fccc77ce2fa2b9304e4740
+  pristine_tree_hash: a7a6dbd79bffe42701d8fffa92c921d6b6ab4b29
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1434,12 +1434,12 @@ trackedFiles:
     pristine_git_object: 2f7b714bbe12442f6ed257ace618d48767cf552c
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:b9fa58a2a7b5585153c1098bdb11bc1b8e127c0c
-    pristine_git_object: 1ae16d4aaeba815554782e3aaf1d0e0df1e82d15
+    last_write_checksum: sha1:12f636edf5fb95dbcc4f87f87aac94b2ca26b10d
+    pristine_git_object: 8e03d6842ed56cb7db91efe13f8cfdba6363dc37
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:e3f8347f242fdd30dd94b89362a977ef07ef367d
-    pristine_git_object: 3891bb280cd79aa9f02890bbf6efed6a42a1db9c
+    last_write_checksum: sha1:acdb2bc6c00f43c89669fc2f2781593c41b6b4b9
+    pristine_git_object: ab453241e5459fb377179aa7f6048b4c047bf972
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d2e0ad6b984b5be0cd66f84e06b451806539d6d0
@@ -1814,8 +1814,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:0ea461fdc92298eaae3bd43f566802506ff53d01
-    pristine_git_object: 4f4b2b3edadea98bcc26f82d32d7e701a4538133
+    last_write_checksum: sha1:5a017f6f7ca91eb27751adcfffaea9fd89596b7d
+    pristine_git_object: b55657319d56035782612ec849ec2e3cf4ecb011
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -4302,35 +4302,6 @@ examples:
         "200":
           text/plain: "<value>"
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes:
-  * `authlete.client.management.deleteAuthorizations()`:  `request` **Changed** **Breaking** :warning:
-  * `authlete.client.management.getGrantedScopes()`:  `request` **Changed** **Breaking** :warning:
-  * `authlete.jwkSetEndpoint.serviceJwksGetApi()`:  `response.status[204]` **Added** **Breaking** :warning:
-  * `authlete.authorization.management.updateTicket()`:  `response.info` **Changed** **Breaking** :warning:
-  * `authlete.client.management.getRequestableScopes()`:  `response.requestablescopes` **Changed** **Breaking** :warning:
-  * `authlete.client.management.deleteGrantedScopes()`:  `request` **Changed** **Breaking** :warning:
-  * `authlete.client.create()`:  `response.status[201]` **Added** **Breaking** :warning:
-  * `authlete.client.management.listAuthorizations()`:  `request` **Changed** **Breaking** :warning:
-  * `authlete.service.create()`:  `response.status[201]` **Added** **Breaking** :warning:
-  * `authlete.token.process()`:  `response` **Changed** **Breaking** :warning:
-  * `authlete.clientManagement.clientGrantedScopesDeleteApi()`: **Added**
-  * `authlete.clientManagement.clientAuthorizationGetListApi()`: **Added**
-  * `authlete.clientManagement.clientAuthorizationGetListApiPost()`: **Added**
-  * `authlete.tokenOperations.authTokenCreateBatchStatusApi()`: **Added**
-  * `authlete.tokenOperations.authTokenCreateBatchApi()`: **Added**
-  * `authlete.client.delete()`:  `error.status[404]` **Added**
-  * `authlete.clientManagement.clientExtensionRequestablesScopesUpdateApiPost()`: **Added**
-  * `authlete.lifecycle.get/api/lifecycle/healthcheck()`: **Added**
-  * `authlete.client.updateForm()`:  `error.status[404]` **Added**
-  * `authlete.clientManagement.clientGrantedScopesGetApiPost()`: **Added**
-  * `authlete.client.management.updateAuthorizations()`:  `error.status[404]` **Added**
-  * `authlete.clientManagement.clientGrantedScopesGetApi()`: **Added**
-  * `authlete.authorization.processRequest()`:  `response.client` **Changed**
-  * `authlete.clientManagement.clientAuthorizationDeleteApiPost()`: **Added**
-  * `authlete.client.update()`:  `error.status[404]` **Added**
-  * `authlete.token.management.revoke()`:  `error.status[404]` **Added**
-  * `authlete.clientManagement.clientAuthorizationDeleteApi()`: **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
