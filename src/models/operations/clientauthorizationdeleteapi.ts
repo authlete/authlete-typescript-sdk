@@ -20,21 +20,14 @@ export type ClientAuthorizationDeleteApiRequest = {
    *
    * @remarks
    */
-  subjectPathParameter: string;
-  /**
-   * Unique user ID of an end-user.
-   *
-   * @remarks
-   */
-  subjectQueryParameter: string;
+  subject: string;
 };
 
 /** @internal */
 export type ClientAuthorizationDeleteApiRequest$Outbound = {
   serviceId: string;
   clientId: string;
-  subjectPathParameter: string;
-  subjectQueryParameter: string;
+  subject: string;
 };
 
 /** @internal */
@@ -45,8 +38,7 @@ export const ClientAuthorizationDeleteApiRequest$outboundSchema: z.ZodType<
 > = z.object({
   serviceId: z.string(),
   clientId: z.string(),
-  subjectPathParameter: z.string(),
-  subjectQueryParameter: z.string(),
+  subject: z.string(),
 });
 
 export function clientAuthorizationDeleteApiRequestToJSON(

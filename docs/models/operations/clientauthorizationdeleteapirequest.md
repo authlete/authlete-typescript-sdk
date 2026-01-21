@@ -8,8 +8,7 @@ import { ClientAuthorizationDeleteApiRequest } from "@authlete/typescript-sdk/mo
 let value: ClientAuthorizationDeleteApiRequest = {
   serviceId: "<id>",
   clientId: "<id>",
-  subjectPathParameter: "<value>",
-  subjectQueryParameter: "<value>",
+  subject: "<value>",
 };
 ```
 
@@ -19,5 +18,4 @@ let value: ClientAuthorizationDeleteApiRequest = {
 | ------------------------------- | ------------------------------- | ------------------------------- | ------------------------------- |
 | `serviceId`                     | *string*                        | :heavy_check_mark:              | A service ID.                   |
 | `clientId`                      | *string*                        | :heavy_check_mark:              | A client ID.<br/>               |
-| `subjectPathParameter`          | *string*                        | :heavy_check_mark:              | Unique user ID of an end-user.<br/> |
-| `subjectQueryParameter`         | *string*                        | :heavy_check_mark:              | Unique user ID of an end-user.<br/> |
+| `subject`                       | *string*                        | :heavy_check_mark:              | Unique user ID of an end-user.<br/> |

@@ -3,7 +3,7 @@
  */
 
 import { AuthleteCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,16 +27,15 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete Client Tokens
+ * Delete Client Tokens (by Subject)
  *
  * @remarks
  * Delete all existing access tokens issued to a client application by an end-user.
- *
- * The subject parameter is required and can be provided either in the path or as a query parameter.
+ * In this variant, the subject is provided in the path.
  */
 export function clientManagementDeleteAuthorizations(
   client: AuthleteCore,
-  request: operations.ClientAuthorizationDeleteApiRequest,
+  request: operations.ClientAuthorizationDeleteBySubjectApiRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -61,7 +60,7 @@ export function clientManagementDeleteAuthorizations(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.ClientAuthorizationDeleteApiRequest,
+  request: operations.ClientAuthorizationDeleteBySubjectApiRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -83,9 +82,8 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.ClientAuthorizationDeleteApiRequest$outboundSchema.parse(
-        value,
-      ),
+      operations.ClientAuthorizationDeleteBySubjectApiRequest$outboundSchema
+        .parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -103,7 +101,7 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    subject: encodeSimple("subject", payload.subjectPathParameter, {
+    subject: encodeSimple("subject", payload.subject, {
       explode: false,
       charEncoding: "percent",
     }),
@@ -112,10 +110,6 @@ async function $do(
   const path = pathToFunc(
     "/api/{serviceId}/client/authorization/delete/{clientId}/{subject}",
   )(pathParams);
-
-  const query = encodeFormQuery({
-    "subject": payload.subjectQueryParameter,
-  });
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -128,7 +122,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "client_authorization_delete_api",
+    operationID: "client_authorization_delete_by_subject_api",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -146,7 +140,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,

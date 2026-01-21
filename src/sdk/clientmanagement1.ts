@@ -18,7 +18,7 @@ import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
-export class ClientManagement extends ClientSDK {
+export class ClientManagement1 extends ClientSDK {
   /**
    * Update Client Lock
    *
@@ -77,15 +77,14 @@ export class ClientManagement extends ClientSDK {
   }
 
   /**
-   * Get Authorized Applications
+   * Get Authorized Applications (by Subject)
    *
    * @remarks
    * Get a list of client applications that an end-user has authorized.
-   *
-   * The subject parameter is required and can be provided either in the path or as a query parameter.
+   * In this variant, the subject is provided in the path.
    */
   async listAuthorizations(
-    request: operations.ClientAuthorizationGetListApiRequest,
+    request: operations.ClientAuthorizationGetListBySubjectApiRequest,
     options?: RequestOptions,
   ): Promise<models.ClientAuthorizationGetListResponse> {
     return unwrapAsync(clientManagementListAuthorizations(
@@ -113,15 +112,14 @@ export class ClientManagement extends ClientSDK {
   }
 
   /**
-   * Delete Client Tokens
+   * Delete Client Tokens (by Subject)
    *
    * @remarks
    * Delete all existing access tokens issued to a client application by an end-user.
-   *
-   * The subject parameter is required and can be provided either in the path or as a query parameter.
+   * In this variant, the subject is provided in the path.
    */
   async deleteAuthorizations(
-    request: operations.ClientAuthorizationDeleteApiRequest,
+    request: operations.ClientAuthorizationDeleteBySubjectApiRequest,
     options?: RequestOptions,
   ): Promise<models.ClientAuthorizationDeleteResponse> {
     return unwrapAsync(clientManagementDeleteAuthorizations(
@@ -132,26 +130,14 @@ export class ClientManagement extends ClientSDK {
   }
 
   /**
-   * Get Granted Scopes
+   * Get Granted Scopes (by Subject)
    *
    * @remarks
    * Get the set of scopes that a user has granted to a client application.
-   * ### Description
-   * Possible values for `requestableScopes` parameter in the response from this API are as follows.
-   * **null**
-   * The user has not granted authorization to the client application in the past, or records about the
-   * combination of the user and the client application have been deleted from Authlete's DB.
-   * **An empty set**
-   * The user has granted authorization to the client application in the past, but no scopes are associated
-   * with the authorization.
-   * **A set with at least one element**
-   * The user has granted authorization to the client application in the past and some scopes are associated
-   * with the authorization. These scopes are returned.
-   * Example: `[ "profile", "email" ]`
-   * The subject parameter is required and can be provided either in the path or as a query parameter.
+   * In this variant, the subject is provided in the path.
    */
   async getGrantedScopes(
-    request: operations.ClientGrantedScopesGetApiRequest,
+    request: operations.ClientGrantedScopesGetBySubjectApiRequest,
     options?: RequestOptions,
   ): Promise<models.ClientAuthorizationDeleteResponse> {
     return unwrapAsync(clientManagementGetGrantedScopes(
@@ -162,17 +148,14 @@ export class ClientManagement extends ClientSDK {
   }
 
   /**
-   * Delete Granted Scopes
+   * Delete Granted Scopes (by Subject)
    *
    * @remarks
    * Delete the set of scopes that an end-user has granted to a client application.
-   * ### Description
-   * Even if records about granted scopes are deleted by calling this API, existing access tokens are
-   * not deleted and scopes of existing access tokens are not changed.
-   * The subject parameter is required and can be provided either in the path or as a query parameter.
+   * In this variant, the subject is provided in the path.
    */
   async deleteGrantedScopes(
-    request: operations.ClientGrantedScopesDeleteApiRequest,
+    request: operations.ClientGrantedScopesDeleteBySubjectApiRequest,
     options?: RequestOptions,
   ): Promise<models.ClientGrantedScopesDeleteResponse> {
     return unwrapAsync(clientManagementDeleteGrantedScopes(

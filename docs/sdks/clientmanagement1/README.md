@@ -7,11 +7,11 @@
 * [updateLockFlag](#updatelockflag) - Update Client Lock
 * [refreshSecret](#refreshsecret) - Rotate Client Secret
 * [updateSecret](#updatesecret) - Update Client Secret
-* [listAuthorizations](#listauthorizations) - Get Authorized Applications
+* [listAuthorizations](#listauthorizations) - Get Authorized Applications (by Subject)
 * [updateAuthorizations](#updateauthorizations) - Update Client Tokens
-* [deleteAuthorizations](#deleteauthorizations) - Delete Client Tokens
-* [getGrantedScopes](#getgrantedscopes) - Get Granted Scopes
-* [deleteGrantedScopes](#deletegrantedscopes) - Delete Granted Scopes
+* [deleteAuthorizations](#deleteauthorizations) - Delete Client Tokens (by Subject)
+* [getGrantedScopes](#getgrantedscopes) - Get Granted Scopes (by Subject)
+* [deleteGrantedScopes](#deletegrantedscopes) - Delete Granted Scopes (by Subject)
 * [getRequestableScopes](#getrequestablescopes) - Get Requestable Scopes
 * [updateRequestableScopes](#updaterequestablescopes) - Update Requestable Scopes
 * [deleteRequestableScopes](#deleterequestablescopes) - Delete Requestable Scopes
@@ -271,13 +271,12 @@ run();
 ## listAuthorizations
 
 Get a list of client applications that an end-user has authorized.
-
-The subject parameter is required and can be provided either in the path or as a query parameter.
+In this variant, the subject is provided in the path.
 
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="client_authorization_get_list_api" method="get" path="/api/{serviceId}/client/authorization/get/list/{subject}" -->
+<!-- UsageSnippet language="typescript" operationID="client_authorization_get_list_by_subject_api" method="get" path="/api/{serviceId}/client/authorization/get/list/{subject}" -->
 ```typescript
 import { Authlete } from "@authlete/typescript-sdk";
 
@@ -288,8 +287,7 @@ const authlete = new Authlete({
 async function run() {
   const result = await authlete.client.management.listAuthorizations({
     serviceId: "<id>",
-    subjectPathParameter: "<value>",
-    subjectQueryParameter: "<value>",
+    subject: "<value>",
   });
 
   console.log(result);
@@ -315,8 +313,7 @@ const authlete = new AuthleteCore({
 async function run() {
   const res = await clientManagementListAuthorizations(authlete, {
     serviceId: "<id>",
-    subjectPathParameter: "<value>",
-    subjectQueryParameter: "<value>",
+    subject: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -333,7 +330,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ClientAuthorizationGetListApiRequest](../../models/operations/clientauthorizationgetlistapirequest.md)                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ClientAuthorizationGetListBySubjectApiRequest](../../models/operations/clientauthorizationgetlistbysubjectapirequest.md)                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -443,13 +440,12 @@ run();
 ## deleteAuthorizations
 
 Delete all existing access tokens issued to a client application by an end-user.
-
-The subject parameter is required and can be provided either in the path or as a query parameter.
+In this variant, the subject is provided in the path.
 
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="client_authorization_delete_api" method="delete" path="/api/{serviceId}/client/authorization/delete/{clientId}/{subject}" -->
+<!-- UsageSnippet language="typescript" operationID="client_authorization_delete_by_subject_api" method="delete" path="/api/{serviceId}/client/authorization/delete/{clientId}/{subject}" -->
 ```typescript
 import { Authlete } from "@authlete/typescript-sdk";
 
@@ -461,8 +457,7 @@ async function run() {
   const result = await authlete.client.management.deleteAuthorizations({
     serviceId: "<id>",
     clientId: "<id>",
-    subjectPathParameter: "<value>",
-    subjectQueryParameter: "<value>",
+    subject: "<value>",
   });
 
   console.log(result);
@@ -489,8 +484,7 @@ async function run() {
   const res = await clientManagementDeleteAuthorizations(authlete, {
     serviceId: "<id>",
     clientId: "<id>",
-    subjectPathParameter: "<value>",
-    subjectQueryParameter: "<value>",
+    subject: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -507,7 +501,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ClientAuthorizationDeleteApiRequest](../../models/operations/clientauthorizationdeleteapirequest.md)                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ClientAuthorizationDeleteBySubjectApiRequest](../../models/operations/clientauthorizationdeletebysubjectapirequest.md)                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -527,24 +521,12 @@ run();
 ## getGrantedScopes
 
 Get the set of scopes that a user has granted to a client application.
-### Description
-Possible values for `requestableScopes` parameter in the response from this API are as follows.
-**null**
-The user has not granted authorization to the client application in the past, or records about the
-combination of the user and the client application have been deleted from Authlete's DB.
-**An empty set**
-The user has granted authorization to the client application in the past, but no scopes are associated
-with the authorization.
-**A set with at least one element**
-The user has granted authorization to the client application in the past and some scopes are associated
-with the authorization. These scopes are returned.
-Example: `[ "profile", "email" ]`
-The subject parameter is required and can be provided either in the path or as a query parameter.
+In this variant, the subject is provided in the path.
 
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="client_granted_scopes_get_api" method="get" path="/api/{serviceId}/client/granted_scopes/get/{clientId}/{subject}" -->
+<!-- UsageSnippet language="typescript" operationID="client_granted_scopes_get_by_subject_api" method="get" path="/api/{serviceId}/client/granted_scopes/get/{clientId}/{subject}" -->
 ```typescript
 import { Authlete } from "@authlete/typescript-sdk";
 
@@ -554,10 +536,9 @@ const authlete = new Authlete({
 
 async function run() {
   const result = await authlete.client.management.getGrantedScopes({
-    serviceId: "715948317",
-    clientId: "1140735077",
-    subjectPathParameter: "<value>",
-    subjectQueryParameter: "<value>",
+    serviceId: "<id>",
+    clientId: "<id>",
+    subject: "<value>",
   });
 
   console.log(result);
@@ -582,10 +563,9 @@ const authlete = new AuthleteCore({
 
 async function run() {
   const res = await clientManagementGetGrantedScopes(authlete, {
-    serviceId: "715948317",
-    clientId: "1140735077",
-    subjectPathParameter: "<value>",
-    subjectQueryParameter: "<value>",
+    serviceId: "<id>",
+    clientId: "<id>",
+    subject: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -602,7 +582,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ClientGrantedScopesGetApiRequest](../../models/operations/clientgrantedscopesgetapirequest.md)                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ClientGrantedScopesGetBySubjectApiRequest](../../models/operations/clientgrantedscopesgetbysubjectapirequest.md)                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -622,15 +602,12 @@ run();
 ## deleteGrantedScopes
 
 Delete the set of scopes that an end-user has granted to a client application.
-### Description
-Even if records about granted scopes are deleted by calling this API, existing access tokens are
-not deleted and scopes of existing access tokens are not changed.
-The subject parameter is required and can be provided either in the path or as a query parameter.
+In this variant, the subject is provided in the path.
 
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="client_granted_scopes_delete_api" method="delete" path="/api/{serviceId}/client/granted_scopes/delete/{clientId}/{subject}" -->
+<!-- UsageSnippet language="typescript" operationID="client_granted_scopes_delete_by_subject_api" method="delete" path="/api/{serviceId}/client/granted_scopes/delete/{clientId}/{subject}" -->
 ```typescript
 import { Authlete } from "@authlete/typescript-sdk";
 
@@ -642,8 +619,7 @@ async function run() {
   const result = await authlete.client.management.deleteGrantedScopes({
     serviceId: "<id>",
     clientId: "<id>",
-    subjectPathParameter: "<value>",
-    subjectQueryParameter: "<value>",
+    subject: "<value>",
   });
 
   console.log(result);
@@ -670,8 +646,7 @@ async function run() {
   const res = await clientManagementDeleteGrantedScopes(authlete, {
     serviceId: "<id>",
     clientId: "<id>",
-    subjectPathParameter: "<value>",
-    subjectQueryParameter: "<value>",
+    subject: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -688,7 +663,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ClientGrantedScopesDeleteApiRequest](../../models/operations/clientgrantedscopesdeleteapirequest.md)                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.ClientGrantedScopesDeleteBySubjectApiRequest](../../models/operations/clientgrantedscopesdeletebysubjectapirequest.md)                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

@@ -1,4 +1,4 @@
-# ClientSource
+# ClientClientSource
 
 Source of this client record.
 
@@ -6,9 +6,9 @@ Source of this client record.
 ## Example Usage
 
 ```typescript
-import { ClientSource } from "@authlete/typescript-sdk/models";
+import { ClientClientSource } from "@authlete/typescript-sdk/models";
 
-let value: ClientSource = "STATIC_REGISTRATION";
+let value: ClientClientSource = "STATIC_REGISTRATION";
 ```
 
 ## Values

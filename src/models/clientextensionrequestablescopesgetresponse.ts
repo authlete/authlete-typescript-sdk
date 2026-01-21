@@ -8,7 +8,12 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ClientExtensionRequestableScopesGetResponse = {
-  requestableScopes?: Array<string> | undefined;
+  /**
+   * The requestable scopes for this client. This is null if the Requestable Scopes per Client feature is not enabled for this client.
+   *
+   * @remarks
+   */
+  requestableScopes?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -18,7 +23,7 @@ export const ClientExtensionRequestableScopesGetResponse$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    requestableScopes: z.array(z.string()).optional(),
+    requestableScopes: z.nullable(z.array(z.string())).optional(),
   });
 
 export function clientExtensionRequestableScopesGetResponseFromJSON(

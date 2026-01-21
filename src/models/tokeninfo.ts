@@ -11,6 +11,7 @@ import {
 } from "./authorizationdetailselement.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Property, Property$inboundSchema } from "./property.js";
+import { Scope, Scope$inboundSchema } from "./scope.js";
 
 export type TokenInfo = {
   /**
@@ -32,7 +33,7 @@ export type TokenInfo = {
   /**
    * The scopes granted on the token
    */
-  scopes?: Array<string> | undefined;
+  scopes?: Array<Scope> | undefined;
   /**
    * time which the token expires.
    */
@@ -86,7 +87,7 @@ export const TokenInfo$inboundSchema: z.ZodType<
   clientIdAlias: z.string().optional(),
   clientIdAliasUsed: z.boolean().optional(),
   subject: z.string().optional(),
-  scopes: z.array(z.string()).optional(),
+  scopes: z.array(Scope$inboundSchema).optional(),
   expiresAt: z.number().int().optional(),
   properties: z.array(Property$inboundSchema).optional(),
   resources: z.array(z.string()).optional(),

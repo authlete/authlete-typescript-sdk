@@ -4,10 +4,32 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { ClientType, ClientType$inboundSchema } from "./clienttype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { TaggedValue, TaggedValue$inboundSchema } from "./taggedvalue.js";
+
+/**
+ * Source of this client record.
+ *
+ * @remarks
+ */
+export const ClientLimitedAuthorizationClientSource = {
+  DynamicRegistration: "DYNAMIC_REGISTRATION",
+  AutomaticRegistration: "AUTOMATIC_REGISTRATION",
+  ExplicitRegistration: "EXPLICIT_REGISTRATION",
+  MetadataDocument: "METADATA_DOCUMENT",
+  StaticRegistration: "STATIC_REGISTRATION",
+} as const;
+/**
+ * Source of this client record.
+ *
+ * @remarks
+ */
+export type ClientLimitedAuthorizationClientSource = ClosedEnum<
+  typeof ClientLimitedAuthorizationClientSource
+>;
 
 export type ClientLimitedAuthorization = {
   /**
@@ -113,7 +135,282 @@ export type ClientLimitedAuthorization = {
    * If the client application has different policy pages for different languages, this property can be used to register the URLs.
    */
   policyUris?: Array<TaggedValue> | undefined;
+  /**
+   * The sequential number of the service of the client application. The value of this property is
+   *
+   * @remarks
+   * assigned by Authlete.
+   */
+  serviceNumber?: number | undefined;
+  /**
+   * The default maximum authentication age in seconds. This value is used when an authorization request from the client application does not have `max_age` request parameter.
+   *
+   * @remarks
+   *
+   * This property corresponds to `default_max_age` in
+   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   */
+  defaultMaxAge?: number | undefined;
+  /**
+   * The flag to indicate whether this client requires `auth_time` claim to be embedded in the ID token.
+   *
+   * @remarks
+   *
+   * This property corresponds to `require_auth_time` in
+   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   */
+  authTimeRequired?: boolean | undefined;
+  /**
+   * The time at which this client was created. The value is represented as milliseconds since the UNIX epoch (1970-01-01).
+   */
+  createdAt?: number | undefined;
+  /**
+   * The time at which this client was last modified. The value is represented as milliseconds since the UNIX epoch (1970-01-01).
+   */
+  modifiedAt?: number | undefined;
+  /**
+   * The flag to indicate whether this client use TLS client certificate bound access tokens.
+   *
+   * @remarks
+   */
+  tlsClientCertificateBoundAccessTokens?: boolean | undefined;
+  /**
+   * The boolean flag to indicate whether a user code is required when this client makes a backchannel
+   *
+   * @remarks
+   * authentication request.
+   *
+   * This property corresponds to the `backchannel_user_code_parameter` metadata.
+   */
+  bcUserCodeRequired?: boolean | undefined;
+  /**
+   * The flag to indicate whether this client has been registered dynamically.
+   *
+   * @remarks
+   * For more details, see [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
+   */
+  dynamicallyRegistered?: boolean | undefined;
+  /**
+   * The flag to indicate whether this client is required to use the pushed authorization request endpoint.
+   *
+   * @remarks
+   * This property corresponds to the `require_pushed_authorization_requests` client metadata defined
+   * in "OAuth 2.0 Pushed Authorization Requests".
+   */
+  parRequired?: boolean | undefined;
+  /**
+   * The flag to indicate whether authorization requests from this client are always required to
+   *
+   * @remarks
+   * utilize a request object by using either `request` or `request_uri` request parameter.
+   *
+   * If this flag is set to `true` and the service's `traditionalRequestObjectProcessingApplied` is
+   * set to `false`, authorization requests from this client are processed as if `require_signed_request_object`
+   * client metadata of this client is `true`. The metadata is defined in "JAR (JWT Secured Authorization Request)".
+   */
+  requestObjectRequired?: boolean | undefined;
+  /**
+   * The flag indicating whether encryption of request object is required when the request object
+   *
+   * @remarks
+   * is passed through the front channel.
+   *
+   * This flag does not affect the processing of request objects at the Pushed Authorization Request
+   * Endpoint, which is defined in [OAuth 2.0 Pushed Authorization Requests](https://datatracker.ietf.org/doc/rfc9126/).
+   * Unecrypted request objects are accepted at the endpoint even if this flag is `true`.
+   *
+   * This flag does not indicate whether a request object is always required. There is a different
+   * flag, `requestObjectRequired`, for the purpose.
+   *
+   * Even if this flag is `false`, encryption of request object is required if the `frontChannelRequestObjectEncryptionRequired`
+   * flag of the service is `true`.
+   */
+  frontChannelRequestObjectEncryptionRequired?: boolean | undefined;
+  /**
+   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg`
+   *
+   * @remarks
+   * client metadata.
+   *
+   * The `request_object_encryption_alg` client metadata itself is defined in [OpenID Connect Dynamic
+   * Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html) as follows.
+   *
+   * > request_object_encryption_alg
+   * >
+   * > OPTIONAL. JWE [JWE] alg algorithm [JWA] the RP is declaring that it may use for encrypting Request
+   *   Objects sent to the OP. This parameter SHOULD be included when symmetric encryption will be used,
+   *   since this signals to the OP that a client_secret value needs to be returned from which the
+   *   symmetric key will be derived, that might not otherwise be returned. The RP MAY still use other
+   *   supported encryption algorithms or send unencrypted Request Objects, even when this parameter
+   *   is present. If both signing and encryption are requested, the Request Object will be signed
+   *   then encrypted, with the result being a Nested JWT, as defined in [JWT]. The default, if omitted,
+   *   is that the RP is not declaring whether it might encrypt any Request Objects.
+   *
+   * The point here is "The RP MAY still use other supported encryption algorithms or send unencrypted
+   * Request Objects, even when this parameter is present."
+   *
+   * The property that represents the client metadata is `requestEncryptionAlg`. See the description
+   * of `requestEncryptionAlg` for details.
+   *
+   * Even if this flag is `false`, the match is required if the `requestObjectEncryptionAlgMatchRequired`
+   * flag of the service is `true`.
+   */
+  requestObjectEncryptionAlgMatchRequired?: boolean | undefined;
+  /**
+   * The flag indicating whether the JWE enc of encrypted request object must match the `request_object_encryption_enc`
+   *
+   * @remarks
+   * client metadata.
+   *
+   * The `request_object_encryption_enc` client metadata itself is defined in [OpenID Connect Dynamic
+   * Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html) as follows.
+   *
+   * > request_object_encryption_enc
+   * >
+   * > OPTIONAL. JWE enc algorithm [JWA] the RP is declaring that it may use for encrypting Request
+   *   Objects sent to the OP. If request_object_encryption_alg is specified, the default for this
+   *   value is A128CBC-HS256. When request_object_encryption_enc is included, request_object_encryption_alg
+   *   MUST also be provided.
+   *
+   * The property that represents the client metadata is `requestEncryptionEnc`. See the description
+   * of `requestEncryptionEnc`  for details.
+   *
+   * Even if this flag is `false`, the match is required if the `requestObjectEncryptionEncMatchRequired`
+   * flag of the service is `true`.
+   */
+  requestObjectEncryptionEncMatchRequired?: boolean | undefined;
+  /**
+   * If `Enabled` is selected, an attempt to issue a new access token invalidates existing access tokens that are associated with the same combination of subject and client.
+   *
+   * @remarks
+   *
+   * Note that, however, attempts by Client Credentials Flow do not invalidate existing access tokens because access tokens issued by Client Credentials Flow are not associated with any end-user's subject.
+   *
+   * Even if `Disabled` is selected here, single access token per subject is effective if `singleAccessTokenPerSubject` of the `Service` this client belongs to is Enabled.
+   */
+  singleAccessTokenPerSubject?: boolean | undefined;
+  /**
+   * The flag to indicate whether the use of Proof Key for Code Exchange (PKCE) is always required for authorization requests by Authorization Code Flow.
+   *
+   * @remarks
+   *
+   * If `true`, `code_challenge` request parameter is always required for authorization requests using Authorization Code Flow.
+   *
+   * See [RFC 7636](https://tools.ietf.org/html/rfc7636) (Proof Key for Code Exchange by OAuth Public Clients) for details about `code_challenge` request parameter.
+   */
+  pkceRequired?: boolean | undefined;
+  /**
+   * The flag to indicate whether `S256` is always required as the code challenge method whenever [PKCE (RFC 7636)](https://tools.ietf.org/html/rfc7636) is used.
+   *
+   * @remarks
+   *
+   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request
+   * whenever it includes the `code_challenge` request parameter.
+   * Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
+   */
+  pkceS256Required?: boolean | undefined;
+  /**
+   * The flag indicating whether this service signs responses from the resource server.
+   *
+   * @remarks
+   */
+  rsRequestSigned?: boolean | undefined;
+  /**
+   * If the DPoP is required for this client
+   *
+   * @remarks
+   */
+  dpopRequired?: boolean | undefined;
+  /**
+   * The flag which indicates whether this client is locked.
+   *
+   * @remarks
+   */
+  locked?: boolean | undefined;
+  /**
+   * The flag indicating whether the client intends to prefer mutual TLS endpoints over non-MTLS endpoints.
+   *
+   * @remarks
+   *
+   * This property corresponds to the `use_mtls_endpoint_aliases` client metadata that is defined in
+   * [FAPI 2.0 Security Profile, 8.1.1. use_mtls_endpoint_aliases](https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html#section-8.1.1).
+   */
+  mtlsEndpointAliasesUsed?: boolean | undefined;
+  /**
+   * The flag indicating whether this client is in scope for token migration
+   *
+   * @remarks
+   * operations.
+   */
+  inScopeForTokenMigration?: boolean | undefined;
+  /**
+   * the expiration time of the trust chain that was used when this client was registered or updated by the mechanism
+   *
+   * @remarks
+   * defined in OpenID Connect Federation 1.0. The value is represented as milliseconds elapsed since the Unix epoch (1970-01-01).
+   */
+  trustChainExpiresAt?: number | undefined;
+  /**
+   * the time at which the trust chain was updated by the mechanism defined in OpenID Connect Federation 1.0
+   *
+   * @remarks
+   */
+  trustChainUpdatedAt?: number | undefined;
+  /**
+   * The flag indicating whether this client was registered by the
+   *
+   * @remarks
+   * "automatic" client registration of OIDC Federation.
+   */
+  automaticallyRegistered?: boolean | undefined;
+  /**
+   * The flag indicating whether this client was registered by the
+   *
+   * @remarks
+   * "explicit" client registration of OIDC Federation.
+   */
+  explicitlyRegistered?: boolean | undefined;
+  /**
+   * True if credential responses to this client must be always encrypted.
+   */
+  credentialResponseEncryptionRequired?: boolean | undefined;
+  /**
+   * Expiration time of the metadata document (UNIX time in milliseconds).
+   *
+   * @remarks
+   */
+  metadataDocumentExpiresAt?: number | undefined;
+  /**
+   * Last-updated time of the metadata document (UNIX time in milliseconds).
+   *
+   * @remarks
+   */
+  metadataDocumentUpdatedAt?: number | undefined;
+  /**
+   * Indicates whether this client was discovered via a Client ID Metadata Document.
+   *
+   * @remarks
+   */
+  discoveredByMetadataDocument?: boolean | undefined;
+  /**
+   * Source of this client record.
+   *
+   * @remarks
+   */
+  clientSource?: ClientLimitedAuthorizationClientSource | undefined;
+  /**
+   * the entity ID of this client.
+   *
+   * @remarks
+   */
+  entityId?: string | undefined;
 };
+
+/** @internal */
+export const ClientLimitedAuthorizationClientSource$inboundSchema:
+  z.ZodNativeEnum<typeof ClientLimitedAuthorizationClientSource> = z.nativeEnum(
+    ClientLimitedAuthorizationClientSource,
+  );
 
 /** @internal */
 export const ClientLimitedAuthorization$inboundSchema: z.ZodType<
@@ -136,6 +433,37 @@ export const ClientLimitedAuthorization$inboundSchema: z.ZodType<
   tosUris: z.array(TaggedValue$inboundSchema).optional(),
   policyUri: z.string().optional(),
   policyUris: z.array(TaggedValue$inboundSchema).optional(),
+  serviceNumber: z.number().int().optional(),
+  defaultMaxAge: z.number().int().optional(),
+  authTimeRequired: z.boolean().optional(),
+  createdAt: z.number().int().optional(),
+  modifiedAt: z.number().int().optional(),
+  tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
+  bcUserCodeRequired: z.boolean().optional(),
+  dynamicallyRegistered: z.boolean().optional(),
+  parRequired: z.boolean().optional(),
+  requestObjectRequired: z.boolean().optional(),
+  frontChannelRequestObjectEncryptionRequired: z.boolean().optional(),
+  requestObjectEncryptionAlgMatchRequired: z.boolean().optional(),
+  requestObjectEncryptionEncMatchRequired: z.boolean().optional(),
+  singleAccessTokenPerSubject: z.boolean().optional(),
+  pkceRequired: z.boolean().optional(),
+  pkceS256Required: z.boolean().optional(),
+  rsRequestSigned: z.boolean().optional(),
+  dpopRequired: z.boolean().optional(),
+  locked: z.boolean().optional(),
+  mtlsEndpointAliasesUsed: z.boolean().optional(),
+  inScopeForTokenMigration: z.boolean().optional(),
+  trustChainExpiresAt: z.number().int().optional(),
+  trustChainUpdatedAt: z.number().int().optional(),
+  automaticallyRegistered: z.boolean().optional(),
+  explicitlyRegistered: z.boolean().optional(),
+  credentialResponseEncryptionRequired: z.boolean().optional(),
+  metadataDocumentExpiresAt: z.number().int().optional(),
+  metadataDocumentUpdatedAt: z.number().int().optional(),
+  discoveredByMetadataDocument: z.boolean().optional(),
+  clientSource: ClientLimitedAuthorizationClientSource$inboundSchema.optional(),
+  entityId: z.string().optional(),
 });
 
 export function clientLimitedAuthorizationFromJSON(

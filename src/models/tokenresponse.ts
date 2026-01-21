@@ -24,6 +24,8 @@ export const TokenResponseAction = {
   Ok: "OK",
   TokenExchange: "TOKEN_EXCHANGE",
   JwtBearer: "JWT_BEARER",
+  NativeSso: "NATIVE_SSO",
+  IdTokenReissuable: "ID_TOKEN_REISSUABLE",
 } as const;
 /**
  * The next action that the authorization server implementation should take.
@@ -187,6 +189,12 @@ export type TokenResponse = {
    * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
+  /**
+   * Additional claims to be embedded in an ID token.
+   *
+   * @remarks
+   */
+  additionalClaims?: string | undefined;
   /**
    * The attributes of this service that the client application belongs to.
    *
@@ -399,6 +407,7 @@ export const TokenResponse$inboundSchema: z.ZodType<
   resources: z.array(z.string()).optional(),
   accessTokenResources: z.array(z.string()).optional(),
   authorizationDetails: AuthzDetails$inboundSchema.optional(),
+  additionalClaims: z.string().optional(),
   serviceAttributes: z.array(Pair$inboundSchema).optional(),
   clientAttributes: z.array(Pair$inboundSchema).optional(),
   clientAuthMethod: z.string().optional(),

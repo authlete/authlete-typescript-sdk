@@ -27,16 +27,15 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get Authorized Applications
+ * Get Authorized Applications (by Subject)
  *
  * @remarks
  * Get a list of client applications that an end-user has authorized.
- *
- * The subject parameter is required and can be provided either in the path or as a query parameter.
+ * In this variant, the subject is provided in the path.
  */
 export function clientManagementListAuthorizations(
   client: AuthleteCore,
-  request: operations.ClientAuthorizationGetListApiRequest,
+  request: operations.ClientAuthorizationGetListBySubjectApiRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -61,7 +60,7 @@ export function clientManagementListAuthorizations(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.ClientAuthorizationGetListApiRequest,
+  request: operations.ClientAuthorizationGetListBySubjectApiRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -83,9 +82,8 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.ClientAuthorizationGetListApiRequest$outboundSchema.parse(
-        value,
-      ),
+      operations.ClientAuthorizationGetListBySubjectApiRequest$outboundSchema
+        .parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -99,7 +97,7 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    subject: encodeSimple("subject", payload.subjectPathParameter, {
+    subject: encodeSimple("subject", payload.subject, {
       explode: false,
       charEncoding: "percent",
     }),
@@ -113,7 +111,6 @@ async function $do(
     "developer": payload.developer,
     "end": payload.end,
     "start": payload.start,
-    "subject": payload.subjectQueryParameter,
   });
 
   const headers = new Headers(compactMap({
@@ -127,7 +124,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "client_authorization_get_list_api",
+    operationID: "client_authorization_get_list_by_subject_api",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,

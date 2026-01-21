@@ -14,13 +14,7 @@ export type ClientAuthorizationGetListApiRequest = {
    *
    * @remarks
    */
-  subjectPathParameter: string;
-  /**
-   * Unique user ID of an end-user.
-   *
-   * @remarks
-   */
-  subjectQueryParameter: string;
+  subject: string;
   /**
    * Unique ID of a client developer.
    *
@@ -42,8 +36,7 @@ export type ClientAuthorizationGetListApiRequest = {
 /** @internal */
 export type ClientAuthorizationGetListApiRequest$Outbound = {
   serviceId: string;
-  subjectPathParameter: string;
-  subjectQueryParameter: string;
+  subject: string;
   developer?: string | undefined;
   start?: number | undefined;
   end?: number | undefined;
@@ -56,8 +49,7 @@ export const ClientAuthorizationGetListApiRequest$outboundSchema: z.ZodType<
   ClientAuthorizationGetListApiRequest
 > = z.object({
   serviceId: z.string(),
-  subjectPathParameter: z.string(),
-  subjectQueryParameter: z.string(),
+  subject: z.string(),
   developer: z.string().optional(),
   start: z.number().int().optional(),
   end: z.number().int().optional(),
