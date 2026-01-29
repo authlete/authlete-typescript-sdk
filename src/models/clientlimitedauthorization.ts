@@ -375,6 +375,13 @@ export type ClientLimitedAuthorization = {
    */
   credentialResponseEncryptionRequired?: boolean | undefined;
   /**
+   * Location of the Client ID Metadata Document that was used for this client.
+   *
+   * @remarks
+   * This property is set when client metadata was retrieved via the OAuth Client ID Metadata Document (CIMD) mechanism.
+   */
+  metadataDocumentLocation?: string | undefined;
+  /**
    * Expiration time of the metadata document (UNIX time in milliseconds).
    *
    * @remarks
@@ -459,6 +466,7 @@ export const ClientLimitedAuthorization$inboundSchema: z.ZodType<
   automaticallyRegistered: z.boolean().optional(),
   explicitlyRegistered: z.boolean().optional(),
   credentialResponseEncryptionRequired: z.boolean().optional(),
+  metadataDocumentLocation: z.string().optional(),
   metadataDocumentExpiresAt: z.number().int().optional(),
   metadataDocumentUpdatedAt: z.number().int().optional(),
   discoveredByMetadataDocument: z.boolean().optional(),

@@ -1,24 +1,24 @@
 lockVersion: 2.0.0
 id: b46c9081-6a59-4f57-9207-8f7715e429dc
 management:
-  docChecksum: 2eb198d60fbff66e28df08b08113bb28
+  docChecksum: 3a4e84c87697babb874d300af039b238
   docVersion: 3.0.16
-  speakeasyVersion: 1.691.0
-  generationVersion: 2.797.1
-  releaseVersion: 0.0.8-beta
-  configChecksum: 9fcf8b453313c6708f005f2b5f38a1ce
+  speakeasyVersion: 1.700.2
+  generationVersion: 2.801.2
+  releaseVersion: 0.0.9-beta
+  configChecksum: f0d1585bb5d1c103c9d0b239e03b5d9a
   repoURL: https://github.com/authlete/authlete-typescript-sdk.git
   installationURL: https://github.com/authlete/authlete-typescript-sdk
   published: true
 persistentEdits:
-  generation_id: cf9ac5a1-bed2-46d9-993c-84e54be07bce
-  pristine_commit_hash: e776ba82da45f5a928fccc77ce2fa2b9304e4740
-  pristine_tree_hash: a7a6dbd79bffe42701d8fffa92c921d6b6ab4b29
+  generation_id: 28c15ed4-bb04-4f92-8dc6-32e680002cc0
+  pristine_commit_hash: 7ac0a92902a3d4041c72c3c324c9ad937e19071a
+  pristine_tree_hash: a0a9309bf5e184d01ab3944fdf634c3be6bed5a6
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.3
-    core: 3.26.22
+    core: 3.26.23
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -122,8 +122,8 @@ trackedFiles:
     pristine_git_object: 4077a8c77929a07d0ee474eb688846ff9b20036c
   docs/models/authorizationresponse.md:
     id: 30d5263c7784
-    last_write_checksum: sha1:a072d03c52fdf9973625777c9554431ec517ea65
-    pristine_git_object: a48a5f6161fd67fbf5ee374a91e66ea93c52bd82
+    last_write_checksum: sha1:7a4159c857034a49e1e9f664d147e8de63252842
+    pristine_git_object: 61ea05f416e68cf294467870c39375f99ae0774b
   docs/models/authorizationresponseaction.md:
     id: b1d488fc8c66
     last_write_checksum: sha1:762ae45d899574d35b41be26157ddd0deb48c2ea
@@ -302,8 +302,8 @@ trackedFiles:
     pristine_git_object: c3e985f9f91e1ae58c02f951cb7214517cf8aef3
   docs/models/clientlimitedauthorization.md:
     id: eb567797a445
-    last_write_checksum: sha1:6978350328b5c366930e4560bd03ed546ca388d0
-    pristine_git_object: c3cbd47788faf9b57806ea9c9d0e76465a551142
+    last_write_checksum: sha1:2b7b78c7c421e7a75f1c445183f2c8914a5515c6
+    pristine_git_object: b0b016729accc6b87faa93877a0390e5103687d9
   docs/models/clientlimitedauthorizationclientsource.md:
     id: 6bcb32008a57
     last_write_checksum: sha1:6e08780ea8bda55e4cc07e290d71795406edf5af
@@ -1434,12 +1434,12 @@ trackedFiles:
     pristine_git_object: 2f7b714bbe12442f6ed257ace618d48767cf552c
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:12f636edf5fb95dbcc4f87f87aac94b2ca26b10d
-    pristine_git_object: 8e03d6842ed56cb7db91efe13f8cfdba6363dc37
+    last_write_checksum: sha1:be4124215d1d3420812d36f23b75980be10de971
+    pristine_git_object: e0b616ad77bce08796e1a56f113834530394dd21
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:acdb2bc6c00f43c89669fc2f2781593c41b6b4b9
-    pristine_git_object: ab453241e5459fb377179aa7f6048b4c047bf972
+    last_write_checksum: sha1:b7be8ff344cf6ea51f19daeffa536e7549a4cfc8
+    pristine_git_object: 6b34151b2354a612d9d57e8f1064d35d132d4541
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d2e0ad6b984b5be0cd66f84e06b451806539d6d0
@@ -1814,8 +1814,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:5a017f6f7ca91eb27751adcfffaea9fd89596b7d
-    pristine_git_object: b55657319d56035782612ec849ec2e3cf4ecb011
+    last_write_checksum: sha1:4aae8765b587714f69c133dc3f3975b6bf403b8b
+    pristine_git_object: e44c772469a1daef4a8887265af091cb35af4b2e
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -1910,8 +1910,8 @@ trackedFiles:
     pristine_git_object: 1341067dc7a154d440876b7b7fe29c969f5b39db
   src/models/authorizationresponse.ts:
     id: 97326c241f9a
-    last_write_checksum: sha1:f4abb194074b62a0e6b788b297e59ce2b527dba3
-    pristine_git_object: 893968db9bc74cc944075820dededbddc3fb4327
+    last_write_checksum: sha1:eadce3eff6a5e03c8d9fc558730b4f5fb7575960
+    pristine_git_object: 8061a0dc51dd289badcaa933a31ad00a7319f38b
   src/models/authorizationticketinfo.ts:
     id: d01753009a97
     last_write_checksum: sha1:b5ca01cf447874013637dab18418733ba9a03d8e
@@ -2042,8 +2042,8 @@ trackedFiles:
     pristine_git_object: d443b56ecb888d382a32fa8f565ba83044a8d7d2
   src/models/clientlimitedauthorization.ts:
     id: 55f15023d21a
-    last_write_checksum: sha1:01ec574e7e2e6f66dab8eeffae5e0265c8c5f2eb
-    pristine_git_object: aa6733f17abffe51f82187b31d411234ad886ceb
+    last_write_checksum: sha1:405cdccf1ebc02c1a5b9e275ea1638fdb0a61977
+    pristine_git_object: 37be69cd81385d7e36e93ef80312b44607a0e71f
   src/models/clientregistrationresponse.ts:
     id: f66184308256
     last_write_checksum: sha1:c5b6084ba40b7c50565389be43460d043f62bc3e
@@ -4302,6 +4302,9 @@ examples:
         "200":
           text/plain: "<value>"
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `authlete.authorization.processRequest()`:  `response` **Changed** **Breaking** ⚠️
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
