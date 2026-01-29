@@ -1,21 +1,21 @@
-speakeasyVersion: 1.691.0
+speakeasyVersion: 1.700.2
 sources:
     Authlete API Explorer:
         sourceNamespace: authlete-api-explorer
-        sourceRevisionDigest: sha256:c2f8e85f1f3eb9e20bb9d9f0458542c20a18cb0a1deae8da889252ef7e361ff7
-        sourceBlobDigest: sha256:5b36101f09c9bd86a8356fff5d0b4bdd34b7207f21273202d0f6df64a117192c
+        sourceRevisionDigest: sha256:ea3aaa8f932c51803f472f3799b310657fc5721aa0ab657e2cc06a13f70f9482
+        sourceBlobDigest: sha256:57e95030ce7d309271c12a96f663b45af25747a37226f2d60f011d14e7b96999
         tags:
             - latest
-            - speakeasy-sdk-regen-1768983876
+            - speakeasy-sdk-regen-1769130004
             - 3.0.16
 targets:
     authlete:
         source: Authlete API Explorer
         sourceNamespace: authlete-api-explorer
-        sourceRevisionDigest: sha256:c2f8e85f1f3eb9e20bb9d9f0458542c20a18cb0a1deae8da889252ef7e361ff7
-        sourceBlobDigest: sha256:5b36101f09c9bd86a8356fff5d0b4bdd34b7207f21273202d0f6df64a117192c
+        sourceRevisionDigest: sha256:ea3aaa8f932c51803f472f3799b310657fc5721aa0ab657e2cc06a13f70f9482
+        sourceBlobDigest: sha256:57e95030ce7d309271c12a96f663b45af25747a37226f2d60f011d14e7b96999
         codeSamplesNamespace: authlete-api-explorer-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:40a11e5cd15aaa3954f6d21698eb8edaab7555b3ce21ce20c81603943393db3d
+        codeSamplesRevisionDigest: sha256:8e1ff7338b980a953bd6c49596fada0353c4e6d05f45f6925de1759d931355f3
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
