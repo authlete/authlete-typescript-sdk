@@ -33,9 +33,9 @@ import { Result } from "../types/fp.js";
  * This API returns information about what action the authorization server should take after it receives
  * the result of end-user's decision about whether the end-user has approved or rejected a client application's
  * request on the authentication device.
- * ### Description
+ *
  * After the implementation of the backchannel authentication endpoint returns JSON containing an
- * `auth\_req\_id` to the client, the authorization server starts a background process that communicates
+ * `auth_req_id` to the client, the authorization server starts a background process that communicates
  * with the authentication device of the end-user. On the authentication device, end-user authentication
  * is performed and the end-user is asked whether they give authorization to the client or not. The
  * authorization server will receive the result of end-user authentication and authorization from
@@ -51,50 +51,56 @@ import { Result } from "../types/fp.js";
  * can generate tokens later.
  * When the authorization server received the decision of the end-user from the authentication device
  * and it indicates that the end-user has rejected to give authorization to the client, the authorization
- * server should call the API with `result=ACCESS\_DENIED`. In this case, if the token delivery mode
+ * server should call the API with `result=ACCESS_DENIED`. In this case, if the token delivery mode
  * is `push`, the API will generate an error response that contains the error response parameter and
- * optionally the `error\_description` and error\_uri response parameters (if the `errorDescription`
+ * optionally the `error_description` and error_uri response parameters (if the `errorDescription`
  * and `errorUri` request parameters have been given). On the other hand, if the token delivery mode
  * is `poll` or `ping`, the API will just update the database record so that `/auth/token` API can
  * generate an error response later. In any token delivery mode, the value of the error parameter will
- * become `access\_denied`.
+ * become `access_denied`.
  * When the authorization server could not get the result of end-user authentication and authorization
  * from the authentication device for some reasons, the authorization server should call the API with
- * `result=TRANSACTION\_FAILED`. In this error case, the API will behave in the same way as in the case
- * of `ACCESS\_DENIED`. The only difference is that `expired\_token` is used as the value of the `error`
+ * `result=TRANSACTION_FAILED`. In this error case, the API will behave in the same way as in the case
+ * of `ACCESS_DENIED`. The only difference is that `expired_token` is used as the value of the `error`
  * parameter.
  * The response from `/backchannel/authentication/complete` API has various parameters. Among them,
  * it is `action` parameter that the authorization server implementation should check first because
  * it denotes the next action that the authorization server implementation should take. According to
  * the value of `action`, the service implementation must take the steps described below.
- * **SERVER\_ERROR**
- * When the value of `action` is `SERVER\_ERROR`, it means either (1) that the request from the authorization
+ *
+ * ## SERVER_ERROR
+ *
+ * When the value of `action` is `SERVER_ERROR`, it means either (1) that the request from the authorization
  * server to Authlete was wrong, or (2) that an error occurred on Authlete side.
- * When the backchannel token delivery mode is `ping` or `push`, `SERVER\_ERROR` is used only when
+ * When the backchannel token delivery mode is `ping` or `push`, `SERVER_ERROR` is used only when
  * an error is detected before the record of the ticket (which is included in the API call to `/backchannel/authentication/complete`)
  * is retrieved from the database successfully. If an error is detected after the record of the ticket
- * is retrieved from the database, `NOTIFICATION` is used instead of `SERVER\_ERROR`.
- * When the backchannel token delivery mode is `poll`, `SERVER\_ERROR` is used regardless of whether
+ * is retrieved from the database, `NOTIFICATION` is used instead of `SERVER_ERROR`.
+ * When the backchannel token delivery mode is `poll`, `SERVER_ERROR` is used regardless of whether
  * it is before or after the record of the ticket is retrieved from the database.
- * **NO\_ACTION**
- * When the value of `action` is `NO\_ACTION`, it means that the authorization server does not have
+ *
+ * ## NO_ACTION
+ *
+ * When the value of `action` is `NO_ACTION`, it means that the authorization server does not have
  * to take any immediate action.
- * `NO\_ACTION` is returned when the backchannel token delivery mode is `poll`. In this case, the client
+ * `NO_ACTION` is returned when the backchannel token delivery mode is `poll`. In this case, the client
  * will receive the final result at the token endpoint.
- * **NOTIFICATION**
+ *
+ * ## NOTIFICATION
+ *
  * When the value of `action` is `NOTIFICATION`, it means that the authorization server must send a
  * notification to the client notification endpoint.
  * According to the CIBA Core specification, the notification is an HTTP POST request whose request
  * body is JSON and whose `Authorization` header contains the client notification token, which was
- * included in the backchannel authentication request as the value of the `client\_notification\_token`
+ * included in the backchannel authentication request as the value of the `client_notification_token`
  * request parameter, as a bearer token.
  * When the backchannel token delivery mode is `ping`, the request body of the notification is JSON
- * which contains the `auth\_req\_id` property only. When the backchannel token delivery mode is `push`,
+ * which contains the `auth_req_id` property only. When the backchannel token delivery mode is `push`,
  * the request body will additionally contain an access token, an ID token and other properties. Note
  * that when the backchannel token delivery mode is `poll`, a notification does not have to be sent
  * to the client notification endpoint.
  * In error cases, in the ping mode, however, the content of a notification is not different from the
- * content in successful cases. That is, the notification contains the `auth\_req\_id` property only.
+ * content in successful cases. That is, the notification contains the `auth_req_id` property only.
  * The client will know the error when it accesses the token endpoint. On the other hand, in the
  * `push` mode, in error cases, the content of a notification will include the `error` property instead
  * of an access token and an ID token. The client will know the error by detecting that error is included
@@ -106,11 +112,11 @@ import { Result } from "../types/fp.js";
  * token is the `clientNotificationToken` parameter. With these methods, the notification can be built
  * like the following.
  * ```
- * POST {clientNotificationEndpoint} HTTP/1.1
- * HOST: {The host of clientNotificationEndpoint}
- * Authorization: Bearer {notificationToken}
+ * POST &#123;clientNotificationEndpoint&#125; HTTP/1.1
+ * HOST: &#123;The host of clientNotificationEndpoint&#125;
+ * Authorization: Bearer &#123;notificationToken&#125;
  * Content-Type: application/json
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
  */
 export function cibaComplete(

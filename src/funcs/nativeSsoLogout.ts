@@ -39,15 +39,15 @@ import { Result } from "../types/fp.js";
  * A response from the `/nativesso/logout` API contains `action` response parameter. The possible values
  * are:
  *
- * **OK**
+ * ## OK
  *
  * When the action is `OK`, it indicates that the `/nativesso/logout` API call completed successfully.
  *
- * **SERVER_ERROR**
+ * ## SERVER_ERROR
  *
  * When the action is `SERVER_ERROR`, it indicates that something has gone wrong on the Authlete side.
  *
- * **CALLER_ERROR**
+ * ## CALLER_ERROR
  *
  * When the action is `CALLER_ERROR`, it indicates that the `/nativesso/logout` API call contained a
  * problem. For example, the call may have been missing the required request parameter `sessionId`.

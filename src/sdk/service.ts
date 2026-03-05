@@ -114,11 +114,11 @@ export class Service extends ClientSDK {
    *
    * @remarks
    * This API gathers configuration information about a service.
-   * ### Description
+   *
    * This API is supposed to be called from within the implementation of the configuration endpoint of
-   * the service where the service that supports OpenID Connect and [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1\_0.html)
+   * the service where the service that supports OpenID Connect and [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html)
    * must expose its configuration information in a JSON format. Details about the format are described
-   * in "[3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1\_0.html#ProviderMetadata)"
+   * in "[3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)"
    * in OpenID Connect Discovery 1.0.
    */
   async getConfiguration(

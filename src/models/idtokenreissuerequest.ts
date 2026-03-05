@@ -61,7 +61,7 @@ export type IdtokenReissueRequest = {
    * This parameter is optional, and the default value on omission is
    * "`array`".
    * This parameter takes precedence over the `idTokenAudType` property
-   * of {@link Service} (cf. {@link Service#getIdTokenAudType()}).
+   * of &#123;@link Service&#125; (cf. &#123;@link Service#getIdTokenAudType()&#125;).
    */
   idTokenAudType?: string | undefined;
 };

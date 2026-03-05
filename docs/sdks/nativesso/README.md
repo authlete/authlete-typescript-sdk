@@ -16,7 +16,7 @@ the session id and verify or generate the device secret as required by the flow)
 implementation should retrieve the value of `action` from the response and take the following steps
 according to the value.
 
-**OK**
+## OK
 
 When the action is `OK`, it indicates that the `/nativesso` API processing has successfully completed.
 In this case, the token endpoint implementation should return a successful response (`200 OK`) to
@@ -32,7 +32,7 @@ Cache-Control: no-store
 (Embed the value of responseContent here.)
 ```
 
-**INTERNAL_SERVER_ERROR**
+## INTERNAL_SERVER_ERROR
 
 When the action is `INTERNAL_SERVER_ERROR`, it indicates that something has gone wrong on the Authlete
 side. For example, an issue such as a database error might have occurred when retrieving the access
@@ -52,7 +52,7 @@ Cache-Control: no-store
 However, in a production environment, it may be better to return a more abstract error (one that
 does not directly describe the nature of the issue), rather than a `500` error.
 
-**CALLER_ERROR**
+## CALLER_ERROR
 
 When the action is `CALLER_ERROR`, it indicates that the issue lies with the caller of the API
 (i.e., the implementation of the OpenID Provider). For example, this could be due to missing a
@@ -155,15 +155,15 @@ with a session ID only through the mechanism introduced by Native SSO.
 A response from the `/nativesso/logout` API contains `action` response parameter. The possible values
 are:
 
-**OK**
+## OK
 
 When the action is `OK`, it indicates that the `/nativesso/logout` API call completed successfully.
 
-**SERVER_ERROR**
+## SERVER_ERROR
 
 When the action is `SERVER_ERROR`, it indicates that something has gone wrong on the Authlete side.
 
-**CALLER_ERROR**
+## CALLER_ERROR
 
 When the action is `CALLER_ERROR`, it indicates that the `/nativesso/logout` API call contained a
 problem. For example, the call may have been missing the required request parameter `sessionId`.

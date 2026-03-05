@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Delete the set of scopes that an end-user has granted to a client application.
- * ### Description
+ *
  * Even if records about granted scopes are deleted by calling this API, existing access tokens are
  * not deleted and scopes of existing access tokens are not changed.
  * The subject parameter is required and must be provided as a query parameter.

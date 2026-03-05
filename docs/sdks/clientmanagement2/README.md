@@ -348,15 +348,21 @@ run();
 ## clientGrantedScopesGetApi
 
 Get the set of scopes that a user has granted to a client application.
-### Description
+
 Possible values for `requestableScopes` parameter in the response from this API are as follows.
-**null**
+
+## null
+
 The user has not granted authorization to the client application in the past, or records about the
 combination of the user and the client application have been deleted from Authlete's DB.
-**An empty set**
+
+## An empty set
+
 The user has granted authorization to the client application in the past, but no scopes are associated
 with the authorization.
-**A set with at least one element**
+
+## A set with at least one element
+
 The user has granted authorization to the client application in the past and some scopes are associated
 with the authorization. These scopes are returned.
 Example: `[ "profile", "email" ]`
@@ -525,7 +531,7 @@ run();
 ## clientGrantedScopesDeleteApi
 
 Delete the set of scopes that an end-user has granted to a client application.
-### Description
+
 Even if records about granted scopes are deleted by calling this API, existing access tokens are
 not deleted and scopes of existing access tokens are not changed.
 The subject parameter is required and must be provided as a query parameter.

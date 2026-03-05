@@ -566,14 +566,14 @@ export type Service = {
    * The aliases will be embedded in the response from the discovery endpoint like the following.
    *
    * ```json
-   * {
+   * &#123;
    *   ......,
-   *   "mtls_endpoint_aliases": {
+   *   "mtls_endpoint_aliases": &#123;
    *     "token_endpoint":         "https://mtls.example.com/token",
    *     "revocation_endpoint":    "https://mtls.example.com/revo",
    *     "introspection_endpoint": "https://mtls.example.com/introspect"
-   *   }
-   * }
+   *   &#125;
+   * &#125;
    * ```
    */
   mtlsEndpointAliases?: Array<NamedUri> | undefined;
@@ -921,7 +921,7 @@ export type Service = {
    *
    * @remarks
    * and this is set, this URI will be used as the basis of the client's management endpoint by appending
-   * `/clientid}/` to it as a path element. If this is unset, the value of `registrationEndpoint` will
+   * `/clientid&#125;/` to it as a path element. If this is unset, the value of `registrationEndpoint` will
    * be used as the URI base instead.
    */
   registrationManagementEndpoint?: string | undefined;
@@ -1031,7 +1031,7 @@ export type Service = {
    * It is expected that the URI contains a fixed string `USER_CODE` somewhere as a placeholder for
    * a user code. For example, like the following.
    *
-   * `https://example.com/device?user\_code=USER\_CODE`
+   * `https://example.com/device?user_code=USER_CODE`
    *
    * The fixed string is replaced with an actual user code when Authlete builds a verification URI
    * with a user code for the `verification_uri_complete` parameter.
@@ -1400,7 +1400,7 @@ export type Service = {
    * [8.3. Loopback Redirect Considerations](https://www.rfc-editor.org/rfc/rfc8252.html#section-8.3)
    * of [RFC 8252](https://www.rfc-editor.org/rfc/rfc8252.html) states as follows.
    *
-   * > While redirect URIs using localhost (i.e., `"http://localhost:{port}/{path}"`) function
+   * > While redirect URIs using localhost (i.e., `"http://localhost:&#123;port&#125;/&#123;path&#125;"`) function
    * similarly to loopback IP redirects described in Section 7.3, the use of localhost is NOT RECOMMENDED.
    * Specifying a redirect URI with the loopback IP literal rather than localhost avoids inadvertently
    * listening on network interfaces other than the loopback interface. It is also less susceptible
@@ -1525,10 +1525,10 @@ export type Service = {
    */
   signedJwksUri?: string | undefined;
   /**
-   * Supported attachment types. This property corresponds to the {@code
+   * Supported attachment types. This property corresponds to the &#123;@code
    *
    * @remarks
-   * attachments_supported} server metadata which was added by the third
+   * attachments_supported&#125; server metadata which was added by the third
    * implementer's draft of OpenID Connect for Identity Assurance 1.0.
    */
   supportedAttachments?: Array<AttachmentType> | undefined;
@@ -1566,7 +1566,7 @@ export type Service = {
    * Document validation methods supported by this service. This property
    *
    * @remarks
-   * corresponds to the `documents\_validation\_methods\_supported` server
+   * corresponds to the `documents_validation_methods_supported` server
    * metadata which was added by the third implementer's draft of
    */
   supportedDocumentsValidationMethods?: Array<string> | undefined;
@@ -2296,14 +2296,14 @@ export type ServiceInput = {
    * The aliases will be embedded in the response from the discovery endpoint like the following.
    *
    * ```json
-   * {
+   * &#123;
    *   ......,
-   *   "mtls_endpoint_aliases": {
+   *   "mtls_endpoint_aliases": &#123;
    *     "token_endpoint":         "https://mtls.example.com/token",
    *     "revocation_endpoint":    "https://mtls.example.com/revo",
    *     "introspection_endpoint": "https://mtls.example.com/introspect"
-   *   }
-   * }
+   *   &#125;
+   * &#125;
    * ```
    */
   mtlsEndpointAliases?: Array<NamedUri> | undefined;
@@ -2651,7 +2651,7 @@ export type ServiceInput = {
    *
    * @remarks
    * and this is set, this URI will be used as the basis of the client's management endpoint by appending
-   * `/clientid}/` to it as a path element. If this is unset, the value of `registrationEndpoint` will
+   * `/clientid&#125;/` to it as a path element. If this is unset, the value of `registrationEndpoint` will
    * be used as the URI base instead.
    */
   registrationManagementEndpoint?: string | undefined;
@@ -2761,7 +2761,7 @@ export type ServiceInput = {
    * It is expected that the URI contains a fixed string `USER_CODE` somewhere as a placeholder for
    * a user code. For example, like the following.
    *
-   * `https://example.com/device?user\_code=USER\_CODE`
+   * `https://example.com/device?user_code=USER_CODE`
    *
    * The fixed string is replaced with an actual user code when Authlete builds a verification URI
    * with a user code for the `verification_uri_complete` parameter.
@@ -3130,7 +3130,7 @@ export type ServiceInput = {
    * [8.3. Loopback Redirect Considerations](https://www.rfc-editor.org/rfc/rfc8252.html#section-8.3)
    * of [RFC 8252](https://www.rfc-editor.org/rfc/rfc8252.html) states as follows.
    *
-   * > While redirect URIs using localhost (i.e., `"http://localhost:{port}/{path}"`) function
+   * > While redirect URIs using localhost (i.e., `"http://localhost:&#123;port&#125;/&#123;path&#125;"`) function
    * similarly to loopback IP redirects described in Section 7.3, the use of localhost is NOT RECOMMENDED.
    * Specifying a redirect URI with the loopback IP literal rather than localhost avoids inadvertently
    * listening on network interfaces other than the loopback interface. It is also less susceptible
@@ -3255,10 +3255,10 @@ export type ServiceInput = {
    */
   signedJwksUri?: string | undefined;
   /**
-   * Supported attachment types. This property corresponds to the {@code
+   * Supported attachment types. This property corresponds to the &#123;@code
    *
    * @remarks
-   * attachments_supported} server metadata which was added by the third
+   * attachments_supported&#125; server metadata which was added by the third
    * implementer's draft of OpenID Connect for Identity Assurance 1.0.
    */
   supportedAttachments?: Array<AttachmentType> | undefined;
@@ -3296,7 +3296,7 @@ export type ServiceInput = {
    * Document validation methods supported by this service. This property
    *
    * @remarks
-   * corresponds to the `documents\_validation\_methods\_supported` server
+   * corresponds to the `documents_validation_methods_supported` server
    * metadata which was added by the third implementer's draft of
    */
   supportedDocumentsValidationMethods?: Array<string> | undefined;

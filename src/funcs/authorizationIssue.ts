@@ -32,24 +32,29 @@ import { Result } from "../types/fp.js";
  * @remarks
  * This API parses request parameters of an authorization request and returns necessary data for the
  * authorization server implementation to process the authorization request further.
- * ### Description
+ *
  * This API is supposed to be called from within the implementation of the authorization endpoint of
  * the service in order to generate a successful response to the client application.
  * The description of the `/auth/authorization` API describes the timing when this API should be called
- * and the meaning of request parameters. See [ISSUE] in `NO\_INTERACTION`.
+ * and the meaning of request parameters. See [ISSUE] in `NO_INTERACTION`.
  * The response from `/auth/authorization/issue` API has some parameters.
  * Among them, it is `action` parameter that the authorization server implementation should check first
  * because it denotes the next action that the authorization server implementation should take.
  * According to the value of `action`, the authorization server implementation must take the steps
  * described below.
- * **INTERNAL\_SERVER\_ERROR**
- * When the value of `action` is `INTERNAL\_SERVER\_ERROR`, it means that the request from the authorization
+ *
+ * ## INTERNAL_SERVER_ERROR
+ *
+ * When the value of `action` is `INTERNAL_SERVER_ERROR`, it means that the request from the authorization
  * server implementation was wrong or that an error occurred in Authlete.
  * In either case, from the viewpoint of the client application, it is an error on the server side.
  * Therefore, the service implementation should generate a response to the client application with
  * HTTP status of "500 Internal Server Error".
  * The value of `responseContent` is a JSON string which describes the error, so it can be used as
  * the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the service implementation should generate and return
  * to the client application.
  * ```
@@ -57,12 +62,14 @@ import { Result } from "../types/fp.js";
  * Content-Type: application/json
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
  * The endpoint implementation may return another different response to the client application since
  * "500 Internal Server Error" is not required by OAuth 2.0.
- * **BAD\_REQUEST**
- * When the value of "action" is `BAD\_REQUEST`, it means that the ticket is no longer valid (deleted
+ *
+ * ## BAD_REQUEST
+ *
+ * When the value of "action" is `BAD_REQUEST`, it means that the ticket is no longer valid (deleted
  * or expired) and that the reason of the invalidity was probably due to the end-user's too-delayed
  * response to the authorization UI.
  * The HTTP status of the response returned to the client application should be "400 Bad Request"
@@ -70,6 +77,9 @@ import { Result } from "../types/fp.js";
  * the format of the error response.
  * The value of `responseContent` is a JSON string which describes the error, so it can be used as
  * the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the service implementation should generate and return
  * to the client application.
  * ```
@@ -77,30 +87,40 @@ import { Result } from "../types/fp.js";
  * Content-Type: application/json
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
  * The endpoint implementation may return another different response to the client application since
  * "400 Bad Request" is not required by OAuth 2.0.
- * **LOCATION**
+ *
+ * ## LOCATION
+ *
  * When the value of `action` is `LOCATION`, it means that the response to the client application
  * should be "302 Found" with `Location` header.
  * The value of `responseContent` is a redirect URI which contains (1) an authorization code, an ID
  * token and/or an access token (on success) or (2) an error code (on failure), so it can be used as
  * the value of `Location` header.
+ *
+ * ---
+ *
  * The following illustrates the response which the service implementation must generate and return
  * to the client application.
  * ```
  * HTTP/1.1 302 Found
- * Location: {responseContent}
+ * Location: &#123;responseContent&#125;
  * Cache-Control: no-store
  * Pragma: no-cache
  * ```
- * **FORM**
+ *
+ * ## FORM
+ *
  * When the value of `action` is `FORM`, it means that the response to the client application should
  * be "200 OK" with an HTML which triggers redirection by JavaScript. This happens when the authorization
- * request from the client contains `response\_mode=form\_post` request parameter.
- * The value of `responseContent` is an HTML which satisfies the requirements of `response\_mode=form\_post`,
+ * request from the client contains `response_mode=form_post` request parameter.
+ * The value of `responseContent` is an HTML which satisfies the requirements of `response_mode=form_post`,
  * so it can be used as the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the service implementation should generate and return
  * to the client application.
  * ```
@@ -108,7 +128,7 @@ import { Result } from "../types/fp.js";
  * Content-Type: text/html;charset=UTF-8
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
  */
 export function authorizationIssue(

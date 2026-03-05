@@ -65,7 +65,7 @@ export type UserinfoIssueRequest = {
    *
    * ```
    * [
-   *   "{\"birthdate\":\"1970-01-23\",\"nationalities\":[\"DEU\",\"USA\"]}"
+   *   "&#123;\"birthdate\":\"1970-01-23\",\"nationalities\":[\"DEU\",\"USA\"]&#125;"
    * ]
    * ```
    *
@@ -73,29 +73,29 @@ export type UserinfoIssueRequest = {
    * property in the claims request parameter of an authorization request can be an array like below.
    *
    * ```
-   * {
-   *   "transformed_claims": {
-   *     "nationality_usa": {
+   * &#123;
+   *   "transformed_claims": &#123;
+   *     "nationality_usa": &#123;
    *       "claim": "nationalities",
    *       "fn": [
    *         [ "eq", "USA" ],
    *         "any"
    *       ]
-   *     }
-   *   },
-   *   "userinfo": {
+   *     &#125;
+   *   &#125;,
+   *   "userinfo": &#123;
    *     "verified_claims": [
-   *       {
-   *         "verification": { "trust_framework": { "value": "gold" } },
-   *         "claims": { "::18_or_above": null }
-   *       },
-   *       {
-   *         "verification": { "trust_framework": { "value": "silver" } },
-   *         "claims": { ":nationality_usa": null }
-   *       }
+   *       &#123;
+   *         "verification": &#123; "trust_framework": &#123; "value": "gold" &#125; &#125;,
+   *         "claims": &#123; "::18_or_above": null &#125;
+   *       &#125;,
+   *       &#123;
+   *         "verification": &#123; "trust_framework": &#123; "value": "silver" &#125; &#125;,
+   *         "claims": &#123; ":nationality_usa": null &#125;
+   *       &#125;
    *     ]
-   *   }
-   * }
+   *   &#125;
+   * &#125;
    * ```
    *
    * For the example above, the value of this `verifiedClaimsForTx` property should be an array of
@@ -105,8 +105,8 @@ export type UserinfoIssueRequest = {
    *
    * ```
    * [
-   *   "{\"birthdate\":\"1970-01-23\"}",
-   *   "{\"nationalities\":[\"DEU\",\"USA\"]}"
+   *   "&#123;\"birthdate\":\"1970-01-23\"&#125;",
+   *   "&#123;\"nationalities\":[\"DEU\",\"USA\"]&#125;"
    * ]
    * ```
    */

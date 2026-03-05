@@ -36,9 +36,9 @@ export class Authlete extends ClientSDK {
     return (this._client ??= new Client(this._options));
   }
 
-  private _clientManagement2?: ClientManagement2;
-  get clientManagement2(): ClientManagement2 {
-    return (this._clientManagement2 ??= new ClientManagement2(this._options));
+  private _clientManagement?: ClientManagement2;
+  get clientManagement(): ClientManagement2 {
+    return (this._clientManagement ??= new ClientManagement2(this._options));
   }
 
   private _authorization?: Authorization;

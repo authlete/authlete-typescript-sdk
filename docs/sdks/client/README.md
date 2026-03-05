@@ -99,9 +99,58 @@ service are returned.
 - ViewClient: []
 
 
-### Example Usage
+### Example Usage: full
 
-<!-- UsageSnippet language="typescript" operationID="client_get_list_api" method="get" path="/api/{serviceId}/client/get/list" -->
+<!-- UsageSnippet language="typescript" operationID="client_get_list_api" method="get" path="/api/{serviceId}/client/get/list" example="full" -->
+```typescript
+import { Authlete } from "@authlete/typescript-sdk";
+
+const authlete = new Authlete({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const result = await authlete.client.list({
+    serviceId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AuthleteCore } from "@authlete/typescript-sdk/core.js";
+import { clientList } from "@authlete/typescript-sdk/funcs/clientList.js";
+
+// Use `AuthleteCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const authlete = new AuthleteCore({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const res = await clientList(authlete, {
+    serviceId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("clientList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: limited
+
+<!-- UsageSnippet language="typescript" operationID="client_get_list_api" method="get" path="/api/{serviceId}/client/get/list" example="limited" -->
 ```typescript
 import { Authlete } from "@authlete/typescript-sdk";
 

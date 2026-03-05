@@ -31,8 +31,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * This API generates an ID token.
- * ### Description
- * This API is supposed to be called from within the implementation of the [userinfo endpoint](https://openid.net/specs/openid-connect-core-1\_0.html#UserInfo)
+ *
+ * This API is supposed to be called from within the implementation of the [userinfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo)
  * of the authorization server in order to generate an ID token. Before calling this API, a valid
  * response from `/auth/userinfo` API must be obtained. Then, call this API with the access token
  * contained in the response and the claims values of the user (subject) associated with the access
@@ -41,8 +41,10 @@ import { Result } from "../types/fp.js";
  * parameter that the authorization server implementation should check first because it denotes the
  * next action that the authorization server implementation should take. According to the value of
  * `action`, the service implementation must take the steps described below.
- * **INTERNAL\_SERVER\_ERROR**
- * When the value of `action` is `INTERNAL\_SERVER\_ERROR`, it means that the request from the authorization
+ *
+ * ## INTERNAL_SERVER_ERROR
+ *
+ * When the value of `action` is `INTERNAL_SERVER_ERROR`, it means that the request from the authorization
  * server implementation was wrong or that an error occurred in Authlete. In either case, from the
  * viewpoint of the client application, it is an error on the server side. Therefore, the service
  * implementation should generate a response to the client application with HTTP status of "500 Internal
@@ -53,15 +55,17 @@ import { Result } from "../types/fp.js";
  * header.
  * The following is an example response which complies with RFC 6750. Note that OpenID Connect Core
  * 1.0 requires that an error response from userinfo endpoint comply with RFC 6750. See [5.3.3. UserInfo
- * Response](https://openid.net/specs/openid-connect-core-1\_0.html#UserInfoError) for details.
+ * Response](https://openid.net/specs/openid-connect-core-1_0.html#UserInfoError) for details.
  * ```
  * HTTP/1.1 500 Internal Server Error
- * WWW-Authenticate: {responseContent}
+ * WWW-Authenticate: &#123;responseContent&#125;
  * Cache-Control: no-store
  * Pragma: no-cache
  * ```
- * **BAD\_REQUEST**
- * When the value of `action` is `BAD\_REQUEST`, it means that the request from the client application
+ *
+ * ## BAD_REQUEST
+ *
+ * When the value of `action` is `BAD_REQUEST`, it means that the request from the client application
  * does not contain an access token (= the request from the authorization server implementation to
  * Authlete does not contain `token` parameter).
  * The parameter `responseContent` returns a string which describes the error in the format of [RFC
@@ -70,14 +74,16 @@ import { Result } from "../types/fp.js";
  * header.
  * The following is an example response which complies with RFC 6750. Note that OpenID Connect Core
  * 1.0 requires that an error response from userinfo endpoint comply with RFC 6750. See [5.3.3. UserInfo
- * Response](https://openid.net/specs/openid-connect-core-1\_0.html#UserInfoError) for details.
+ * Response](https://openid.net/specs/openid-connect-core-1_0.html#UserInfoError) for details.
  * ```
  * HTTP/1.1 400 Bad Request
- * WWW-Authenticate: {responseContent}
+ * WWW-Authenticate: &#123;responseContent&#125;
  * Cache-Control: no-store
  * Pragma: no-cache
  * ```
- * **UNAUTHORIZED**
+ *
+ * ## UNAUTHORIZED
+ *
  * When the value of `action` is `UNAUTHORIZED`, it means that the access token does not exist, has
  * expired, or is not associated with any subject (= any user account).
  * The parameter `responseContent` returns a string which describes the error in the format of [RFC
@@ -86,14 +92,16 @@ import { Result } from "../types/fp.js";
  * header.
  * The following is an example response which complies with RFC 6750. Note that OpenID Connect Core
  * 1.0 requires that an error response from userinfo endpoint comply with RFC 6750. See [5.3.3. UserInfo
- * Response](https://openid.net/specs/openid-connect-core-1\_0.html#UserInfoError) for details.
+ * Response](https://openid.net/specs/openid-connect-core-1_0.html#UserInfoError) for details.
  * ```
  * HTTP/1.1 401 Unauthorized
- * WWW-Authenticate: {responseContent}
+ * WWW-Authenticate: &#123;responseContent&#125;
  * Cache-Control: no-store
  * Pragma: no-cache
  * ```
- * **FORBIDDEN**
+ *
+ * ## FORBIDDEN
+ *
  * When the value of `action` is `FORBIDDEN`, it means that the access token does not include the
  * `openid` scope.
  * The parameter `responseContent` returns a string which describes the error in the format of [RFC
@@ -102,14 +110,16 @@ import { Result } from "../types/fp.js";
  * header.
  * The following is an example response which complies with RFC 6750. Note that OpenID Connect Core
  * 1.0 requires that an error response from userinfo endpoint comply with RFC 6750. See [5.3.3. UserInfo
- * Response](https://openid.net/specs/openid-connect-core-1\_0.html#UserInfoError) for details.
+ * Response](https://openid.net/specs/openid-connect-core-1_0.html#UserInfoError) for details.
  * ```
  * HTTP/1.1 403 Forbidden
- * WWW-Authenticate: {responseContent}
+ * WWW-Authenticate: &#123;responseContent&#125;
  * Cache-Control: no-store
  * Pragma: no-cache
  * ```
- * **JSON**
+ *
+ * ## JSON
+ *
  * When the value of `action` is `JSON`, it means that the access token which the client application
  * presented is valid and an ID token was successfully generated in the format of JSON.
  * The userinfo endpoint implementation is expected to generate a response to the client application.
@@ -122,9 +132,11 @@ import { Result } from "../types/fp.js";
  * Cache-Control: no-store
  * Pragma: no-cache
  * Content-Type: application/json;charset=UTF-8
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
- * **JWT**
+ *
+ * ## JWT
+ *
  * When the value of `action` is `JWT`, it means that the access token which the client application
  * presented is valid and an ID token was successfully generated in the format of JWT (JSON Web Token)
  * ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519)).
@@ -138,7 +150,7 @@ import { Result } from "../types/fp.js";
  * Cache-Control: no-store
  * Pragma: no-cache
  * Content-Type: application/jwt
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
  */
 export function userinfoIssue(

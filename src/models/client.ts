@@ -316,7 +316,7 @@ export type Client = {
    * must be either (1) a custom scheme or (2) `http`, which is allowed only when the hostname part
    * is `localhost`. This is checked at runtime by Authlete.
    *
-   * **Requirements by Authlete**
+   * ## Requirements by Authlete
    *
    * - Must consist of printable ASCII letters only.
    * - Must not exceed 200 letters.
@@ -894,13 +894,13 @@ export type Client = {
    *
    * @remarks
    * when it computes digest values of [external attachments](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-external-attachments), which may be referenced from within ID tokens
-   * or userinfo responses (or any place that can have the `verified\_claims` claim).
+   * or userinfo responses (or any place that can have the `verified_claims` claim).
    * Possible values are listed in the [Hash Algorithm Registry](https://www.iana.org/assignments/named-information/named-information.xhtml#hash-alg) of IANA (Internet Assigned Numbers Authority),
    * but the server does not necessarily support all the values there. When
    * this property is omitted, `sha-256` is used as the default algorithm.
-   * This property corresponds to the `digest\_algorithm` client metadata
+   * This property corresponds to the `digest_algorithm` client metadata
    * which was defined by the third implementer's draft of
-   * [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1\_0.html).
+   * [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html).
    */
   digestAlgorithm?: string | undefined;
   /**
@@ -1255,7 +1255,7 @@ export type ClientInput = {
    * must be either (1) a custom scheme or (2) `http`, which is allowed only when the hostname part
    * is `localhost`. This is checked at runtime by Authlete.
    *
-   * **Requirements by Authlete**
+   * ## Requirements by Authlete
    *
    * - Must consist of printable ASCII letters only.
    * - Must not exceed 200 letters.
@@ -1825,13 +1825,13 @@ export type ClientInput = {
    *
    * @remarks
    * when it computes digest values of [external attachments](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-external-attachments), which may be referenced from within ID tokens
-   * or userinfo responses (or any place that can have the `verified\_claims` claim).
+   * or userinfo responses (or any place that can have the `verified_claims` claim).
    * Possible values are listed in the [Hash Algorithm Registry](https://www.iana.org/assignments/named-information/named-information.xhtml#hash-alg) of IANA (Internet Assigned Numbers Authority),
    * but the server does not necessarily support all the values there. When
    * this property is omitted, `sha-256` is used as the default algorithm.
-   * This property corresponds to the `digest\_algorithm` client metadata
+   * This property corresponds to the `digest_algorithm` client metadata
    * which was defined by the third implementer's draft of
-   * [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1\_0.html).
+   * [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html).
    */
   digestAlgorithm?: string | undefined;
   /**
