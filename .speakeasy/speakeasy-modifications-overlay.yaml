@@ -448,16 +448,14 @@ actions:
         created_at: 1761727785993
         reviewed_at: 1761727785993
         type: method-name
-    - target: $["paths"]["/api/service/create"]["post"]
-      update:
-        x-speakeasy-group: service
-        x-speakeasy-name-override: create
+    - target: $["paths"]["/api/service/create"]
+      remove: true
       x-speakeasy-metadata:
-        after: sdk.service.create()
-        before: ""
-        created_at: 1761727785993
-        reviewed_at: 1761727785993
-        type: method-name
+        after: removed
+        before: present
+        created_at: 1761810000000
+        reviewed_at: 1761810000000
+        type: remove
     - target: $["paths"]["/api/service/get/list"]["get"]
       update:
         x-speakeasy-group: service
