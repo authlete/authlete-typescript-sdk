@@ -17046,7 +17046,6 @@ components:
       type: object
       required:
         - grantType
-        - clientId
       properties:
         grantType:
           $ref: '#/components/schemas/grant_type'
@@ -17372,8 +17371,6 @@ components:
           $ref: '#/components/schemas/token_batch_status'
     token_update_request:
       type: object
-      required:
-        - accessToken
       properties:
         accessToken:
           type: string

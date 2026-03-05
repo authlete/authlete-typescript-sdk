@@ -9,7 +9,6 @@ let value: AuthTokenCreateApiRequest = {
   serviceId: "<id>",
   tokenCreateRequest: {
     grantType: "DEVICE_CODE",
-    clientId: 622368,
   },
 };
 ```

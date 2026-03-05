@@ -20,7 +20,7 @@ export type TokenUpdateRequest = {
    *
    * @remarks
    */
-  accessToken: string;
+  accessToken?: string | undefined;
   /**
    * A new date at which the access token will expire in milliseconds since the Unix epoch (1970-01-01).
    *
@@ -138,7 +138,7 @@ export type TokenUpdateRequest = {
 
 /** @internal */
 export type TokenUpdateRequest$Outbound = {
-  accessToken: string;
+  accessToken?: string | undefined;
   accessTokenExpiresAt?: number | undefined;
   scopes?: Array<string> | undefined;
   properties?: Array<Property$Outbound> | undefined;
@@ -161,7 +161,7 @@ export const TokenUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   TokenUpdateRequest
 > = z.object({
-  accessToken: z.string(),
+  accessToken: z.string().optional(),
   accessTokenExpiresAt: z.number().int().optional(),
   scopes: z.array(z.string()).optional(),
   properties: z.array(Property$outboundSchema).optional(),

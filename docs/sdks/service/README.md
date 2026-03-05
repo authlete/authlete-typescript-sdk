@@ -19,9 +19,58 @@ If the access token can only view or modify clients underneath this service, but
 have access to view this service directly, a limited view of the service will be returned.
 
 
-### Example Usage
+### Example Usage: full
 
-<!-- UsageSnippet language="typescript" operationID="service_get_api" method="get" path="/api/{serviceId}/service/get" -->
+<!-- UsageSnippet language="typescript" operationID="service_get_api" method="get" path="/api/{serviceId}/service/get" example="full" -->
+```typescript
+import { Authlete } from "@authlete/typescript-sdk";
+
+const authlete = new Authlete({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const result = await authlete.service.get({
+    serviceId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AuthleteCore } from "@authlete/typescript-sdk/core.js";
+import { serviceGet } from "@authlete/typescript-sdk/funcs/serviceGet.js";
+
+// Use `AuthleteCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const authlete = new AuthleteCore({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const res = await serviceGet(authlete, {
+    serviceId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("serviceGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: limited
+
+<!-- UsageSnippet language="typescript" operationID="service_get_api" method="get" path="/api/{serviceId}/service/get" example="limited" -->
 ```typescript
 import { Authlete } from "@authlete/typescript-sdk";
 
@@ -102,9 +151,54 @@ If the access token is an administrative token, this returns a list of all servi
 Otherwise, all services that the access token can view, even in a limited fashion, are returned.
 
 
-### Example Usage
+### Example Usage: full
 
-<!-- UsageSnippet language="typescript" operationID="service_get_list_api" method="get" path="/api/service/get/list" -->
+<!-- UsageSnippet language="typescript" operationID="service_get_list_api" method="get" path="/api/service/get/list" example="full" -->
+```typescript
+import { Authlete } from "@authlete/typescript-sdk";
+
+const authlete = new Authlete({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const result = await authlete.service.list();
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AuthleteCore } from "@authlete/typescript-sdk/core.js";
+import { serviceList } from "@authlete/typescript-sdk/funcs/serviceList.js";
+
+// Use `AuthleteCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const authlete = new AuthleteCore({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const res = await serviceList(authlete);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("serviceList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: limited
+
+<!-- UsageSnippet language="typescript" operationID="service_get_list_api" method="get" path="/api/service/get/list" example="limited" -->
 ```typescript
 import { Authlete } from "@authlete/typescript-sdk";
 

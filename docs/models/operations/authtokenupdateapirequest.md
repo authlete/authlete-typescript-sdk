@@ -7,9 +7,7 @@ import { AuthTokenUpdateApiRequest } from "@authlete/typescript-sdk/models/opera
 
 let value: AuthTokenUpdateApiRequest = {
   serviceId: "<id>",
-  tokenUpdateRequest: {
-    accessToken: "<value>",
-  },
+  tokenUpdateRequest: {},
 };
 ```
 
