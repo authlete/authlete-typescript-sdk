@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: b46c9081-6a59-4f57-9207-8f7715e429dc
 management:
-  docChecksum: ec4e301b9308df4a3805ba9aa6c3f742
+  docChecksum: db3fe883abe71d275d5112941ba0b544
   docVersion: 3.0.16
-  speakeasyVersion: 1.741.5
-  generationVersion: 2.849.7
-  releaseVersion: 0.1.1-beta
-  configChecksum: 0f238b3be81f909a6dde9b0362fc4156
+  speakeasyVersion: 1.741.6
+  generationVersion: 2.849.8
+  releaseVersion: 0.0.12-beta
+  configChecksum: 9e65840d6befe8e2221f9e17981e6ddd
   repoURL: https://github.com/authlete/authlete-typescript-sdk.git
   installationURL: https://github.com/authlete/authlete-typescript-sdk
   published: true
 persistentEdits:
-  generation_id: f9b1b74a-b77b-443a-b2e2-18344d2bdd06
-  pristine_commit_hash: 2a102d7332ac756610189d593dba9411abdb8afe
-  pristine_tree_hash: f72677d8f0109b07e135cc3f77c1822d2390b3ed
+  generation_id: 2cb4cad6-c6e1-42fa-a5c6-f52876e27371
+  pristine_commit_hash: 4b8fba9028452c915fcfb60f0afd50f8df502203
+  pristine_tree_hash: 5a46e32bc3879aba580f2fceb96a6b4497c867f8
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1390,8 +1390,8 @@ trackedFiles:
     pristine_git_object: 017b1d5f9a77bafdb3a8d81f92ac29e6cc5d1080
   docs/sdks/service/README.md:
     id: d161cb00129d
-    last_write_checksum: sha1:f3cc327a363ccdb859fd3a21ab13d72e61f31611
-    pristine_git_object: ba93b5212153e9d63d9d56129b5b06c796607892
+    last_write_checksum: sha1:6c85a856c5a4502325ae714f5f33863e224cc06d
+    pristine_git_object: bdcb3f01d9267be2db13540a9dc3163c42c2c6bd
   docs/sdks/token/README.md:
     id: 627ae416a06f
     last_write_checksum: sha1:74d4fe599e379f0ac1561b615587b8647b54d3c7
@@ -1434,12 +1434,12 @@ trackedFiles:
     pristine_git_object: 2f7b714bbe12442f6ed257ace618d48767cf552c
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:ac368250139fc546fca1a37106e4591d1201b778
-    pristine_git_object: bcfae1bd022a1987523660fcdeb2edd367281305
+    last_write_checksum: sha1:d0d7d0c1bbd485f53330512f0c880b65daf28ecf
+    pristine_git_object: 739f99ba45812e2fc82bfb19e87e416f8e870b5e
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:429c793121d61e5315e71fd4b1cbc0de05cb0a9c
-    pristine_git_object: ef3e1ca21e87c5f096bd7d9fb5690db697d6180f
+    last_write_checksum: sha1:7fd13b342dca5694fe6f7e313c78862e98515adf
+    pristine_git_object: b7c83af6aac2c24d7205560fd127235d1ea2756c
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d2e0ad6b984b5be0cd66f84e06b451806539d6d0
@@ -1672,10 +1672,6 @@ trackedFiles:
     id: 22f505b2f1d7
     last_write_checksum: sha1:58c9d35070fedad7364e3352551b59c25591a991
     pristine_git_object: b5265a992e5744eaa62e037ec9e64d5a01631b6d
-  src/funcs/serviceCreate.ts:
-    id: 3fd3bf5b990b
-    last_write_checksum: sha1:14164c12b85288eb7e35d5b13100270896044fa2
-    pristine_git_object: 2a968e1f4e34bd0c4673a38e99070f14be1a35ec
   src/funcs/serviceDelete.ts:
     id: 1331a611be83
     last_write_checksum: sha1:2cdc61552b3ef8b17e1f2a49d6779335f446b866
@@ -1814,8 +1810,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:1d2d583edf7847cacaac8e3ba32d9ab57d13c601
-    pristine_git_object: 7381e95042ed65f5092752d36fa77b7a5b69a299
+    last_write_checksum: sha1:1b83211e97391d2d1b37c467247784a466fc5be3
+    pristine_git_object: 76b13c06348ef06756e0746962672234a383711f
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -2966,8 +2962,8 @@ trackedFiles:
     pristine_git_object: 1a289c6a7698fecb7f6ff4e9b08dc45e5eb8fc2a
   src/sdk/service.ts:
     id: 5ffa100f898f
-    last_write_checksum: sha1:86c146f0afe2c5b882bed90f5450d2d319abe8c3
-    pristine_git_object: 768555f001a9e6a5dc45c865d2154c1a1fb2da5f
+    last_write_checksum: sha1:4d1e15b6270856094965d8ec08b8cab366856499
+    pristine_git_object: 6df2bf337e85c6b3cf551eac1aa41c28fb80cf64
   src/sdk/token.ts:
     id: 30fc0dd2597e
     last_write_checksum: sha1:95c3692ee4e8cc4e6319908043a306fd5c3d399e
@@ -4302,7 +4298,9 @@ examples:
         "200":
           text/plain: "<value>"
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `authlete.token.management.create()`: \n  *  `request.tokenCreateRequest.clientId` **Changed**\n* `authlete.token.management.update()`: \n  *  `request.tokenUpdateRequest.accessToken` **Changed**\n* `authlete.tokenOperations.authTokenCreateBatchApi()`: \n  *  `request.requestBody[].clientId` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `authlete.service.create()`: **Removed** (Breaking ⚠️)
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

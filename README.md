@@ -368,7 +368,6 @@ run();
 
 * [get](docs/sdks/service/README.md#get) - Get Service
 * [list](docs/sdks/service/README.md#list) - List Services
-* [create](docs/sdks/service/README.md#create) - Create Service
 * [update](docs/sdks/service/README.md#update) - Update Service
 * [delete](docs/sdks/service/README.md#delete) - Delete Service ⚡
 * [getConfiguration](docs/sdks/service/README.md#getconfiguration) - Get Service Configuration
@@ -487,7 +486,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`nativeSsoProcess`](docs/sdks/nativesso/README.md#process) - Native SSO Processing
 - [`pushedAuthorizationCreate`](docs/sdks/pushedauthorization/README.md#create) - Process Pushed Authorization Request
 - [`revocationProcess`](docs/sdks/revocation/README.md#process) - Process Revocation Request
-- [`serviceCreate`](docs/sdks/service/README.md#create) - Create Service
 - [`serviceDelete`](docs/sdks/service/README.md#delete) - Delete Service ⚡
 - [`serviceGet`](docs/sdks/service/README.md#get) - Get Service
 - [`serviceGetConfiguration`](docs/sdks/service/README.md#getconfiguration) - Get Service Configuration
