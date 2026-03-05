@@ -76,11 +76,11 @@ export type VciOfferCreateRequest = {
    * @remarks
    *
    * ```
-   * {
+   * &#123;
    *   "credential_issuer": "...",
    *   "credential_configuration_ids": [ ... ],
-   *   "grants": { ... }
-   * }
+   *   "grants": &#123; ... &#125;
+   * &#125;
    * ```
    *
    * This property is mandatory.
@@ -98,18 +98,18 @@ export type VciOfferCreateRequest = {
    * the `tx_code` object.
    *
    * ```
-   * {
+   * &#123;
    *   "credential_issuer": "...",
    *   "credential_configuration_ids": [ ... ],
-   *   "grants": {
-   *     "urn:ietf:params:oauth:grant-type:pre-authorized_code": {
+   *   "grants": &#123;
+   *     "urn:ietf:params:oauth:grant-type:pre-authorized_code": &#123;
    *       "pre-authorized_code": "...",
-   *       "tx_code": {
+   *       "tx_code": &#123;
    *         "length": length
-   *       }
-   *     }
-   *   }
-   * }
+   *       &#125;
+   *     &#125;
+   *   &#125;
+   * &#125;
    * ```
    */
   txCode?: string | undefined;
@@ -122,19 +122,19 @@ export type VciOfferCreateRequest = {
    * object.
    *
    * ```
-   * {
+   * &#123;
    *   "credential_issuer": "...",
    *   "credential_configuration_ids": [ ... ],
-   *   "grants": {
-   *     "urn:ietf:params:oauth:grant-type:pre-authorized_code": {
+   *   "grants": &#123;
+   *     "urn:ietf:params:oauth:grant-type:pre-authorized_code": &#123;
    *       "pre-authorized_code": "...",
-   *       "tx_code": {
+   *       "tx_code": &#123;
    *         "length": length,
    *         "input_mode": "..."
-   *       }
-   *     }
-   *   }
-   * }
+   *       &#125;
+   *     &#125;
+   *   &#125;
+   * &#125;
    * ```
    */
   txCodeInputMode?: string | undefined;
@@ -147,19 +147,19 @@ export type VciOfferCreateRequest = {
    * object.
    *
    * ```
-   * {
+   * &#123;
    *   "credential_issuer": "...",
    *   "credential_configuration_ids": [ ... ],
-   *   "grants": {
-   *     "urn:ietf:params:oauth:grant-type:pre-authorized_code": {
+   *   "grants": &#123;
+   *     "urn:ietf:params:oauth:grant-type:pre-authorized_code": &#123;
    *       "pre-authorized_code": "...",
-   *       "tx_code": {
+   *       "tx_code": &#123;
    *         "length": length,
    *         "description": "..."
-   *       }
-   *     }
-   *   }
-   * }
+   *       &#125;
+   *     &#125;
+   *   &#125;
+   * &#125;
    * ```
    */
   txCodeDescription?: string | undefined;

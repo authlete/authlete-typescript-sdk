@@ -35,6 +35,7 @@ import { Result } from "../types/fp.js";
  * retrieve the value of the `action`
  * response parameter from the API response and take the following steps
  * according to the value.
+ *
  * ### `OK`
  * When the value of the  `action` response
  * parameter is `OK`, it means that Authlete
@@ -54,6 +55,7 @@ import { Result } from "../types/fp.js";
  * (Other HTTP headers)
  * (the value of the responseContent response parameter)
  * ```
+ *
  * ### `NOT_FOUND`
  * When the value of the  `action` response
  * parameter is `NOT_FOUND`, it means that
@@ -75,6 +77,7 @@ import { Result } from "../types/fp.js";
  * (Other HTTP headers)
  * (the value of the responseContent response parameter)
  * ```
+ *
  * ### `INTERNAL_SERVER_ERROR`
  * could prepare an entity configuration successfully.
  * In this case, the implementation of the entity configuration endpoint of the

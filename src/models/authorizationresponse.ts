@@ -98,18 +98,18 @@ export type AuthorizationResponse = {
    * OpenID Connect defines some scope names which need to be treated specially. The table below lists the special scope names.
    * | Name | Description |
    * | --- | --- |
-   * | `openid` | This scope must be contained in `scope` request parameter to promote an OAuth 2.0 authorization request to an OpenID Connect request. It is described in "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1\_0.html#AuthRequest), scope". |
-   * | `profile` | This scope is used to request some claims to be embedded in the ID token. The claims are `name`, `family\_name`, `given\_name`, `middle\_name`, `nickname`, `preferred\_username`, `profile`, `picture`, `website`, `gender`, `birthdate`, `zoneinfo`, `locale`, and `updated\_at`. It is described in [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1\_0.html#ScopeClaims). |
-   * | `email` | This scope is used to request some claims to be embedded in the ID token. The claims are `email` and `email\_verified`. It is described in [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1\_0.html#ScopeClaims). |
-   * | `address` | This scope is used to request `address` claim to be embedded in the ID token. It is described in [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1\_0.html#ScopeClaims).
-   *  The format of `address` claim is not a simple string. It is described in [OpenID Connect Core 1.0, 5.1.1. Address Claim](https://openid.net/specs/openid-connect-core-1\_0.html#AddressClaim). |
-   * | `phone` | This scope is used to request some claims to be embedded in the ID token. The claims are `phone\_number` and `phone\_number\_verified`. It is described in [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1\_0.html#ScopeClaims). |
-   * | `offline\_access` | The following is an excerpt about this scope from [OpenID Connect Core 1.0, 11. Offline Access](https://openid.net/specs/openid-connect-core-1\_0.html#OfflineAccess).
+   * | `openid` | This scope must be contained in `scope` request parameter to promote an OAuth 2.0 authorization request to an OpenID Connect request. It is described in "[OpenID Connect Core 1.0, 3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest), scope". |
+   * | `profile` | This scope is used to request some claims to be embedded in the ID token. The claims are `name`, `family_name`, `given_name`, `middle_name`, `nickname`, `preferred_username`, `profile`, `picture`, `website`, `gender`, `birthdate`, `zoneinfo`, `locale`, and `updated_at`. It is described in [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims). |
+   * | `email` | This scope is used to request some claims to be embedded in the ID token. The claims are `email` and `email_verified`. It is described in [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims). |
+   * | `address` | This scope is used to request `address` claim to be embedded in the ID token. It is described in [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).
+   *  The format of `address` claim is not a simple string. It is described in [OpenID Connect Core 1.0, 5.1.1. Address Claim](https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim). |
+   * | `phone` | This scope is used to request some claims to be embedded in the ID token. The claims are `phone_number` and `phone_number_verified`. It is described in [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims). |
+   * | `offline_access` | The following is an excerpt about this scope from [OpenID Connect Core 1.0, 11. Offline Access](https://openid.net/specs/openid-connect-core-1_0.html#OfflineAccess).
    * > This scope value requests that an OAuth 2.0 Refresh Token be issued that can be used to obtain an Access Token that grants access to the end-user's userinfo endpoint even when the end-user is not present (not logged in).
    * |
-   * Note that, if `response\_type` request parameter does not contain code, `offline\_acccess` scope is removed from this list even
-   * when scope request parameter contains `offline\_access`. This behavior is a requirement written in
-   * [OpenID Connect Core 1.0, 11. Offline Access](https://openid.net/specs/openid-connect-core-1\_0.html#OfflineAccess).
+   * Note that, if `response_type` request parameter does not contain code, `offline_acccess` scope is removed from this list even
+   * when scope request parameter contains `offline_access`. This behavior is a requirement written in
+   * [OpenID Connect Core 1.0, 11. Offline Access](https://openid.net/specs/openid-connect-core-1_0.html#OfflineAccess).
    */
   scopes?: Array<Scope> | undefined;
   /**
@@ -220,32 +220,32 @@ export type AuthorizationResponse = {
    * You can find `userinfo` and `id_token` are top-level properties.
    *
    * ```json
-   * {
+   * &#123;
    *   "userinfo":
-   *   {
-   *     "given_name": { "essential": true },
+   *   &#123;
+   *     "given_name": &#123; "essential": true &#125;,
    *     "nickname": null,
-   *     "email": { "essential": true },
-   *     "email_verified": { "essential": true },
+   *     "email": &#123; "essential": true &#125;,
+   *     "email_verified": &#123; "essential": true &#125;,
    *     "picture": null,
    *     "http://example.info/claims/groups": null
-   *   },
+   *   &#125;,
    *   "id_token":
-   *   {
-   *     "auth_time": { "essential": true },
-   *     "acr": { "values": [ "urn:mace:incommon:iap:silver" ] }
-   *   }
-   * }
+   *   &#123;
+   *     "auth_time": &#123; "essential": true &#125;,
+   *     "acr": &#123; "values": [ "urn:mace:incommon:iap:silver" ] &#125;
+   *   &#125;
+   * &#125;
    * ```
    *
    * This value of this property is the value of the `id_token` property in JSON format.
    * For example, if the JSON above is included in an authorization request, this property holds JSON equivalent to the following.
    *
    * ```json
-   * {
-   *   "auth_time": { "essential": true },
-   *   "acr": { "values": [ "urn:mace:incommon:iap:silver" ] }
-   * }
+   * &#123;
+   *   "auth_time": &#123; "essential": true &#125;,
+   *   "acr": &#123; "values": [ "urn:mace:incommon:iap:silver" ] &#125;
+   * &#125;
    * ```
    *
    * Note that if a request object is given and it contains the `claims` property and if the `claims` request parameter is also given,
@@ -265,36 +265,36 @@ export type AuthorizationResponse = {
    * The following is an excerpt from the specification. You can find `userinfo` and `id_token` are top-level properties.
    *
    * ```json
-   * {
+   * &#123;
    *   "userinfo":
-   *   {
-   *     "given_name": { "essential": true },
+   *   &#123;
+   *     "given_name": &#123; "essential": true &#125;,
    *     "nickname": null,
-   *     "email": { "essential": true },
-   *     "email_verified": { "essential": true },
+   *     "email": &#123; "essential": true &#125;,
+   *     "email_verified": &#123; "essential": true &#125;,
    *     "picture": null,
    *     "http://example.info/claims/groups": null
-   *   },
+   *   &#125;,
    *   "id_token":
-   *   {
-   *     "auth_time": { "essential": true },
-   *     "acr": { "values": [ "urn:mace:incommon:iap:silver" ] }
-   *   }
-   * }
+   *   &#123;
+   *     "auth_time": &#123; "essential": true &#125;,
+   *     "acr": &#123; "values": [ "urn:mace:incommon:iap:silver" ] &#125;
+   *   &#125;
+   * &#125;
    * ````
    *
    * The value of this property is the value of the `userinfo` property in JSON format.
    * For example, if the JSON above is included in an authorization request, this property holds JSON equivalent to the following.
    *
    * ```json
-   * {
-   *   "given_name": { "essential": true },
+   * &#123;
+   *   "given_name": &#123; "essential": true &#125;,
    *   "nickname": null,
-   *   "email": { "essential": true },
-   *   "email_verified": { "essential": true },
+   *   "email": &#123; "essential": true &#125;,
+   *   "email_verified": &#123; "essential": true &#125;,
    *   "picture": null,
    *   "http://example.info/claims/groups": null
-   * }
+   * &#125;
    * ```
    *
    * Note that if a request object is given and it contains the `claims` property and if the `claims` request parameter is also given,
@@ -371,15 +371,15 @@ export type AuthorizationResponse = {
    * The subject identifying the user who has given the grant identified
    *
    * @remarks
-   * by the `grant\_id` request parameter of the device authorization
+   * by the `grant_id` request parameter of the device authorization
    * request.
    * Authlete 2.3 and newer versions support [Grant Management
-   * for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html). An authorization request may contain a `grant\_id`
+   * for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html). An authorization request may contain a `grant_id`
    * request parameter which is defined in the specification. If the value of
-   * the request parameter is valid, {@link #getGrantSubject()} will return
+   * the request parameter is valid, &#123;@link #getGrantSubject()&#125; will return
    * the subject of the user who has given the grant to the client application.
    * Authorization server implementations may use the value returned from
-   * {@link #getGrantSubject()} in order to determine the user to authenticate.
+   * &#123;@link #getGrantSubject()&#125; in order to determine the user to authenticate.
    * The user your system will authenticate during the authorization process
    * (or has already authenticated) may be different from the user of the
    * grant. The first implementer's draft of "Grant Management for OAuth 2.0"
@@ -397,42 +397,42 @@ export type AuthorizationResponse = {
    * A client application can request *"transformed claims"* by adding
    * names of transformed claims in the `claims` request parameter.
    * The following is an example of the `claims` request parameter
-   * that requests a predefined transformed claim named `18\_or\_over`
-   * and a transformed claim named `nationality\_usa` to be embedded
+   * that requests a predefined transformed claim named `18_or_over`
+   * and a transformed claim named `nationality_usa` to be embedded
    * in the response from the userinfo endpoint.
    * ```json
-   * {
-   * "transformed\_claims": {
-   * "nationality\_usa": {
+   * &#123;
+   * "transformed_claims": &#123;
+   * "nationality_usa": &#123;
    * "claim": "nationalities",
    * "fn": [
    * [ "eq", "USA" ],
    * "any"
    * ]
-   * }
-   * },
-   * "userinfo": {
-   * "::18\_or\_over": null,
-   * ":nationality\_usa": null
-   * }
-   * }
+   * &#125;
+   * &#125;,
+   * "userinfo": &#123;
+   * "::18_or_over": null,
+   * ":nationality_usa": null
+   * &#125;
+   * &#125;
    * ```
-   * The example above assumes that a transformed claim named `18\_or\_over`
+   * The example above assumes that a transformed claim named `18_or_over`
    * is predefined by the authorization server like below.
    * ```json
-   * {
-   * "18\_or\_over": {
+   * &#123;
+   * "18_or_over": &#123;
    * "claim": "birthdate",
    * "fn": [
-   * "years\_ago",
+   * "years_ago",
    * [ "gte", 18 ]
    * ]
-   * }
-   * }
+   * &#125;
+   * &#125;
    * ```
    * In the example, the `nationalities` claim is requested indirectly
-   * by the `nationality\_usa` transformed claim. Likewise, the
-   * `birthdate` claim is requested indirectly by the `18\_or\_over`
+   * by the `nationality_usa` transformed claim. Likewise, the
+   * `birthdate` claim is requested indirectly by the `18_or_over`
    * transformed claim.
    * When the `claims` request parameter of an authorization request is
    * like the example above, this `requestedClaimsForTx` property will
@@ -445,10 +445,10 @@ export type AuthorizationResponse = {
    * request parameter when it calls the `/api/auth/userinfo/issue` API. The following
    * is an example of the value of the `claimsForTx` request parameter.
    * ```json
-   * {
+   * &#123;
    * "birthdate": "1970-01-23",
    * "nationalities": [ "DEU", "USA" ]
-   * }
+   * &#125;
    * ```
    */
   requestedClaimsForTx?: Array<string> | undefined;

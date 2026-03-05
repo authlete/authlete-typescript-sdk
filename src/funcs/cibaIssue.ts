@@ -30,25 +30,25 @@ import { Result } from "../types/fp.js";
  * Issue Backchannel Authentication Response
  *
  * @remarks
- * This API prepares JSON that contains an `auth\_req\_id`. The JSON should be used as the response body
- * of the response which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1\_0.html#auth\_backchannel\_endpoint)
- * ### Description
+ * This API prepares JSON that contains an `auth_req_id`. The JSON should be used as the response body
+ * of the response which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint)
+ *
  * This API is supposed to be called from within the implementation of the backchannel authentication
  * endpoint of the service in order to generate a successful response to the client application.
  * The description of the `/backchannel/authentication` API describes the timing when this API should
- * be called and the meaning of request parameters. See [AUTH\_REQ\_ID ISSUE] in `USER\_IDENTIFICATION`.
+ * be called and the meaning of request parameters. See [AUTH_REQ_ID ISSUE] in `USER_IDENTIFICATION`.
  * The response from `/backchannel/authentication/issue` API has some parameters. Among them, it is
  * `action` parameter that the authorization server implementation should check first because it denotes
  * the next `action` that the authorization server implementation should take. According to the value
  * of `action`, the authorization server implementation must take the steps described below.
  * ```java
  * @POST
- * @Consumes(MediaType.APPLICATION\_FORM\_URLENCODED)
+ * @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
  * public Response post(String parameters)
- * {
+ * &#123;
  * // 'parameters' is the entity body of the backchannel authentication request.
  * ......
- * }
+ * &#125;
  * ```
  * The endpoint implementation does not have to parse the request parameters from the client application
  * because Authlete's `/backchannel/authentication` API does it.
@@ -56,14 +56,19 @@ import { Result } from "../types/fp.js";
  * parameter that the authorization server implementation should check first because it denotes the
  * next action that the authorization server implementation should take. According to the value of
  * `action`, the service implementation must take the steps described below.
- * **INTERNAL\_SERVER\_ERROR**
- * When the value of `action` is `INTERNAL\_SERVER\_ERROR`, it means that the request from the authorization
+ *
+ * ## INTERNAL_SERVER_ERROR
+ *
+ * When the value of `action` is `INTERNAL_SERVER_ERROR`, it means that the request from the authorization
  * server implementation was wrong or that an error occurred in Authlete.
  * In either case, from the viewpoint of the client application, it is an error on the server side.
  * Therefore, the service implementation should generate a response to the client application with
  * HTTP status of "500 Internal Server Error" and `application/json`.
  * The value of `responseContent` is a JSON string which describes the error, so it can be used as
  * the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the service implementation should generate and return
  * to the client application.
  * ```
@@ -71,18 +76,22 @@ import { Result } from "../types/fp.js";
  * Content-Type: application/json
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
- * **INVALID\_TICKET**
- * When the value of `action` is `INVALID\_TICKET`, it means that the ticket included in the API call
+ *
+ * ## INVALID_TICKET
+ *
+ * When the value of `action` is `INVALID_TICKET`, it means that the ticket included in the API call
  * was invalid. For example, it does not exist or has expired.
  * From a viewpoint of the client application, this is an error on the server side. Therefore, the
  * authorization server implementation should generate a response to the client application with
  * "500 Internal Server Error" and `application/json`.
- * You can build an error response in the same way as shown in the description for the case of `INTERNAL\_SERVER\_ERROR`.
- * **OK**
+ * You can build an error response in the same way as shown in the description for the case of `INTERNAL_SERVER_ERROR`.
+ *
+ * ## OK
+ *
  * When the value of `action` is `OK`, it means that Authlete has succeeded in preparing JSON that
- * contains an `auth\_req\_id`. The JSON should be used as the response body of the response that is
+ * contains an `auth_req_id`. The JSON should be used as the response body of the response that is
  * returned to the client from the backchannel authentication endpoint. `responseContent` contains
  * the JSON.
  * The following illustrates the response which the authorization server implementation should generate
@@ -92,7 +101,7 @@ import { Result } from "../types/fp.js";
  * Content-Type: text/html;charset=UTF-8
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
  */
 export function cibaIssue(

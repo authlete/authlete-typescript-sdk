@@ -31,15 +31,21 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Get the set of scopes that a user has granted to a client application.
- * ### Description
+ *
  * Possible values for `requestableScopes` parameter in the response from this API are as follows.
- * **null**
+ *
+ * ## null
+ *
  * The user has not granted authorization to the client application in the past, or records about the
  * combination of the user and the client application have been deleted from Authlete's DB.
- * **An empty set**
+ *
+ * ## An empty set
+ *
  * The user has granted authorization to the client application in the past, but no scopes are associated
  * with the authorization.
- * **A set with at least one element**
+ *
+ * ## A set with at least one element
+ *
  * The user has granted authorization to the client application in the past and some scopes are associated
  * with the authorization. These scopes are returned.
  * Example: `[ "profile", "email" ]`

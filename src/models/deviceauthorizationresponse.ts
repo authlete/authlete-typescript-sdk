@@ -227,15 +227,15 @@ export type DeviceAuthorizationResponse = {
    * The subject identifying the user who has given the grant identified
    *
    * @remarks
-   * by the `grant\_id` request parameter of the device authorization
+   * by the `grant_id` request parameter of the device authorization
    * request.
    * Authlete 2.3 and newer versions support [Grant Management
-   * for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html). An authorization request may contain a `grant\_id`
+   * for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html). An authorization request may contain a `grant_id`
    * request parameter which is defined in the specification. If the value of
-   * the request parameter is valid, {@link #getGrantSubject()} will return
+   * the request parameter is valid, &#123;@link #getGrantSubject()&#125; will return
    * the subject of the user who has given the grant to the client application.
    * Authorization server implementations may use the value returned from
-   * {@link #getGrantSubject()} in order to determine the user to authenticate.
+   * &#123;@link #getGrantSubject()&#125; in order to determine the user to authenticate.
    * The user your system will authenticate during the authorization process
    * (or has already authenticated) may be different from the user of the
    * grant. The first implementer's draft of "Grant Management for OAuth 2.0"

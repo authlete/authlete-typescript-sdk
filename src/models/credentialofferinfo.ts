@@ -102,11 +102,11 @@ export type CredentialOfferInfo = {
    * @remarks
    *
    * ```
-   * {
+   * &#123;
    *   "credential_issuer": "...",
    *   "credential_configuration_ids": [ ... ],
-   *   "grants": { ... }
-   * }
+   *   "grants": &#123; ... &#125;
+   * &#125;
    * ```
    */
   credentialConfigurationIds?: Array<string> | undefined;

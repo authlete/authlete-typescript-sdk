@@ -33,18 +33,23 @@ import { Result } from "../types/fp.js";
  * Delete a dynamically registered client. This API is supposed to be used to implement a client
  * registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)
  * (OAuth 2.0 Dynamic Registration Management).
- * ### Description
+ *
  * This API is supposed to be called from the within the implementation of the client registration
  * management endpoint of the authorization server. The authorization server implementation should
  * retrieve the value of `action` from the response and take the following steps according to the value.
- * **INTERNAL\_SERVER\_ERROR**
- * When the value of `action` is `INTERNAL\_SERVER\_ERROR`, it means that the API call from the authorization
+ *
+ * ## INTERNAL_SERVER_ERROR
+ *
+ * When the value of `action` is `INTERNAL_SERVER_ERROR`, it means that the API call from the authorization
  * server implementation was wrong or that an error occurred in Authlete.
  * In either case, from a viewpoint of the client or developer, it is an error on the server side.
  * Therefore, the authorization server implementation should generate a response with "500 Internal
  * Server Error"s and `application/json`.
  * The value of `responseContent` is a JSON string which describes the error, so it can be used as
  * the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the authorization server implementation should generate
  * and return to the client or developer.
  * ```
@@ -52,16 +57,21 @@ import { Result } from "../types/fp.js";
  * Content-Type: application/json
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
  * The endpoint implementation may return another different response to the client or developer since
  * "500 Internal Server Error" is not required by the specification.
- * **BAD\_REQUEST**
- * When the value of `action` is `BAD\_REQUEST`, it means that the request from the client or developer
+ *
+ * ## BAD_REQUEST
+ *
+ * When the value of `action` is `BAD_REQUEST`, it means that the request from the client or developer
  * was wrong.
  * The authorization server implementation should generate a response with "400 Bad Request" and `application/json`.
  * The value of `responseContent` is a JSON string which describes the error, so it can be used as
  * the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the authorization server implementation should generate
  * and return to the client or developer.
  * ```
@@ -69,9 +79,11 @@ import { Result } from "../types/fp.js";
  * Content-Type: application/json
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
- * **UNAUTHORIZED**
+ *
+ * ## UNAUTHORIZED
+ *
  * When the value of `action` is `UNAUTHORIZED`, it means that the registration access token used by
  * the client configuration request (RFC 7592) is invalid, or the client application which the token
  * is tied to does not exist any longer or is invalid.
@@ -79,6 +91,9 @@ import { Result } from "../types/fp.js";
  * the content type must be `application/json`.
  * The value of `responseContent` is a JSON string which describes the error, so it can be used as
  * the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the endpoint implementation should generate and return
  * to the client application.
  * ```
@@ -86,15 +101,20 @@ import { Result } from "../types/fp.js";
  * Content-Type: application/json
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
  * NOTE: The `UNAUTHORIZED` value was added in October, 2021. See the description of
  * `Service.unauthorizedOnClientConfigSupported` for details.
- * **DELETED**
+ *
+ * ## DELETED
+ *
  * When the value of `action` is `DELETED`, it means that the request from the client or developer is
  * valid.
  * The authorization server implementation should generate a response to the client or developer with
  * "204 No Content".
+ *
+ * ---
+ *
  * The following illustrates the response which the authorization server implementation should generate
  * and return to the client or developer.
  * ```

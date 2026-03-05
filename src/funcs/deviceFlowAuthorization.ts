@@ -33,18 +33,23 @@ import { Result } from "../types/fp.js";
  * This API parses request parameters of a [device authorization request](https://datatracker.ietf.org/doc/html/rfc8628#section-3.1)
  * and returns necessary data for the authorization server implementation to process the device authorization
  * request further.
- * ### Description
+ *
  * This API is supposed to be called from the within the implementation of the device authorization
  * endpoint of the service. The service implementation should retrieve the value of `action` from the
  * response and take the following steps according to the value.
- * **INTERNAL\_SERVER\_ERROR**
- * When the value of `action` is `INTERNAL\_SERVER\_ERROR`, it means that the API call from the authorization
+ *
+ * ## INTERNAL_SERVER_ERROR
+ *
+ * When the value of `action` is `INTERNAL_SERVER_ERROR`, it means that the API call from the authorization
  * server implementation was wrong or that an error occurred in Authlete.
  * In either case, from a viewpoint of the client application, it is an error on the server side.
  * Therefore, the authorization server implementation should generate a response to the client application
  * with "500 Internal Server Error"s and `application/json`.
  * The value of `responseContent` is a JSON string which describes t he error, so it can be
  * used as the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the authorization server implementation should generate
  * and return to the client application.
  * ```
@@ -52,15 +57,20 @@ import { Result } from "../types/fp.js";
  * Content-Type: application/json
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
- * **BAD\_REQUEST**
- * When the value of `action` is `BAD\_REQUEST`, it means that the request from the client application
+ *
+ * ## BAD_REQUEST
+ *
+ * When the value of `action` is `BAD_REQUEST`, it means that the request from the client application
  * is wrong.
  * The authorization server implementation should generate a response to the client application with
  * "400 Bad Request" and `application/json`.
  * The value of `responseContent` is a JSON string which describes the error, so it can be used as
  * the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the service implementation should generate and return
  * to the client application.
  * ```
@@ -68,15 +78,20 @@ import { Result } from "../types/fp.js";
  * Content-Type: application/json
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
- * **UNAUTHORIZED**
+ *
+ * ## UNAUTHORIZED
+ *
  * When the value of `action` is `UNAUTHORIZED`, it means that client authentication of the device authorization
  * request failed.
  * The authorization server implementation should generate a response to the client application with
  * "401 Unauthorized" and `application/json`.
  * The value of `responseContent` is a JSON string which describes the error, so it can be used as
  * the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the service implementation must generate and return
  * to the client application.
  * ```
@@ -85,14 +100,19 @@ import { Result } from "../types/fp.js";
  * Content-Type: application/json
  * Cache-Control: no-store
  * Pragma: no-cache
- * {responseContent}
+ * &#123;responseContent&#125;
  * ```
- * **OK**
+ *
+ * ## OK
+ *
  * When the value of `action` is `OK`, it means that the device authorization request from the client
  * application is valid.
  * The authorization server implementation should generate a response to the client application with
  * "200 OK" and `application/json`.
  * The `responseContent` is a JSON string which can be used as the entity body of the response.
+ *
+ * ---
+ *
  * The following illustrates the response which the authorization server implementation should generate
  * and return to the client application.
  */

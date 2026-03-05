@@ -107,36 +107,36 @@ export type UserinfoResponse = {
    * The following is an excerpt from the specification. You can find `userinfo` and `id_token` are top-level properties.
    *
    * ```json
-   * {
+   * &#123;
    *   "userinfo":
-   *   {
-   *     "given_name": { "essential": true },
+   *   &#123;
+   *     "given_name": &#123; "essential": true &#125;,
    *     "nickname": null,
-   *     "email": { "essential": true },
-   *     "email_verified": { "essential": true },
+   *     "email": &#123; "essential": true &#125;,
+   *     "email_verified": &#123; "essential": true &#125;,
    *     "picture": null,
    *     "http://example.info/claims/groups": null
-   *   },
+   *   &#125;,
    *   "id_token":
-   *   {
-   *     "auth_time": { "essential": true },
-   *     "acr": { "values": [ "urn:mace:incommon:iap:silver" ] }
-   *   }
-   * }
+   *   &#123;
+   *     "auth_time": &#123; "essential": true &#125;,
+   *     "acr": &#123; "values": [ "urn:mace:incommon:iap:silver" ] &#125;
+   *   &#125;
+   * &#125;
    * ````
    *
    * The value of this property is the value of the `userinfo` property in JSON format.
    * For example, if the JSON above is included in an authorization request, this property holds JSON equivalent to the following.
    *
    * ```json
-   * {
-   *   "given_name": { "essential": true },
+   * &#123;
+   *   "given_name": &#123; "essential": true &#125;,
    *   "nickname": null,
-   *   "email": { "essential": true },
-   *   "email_verified": { "essential": true },
+   *   "email": &#123; "essential": true &#125;,
+   *   "email_verified": &#123; "essential": true &#125;,
    *   "picture": null,
    *   "http://example.info/claims/groups": null
-   * }
+   * &#125;
    * ```
    *
    * Note that if a request object is given and it contains the `claims` property and if the `claims` request parameter is also given,
@@ -170,42 +170,42 @@ export type UserinfoResponse = {
    * A client application can request *"transformed claims"* by adding
    * names of transformed claims in the `claims` request parameter.
    * The following is an example of the `claims` request parameter
-   * that requests a predefined transformed claim named `18\_or\_over`
-   * and a transformed claim named `nationality\_usa` to be embedded
+   * that requests a predefined transformed claim named `18_or_over`
+   * and a transformed claim named `nationality_usa` to be embedded
    * in the response from the userinfo endpoint.
    * ```json
-   * {
-   * "transformed\_claims": {
-   * "nationality\_usa": {
+   * &#123;
+   * "transformed_claims": &#123;
+   * "nationality_usa": &#123;
    * "claim": "nationalities",
    * "fn": [
    * [ "eq", "USA" ],
    * "any"
    * ]
-   * }
-   * },
-   * "userinfo": {
-   * "::18\_or\_over": null,
-   * ":nationality\_usa": null
-   * }
-   * }
+   * &#125;
+   * &#125;,
+   * "userinfo": &#123;
+   * "::18_or_over": null,
+   * ":nationality_usa": null
+   * &#125;
+   * &#125;
    * ```
-   * The example above assumes that a transformed claim named `18\_or\_over`
+   * The example above assumes that a transformed claim named `18_or_over`
    * is predefined by the authorization server like below.
    * ```json
-   * {
-   * "18\_or\_over": {
+   * &#123;
+   * "18_or_over": &#123;
    * "claim": "birthdate",
    * "fn": [
-   * "years\_ago",
+   * "years_ago",
    * [ "gte", 18 ]
    * ]
-   * }
-   * }
+   * &#125;
+   * &#125;
    * ```
    * In the example, the `nationalities` claim is requested indirectly
-   * by the `nationality\_usa` transformed claim. Likewise, the
-   * `birthdate` claim is requested indirectly by the `18\_or\_over`
+   * by the `nationality_usa` transformed claim. Likewise, the
+   * `birthdate` claim is requested indirectly by the `18_or_over`
    * transformed claim.
    * When the `claims` request parameter of an authorization request is
    * like the example above, this `requestedClaimsForTx` property will
@@ -218,10 +218,10 @@ export type UserinfoResponse = {
    * request parameter when it calls the `/api/auth/userinfo/issue` API. The following
    * is an example of the value of the `claimsForTx` request parameter.
    * ```json
-   * {
+   * &#123;
    * "birthdate": "1970-01-23",
    * "nationalities": [ "DEU", "USA" ]
-   * }
+   * &#125;
    * ```
    */
   requestedClaimsForTx?: Array<string> | undefined;

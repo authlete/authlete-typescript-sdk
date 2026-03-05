@@ -27,7 +27,7 @@ export type TokenCreateRequest = {
    *
    * @remarks
    */
-  clientId: number;
+  clientId?: number | undefined;
   /**
    * The subject (= unique identifier) of the user who will be associated with a newly created access
    *
@@ -221,7 +221,7 @@ export type TokenCreateRequest = {
 /** @internal */
 export type TokenCreateRequest$Outbound = {
   grantType: string;
-  clientId: number;
+  clientId?: number | undefined;
   subject?: string | undefined;
   scopes?: Array<string> | undefined;
   accessTokenDuration?: number | undefined;
@@ -252,7 +252,7 @@ export const TokenCreateRequest$outboundSchema: z.ZodType<
   TokenCreateRequest
 > = z.object({
   grantType: GrantType$outboundSchema,
-  clientId: z.number().int(),
+  clientId: z.number().int().optional(),
   subject: z.string().optional(),
   scopes: z.array(z.string()).optional(),
   accessTokenDuration: z.number().int().optional(),
