@@ -489,15 +489,6 @@ export type Service = {
    * The duration of pushed authorization requests in seconds.
    *
    * @remarks
-   *
-   * [OAuth 2.0 Pushed Authorization Requests](https://tools.ietf.org/html/draft-lodderstedt-oauth-par)
-   * defines an endpoint (called "pushed authorization request endpoint") which client applications
-   * can register authorization requests into and get corresponding URIs (called "request URIs") from.
-   * The issued URIs represent the registered authorization requests. The client applications can use
-   * the URIs as the value of the `request_uri` request parameter in an authorization request.
-   *
-   * The property represents the duration of registered authorization requests and is used as the value
-   * of the `expires_in` parameter in responses from the pushed authorization request endpoint.
    */
   pushedAuthReqDuration?: number | undefined;
   /**
@@ -529,19 +520,6 @@ export type Service = {
    * @remarks
    * [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) or JAR (JWT
    * Secured Authorization Request).
-   *
-   * Differences between rules in OpenID Connect Core 1.0 and ones in JAR are as follows.
-   *   - JAR requires that a request object be always -signed.
-   *   - JAR does not allow request parameters outside a request object to be referred to.
-   *   - OIDC Core 1.0 requires that response_type request parameter exist outside a request object even if the request object includes the request parameter.
-   *   - OIDC Core 1.0 requires that scope request parameter exist outside a request object if the authorization request is an
-   *   - OIDC request even if the request object includes the request parameter.
-   *
-   * If this flag is set to `false` and the value of `requestObjectRequired` is `true`, the value of
-   * `require_signed_request_object` server metadata of this service
-   * is reported as `true` in the discovery document. The metadata is defined in JAR (JWT Secured
-   * Authorization Request). That `require_signed_request_object` is `true` means that authorization
-   * requests which don't conform to the JAR specification are rejected.
    */
   traditionalRequestObjectProcessingApplied?: boolean | undefined;
   /**
@@ -560,21 +538,6 @@ export type Service = {
    * The MTLS endpoint aliases.
    *
    * @remarks
-   *
-   * This property corresponds to the mtls_endpoint_aliases metadata defined in "5. Metadata for Mutual TLS Endpoint Aliases" of [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens](https://datatracker.ietf.org/doc/rfc8705/).
-   *
-   * The aliases will be embedded in the response from the discovery endpoint like the following.
-   *
-   * ```json
-   * &#123;
-   *   ......,
-   *   "mtls_endpoint_aliases": &#123;
-   *     "token_endpoint":         "https://mtls.example.com/token",
-   *     "revocation_endpoint":    "https://mtls.example.com/revo",
-   *     "introspection_endpoint": "https://mtls.example.com/introspect"
-   *   &#125;
-   * &#125;
-   * ```
    */
   mtlsEndpointAliases?: Array<NamedUri> | undefined;
   /**
@@ -675,38 +638,12 @@ export type Service = {
    * Scopes supported by the service.
    *
    * @remarks
-   *
-   * Authlete strongly recommends that the service register at least the following scopes.
-   *
-   * | Name | Description |
-   * | --- | --- |
-   * | openid | A permission to get an ID token of an end-user. The `openid` scope appears in [OpenID Connect Core 1.0, 3.1.2.1. Authentication Request, scope](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest). Without this scope, Authlete does not allow `response_type` request parameter to have values other than code and token. |
-   * | profile | A permission to get information about `name`, `family_name`, `given_name`, `middle_name`, `nickname`, `preferred_username`, `profile`, `picture`, `website`, `gender`, `birthdate`, `zoneinfo`, `locale` and `updated_at` from the user info endpoint. See [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) for details. |
-   * | email | A permission to get information about `email` and `email_verified` from the user info endpoint. See [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) for details. |
-   * | address | A permission to get information about address from the user info endpoint. See [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) and [5.1.1. Address Claim](https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim) for details. |
-   * | phone | A permission to get information about `phone_number` and `phone_number_verified` from the user info endpoint. See [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) for details. |
-   * | offline_access | A permission to get information from the user info endpoint even when the end-user is not present. See [OpenID Connect Core 1.0, 11. Offline Access](https://openid.net/specs/openid-connect-core-1_0.html#OfflineAccess) for details. |
-   *
-   * The value of this property is used as `scopes_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
   supportedScopes?: Array<Scope> | undefined;
   /**
    * The flag to indicate whether requests that request no scope are rejected or not.
    *
    * @remarks
-   *
-   * When a request has no explicit `scope` parameter and the service's pre-defined default scope set is empty,
-   * the authorization server regards the request requests no scope. When this flag is set to `true`,
-   * requests that request no scope are rejected.
-   *
-   * The requirement below excerpted from [RFC 6749 Section 3.3](https://tools.ietf.org/html/rfc6749#section-3.3)
-   * does not explicitly mention the case where the default scope set is empty.
-   *
-   * > If the client omits the scope parameter when requesting authorization, the authorization server
-   * MUST either process the request using a pre-defined default value or fail the request indicating an invalid scope.
-   *
-   * However, if you interpret *"the default scope set exists but is empty"* as *"the default scope set does not exist"*
-   * and want to strictly conform to the requirement above, this flag has to be `true`.
    */
   scopeRequired?: boolean | undefined;
   /**
@@ -751,33 +688,6 @@ export type Service = {
    * @remarks
    * 5.1. Standard Claim](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) should
    * be supported. The following is the list of standard claims.
-   *
-   * - `sub`
-   * - `name`
-   * - `given_name`
-   * - `family_name`
-   * - `middle_name`
-   * - `nickname`
-   * - `preferred_username`
-   * - `profile`
-   * - `picture`
-   * - `website`
-   * - `email`
-   * - `email_verified`
-   * - `gender`
-   * - `birthdate`
-   * - `zoneinfo`
-   * - `locale`
-   * - `phone_number`
-   * - `phone_number_verified`
-   * - `address`
-   * - `updated_at`
-   *
-   * The value of this property is used as `claims_supported` property in the [OpenID Provider
-   * Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
-   *
-   * The service may support its original claim names. See [OpenID Connect Core 1.0, 5.1.2. Additional
-   * Claims](https://openid.net/specs/openid-connect-core-1_0.html#AdditionalClaims).
    */
   supportedClaims?: Array<string> | undefined;
   /**
@@ -785,14 +695,6 @@ export type Service = {
    *
    * @remarks
    * in the issued ID token only when no access token is issued.
-   *
-   * To strictly conform to the description below excerpted from [OpenID Connect Core 1.0 Section
-   * 5.4](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims), this flag has to be `true`.
-   *
-   * > The Claims requested by the profile, email, address, and phone scope values are returned from
-   * the UserInfo Endpoint, as described in Section 5.3.2, when a response_type value is used that
-   * results in an Access Token being issued. However, when no Access Token is issued (which is the
-   * case for the response_type value id_token), the resulting Claims are returned in the ID Token.
    */
   claimShortcutRestrictive?: boolean | undefined;
   /**
@@ -832,56 +734,18 @@ export type Service = {
    * The key ID to identify a JWK used for ID token signature using an asymmetric key.
    *
    * @remarks
-   *
-   * A JWK Set can be registered as a property of a Service. A JWK Set can contain 0 or more JWKs
-   * (See [RFC 7517](https://tools.ietf.org/html/rfc7517) for details about JWK). Authlete Server has
-   * to pick up one JWK for signature from the JWK Set when it generates an ID token and signature
-   * using an asymmetric key is required. Authlete Server searches the registered JWK Set for a JWK
-   * which satisfies conditions for ID token signature. If the number of JWK candidates which satisfy
-   * the conditions is 1, there is no problem. On the other hand, if there exist multiple candidates,
-   * a [Key ID](https://tools.ietf.org/html/rfc7517#section-4.5) is needed to be specified so that
-   * Authlete Server can pick up one JWK from among the JWK candidates.
-   *
-   * This `idTokenSignatureKeyId` property exists for the purpose described above. For key rotation
-   * (OpenID Connect Core 1.0, [10.1.1. Rotation of Asymmetric Signing Keys](http://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys)),
-   * this mechanism is needed.
    */
   idTokenSignatureKeyId?: string | undefined;
   /**
    * The key ID to identify a JWK used for user info signature using an asymmetric key.
    *
    * @remarks
-   *
-   * A JWK Set can be registered as a property of a Service. A JWK Set can contain 0 or more JWKs
-   * (See [RFC 7517](https://tools.ietf.org/html/rfc7517) for details about JWK). Authlete Server has
-   * to pick up one JWK for signature from the JWK Set when it is required to sign user info (which
-   * is returned from [userinfo endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo))
-   * using an asymmetric key. Authlete Server searches the registered JWK Set for a JWK which satisfies
-   * conditions for user info signature. If the number of JWK candidates which satisfy the conditions
-   * is 1, there is no problem. On the other hand, if there exist multiple candidates, a [Key ID](https://tools.ietf.org/html/rfc7517#section-4.5)
-   * is needed to be specified so that Authlete Server can pick up one JWK from among the JWK candidates.
-   *
-   * This `userInfoSignatureKeyId` property exists for the purpose described above. For key rotation
-   * (OpenID Connect Core 1.0, [10.1.1. Rotation of Asymmetric Signing Keys](http://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys)),
-   * this mechanism is needed.
    */
   userInfoSignatureKeyId?: string | undefined;
   /**
    * The key ID to identify a JWK used for signing authorization responses using an asymmetric key.
    *
    * @remarks
-   *
-   * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
-   * defines new values for the `response_mode` request parameter. They are `query.jwt`, `fragment.jwt`,
-   * `form_post.jwt` and `jwt`. If one of them is specified as the response mode, response parameters
-   * from the authorization endpoint will be packed into a JWT. This property is used to compute the
-   * value of the `exp` claim of the JWT.
-   *
-   * Authlete Server searches the JWK Set for a JWK which satisfies conditions for authorization response
-   * signature. If the number of JWK candidates which satisfy the conditions is 1, there is no problem.
-   * On the other hand, if there exist multiple candidates, a Key ID is needed to be specified so that
-   * Authlete Server can pick up one JWK from among the JWK candidates. This property exists to specify
-   * the key ID.
    */
   authorizationSignatureKeyId?: string | undefined;
   /**
@@ -995,15 +859,6 @@ export type Service = {
    *
    * @remarks
    * a backchannel authentication request is judged as a request for Financial-grade API.
-   *
-   * The FAPI-CIBA profile requires that the authorization server _"shall ensure unique authorization
-   * context exists in the authorization request or require a `binding_message` in the authorization
-   * request"_ (FAPI-CIBA, 5.2.2, 2). The simplest way to fulfill this requirement is to set this property
-   * to `true`.
-   *
-   * If this property is set to `false`, the `binding_message` request parameter remains optional
-   * even in FAPI context, but in exchange, your authorization server must implement a custom mechanism
-   * that ensures each backchannel authentication request has unique context.
    */
   backchannelBindingMessageRequiredInFapi?: boolean | undefined;
   /**
@@ -1027,17 +882,6 @@ export type Service = {
    * @remarks
    * to build the value of the `verification_uri_complete` parameter in responses from the device
    * authorization endpoint.
-   *
-   * It is expected that the URI contains a fixed string `USER_CODE` somewhere as a placeholder for
-   * a user code. For example, like the following.
-   *
-   * `https://example.com/device?user_code=USER_CODE`
-   *
-   * The fixed string is replaced with an actual user code when Authlete builds a verification URI
-   * with a user code for the `verification_uri_complete` parameter.
-   *
-   * If this URI is not set, the `verification_uri_complete` parameter won't appear in device authorization
-   * responses.
    */
   deviceVerificationUriComplete?: string | undefined;
   /**
@@ -1121,69 +965,18 @@ export type Service = {
    *
    * @remarks
    * request is regarded as a FAPI-Part2 request.
-   *
-   * The final version of Financial-grade API was approved in January, 2021. The Part 2 of the final
-   * version has new requirements on lifetime of request objects. They require that request objects
-   * contain an `nbf` claim and the lifetime computed by `exp` - `nbf` be no longer than 60 minutes.
-   *
-   * Therefore, when an authorization request is regarded as a FAPI-Part2 request, the request object
-   * used in the authorization request must contain an nbf claim. Otherwise, the authorization server
-   * rejects the authorization request.
-   *
-   * When this flag is `true`, the `nbf` claim is treated as an optional claim even when the authorization
-   * request is regarded as a FAPI-Part2 request. That is, the authorization server does not perform
-   * the validation on lifetime of the request object.
-   *
-   * Skipping the validation is a violation of the FAPI specification. The reason why this flag has
-   * been prepared nevertheless is that the new requirements (which do not exist in the Implementer's
-   * Draft 2 released in October, 2018) have big impacts on deployed implementations of client
-   * applications and Authlete thinks there should be a mechanism whereby to make the migration
-   * from ID2 to Final smooth without breaking live systems.
    */
   nbfOptional?: boolean | undefined;
   /**
    * The flag indicating whether generation of the iss response parameter is suppressed.
    *
    * @remarks
-   *
-   * "OAuth 2.0 Authorization Server Issuer Identifier in Authorization Response" has defined a new
-   * authorization response parameter, `iss`, as a countermeasure for a certain type of mix-up attacks.
-   *
-   * The specification requires that the `iss` response parameter always be included in authorization
-   * responses unless JARM (JWT Secured Authorization Response Mode) is used.
-   *
-   * When this flag is `true`, the authorization server does not include the `iss` response parameter
-   * in authorization responses. By turning this flag on and off, developers of client applications
-   * can experiment the mix-up attack and the effect of the `iss` response parameter.
-   *
-   * Note that this flag should not be `true` in production environment unless there are special
-   * reasons for it.
    */
   issSuppressed?: boolean | undefined;
   /**
    * custom client metadata supported by this service.
    *
    * @remarks
-   *
-   * Standard specifications define client metadata as necessary. The following are such examples.
-   *
-   * * [OpenID Connect Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html)
-   * * [RFC 7591 OAuth 2.0 Dynamic Client Registration Protocol](https://www.rfc-editor.org/rfc/rfc7591.html)
-   * * [RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens](https://www.rfc-editor.org/rfc/rfc8705.html)
-   * * [OpenID Connect Client-Initiated Backchannel Authentication Flow - Core 1.0](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html)
-   * * [The OAuth 2.0 Authorization Framework: JWT Secured Authorization Request (JAR)](https://datatracker.ietf.org/doc/draft-ietf-oauth-jwsreq/)
-   * * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
-   * * [OAuth 2.0 Pushed Authorization Requests (PAR)](https://datatracker.ietf.org/doc/rfc9126/)
-   * * [OAuth 2.0 Rich Authorization Requests (RAR)](https://datatracker.ietf.org/doc/draft-ietf-oauth-rar/)
-   *
-   * Standard client metadata included in Client Registration Request and Client Update Request (cf.
-   * [OIDC DynReg](https://openid.net/specs/openid-connect-registration-1_0.html), [RFC 7591](https://www.rfc-editor.org/rfc/rfc7591.html)
-   * and [RFC 7592](https://www.rfc-editor.org/rfc/rfc7592.html)) are, if supported by Authlete, stored
-   * into Authlete database. On the other hand, unrecognized client metadata are discarded.
-   *
-   * By listing up custom client metadata in advance by using this property (`supportedCustomClientMetadata`),
-   * Authlete can recognize them and stores their values into the database. The stored custom client
-   * metadata values can be referenced by `customMetadata`.
    */
   supportedCustomClientMetadata?: Array<string> | undefined;
   /**
@@ -1191,23 +984,6 @@ export type Service = {
    *
    * @remarks
    * corresponding refresh token.
-   *
-   * When a new access token is issued by a refresh token request (= a token request with `grant_type=refresh_token`),
-   * the expiration date of the access token may exceed the expiration date of the corresponding
-   * refresh token. This behavior itself is not wrong and may happen when `refreshTokenKept` is
-   * `true` and/or when `refreshTokenDurationKept` is `true`.
-   *
-   * When this flag is `true`, the expiration date of an access token never exceeds that of the corresponding
-   * refresh token regardless of the calculated duration based on other settings such as `accessTokenDuration`,
-   * `accessTokenDuration` in `extension` and `access_token.duration` scope attribute.
-   *
-   * It is technically possible to set a value which is bigger than the duration of refresh tokens
-   * as the duration of access tokens although it is strange. In the case, the duration of an access
-   * token becomes longer than the duration of the refresh token which is issued together with the
-   * access token. Even if the duration values are configured so, if this flag is `true`, the expiration
-   * date of the access token does not exceed that of the refresh token. That is, the duration of
-   * the access token will be shortened, and as a result, the access token and the refresh token
-   * will have the same expiration date.
    */
   tokenExpirationLinked?: boolean | undefined;
   /**
@@ -1215,17 +991,6 @@ export type Service = {
    *
    * @remarks
    * is passed through the front channel.
-   *
-   * This flag does not affect the processing of request objects at the Pushed Authorization Request
-   * Endpoint, which is defined in [OAuth 2.0 Pushed Authorization Requests](https://datatracker.ietf.org/doc/rfc9126/).
-   * Unecrypted request objects are accepted at the endpoint even if this flag is `true`.
-   *
-   * This flag does not indicate whether a request object is always required. There is a different
-   * flag, `requestObjectRequired`, for the purpose. See the description of `requestObjectRequired`
-   * for details.
-   *
-   * Even if this flag is `false`, encryption of request object is required if the `frontChannelRequestObjectEncryptionRequired`
-   * flag of the client is `true`.
    */
   frontChannelRequestObjectEncryptionRequired?: boolean | undefined;
   /**
@@ -1233,29 +998,6 @@ export type Service = {
    *
    * @remarks
    * client metadata of the client that has sent the request object.
-   *
-   * The request_object_encryption_alg client metadata itself is defined in [OpenID Connect Dynamic
-   * Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html) as follows.
-   *
-   * > request_object_encryption_alg
-   * >
-   * > OPTIONAL. JWE [JWE] alg algorithm [JWA] the RP is declaring that it may use for encrypting
-   * Request Objects sent to the OP. This parameter SHOULD be included when symmetric encryption
-   * will be used, since this signals to the OP that a client_secret value needs to be returned
-   * from which the symmetric key will be derived, that might not otherwise be returned. The RP
-   * MAY still use other supported encryption algorithms or send unencrypted Request Objects, even
-   * when this parameter is present. If both signing and encryption are requested, the Request Object
-   * will be signed then encrypted, with the result being a Nested JWT, as defined in [JWT]. The
-   * default, if omitted, is that the RP is not declaring whether it might encrypt any Request Objects.
-   *
-   * The point here is "The RP MAY still use other supported encryption algorithms or send unencrypted
-   * Request Objects, even when this parameter is present."
-   *
-   * The Client's property that represents the client metadata is `requestEncryptionAlg`. See the
-   * description of `requestEncryptionAlg` for details.
-   *
-   * Even if this flag is `false`, the match is required if the `requestObjectEncryptionAlgMatchRequired`
-   * flag of the client is `true`.
    */
   requestObjectEncryptionAlgMatchRequired?: boolean | undefined;
   /**
@@ -1263,22 +1005,6 @@ export type Service = {
    *
    * @remarks
    * client metadata of the client that has sent the request object.
-   *
-   * The `request_object_encryption_enc` client metadata itself is defined in [OpenID Connect Dynamic
-   * Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html) as follows.
-   *
-   * > request_object_encryption_enc
-   * >
-   * > OPTIONAL. JWE enc algorithm [JWA] the RP is declaring that it may use for encrypting Request
-   * Objects sent to the OP. If request_object_encryption_alg is specified, the default for this
-   * value is A128CBC-HS256. When request_object_encryption_enc is included, request_object_encryption_alg
-   * MUST also be provided.
-   *
-   * The Client's property that represents the client metadata is `requestEncryptionEnc`. See the
-   * description of `requestEncryptionEnc` for details.
-   *
-   * Even if this flag is false, the match is required if the `requestObjectEncryptionEncMatchRequired`
-   * flag is `true`.
    */
   requestObjectEncryptionEncMatchRequired?: boolean | undefined;
   /**
@@ -1315,13 +1041,6 @@ export type Service = {
    * @remarks
    * request such as CIBA backchannel authentication request and device authorization request) must
    * include the `grant_management_action` request parameter.
-   *
-   * This property corresponds to the `grant_management_action_required` server metadata defined
-   * in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
-   *
-   * Note that setting true to this property will result in blocking all public clients because
-   * the specification requires that grant management be usable only by confidential clients for
-   * security reasons.
    */
   grantManagementActionRequired?: boolean | undefined;
   /**
@@ -1329,22 +1048,6 @@ export type Service = {
    *
    * @remarks
    * a value of the `action` response parameter when appropriate.
-   *
-   * The `UNAUTHORIZED` enum value was initially not defined as a possible value of the `action`
-   * parameter in an `/api/client/registration` API response. This means that implementations of
-   * client `configuration` endpoint were not able to conform to [RFC 7592](https://www.rfc-editor.org/rfc/rfc7592.html)
-   * strictly.
-   *
-   * For backward compatibility (to avoid breaking running systems), Authlete's `/api/client/registration`
-   * API does not return the `UNAUTHORIZED` enum value if this flag is not turned on.
-   *
-   * The steps an existing implementation of client configuration endpoint has to do in order to
-   * conform to the requirement related to "401 Unauthorized" are as follows.
-   *
-   * 1. Update the Authlete library (e.g. authlete-java-common) your system is using.
-   * 2. Update your implementation of client configuration endpoint so that it can handle the
-   * `UNAUTHORIZED` action.
-   * 3. Turn on this `unauthorizedOnClientConfigSupported` flag.
    */
   unauthorizedOnClientConfigSupported?: boolean | undefined;
   /**
@@ -1376,43 +1079,6 @@ export type Service = {
    *
    * @remarks
    * the host component indicates loopback.
-   *
-   * When this flag is `true`, if the host component of a redirection URI specified in an authorization
-   * request indicates loopback (to be precise, when the host component is localhost, `127.0.0.1`
-   * or `::1`), the port number component is ignored when the specified redirection URI is compared
-   * to pre-registered ones. This behavior is described in [7.3. Loopback Interface Redirection](
-   * https://www.rfc-editor.org/rfc/rfc8252.html#section-7.3) of [RFC 8252 OAuth 2.0](https://www.rfc-editor.org/rfc/rfc8252.html)
-   * for Native Apps.
-   *
-   * [3.1.2.3. Dynamic Configuration](https://www.rfc-editor.org/rfc/rfc6749.html#section-3.1.2.3)
-   * of [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html) states _"If the client registration
-   * included the full redirection URI, the authorization server MUST compare the two URIs using
-   * simple string comparison as defined in [RFC3986] Section 6.2.1."_ Also, the description of
-   * `redirect_uri` in [3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
-   * of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) states
-   * _"This URI MUST exactly match one of the Redirection URI values for the Client pre-registered
-   * at the OpenID Provider, with the matching performed as described in Section 6.2.1 of [RFC3986]
-   * (**Simple String Comparison**)."_ These "Simple String Comparison" requirements are preceded
-   * by this flag. That is, even when the conditions described in RFC 6749 and OpenID Connect Core 1.0
-   * are satisfied, the port number component of loopback redirection URIs can be variable when this
-   * flag is `true`.
-   *
-   * [8.3. Loopback Redirect Considerations](https://www.rfc-editor.org/rfc/rfc8252.html#section-8.3)
-   * of [RFC 8252](https://www.rfc-editor.org/rfc/rfc8252.html) states as follows.
-   *
-   * > While redirect URIs using localhost (i.e., `"http://localhost:&#123;port&#125;/&#123;path&#125;"`) function
-   * similarly to loopback IP redirects described in Section 7.3, the use of localhost is NOT RECOMMENDED.
-   * Specifying a redirect URI with the loopback IP literal rather than localhost avoids inadvertently
-   * listening on network interfaces other than the loopback interface. It is also less susceptible
-   * to client-side firewalls and misconfigured host name resolution on the user's device.
-   *
-   * However, Authlete allows the port number component to be variable in the case of `localhost`,
-   * too. It is left to client applications whether they use `localhost` or a literal loopback IP
-   * address (`127.0.0.1` for IPv4 or `::1` for IPv6).
-   *
-   * Section 7.3 and Section 8.3 of [RFC 8252](https://www.rfc-editor.org/rfc/rfc8252.html) state
-   * that loopback redirection URIs use the `"http"` scheme, but Authlete allows the port number
-   * component to be variable in other cases (e.g. in the case of the `"https"` scheme), too.
    */
   loopbackRedirectionUriVariable?: boolean | undefined;
   /**
@@ -1420,23 +1086,6 @@ export type Service = {
    *
    * @remarks
    * the issuer identifier of this service.
-   *
-   * [Section 6.1. Passing a Request Object by Value](https://openid.net/specs/openid-connect-core-1_0.html#JWTRequests)
-   * of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) has the following
-   * statement.
-   *
-   * > The `aud` value SHOULD be or include the OP's Issuer Identifier URL.
-   *
-   * Likewise, [Section 4. Request Object](https://www.rfc-editor.org/rfc/rfc9101.html#section-4) of
-   * [RFC 9101](https://www.rfc-editor.org/rfc/rfc9101.html) (The OAuth 2.0 Authorization Framework:
-   * JWT-Secured Authorization Request (JAR)) has the following statement.
-   *
-   * > The value of aud should be the value of the authorization server (AS) issuer, as defined in
-   * [RFC 8414](https://www.rfc-editor.org/rfc/rfc8414.html).
-   *
-   * As excerpted above, validation on the `aud` claim of request objects is optional. However, if
-   * this flag is turned on, Authlete checks whether the `aud` claim of request objects matches the issuer
-   * identifier of this service and raises an error if they are different.
    */
   requestObjectAudienceChecked?: boolean | undefined;
   /**
@@ -2219,15 +1868,6 @@ export type ServiceInput = {
    * The duration of pushed authorization requests in seconds.
    *
    * @remarks
-   *
-   * [OAuth 2.0 Pushed Authorization Requests](https://tools.ietf.org/html/draft-lodderstedt-oauth-par)
-   * defines an endpoint (called "pushed authorization request endpoint") which client applications
-   * can register authorization requests into and get corresponding URIs (called "request URIs") from.
-   * The issued URIs represent the registered authorization requests. The client applications can use
-   * the URIs as the value of the `request_uri` request parameter in an authorization request.
-   *
-   * The property represents the duration of registered authorization requests and is used as the value
-   * of the `expires_in` parameter in responses from the pushed authorization request endpoint.
    */
   pushedAuthReqDuration?: number | undefined;
   /**
@@ -2259,19 +1899,6 @@ export type ServiceInput = {
    * @remarks
    * [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) or JAR (JWT
    * Secured Authorization Request).
-   *
-   * Differences between rules in OpenID Connect Core 1.0 and ones in JAR are as follows.
-   *   - JAR requires that a request object be always -signed.
-   *   - JAR does not allow request parameters outside a request object to be referred to.
-   *   - OIDC Core 1.0 requires that response_type request parameter exist outside a request object even if the request object includes the request parameter.
-   *   - OIDC Core 1.0 requires that scope request parameter exist outside a request object if the authorization request is an
-   *   - OIDC request even if the request object includes the request parameter.
-   *
-   * If this flag is set to `false` and the value of `requestObjectRequired` is `true`, the value of
-   * `require_signed_request_object` server metadata of this service
-   * is reported as `true` in the discovery document. The metadata is defined in JAR (JWT Secured
-   * Authorization Request). That `require_signed_request_object` is `true` means that authorization
-   * requests which don't conform to the JAR specification are rejected.
    */
   traditionalRequestObjectProcessingApplied?: boolean | undefined;
   /**
@@ -2290,21 +1917,6 @@ export type ServiceInput = {
    * The MTLS endpoint aliases.
    *
    * @remarks
-   *
-   * This property corresponds to the mtls_endpoint_aliases metadata defined in "5. Metadata for Mutual TLS Endpoint Aliases" of [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens](https://datatracker.ietf.org/doc/rfc8705/).
-   *
-   * The aliases will be embedded in the response from the discovery endpoint like the following.
-   *
-   * ```json
-   * &#123;
-   *   ......,
-   *   "mtls_endpoint_aliases": &#123;
-   *     "token_endpoint":         "https://mtls.example.com/token",
-   *     "revocation_endpoint":    "https://mtls.example.com/revo",
-   *     "introspection_endpoint": "https://mtls.example.com/introspect"
-   *   &#125;
-   * &#125;
-   * ```
    */
   mtlsEndpointAliases?: Array<NamedUri> | undefined;
   /**
@@ -2405,38 +2017,12 @@ export type ServiceInput = {
    * Scopes supported by the service.
    *
    * @remarks
-   *
-   * Authlete strongly recommends that the service register at least the following scopes.
-   *
-   * | Name | Description |
-   * | --- | --- |
-   * | openid | A permission to get an ID token of an end-user. The `openid` scope appears in [OpenID Connect Core 1.0, 3.1.2.1. Authentication Request, scope](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest). Without this scope, Authlete does not allow `response_type` request parameter to have values other than code and token. |
-   * | profile | A permission to get information about `name`, `family_name`, `given_name`, `middle_name`, `nickname`, `preferred_username`, `profile`, `picture`, `website`, `gender`, `birthdate`, `zoneinfo`, `locale` and `updated_at` from the user info endpoint. See [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) for details. |
-   * | email | A permission to get information about `email` and `email_verified` from the user info endpoint. See [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) for details. |
-   * | address | A permission to get information about address from the user info endpoint. See [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) and [5.1.1. Address Claim](https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim) for details. |
-   * | phone | A permission to get information about `phone_number` and `phone_number_verified` from the user info endpoint. See [OpenID Connect Core 1.0, 5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) for details. |
-   * | offline_access | A permission to get information from the user info endpoint even when the end-user is not present. See [OpenID Connect Core 1.0, 11. Offline Access](https://openid.net/specs/openid-connect-core-1_0.html#OfflineAccess) for details. |
-   *
-   * The value of this property is used as `scopes_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
   supportedScopes?: Array<Scope> | undefined;
   /**
    * The flag to indicate whether requests that request no scope are rejected or not.
    *
    * @remarks
-   *
-   * When a request has no explicit `scope` parameter and the service's pre-defined default scope set is empty,
-   * the authorization server regards the request requests no scope. When this flag is set to `true`,
-   * requests that request no scope are rejected.
-   *
-   * The requirement below excerpted from [RFC 6749 Section 3.3](https://tools.ietf.org/html/rfc6749#section-3.3)
-   * does not explicitly mention the case where the default scope set is empty.
-   *
-   * > If the client omits the scope parameter when requesting authorization, the authorization server
-   * MUST either process the request using a pre-defined default value or fail the request indicating an invalid scope.
-   *
-   * However, if you interpret *"the default scope set exists but is empty"* as *"the default scope set does not exist"*
-   * and want to strictly conform to the requirement above, this flag has to be `true`.
    */
   scopeRequired?: boolean | undefined;
   /**
@@ -2481,33 +2067,6 @@ export type ServiceInput = {
    * @remarks
    * 5.1. Standard Claim](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) should
    * be supported. The following is the list of standard claims.
-   *
-   * - `sub`
-   * - `name`
-   * - `given_name`
-   * - `family_name`
-   * - `middle_name`
-   * - `nickname`
-   * - `preferred_username`
-   * - `profile`
-   * - `picture`
-   * - `website`
-   * - `email`
-   * - `email_verified`
-   * - `gender`
-   * - `birthdate`
-   * - `zoneinfo`
-   * - `locale`
-   * - `phone_number`
-   * - `phone_number_verified`
-   * - `address`
-   * - `updated_at`
-   *
-   * The value of this property is used as `claims_supported` property in the [OpenID Provider
-   * Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
-   *
-   * The service may support its original claim names. See [OpenID Connect Core 1.0, 5.1.2. Additional
-   * Claims](https://openid.net/specs/openid-connect-core-1_0.html#AdditionalClaims).
    */
   supportedClaims?: Array<string> | undefined;
   /**
@@ -2515,14 +2074,6 @@ export type ServiceInput = {
    *
    * @remarks
    * in the issued ID token only when no access token is issued.
-   *
-   * To strictly conform to the description below excerpted from [OpenID Connect Core 1.0 Section
-   * 5.4](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims), this flag has to be `true`.
-   *
-   * > The Claims requested by the profile, email, address, and phone scope values are returned from
-   * the UserInfo Endpoint, as described in Section 5.3.2, when a response_type value is used that
-   * results in an Access Token being issued. However, when no Access Token is issued (which is the
-   * case for the response_type value id_token), the resulting Claims are returned in the ID Token.
    */
   claimShortcutRestrictive?: boolean | undefined;
   /**
@@ -2562,56 +2113,18 @@ export type ServiceInput = {
    * The key ID to identify a JWK used for ID token signature using an asymmetric key.
    *
    * @remarks
-   *
-   * A JWK Set can be registered as a property of a Service. A JWK Set can contain 0 or more JWKs
-   * (See [RFC 7517](https://tools.ietf.org/html/rfc7517) for details about JWK). Authlete Server has
-   * to pick up one JWK for signature from the JWK Set when it generates an ID token and signature
-   * using an asymmetric key is required. Authlete Server searches the registered JWK Set for a JWK
-   * which satisfies conditions for ID token signature. If the number of JWK candidates which satisfy
-   * the conditions is 1, there is no problem. On the other hand, if there exist multiple candidates,
-   * a [Key ID](https://tools.ietf.org/html/rfc7517#section-4.5) is needed to be specified so that
-   * Authlete Server can pick up one JWK from among the JWK candidates.
-   *
-   * This `idTokenSignatureKeyId` property exists for the purpose described above. For key rotation
-   * (OpenID Connect Core 1.0, [10.1.1. Rotation of Asymmetric Signing Keys](http://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys)),
-   * this mechanism is needed.
    */
   idTokenSignatureKeyId?: string | undefined;
   /**
    * The key ID to identify a JWK used for user info signature using an asymmetric key.
    *
    * @remarks
-   *
-   * A JWK Set can be registered as a property of a Service. A JWK Set can contain 0 or more JWKs
-   * (See [RFC 7517](https://tools.ietf.org/html/rfc7517) for details about JWK). Authlete Server has
-   * to pick up one JWK for signature from the JWK Set when it is required to sign user info (which
-   * is returned from [userinfo endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo))
-   * using an asymmetric key. Authlete Server searches the registered JWK Set for a JWK which satisfies
-   * conditions for user info signature. If the number of JWK candidates which satisfy the conditions
-   * is 1, there is no problem. On the other hand, if there exist multiple candidates, a [Key ID](https://tools.ietf.org/html/rfc7517#section-4.5)
-   * is needed to be specified so that Authlete Server can pick up one JWK from among the JWK candidates.
-   *
-   * This `userInfoSignatureKeyId` property exists for the purpose described above. For key rotation
-   * (OpenID Connect Core 1.0, [10.1.1. Rotation of Asymmetric Signing Keys](http://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys)),
-   * this mechanism is needed.
    */
   userInfoSignatureKeyId?: string | undefined;
   /**
    * The key ID to identify a JWK used for signing authorization responses using an asymmetric key.
    *
    * @remarks
-   *
-   * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
-   * defines new values for the `response_mode` request parameter. They are `query.jwt`, `fragment.jwt`,
-   * `form_post.jwt` and `jwt`. If one of them is specified as the response mode, response parameters
-   * from the authorization endpoint will be packed into a JWT. This property is used to compute the
-   * value of the `exp` claim of the JWT.
-   *
-   * Authlete Server searches the JWK Set for a JWK which satisfies conditions for authorization response
-   * signature. If the number of JWK candidates which satisfy the conditions is 1, there is no problem.
-   * On the other hand, if there exist multiple candidates, a Key ID is needed to be specified so that
-   * Authlete Server can pick up one JWK from among the JWK candidates. This property exists to specify
-   * the key ID.
    */
   authorizationSignatureKeyId?: string | undefined;
   /**
@@ -2725,15 +2238,6 @@ export type ServiceInput = {
    *
    * @remarks
    * a backchannel authentication request is judged as a request for Financial-grade API.
-   *
-   * The FAPI-CIBA profile requires that the authorization server _"shall ensure unique authorization
-   * context exists in the authorization request or require a `binding_message` in the authorization
-   * request"_ (FAPI-CIBA, 5.2.2, 2). The simplest way to fulfill this requirement is to set this property
-   * to `true`.
-   *
-   * If this property is set to `false`, the `binding_message` request parameter remains optional
-   * even in FAPI context, but in exchange, your authorization server must implement a custom mechanism
-   * that ensures each backchannel authentication request has unique context.
    */
   backchannelBindingMessageRequiredInFapi?: boolean | undefined;
   /**
@@ -2757,17 +2261,6 @@ export type ServiceInput = {
    * @remarks
    * to build the value of the `verification_uri_complete` parameter in responses from the device
    * authorization endpoint.
-   *
-   * It is expected that the URI contains a fixed string `USER_CODE` somewhere as a placeholder for
-   * a user code. For example, like the following.
-   *
-   * `https://example.com/device?user_code=USER_CODE`
-   *
-   * The fixed string is replaced with an actual user code when Authlete builds a verification URI
-   * with a user code for the `verification_uri_complete` parameter.
-   *
-   * If this URI is not set, the `verification_uri_complete` parameter won't appear in device authorization
-   * responses.
    */
   deviceVerificationUriComplete?: string | undefined;
   /**
@@ -2851,69 +2344,18 @@ export type ServiceInput = {
    *
    * @remarks
    * request is regarded as a FAPI-Part2 request.
-   *
-   * The final version of Financial-grade API was approved in January, 2021. The Part 2 of the final
-   * version has new requirements on lifetime of request objects. They require that request objects
-   * contain an `nbf` claim and the lifetime computed by `exp` - `nbf` be no longer than 60 minutes.
-   *
-   * Therefore, when an authorization request is regarded as a FAPI-Part2 request, the request object
-   * used in the authorization request must contain an nbf claim. Otherwise, the authorization server
-   * rejects the authorization request.
-   *
-   * When this flag is `true`, the `nbf` claim is treated as an optional claim even when the authorization
-   * request is regarded as a FAPI-Part2 request. That is, the authorization server does not perform
-   * the validation on lifetime of the request object.
-   *
-   * Skipping the validation is a violation of the FAPI specification. The reason why this flag has
-   * been prepared nevertheless is that the new requirements (which do not exist in the Implementer's
-   * Draft 2 released in October, 2018) have big impacts on deployed implementations of client
-   * applications and Authlete thinks there should be a mechanism whereby to make the migration
-   * from ID2 to Final smooth without breaking live systems.
    */
   nbfOptional?: boolean | undefined;
   /**
    * The flag indicating whether generation of the iss response parameter is suppressed.
    *
    * @remarks
-   *
-   * "OAuth 2.0 Authorization Server Issuer Identifier in Authorization Response" has defined a new
-   * authorization response parameter, `iss`, as a countermeasure for a certain type of mix-up attacks.
-   *
-   * The specification requires that the `iss` response parameter always be included in authorization
-   * responses unless JARM (JWT Secured Authorization Response Mode) is used.
-   *
-   * When this flag is `true`, the authorization server does not include the `iss` response parameter
-   * in authorization responses. By turning this flag on and off, developers of client applications
-   * can experiment the mix-up attack and the effect of the `iss` response parameter.
-   *
-   * Note that this flag should not be `true` in production environment unless there are special
-   * reasons for it.
    */
   issSuppressed?: boolean | undefined;
   /**
    * custom client metadata supported by this service.
    *
    * @remarks
-   *
-   * Standard specifications define client metadata as necessary. The following are such examples.
-   *
-   * * [OpenID Connect Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html)
-   * * [RFC 7591 OAuth 2.0 Dynamic Client Registration Protocol](https://www.rfc-editor.org/rfc/rfc7591.html)
-   * * [RFC 8705 OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens](https://www.rfc-editor.org/rfc/rfc8705.html)
-   * * [OpenID Connect Client-Initiated Backchannel Authentication Flow - Core 1.0](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html)
-   * * [The OAuth 2.0 Authorization Framework: JWT Secured Authorization Request (JAR)](https://datatracker.ietf.org/doc/draft-ietf-oauth-jwsreq/)
-   * * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
-   * * [OAuth 2.0 Pushed Authorization Requests (PAR)](https://datatracker.ietf.org/doc/rfc9126/)
-   * * [OAuth 2.0 Rich Authorization Requests (RAR)](https://datatracker.ietf.org/doc/draft-ietf-oauth-rar/)
-   *
-   * Standard client metadata included in Client Registration Request and Client Update Request (cf.
-   * [OIDC DynReg](https://openid.net/specs/openid-connect-registration-1_0.html), [RFC 7591](https://www.rfc-editor.org/rfc/rfc7591.html)
-   * and [RFC 7592](https://www.rfc-editor.org/rfc/rfc7592.html)) are, if supported by Authlete, stored
-   * into Authlete database. On the other hand, unrecognized client metadata are discarded.
-   *
-   * By listing up custom client metadata in advance by using this property (`supportedCustomClientMetadata`),
-   * Authlete can recognize them and stores their values into the database. The stored custom client
-   * metadata values can be referenced by `customMetadata`.
    */
   supportedCustomClientMetadata?: Array<string> | undefined;
   /**
@@ -2921,23 +2363,6 @@ export type ServiceInput = {
    *
    * @remarks
    * corresponding refresh token.
-   *
-   * When a new access token is issued by a refresh token request (= a token request with `grant_type=refresh_token`),
-   * the expiration date of the access token may exceed the expiration date of the corresponding
-   * refresh token. This behavior itself is not wrong and may happen when `refreshTokenKept` is
-   * `true` and/or when `refreshTokenDurationKept` is `true`.
-   *
-   * When this flag is `true`, the expiration date of an access token never exceeds that of the corresponding
-   * refresh token regardless of the calculated duration based on other settings such as `accessTokenDuration`,
-   * `accessTokenDuration` in `extension` and `access_token.duration` scope attribute.
-   *
-   * It is technically possible to set a value which is bigger than the duration of refresh tokens
-   * as the duration of access tokens although it is strange. In the case, the duration of an access
-   * token becomes longer than the duration of the refresh token which is issued together with the
-   * access token. Even if the duration values are configured so, if this flag is `true`, the expiration
-   * date of the access token does not exceed that of the refresh token. That is, the duration of
-   * the access token will be shortened, and as a result, the access token and the refresh token
-   * will have the same expiration date.
    */
   tokenExpirationLinked?: boolean | undefined;
   /**
@@ -2945,17 +2370,6 @@ export type ServiceInput = {
    *
    * @remarks
    * is passed through the front channel.
-   *
-   * This flag does not affect the processing of request objects at the Pushed Authorization Request
-   * Endpoint, which is defined in [OAuth 2.0 Pushed Authorization Requests](https://datatracker.ietf.org/doc/rfc9126/).
-   * Unecrypted request objects are accepted at the endpoint even if this flag is `true`.
-   *
-   * This flag does not indicate whether a request object is always required. There is a different
-   * flag, `requestObjectRequired`, for the purpose. See the description of `requestObjectRequired`
-   * for details.
-   *
-   * Even if this flag is `false`, encryption of request object is required if the `frontChannelRequestObjectEncryptionRequired`
-   * flag of the client is `true`.
    */
   frontChannelRequestObjectEncryptionRequired?: boolean | undefined;
   /**
@@ -2963,29 +2377,6 @@ export type ServiceInput = {
    *
    * @remarks
    * client metadata of the client that has sent the request object.
-   *
-   * The request_object_encryption_alg client metadata itself is defined in [OpenID Connect Dynamic
-   * Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html) as follows.
-   *
-   * > request_object_encryption_alg
-   * >
-   * > OPTIONAL. JWE [JWE] alg algorithm [JWA] the RP is declaring that it may use for encrypting
-   * Request Objects sent to the OP. This parameter SHOULD be included when symmetric encryption
-   * will be used, since this signals to the OP that a client_secret value needs to be returned
-   * from which the symmetric key will be derived, that might not otherwise be returned. The RP
-   * MAY still use other supported encryption algorithms or send unencrypted Request Objects, even
-   * when this parameter is present. If both signing and encryption are requested, the Request Object
-   * will be signed then encrypted, with the result being a Nested JWT, as defined in [JWT]. The
-   * default, if omitted, is that the RP is not declaring whether it might encrypt any Request Objects.
-   *
-   * The point here is "The RP MAY still use other supported encryption algorithms or send unencrypted
-   * Request Objects, even when this parameter is present."
-   *
-   * The Client's property that represents the client metadata is `requestEncryptionAlg`. See the
-   * description of `requestEncryptionAlg` for details.
-   *
-   * Even if this flag is `false`, the match is required if the `requestObjectEncryptionAlgMatchRequired`
-   * flag of the client is `true`.
    */
   requestObjectEncryptionAlgMatchRequired?: boolean | undefined;
   /**
@@ -2993,22 +2384,6 @@ export type ServiceInput = {
    *
    * @remarks
    * client metadata of the client that has sent the request object.
-   *
-   * The `request_object_encryption_enc` client metadata itself is defined in [OpenID Connect Dynamic
-   * Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html) as follows.
-   *
-   * > request_object_encryption_enc
-   * >
-   * > OPTIONAL. JWE enc algorithm [JWA] the RP is declaring that it may use for encrypting Request
-   * Objects sent to the OP. If request_object_encryption_alg is specified, the default for this
-   * value is A128CBC-HS256. When request_object_encryption_enc is included, request_object_encryption_alg
-   * MUST also be provided.
-   *
-   * The Client's property that represents the client metadata is `requestEncryptionEnc`. See the
-   * description of `requestEncryptionEnc` for details.
-   *
-   * Even if this flag is false, the match is required if the `requestObjectEncryptionEncMatchRequired`
-   * flag is `true`.
    */
   requestObjectEncryptionEncMatchRequired?: boolean | undefined;
   /**
@@ -3045,13 +2420,6 @@ export type ServiceInput = {
    * @remarks
    * request such as CIBA backchannel authentication request and device authorization request) must
    * include the `grant_management_action` request parameter.
-   *
-   * This property corresponds to the `grant_management_action_required` server metadata defined
-   * in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
-   *
-   * Note that setting true to this property will result in blocking all public clients because
-   * the specification requires that grant management be usable only by confidential clients for
-   * security reasons.
    */
   grantManagementActionRequired?: boolean | undefined;
   /**
@@ -3059,22 +2427,6 @@ export type ServiceInput = {
    *
    * @remarks
    * a value of the `action` response parameter when appropriate.
-   *
-   * The `UNAUTHORIZED` enum value was initially not defined as a possible value of the `action`
-   * parameter in an `/api/client/registration` API response. This means that implementations of
-   * client `configuration` endpoint were not able to conform to [RFC 7592](https://www.rfc-editor.org/rfc/rfc7592.html)
-   * strictly.
-   *
-   * For backward compatibility (to avoid breaking running systems), Authlete's `/api/client/registration`
-   * API does not return the `UNAUTHORIZED` enum value if this flag is not turned on.
-   *
-   * The steps an existing implementation of client configuration endpoint has to do in order to
-   * conform to the requirement related to "401 Unauthorized" are as follows.
-   *
-   * 1. Update the Authlete library (e.g. authlete-java-common) your system is using.
-   * 2. Update your implementation of client configuration endpoint so that it can handle the
-   * `UNAUTHORIZED` action.
-   * 3. Turn on this `unauthorizedOnClientConfigSupported` flag.
    */
   unauthorizedOnClientConfigSupported?: boolean | undefined;
   /**
@@ -3106,43 +2458,6 @@ export type ServiceInput = {
    *
    * @remarks
    * the host component indicates loopback.
-   *
-   * When this flag is `true`, if the host component of a redirection URI specified in an authorization
-   * request indicates loopback (to be precise, when the host component is localhost, `127.0.0.1`
-   * or `::1`), the port number component is ignored when the specified redirection URI is compared
-   * to pre-registered ones. This behavior is described in [7.3. Loopback Interface Redirection](
-   * https://www.rfc-editor.org/rfc/rfc8252.html#section-7.3) of [RFC 8252 OAuth 2.0](https://www.rfc-editor.org/rfc/rfc8252.html)
-   * for Native Apps.
-   *
-   * [3.1.2.3. Dynamic Configuration](https://www.rfc-editor.org/rfc/rfc6749.html#section-3.1.2.3)
-   * of [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html) states _"If the client registration
-   * included the full redirection URI, the authorization server MUST compare the two URIs using
-   * simple string comparison as defined in [RFC3986] Section 6.2.1."_ Also, the description of
-   * `redirect_uri` in [3.1.2.1. Authentication Request](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest)
-   * of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) states
-   * _"This URI MUST exactly match one of the Redirection URI values for the Client pre-registered
-   * at the OpenID Provider, with the matching performed as described in Section 6.2.1 of [RFC3986]
-   * (**Simple String Comparison**)."_ These "Simple String Comparison" requirements are preceded
-   * by this flag. That is, even when the conditions described in RFC 6749 and OpenID Connect Core 1.0
-   * are satisfied, the port number component of loopback redirection URIs can be variable when this
-   * flag is `true`.
-   *
-   * [8.3. Loopback Redirect Considerations](https://www.rfc-editor.org/rfc/rfc8252.html#section-8.3)
-   * of [RFC 8252](https://www.rfc-editor.org/rfc/rfc8252.html) states as follows.
-   *
-   * > While redirect URIs using localhost (i.e., `"http://localhost:&#123;port&#125;/&#123;path&#125;"`) function
-   * similarly to loopback IP redirects described in Section 7.3, the use of localhost is NOT RECOMMENDED.
-   * Specifying a redirect URI with the loopback IP literal rather than localhost avoids inadvertently
-   * listening on network interfaces other than the loopback interface. It is also less susceptible
-   * to client-side firewalls and misconfigured host name resolution on the user's device.
-   *
-   * However, Authlete allows the port number component to be variable in the case of `localhost`,
-   * too. It is left to client applications whether they use `localhost` or a literal loopback IP
-   * address (`127.0.0.1` for IPv4 or `::1` for IPv6).
-   *
-   * Section 7.3 and Section 8.3 of [RFC 8252](https://www.rfc-editor.org/rfc/rfc8252.html) state
-   * that loopback redirection URIs use the `"http"` scheme, but Authlete allows the port number
-   * component to be variable in other cases (e.g. in the case of the `"https"` scheme), too.
    */
   loopbackRedirectionUriVariable?: boolean | undefined;
   /**
@@ -3150,23 +2465,6 @@ export type ServiceInput = {
    *
    * @remarks
    * the issuer identifier of this service.
-   *
-   * [Section 6.1. Passing a Request Object by Value](https://openid.net/specs/openid-connect-core-1_0.html#JWTRequests)
-   * of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) has the following
-   * statement.
-   *
-   * > The `aud` value SHOULD be or include the OP's Issuer Identifier URL.
-   *
-   * Likewise, [Section 4. Request Object](https://www.rfc-editor.org/rfc/rfc9101.html#section-4) of
-   * [RFC 9101](https://www.rfc-editor.org/rfc/rfc9101.html) (The OAuth 2.0 Authorization Framework:
-   * JWT-Secured Authorization Request (JAR)) has the following statement.
-   *
-   * > The value of aud should be the value of the authorization server (AS) issuer, as defined in
-   * [RFC 8414](https://www.rfc-editor.org/rfc/rfc8414.html).
-   *
-   * As excerpted above, validation on the `aud` claim of request objects is optional. However, if
-   * this flag is turned on, Authlete checks whether the `aud` claim of request objects matches the issuer
-   * identifier of this service and raises an error if they are different.
    */
   requestObjectAudienceChecked?: boolean | undefined;
   /**

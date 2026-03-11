@@ -11,8 +11,6 @@ export * from "./authorizationticketinfopostapi.js";
 export * from "./authrevocationapi.js";
 export * from "./authtokenapi.js";
 export * from "./authtokencreateapi.js";
-export * from "./authtokencreatebatchapi.js";
-export * from "./authtokencreatebatchstatusapi.js";
 export * from "./authtokendeleteapi.js";
 export * from "./authtokenfailapi.js";
 export * from "./authtokengetlistapi.js";

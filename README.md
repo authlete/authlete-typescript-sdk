@@ -387,11 +387,6 @@ run();
 * [delete](docs/sdks/tokenmanagement/README.md#delete) - Delete Access Token
 * [revoke](docs/sdks/tokenmanagement/README.md#revoke) - Revoke Access Token
 
-### [TokenOperations](docs/sdks/tokenoperations/README.md)
-
-* [authTokenCreateBatchApi](docs/sdks/tokenoperations/README.md#authtokencreatebatchapi) - Create Access Tokens in Batch
-* [authTokenCreateBatchStatusApi](docs/sdks/tokenoperations/README.md#authtokencreatebatchstatusapi) - Get Batch Token Creation Status
-
 ### [Userinfo](docs/sdks/userinfo/README.md)
 
 * [process](docs/sdks/userinfo/README.md#process) - Process UserInfo Request
@@ -499,8 +494,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`tokenManagementReissueIdToken`](docs/sdks/tokenmanagement/README.md#reissueidtoken) - Reissue ID Token
 - [`tokenManagementRevoke`](docs/sdks/tokenmanagement/README.md#revoke) - Revoke Access Token
 - [`tokenManagementUpdate`](docs/sdks/tokenmanagement/README.md#update) - Update Access Token
-- [`tokenOperationsAuthTokenCreateBatchApi`](docs/sdks/tokenoperations/README.md#authtokencreatebatchapi) - Create Access Tokens in Batch
-- [`tokenOperationsAuthTokenCreateBatchStatusApi`](docs/sdks/tokenoperations/README.md#authtokencreatebatchstatusapi) - Get Batch Token Creation Status
 - [`tokenProcess`](docs/sdks/token/README.md#process) - Process Token Request
 - [`userinfoIssue`](docs/sdks/userinfo/README.md#issue) - Issue UserInfo Response
 - [`userinfoProcess`](docs/sdks/userinfo/README.md#process) - Process UserInfo Request

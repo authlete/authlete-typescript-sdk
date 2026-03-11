@@ -32,33 +32,6 @@ import { Result } from "../types/fp.js";
  * @remarks
  * The API prepares JSON that contains an error. The JSON should be used as the response body of the
  * response which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint).
- *
- * This API is supposed to be called from within the implementation of the [backchannel authentication
- * endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint)
- * of the service in order to generate an error response to the client application.
- * The response from `/backchannel/authentication/fails` API has some parameters. Among them, it is
- * `action` parameter that the authorization server implementation should check first because it denotes
- * the next action that the authorization server implementation should take. According to the value
- * of `action`, the authorization server implementation must take the steps described below.
- *
- * ## INTERNAL_SERVER_ERROR
- *
- * When the value of `action` is `INTERNAL_SERVER_ERROR`, it means that (1) the `reason` request parameter
- * of the API call was `SERVER_ERROR`, (2) an error occurred on Authlete side, or (3) the request parameters
- * of the API call were wrong. In this case, the authorization server implementation should return
- * a "500 Internal Server Error" response to the client application. However, in most cases, commercial
- * implementations prefer to use other HTTP status code than 5xx.
- *
- * ## BAD_REQUEST
- *
- * When the value of `action` is `BAD_REQUEST`, the authorization server implementation should return a
- * "400 Bad Request" response to the client application.
- *
- * ## FORBIDDEN
- *
- * When the value of `action` is `FORBIDDEN`, it means that the `reason` request parameter of the API call
- * was `ACCESS_DENIED`. In this case, the backchannel authentication endpoint of the authorization
- * server implementation should return a "403 Forbidden" response to the client application.
  */
 export function cibaFail(
   client: AuthleteCore,

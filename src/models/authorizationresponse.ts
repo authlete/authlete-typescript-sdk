@@ -210,95 +210,12 @@ export type AuthorizationResponse = {
    * The value of the `id_token` property in the claims request parameter or in the claims property in a request object.
    *
    * @remarks
-   *
-   * A client application may request certain claims be embedded in an ID token or in a response from the userInfo endpoint.
-   * There are several ways. Including the `claims` request parameter and including the `claims` property in a request object are such examples.
-   * In both the cases, the value of the `claims` parameter/property is JSON. Its format is described in [5.5. Requesting Claims using the "claims"
-   * Request Parameter](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter).
-   *
-   * The following is an excerpt from the specification.
-   * You can find `userinfo` and `id_token` are top-level properties.
-   *
-   * ```json
-   * &#123;
-   *   "userinfo":
-   *   &#123;
-   *     "given_name": &#123; "essential": true &#125;,
-   *     "nickname": null,
-   *     "email": &#123; "essential": true &#125;,
-   *     "email_verified": &#123; "essential": true &#125;,
-   *     "picture": null,
-   *     "http://example.info/claims/groups": null
-   *   &#125;,
-   *   "id_token":
-   *   &#123;
-   *     "auth_time": &#123; "essential": true &#125;,
-   *     "acr": &#123; "values": [ "urn:mace:incommon:iap:silver" ] &#125;
-   *   &#125;
-   * &#125;
-   * ```
-   *
-   * This value of this property is the value of the `id_token` property in JSON format.
-   * For example, if the JSON above is included in an authorization request, this property holds JSON equivalent to the following.
-   *
-   * ```json
-   * &#123;
-   *   "auth_time": &#123; "essential": true &#125;,
-   *   "acr": &#123; "values": [ "urn:mace:incommon:iap:silver" ] &#125;
-   * &#125;
-   * ```
-   *
-   * Note that if a request object is given and it contains the `claims` property and if the `claims` request parameter is also given,
-   * this property holds the former value.
    */
   idTokenClaims?: string | undefined;
   /**
    * The value of the `userinfo` property in the `claims` request parameter or in the `claims` property in a request object.
    *
    * @remarks
-   *
-   * A client application may request certain claims be embedded in an ID token or in a response from the userInfo endpoint.
-   * There are several ways. Including the `claims` request parameter and including the `claims` property in a request object are such examples.
-   * In both the cases, the value of the `claims` parameter/property is JSON. Its format is described in [5.5. Requesting Claims using the "claims"
-   * Request Parameter](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter).
-   *
-   * The following is an excerpt from the specification. You can find `userinfo` and `id_token` are top-level properties.
-   *
-   * ```json
-   * &#123;
-   *   "userinfo":
-   *   &#123;
-   *     "given_name": &#123; "essential": true &#125;,
-   *     "nickname": null,
-   *     "email": &#123; "essential": true &#125;,
-   *     "email_verified": &#123; "essential": true &#125;,
-   *     "picture": null,
-   *     "http://example.info/claims/groups": null
-   *   &#125;,
-   *   "id_token":
-   *   &#123;
-   *     "auth_time": &#123; "essential": true &#125;,
-   *     "acr": &#123; "values": [ "urn:mace:incommon:iap:silver" ] &#125;
-   *   &#125;
-   * &#125;
-   * ````
-   *
-   * The value of this property is the value of the `userinfo` property in JSON format.
-   * For example, if the JSON above is included in an authorization request, this property holds JSON equivalent to the following.
-   *
-   * ```json
-   * &#123;
-   *   "given_name": &#123; "essential": true &#125;,
-   *   "nickname": null,
-   *   "email": &#123; "essential": true &#125;,
-   *   "email_verified": &#123; "essential": true &#125;,
-   *   "picture": null,
-   *   "http://example.info/claims/groups": null
-   * &#125;
-   * ```
-   *
-   * Note that if a request object is given and it contains the `claims` property and if the `claims` request parameter is also given,
-   * the value of this property holds the former value.
    */
   userInfoClaims?: string | undefined;
   /**
@@ -495,15 +412,6 @@ export type AuthorizationResponse = {
    *
    * @remarks
    * is requested. This property should be set to `true` when all the following conditions are satisfied:
-   *
-   * - The service supports Native SSO (see `nativeSsoSupported` property of Service).
-   * - The service supports the `openid` and `device_sso` scopes.
-   * - The client is allowed to request the `openid` and `device_sso` scopes.
-   * - The authorization request includes the `openid` and `device_sso` scopes.
-   * - The authorization request's `response_type` includes `code`.
-   *
-   * NOTE: If this property is set to `true`, the `sessionId` request parameter must be provided
-   * to the `/auth/authorization/issue` API.
    */
   nativeSsoRequested?: boolean | undefined;
   /**

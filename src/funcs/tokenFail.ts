@@ -32,60 +32,6 @@ import { Result } from "../types/fp.js";
  * @remarks
  * This API generates a content of an error token response that the authorization server implementation
  * returns to the client application.
- *
- * This API is supposed to be called from within the implementation of the token endpoint of the service
- * in order to generate an error response to the client application.
- * The description of the `/auth/token` API describes the timing when this API should be called. See
- * the description for the case of `action=PASSWORD`.
- * The response from `/auth/token/fail` API has some parameters. Among them, it is `action` parameter
- * that the authorization server implementation should check first because it denotes the next action
- * that the authorization server implementation should take. According to the value of `action`, the
- * authorization server implementation must take the steps described below.
- *
- * ## INTERNAL_SERVER_ERROR
- *
- * When the value of `action` is `INTERNAL_SERVER_ERROR`, it means that the request from the authorization
- * server implementation was wrong or that an error occurred in Authlete.
- * In either case, from the viewpoint of the client application, it is an error on the server side.
- * Therefore, the service implementation should generate a response to the client application with
- * HTTP status of "500 Internal Server Error".
- * The value of `responseContent` is a JSON string which describes the error, so it can be used
- * as the entity body of the response.
- *
- * ---
- *
- * The following illustrates the response which the service implementation should generate and return
- * to the client application.
- * ```
- * HTTP/1.1 500 Internal Server Error
- * Content-Type: application/json
- * Cache-Control: no-store
- * Pragma: no-cache
- * &#123;responseContent&#125;
- * ```
- * The endpoint implementation may return another different response to the client application
- * since "500 Internal Server Error" is not required by OAuth 2.0.
- *
- * ## BAD_REQUEST
- *
- * When the value of `action` is `BAD_REQUEST`, it means that Authlete's `/auth/token/fail` API successfully
- * generated an error response for the client application.
- * The HTTP status of the response returned to the client application must be "400 Bad Request" and
- * the content type must be `application/json`.
- * The value of `responseContent` is a JSON string which describes the error, so it can be used
- * as the entity body of the response.
- *
- * ---
- *
- * The following illustrates the response which the service implementation should generate and return
- * to the client application.
- * ```
- * HTTP/1.1 400 Bad Request
- * Content-Type: application/json
- * Cache-Control: no-store
- * Pragma: no-cache
- * &#123;responseContent&#125;
- * ```
  */
 export function tokenFail(
   client: AuthleteCore,

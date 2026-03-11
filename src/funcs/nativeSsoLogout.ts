@@ -35,22 +35,6 @@ import { Result } from "../types/fp.js";
  * (Native SSO). This is accomplished by deleting access/refresh token records associated with the
  * specified session ID. In Authlete's implementation, access/refresh token records can be associated
  * with a session ID only through the mechanism introduced by Native SSO.
- *
- * A response from the `/nativesso/logout` API contains `action` response parameter. The possible values
- * are:
- *
- * ## OK
- *
- * When the action is `OK`, it indicates that the `/nativesso/logout` API call completed successfully.
- *
- * ## SERVER_ERROR
- *
- * When the action is `SERVER_ERROR`, it indicates that something has gone wrong on the Authlete side.
- *
- * ## CALLER_ERROR
- *
- * When the action is `CALLER_ERROR`, it indicates that the `/nativesso/logout` API call contained a
- * problem. For example, the call may have been missing the required request parameter `sessionId`.
  */
 export function nativeSsoLogout(
   client: AuthleteCore,

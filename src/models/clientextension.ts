@@ -13,16 +13,6 @@ export type ClientExtension = {
    *
    * @remarks
    * of the following.
-   *
-   *   - `null`
-   *   - an empty set
-   *   - a set with at least one element
-   *
-   * When the value of this parameter is `null`, it means that the set of scopes that the client
-   * application is allowed to request is the set of the scopes that the service supports. When the
-   * value of this parameter is an empty set, it means that the client application is not allowed to
-   * request any scopes. When the value of this parameter is a set with at least one element, it means
-   * that the set is the set of scopes that the client application is allowed to request.
    */
   requestableScopes?: Array<string> | undefined;
   /**

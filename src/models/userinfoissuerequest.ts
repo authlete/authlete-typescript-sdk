@@ -49,66 +49,6 @@ export type UserinfoIssueRequest = {
    * Values of verified claims requested indirectly by "transformed claims".
    *
    * @remarks
-   *
-   * A client application may request "transformed claims". Each of transformed claims uses an existing
-   * claim as input. As a result, to compute the value of a transformed claim, the value of the referenced
-   * existing claim is needed. This `verifiedClaimsForTx` request parameter has to be used to provide
-   * values of existing claims for computation of transformed claims.
-   *
-   * A response from the `/auth/userinfo` API may include the `requestedVerifiedClaimsForTx` response
-   * parameter which is a list of verified claims that are referenced indirectly by transformed claims
-   * (cf. `requestedVerifiedClaimsForTx` in `/auth/userinfo` API response). The authorization server
-   * implementation should prepare values of the verified claims listed in `requestedVerifiedClaimsForTx`
-   * and pass them as the value of this `verifiedClaimsForTx` request parameter.
-   *
-   * The following is an example of the value of this request parameter.
-   *
-   * ```
-   * [
-   *   "&#123;\"birthdate\":\"1970-01-23\",\"nationalities\":[\"DEU\",\"USA\"]&#125;"
-   * ]
-   * ```
-   *
-   * The reason that this `verifiedClaimsForTx` property is an array is that the `"verified_claims"`
-   * property in the claims request parameter of an authorization request can be an array like below.
-   *
-   * ```
-   * &#123;
-   *   "transformed_claims": &#123;
-   *     "nationality_usa": &#123;
-   *       "claim": "nationalities",
-   *       "fn": [
-   *         [ "eq", "USA" ],
-   *         "any"
-   *       ]
-   *     &#125;
-   *   &#125;,
-   *   "userinfo": &#123;
-   *     "verified_claims": [
-   *       &#123;
-   *         "verification": &#123; "trust_framework": &#123; "value": "gold" &#125; &#125;,
-   *         "claims": &#123; "::18_or_above": null &#125;
-   *       &#125;,
-   *       &#123;
-   *         "verification": &#123; "trust_framework": &#123; "value": "silver" &#125; &#125;,
-   *         "claims": &#123; ":nationality_usa": null &#125;
-   *       &#125;
-   *     ]
-   *   &#125;
-   * &#125;
-   * ```
-   *
-   * For the example above, the value of this `verifiedClaimsForTx` property should be an array of
-   * size 2 and look like below. The first element is JSON including claims which have been verified
-   * under the trust framework `"gold"`, and the second element is JSON including claims which have
-   * been verified under the trust framework `"silver"`.
-   *
-   * ```
-   * [
-   *   "&#123;\"birthdate\":\"1970-01-23\"&#125;",
-   *   "&#123;\"nationalities\":[\"DEU\",\"USA\"]&#125;"
-   * ]
-   * ```
    */
   verifiedClaimsForTx?: Array<string> | undefined;
 };

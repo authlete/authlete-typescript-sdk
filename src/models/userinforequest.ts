@@ -72,20 +72,6 @@ export type UserinfoRequest = {
    * The target URI of the userinfo request, including the query part, if any.
    *
    * @remarks
-   *
-   * This parameter is used as the value of the `@target-uri` derived component for HTTP message signatures
-   * ([RFC 9421 HTTP Message Signatures, Section 2.2.2. Target URI](https://www.rfc-editor.org/rfc/rfc9421.html#section-2.2.2)).
-   * Additionally, other derived components such as `@authority`, `@scheme`, `@path`, `@query` and
-   * `@query-param` are computed from this parameter.
-   *
-   * When this parameter is omitted, the value of the `htu` parameter is used. The `htu` parameter
-   * represents the URL of the userinfo endpoint, which usually serves as the target URI of the userinfo request.
-   * The only exception is when the access token is specified as a query parameter, as defined in
-   * [RFC 6750 Section 2.3](https://www.rfc-editor.org/rfc/rfc6750.html#section-2.3). However, RFC 6750
-   * states that this method "SHOULD NOT be used" unless other methods are not viable.
-   *
-   * If neither this `targetUri` parameter nor the `htu` parameter is specified, the `userInfoEndpoint`
-   * property of the service is used as a fallback.
    */
   targetUri?: string | undefined;
   /**
@@ -103,17 +89,6 @@ export type UserinfoRequest = {
    * The flag indicating whether the userinfo request contains a request body.
    *
    * @remarks
-   *
-   * When the userinfo request must comply with the HTTP message signing requirements defined in the
-   * FAPI 2.0 Message Signing specification, the `"content-digest"` component identifier must be included
-   * in the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))
-   * if the userinfo request contains a request body.
-   *
-   * When this `requestBodyContained` parameter is set to `true`, Authlete checks whether `"content-digest"`
-   * is included in the signature base, if the FAPI profile applies to the userinfo request.
-   *
-   * NOTE: The FAPI 2.0 Message Signing specification is not applied to the userinfo endpoint until
-   * its necessity is agreed upon by the industry (cf. [FAPI Issue 723](https://bitbucket.org/openid/fapi/issues/723)).
    */
   requestBodyContained?: boolean | undefined;
 };
