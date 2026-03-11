@@ -21,7 +21,6 @@ import { PushedAuthorization } from "./pushedauthorization.js";
 import { Revocation } from "./revocation.js";
 import { Service } from "./service.js";
 import { Token } from "./token.js";
-import { TokenOperations } from "./tokenoperations.js";
 import { Userinfo } from "./userinfo.js";
 import { VerifiableCredentials } from "./verifiablecredentials.js";
 
@@ -98,11 +97,6 @@ export class Authlete extends ClientSDK {
   private _deviceFlow?: DeviceFlow;
   get deviceFlow(): DeviceFlow {
     return (this._deviceFlow ??= new DeviceFlow(this._options));
-  }
-
-  private _tokenOperations?: TokenOperations;
-  get tokenOperations(): TokenOperations {
-    return (this._tokenOperations ??= new TokenOperations(this._options));
   }
 
   private _joseObject?: JoseObject;

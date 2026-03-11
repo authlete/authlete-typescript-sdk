@@ -116,22 +116,6 @@ export type IntrospectionRequest = {
    * The target URI of the resource request, including the query part, if any.
    *
    * @remarks
-   *
-   * This parameter is used as the value of the @target-uri derived component for HTTP message signatures
-   * [RFC 9421 HTTP Message Signatures, Section 2.2.2. Target URI](https://www.rfc-editor.org/rfc/rfc9421.html#section-2.2.2)).
-   * Additionally, other derived components such as `@authority`, `@scheme`, `@path`, `@query` and
-   * `@query-param` are computed from this parameter.
-   *
-   * When this parameter is omitted, the value of the `htu` parameter is used. The `htu` parameter
-   * represents the URL of the resource endpoint, which is identical to the target URI of the resource
-   * request as long as the request does not include a query component. Conversely, if the resource
-   * request includes a query component, the value of the `htu` parameter will not match the target
-   * URI, and in that case, the HTTP message signature verification will fail.
-   *
-   * If neither this `targetUri` parameter nor the `htu` parameter is specified, the target URI is
-   * considered unavailable. If HTTP message signing requires the target-uri derived component or
-   * other derived components computed based on the target URI, the HTTP message signature verification
-   * will fail.
    */
   targetUri?: string | undefined;
   /**

@@ -74,50 +74,18 @@ export type TokenCreateRequest = {
    *
    * @remarks
    * instead of the original numeric client ID when a new access token is created.
-   *
-   * This has an effect only on the value of the aud claim in a response from [UserInfo endpoint](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo).
-   * When you access the UserInfo endpoint (which is expected to be implemented using Authlete's
-   * `/api/auth/userinfo` API and `/api/auth/userinfo/issue` API) with an access token which has been
-   * created using Authlete's `/api/auth/token/create` API with this property (`clientIdAliasUsed`)
-   * `true`, the client ID alias is used as the value of the aud claim in a response from the UserInfo
-   * endpoint.
-   *
-   * Note that if a client ID alias is not assigned to the client when Authlete's `/api/auth/token/create`
-   * API is called, this property (`clientIdAliasUsed`) has no effect (it is always regarded as `false`).
    */
   clientIdAliasUsed?: boolean | undefined;
   /**
    * The value of the new access token.
    *
    * @remarks
-   *
-   * The `/api/auth/token/create` API generates an access token. Therefore, callers of the API do not
-   * have to specify values of newly created access tokens. However, in some cases, for example, if
-   * you want to migrate existing access tokens from an old system to Authlete, you may want to specify
-   * values of access tokens. In such a case, you can specify the value of a newly created access token
-   * by passing a non-null value as the value of accessToken request parameter. The implementation
-   * of the `/api/auth/token/create` uses the value of the accessToken request parameter instead of
-   * generating a new value when the request parameter holds a non-null value.
-   *
-   * Note that if the hash value of the specified access token already exists in Authlete's database,
-   * the access token cannot be inserted and the `/api/auth/token/create` API will report an error.
    */
   accessToken?: string | undefined;
   /**
    * The value of the new refresh token.
    *
    * @remarks
-   *
-   * The `/api/auth/token/create` API may generate a refresh token. Therefore, callers of the API do
-   * not have to specify values of newly created refresh tokens. However, in some cases, for example,
-   * if you want to migrate existing refresh tokens from an old system to Authlete, you may want to
-   * specify values of refresh tokens. In such a case, you can specify the value of a newly created
-   * refresh token by passing a non-null value as the value of refreshToken request parameter. The
-   * implementation of the `/api/auth/token/create` uses the value of the refreshToken request parameter
-   * instead of generating a new value when the request parameter holds a non-null value.
-   *
-   * Note that if the hash value of the specified refresh token already exists in Authlete's database,
-   * the refresh token cannot be inserted and the `/api/auth/token/create` API will report an error.
    */
   refreshToken?: string | undefined;
   /**

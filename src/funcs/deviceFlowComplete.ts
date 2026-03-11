@@ -33,62 +33,6 @@ import { Result } from "../types/fp.js";
  * This API returns information about what action the authorization server should take after it receives
  * the result of end-user's decision about whether the end-user has approved or rejected a client
  * application's request.
- *
- * In the device flow, an end-user accesses the verification endpoint of the authorization server where
- * she interacts with the verification endpoint and inputs a user code. The verification endpoint checks
- * if the user code is valid and then asks the end-user whether she approves or rejects the authorization
- * request which the user code represents.
- * After the authorization server receives the decision of the end-user, it should call Authlete's
- * `/device/complete` API to tell Authlete the decision.
- * When the end-user was authenticated and authorization was granted to the client by the end-user,
- * the authorization server should call the API with `result=AUTHORIZED`. In this successful case,
- * the subject request parameter is mandatory. The API will update the database record so that `/auth/token`
- * API can generate an access token later.
- * If the `scope` parameter of the device authorization request included the openid scope, an ID token
- * is generated. In this case, `sub`, `authTime`, `acr` and `claims` request parameters in the API
- * call to `/device/complete` affect the ID token.
- * When the authorization server receives the decision of the end-user and it indicates that she has
- * rejected to give authorization to the client, the authorization server should call the API with
- * `result=ACCESS_DENIED`. In this case, the API will update the database record so that the `/auth/token`
- * API can generate an error response later. If `errorDescription` and `errorUri` request parameters
- * are given to the `/device/complete` API, they will be used as the values of `error_description`
- * and `error_uri` response parameters in the error response from the token endpoint.
- * When the authorization server could not get decision from the end-user for some reasons, the authorization
- * server should call the API with `result=TRANSACTION_FAILED`. In this error case, the API will behave
- * in the same way as in the case of `ACCESS_DENIED`. The only difference is that `expired_token` is
- * used as the value of the `error` response parameter instead of `access_denied`.
- * After receiving a response from the `/device/complete` API, the implementation of the authorization
- * server should retrieve the value of `action` from the response and take the following steps according
- * to the value.
- *
- * ## SERVER_ERROR
- *
- * When the value of `action` is `SERVER_ERROR`, it means that an error occurred on Authlete side. The
- * authorization server implementation should tell the end-user that something wrong happened and
- * urge her to re-initiate a device flow.
- *
- * ## USER_CODE_NOT_EXIST
- *
- * When the value of `action` is `USER_CODE_NOT_EXIST`, it means that the user code included in the API
- * call does not exist. The authorization server implementation should tell the end-user that the user
- * code has been invalidated and urge her to re-initiate a device flow.
- *
- * ## USER_CODE_EXPIRED
- *
- * When the value of `action` is `USER_CODE_EXPIRED`, it means that the user code included in the API
- * call has expired. The authorization server implementation should tell the end-user that the user
- * code has expired and urge her to re-initiate a device flow.
- *
- * ## INVALID_REQUEST
- *
- * When the value of `action` is `INVALID_REQUEST`, it means that the API call is invalid. Probably,
- * the authorization server implementation has some bugs.
- *
- * ## SUCCESS
- *
- * When the value of `action` is `SUCCESS`, it means that the API call has been processed successfully.
- * The authorization server should return a successful response to the web browser the end-user is
- * using.
  */
 export function deviceFlowComplete(
   client: AuthleteCore,

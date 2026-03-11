@@ -137,15 +137,6 @@ export type IntrospectionResponse = {
    * The target resources this proeprty holds may be the same as or different from the ones `resource` property holds.
    *
    * @remarks
-   *
-   * In some flows, the initial request and the subsequent token request are sent to different endpoints.
-   * Example flows are the Authorization Code Flow, the Refresh Token Flow, the CIBA Ping Mode, the CIBA Poll Mode and the Device Flow.
-   * In these flows, not only the initial request but also the subsequent token request can include the `resource` request parameters.
-   * The purpose of the `resource` request parameters in the token request is to narrow the range of the target resources from the original
-   * set of target resources requested by the preceding initial request. If narrowing down is performed, the target resources holded by the
-   * `resource` proeprty and the ones holded by this property are different. This property holds the narrowed set of target resources.
-   *
-   * See "Resource Indicators for OAuth 2.0" for details.
    */
   accessTokenResources?: Array<string> | undefined;
   /**

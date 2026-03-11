@@ -100,14 +100,6 @@ export type CredentialOfferInfo = {
    * The value of the `credential_configuration_ids` property of the credential offer.
    *
    * @remarks
-   *
-   * ```
-   * &#123;
-   *   "credential_issuer": "...",
-   *   "credential_configuration_ids": [ ... ],
-   *   "grants": &#123; ... &#125;
-   * &#125;
-   * ```
    */
   credentialConfigurationIds?: Array<string> | undefined;
   /**

@@ -74,93 +74,24 @@ export type VciOfferCreateRequest = {
    * The value of the `credential_configuration_ids` array.
    *
    * @remarks
-   *
-   * ```
-   * &#123;
-   *   "credential_issuer": "...",
-   *   "credential_configuration_ids": [ ... ],
-   *   "grants": &#123; ... &#125;
-   * &#125;
-   * ```
-   *
-   * This property is mandatory.
    */
   credentialConfigurationIds?: Array<string> | undefined;
   /**
    * The transaction code that should be associated with the credential offer.
    *
    * @remarks
-   *
-   * If this parameter is not empty and the `preAuthorizedCodeGrantIncluded` parameter is `true`, the
-   * `urn:ietf:params:oauth:grant-type:pre-authorized_code` object will include the `tx_code` object.
-   *
-   * The length of the value of this parameter will be used as the value of the `length` property in
-   * the `tx_code` object.
-   *
-   * ```
-   * &#123;
-   *   "credential_issuer": "...",
-   *   "credential_configuration_ids": [ ... ],
-   *   "grants": &#123;
-   *     "urn:ietf:params:oauth:grant-type:pre-authorized_code": &#123;
-   *       "pre-authorized_code": "...",
-   *       "tx_code": &#123;
-   *         "length": length
-   *       &#125;
-   *     &#125;
-   *   &#125;
-   * &#125;
-   * ```
    */
   txCode?: string | undefined;
   /**
    * The input mode of the transaction code.
    *
    * @remarks
-   *
-   * The value of this property will be used as the value of the `input_mode` property in the `tx_code`
-   * object.
-   *
-   * ```
-   * &#123;
-   *   "credential_issuer": "...",
-   *   "credential_configuration_ids": [ ... ],
-   *   "grants": &#123;
-   *     "urn:ietf:params:oauth:grant-type:pre-authorized_code": &#123;
-   *       "pre-authorized_code": "...",
-   *       "tx_code": &#123;
-   *         "length": length,
-   *         "input_mode": "..."
-   *       &#125;
-   *     &#125;
-   *   &#125;
-   * &#125;
-   * ```
    */
   txCodeInputMode?: string | undefined;
   /**
    * The description of the transaction code.
    *
    * @remarks
-   *
-   * The value of this property will be used as the value of the `description` property in the `tx_code`
-   * object.
-   *
-   * ```
-   * &#123;
-   *   "credential_issuer": "...",
-   *   "credential_configuration_ids": [ ... ],
-   *   "grants": &#123;
-   *     "urn:ietf:params:oauth:grant-type:pre-authorized_code": &#123;
-   *       "pre-authorized_code": "...",
-   *       "tx_code": &#123;
-   *         "length": length,
-   *         "description": "..."
-   *       &#125;
-   *     &#125;
-   *   &#125;
-   * &#125;
-   * ```
    */
   txCodeDescription?: string | undefined;
 };

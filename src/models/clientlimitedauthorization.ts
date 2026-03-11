@@ -214,16 +214,6 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    * is passed through the front channel.
-   *
-   * This flag does not affect the processing of request objects at the Pushed Authorization Request
-   * Endpoint, which is defined in [OAuth 2.0 Pushed Authorization Requests](https://datatracker.ietf.org/doc/rfc9126/).
-   * Unecrypted request objects are accepted at the endpoint even if this flag is `true`.
-   *
-   * This flag does not indicate whether a request object is always required. There is a different
-   * flag, `requestObjectRequired`, for the purpose.
-   *
-   * Even if this flag is `false`, encryption of request object is required if the `frontChannelRequestObjectEncryptionRequired`
-   * flag of the service is `true`.
    */
   frontChannelRequestObjectEncryptionRequired?: boolean | undefined;
   /**
@@ -231,29 +221,6 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    * client metadata.
-   *
-   * The `request_object_encryption_alg` client metadata itself is defined in [OpenID Connect Dynamic
-   * Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html) as follows.
-   *
-   * > request_object_encryption_alg
-   * >
-   * > OPTIONAL. JWE [JWE] alg algorithm [JWA] the RP is declaring that it may use for encrypting Request
-   *   Objects sent to the OP. This parameter SHOULD be included when symmetric encryption will be used,
-   *   since this signals to the OP that a client_secret value needs to be returned from which the
-   *   symmetric key will be derived, that might not otherwise be returned. The RP MAY still use other
-   *   supported encryption algorithms or send unencrypted Request Objects, even when this parameter
-   *   is present. If both signing and encryption are requested, the Request Object will be signed
-   *   then encrypted, with the result being a Nested JWT, as defined in [JWT]. The default, if omitted,
-   *   is that the RP is not declaring whether it might encrypt any Request Objects.
-   *
-   * The point here is "The RP MAY still use other supported encryption algorithms or send unencrypted
-   * Request Objects, even when this parameter is present."
-   *
-   * The property that represents the client metadata is `requestEncryptionAlg`. See the description
-   * of `requestEncryptionAlg` for details.
-   *
-   * Even if this flag is `false`, the match is required if the `requestObjectEncryptionAlgMatchRequired`
-   * flag of the service is `true`.
    */
   requestObjectEncryptionAlgMatchRequired?: boolean | undefined;
   /**
@@ -261,22 +228,6 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    * client metadata.
-   *
-   * The `request_object_encryption_enc` client metadata itself is defined in [OpenID Connect Dynamic
-   * Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0.html) as follows.
-   *
-   * > request_object_encryption_enc
-   * >
-   * > OPTIONAL. JWE enc algorithm [JWA] the RP is declaring that it may use for encrypting Request
-   *   Objects sent to the OP. If request_object_encryption_alg is specified, the default for this
-   *   value is A128CBC-HS256. When request_object_encryption_enc is included, request_object_encryption_alg
-   *   MUST also be provided.
-   *
-   * The property that represents the client metadata is `requestEncryptionEnc`. See the description
-   * of `requestEncryptionEnc`  for details.
-   *
-   * Even if this flag is `false`, the match is required if the `requestObjectEncryptionEncMatchRequired`
-   * flag of the service is `true`.
    */
   requestObjectEncryptionEncMatchRequired?: boolean | undefined;
   /**

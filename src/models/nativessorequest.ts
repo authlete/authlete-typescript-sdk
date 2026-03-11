@@ -47,15 +47,6 @@ export type NativeSsoRequest = {
    *
    * @remarks
    * as follows:
-   *
-   * - `"array"`
-   *   The type of the `aud` claim becomes an array of strings.
-   *
-   * - `"string"`
-   *   The type of the `aud` claim becomes a single string.
-   *
-   * This parameter is optional, and the default value when omitted is `"array"`. This parameter takes
-   * precedence over the `idTokenAudType` property of `Service`.
    */
   idTokenAudType?: string | undefined;
   /**
@@ -64,13 +55,6 @@ export type NativeSsoRequest = {
    * @remarks
    * in the response from the `/auth/token` API, if the parameter is present. Otherwise, the authorization
    * server should generate a new device secret and specify it as the value of this parameter.
-   *
-   * The specified device secret is included as the value of the `device_secret` property in the token
-   * response prepared by the `/nativesso` API.
-   *
-   * Additionally, if the `deviceSecretHash` request parameter is omitted, the device secret is used
-   * to compute the value of the `ds_hash` claim. In this case, the `ds_hash` claim will be the
-   * base64url-encoded SHA-256 hash of the device secret.
    */
   deviceSecret: string;
   /**

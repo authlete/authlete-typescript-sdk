@@ -86,15 +86,6 @@ export type BackchannelAuthenticationResponse = {
    * The scopes requested by the backchannel authentication request.
    *
    * @remarks
-   *
-   * Basically, this property holds the value of the `scope` request parameter in the backchannel
-   * authentication request. However, because unregistered scopes are dropped on Authlete side,
-   * if the `scope` request parameter contains unknown scopes, the list returned by this
-   * property becomes different from the value of the `scope` request parameter.
-   *
-   * Note that `description` property and `descriptions` property of each `scope` object
-   * in the array contained in this property is always null even if descriptions of the scopes
-   * are registered.
    */
   scopes?: Array<Scope> | undefined;
   /**

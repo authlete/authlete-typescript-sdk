@@ -31,40 +31,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * The API returns information associated with a user code.
- *
- * After receiving a response from the device authorization endpoint of the authorization server,
- * the client application shows the end-user the user code and the verification URI which are included
- * in the device authorization response. Then, the end-user will access the verification URI using
- * a web browser on another device (typically, a smart phone). In normal implementations, the verification
- * endpoint will return an HTML page with an input form where the end-user inputs a user code. The
- * authorization server will receive a user code from the form.
- * After receiving a user code, the authorization server should call Authlete's `/device/verification`
- * API with the user code. And then, the authorization server implementation should retrieve the value
- * of `action` parameter from the API response and take the following steps according to the value.
- *
- * ## SERVER_ERROR
- *
- * When the value of `action` is `SERVER_ERROR`, it means that an error occurred on Authlete side. The
- * authorization server implementation should tell the end-user that something wrong happened and
- * urge her to re-initiate a device flow.
- *
- * ## NOT_EXIST
- *
- * When the value of `action` is `NOT_EXIST`, it means that the user code does not exist. The authorization
- * server implementation should tell the end-user that the user code is invalid and urge her to retry
- * to input a valid user code.
- *
- * ## EXPIRED
- *
- * When the value of `action` is `EXPIRED`, it means that the user code has expired. The authorization
- * server implementation should tell the end-user that the user code has expired and urge her to
- * re-initiate a device flow.
- *
- * ## VALID
- *
- * When the value of `action` is `VALID`, it means that the user code exists, has not expired, and
- * belongs to the service. The authorization server implementation should interact with the end-user
- * to ask whether she approves or rejects the authorization request from the device.
  */
 export function deviceFlowVerification(
   client: AuthleteCore,

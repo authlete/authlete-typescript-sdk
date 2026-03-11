@@ -19,66 +19,6 @@ export class Federation extends ClientSDK {
    * retrieve the value of the `action`
    * response parameter from the API response and take the following steps
    * according to the value.
-   *
-   * ### `OK`
-   * When the value of the  `action` response
-   * parameter is `OK`, it means that Authlete
-   * could prepare an entity configuration successfully.
-   * In this case, the implementation of the entity configuration endpoint of the
-   * authorization server should return an HTTP response to the client application
-   * with the HTTP status code "`200 OK`" and the content type
-   * "`application/entity-statement+jwt`". The message body (= an entity
-   * configuration in the JWT format) of the response has been prepared by
-   * Authlete's `/federation/configuration` API and it is available as the
-   * `responseContent` response parameter.
-   * The implementation of the entity configuration endpoint can construct an
-   * HTTP response by doing like below.
-   * ```
-   * 200 OK
-   * Content-Type: application/entity-statement+jwt
-   * (Other HTTP headers)
-   * (the value of the responseContent response parameter)
-   * ```
-   *
-   * ### `NOT_FOUND`
-   * When the value of the  `action` response
-   * parameter is `NOT_FOUND`, it means that
-   * the service configuration has not enabled the feature of [OpenID Connect
-   * Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html) and so the client application should have not access the
-   * entity configuration endpoint.
-   * In this case, the implementation of the entity configuration endpoint of the
-   * authorization server should return an HTTP response to the client application
-   * with the HTTP status code "`404 Not Found`" and the content type
-   * "`application/json`". The message body (= error information in the JSON
-   * format) of the response has been prepared by Authlete's
-   * `/federation/configuration` API and it is available as the
-   * `responseContent` response parameter.
-   * The implementation of the entity configuration endpoint can construct an
-   * HTTP response by doing like below.
-   * ```
-   * 404 Not Found
-   * Content-Type: application/json
-   * (Other HTTP headers)
-   * (the value of the responseContent response parameter)
-   * ```
-   *
-   * ### `INTERNAL_SERVER_ERROR`
-   * could prepare an entity configuration successfully.
-   * In this case, the implementation of the entity configuration endpoint of the
-   * authorization server should return an HTTP response to the client application
-   * with the HTTP status code "`200 OK`" and the content type
-   * "`application/entity-statement+jwt`". The message body (= an entity
-   * configuration in the JWT format) of the response has been prepared by
-   * Authlete's `/federation/configuration` API and it is available as the
-   * `responseContent` response parameter.
-   * The implementation of the entity configuration endpoint can construct an
-   * HTTP response by doing like below.
-   * ```
-   * 200 OK
-   * Content-Type: application/entity-statement+jwt
-   * (Other HTTP headers)
-   * (the value of the responseContent response parameter)
-   * ```
    */
   async configuration(
     request: operations.FederationConfigurationApiRequest,

@@ -331,12 +331,6 @@ export type TokenResponse = {
    * be used as the value of this `deviceSecret` request parameter to the `/nativesso` API. The authorization
    * server may choose to issue a new device secret; in that case, it is free to generate a new device
    * secret and specify the new value.
-   *
-   * If the response from the `/auth/token` API does not contain the `deviceSecret` parameter, or
-   * if its value is invalid, the authorization server must generate a new device secret and specify
-   * it in the deviceSecret parameter to the `/nativesso` API.
-   *
-   * The specified value is used as the value of the `device_secret` property in the token response.
    */
   deviceSecret?: string | undefined;
   /**
@@ -345,12 +339,6 @@ export type TokenResponse = {
    * @remarks
    * and specify the computed hash as the value of this `deviceSecretHash` request parameter to the
    * `/nativesso` API.
-   *
-   * When the `deviceSecretHash` parameter is omitted, the implementation of the `/nativesso` API
-   * generates the device secret hash by computing the SHA-256 hash of the device secret and encoding
-   * it with base64url. Note that this hash computation logic is not a rule defined in the Native SSO
-   * specification; rather, it is Authlete-specific fallback logic used when the `deviceSecretHash`
-   * parameter is omitted.
    */
   deviceSecretHash?: string | undefined;
   /**
