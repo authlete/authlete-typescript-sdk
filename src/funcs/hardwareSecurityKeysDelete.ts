@@ -96,7 +96,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/api/{serviceId}/hsk/delete/{handle}")(pathParams);
 
   const headers = new Headers(compactMap({
