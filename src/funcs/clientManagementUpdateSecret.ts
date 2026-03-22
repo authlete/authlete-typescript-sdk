@@ -106,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/api/{serviceId}/client/secret/update/{clientIdentifier}",
   )(pathParams);

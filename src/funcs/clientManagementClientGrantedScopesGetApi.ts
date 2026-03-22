@@ -100,7 +100,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/api/{serviceId}/client/granted_scopes/get/{clientId}",
   )(pathParams);

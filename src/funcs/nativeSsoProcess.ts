@@ -102,7 +102,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/api/{serviceId}/nativesso")(pathParams);
 
   const headers = new Headers(compactMap({
