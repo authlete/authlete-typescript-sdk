@@ -37,13 +37,17 @@ typescript:
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
-    devDependencies: {}
+    devDependencies:
+      vitest: "^3.1.0"
+      jose: "^6.0.0"
     peerDependencies: {}
   additionalPackageJSON:
     publishConfig:
       access: public
       registry: https://registry.npmjs.org
-  additionalScripts: {}
+  additionalScripts:
+    test: "vitest run"
+    "test:verbose": "vitest run --reporter=verbose"
   alwaysIncludeInboundAndOutbound: false
   author: Speakeasy
   baseErrorName: AuthleteError
