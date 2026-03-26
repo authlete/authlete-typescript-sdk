@@ -1,0 +1,26 @@
+name: Integration Tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - name: Run integration tests
+        env:
+          API_BASE_URL: ${{ vars.API_BASE_URL }}
+          SERVICE_ID: ${{ vars.SERVICE_ID }}
+          SERVICE_TOKEN: ${{ secrets.SERVICE_TOKEN }}
+          ORG_TOKEN: ${{ secrets.ORG_TOKEN }}
+        run: npx vitest run
