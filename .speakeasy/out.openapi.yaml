@@ -14416,10 +14416,12 @@ components:
           description: |
             The certificate path presented by the client during client authentication. These certificates are strings in PEM format.
         properties:
-          type: string
+          type: array
           description: |
             Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)
             for details.
+          items:
+            $ref: '#/components/schemas/property'
         dpop:
           type: string
           description: |
