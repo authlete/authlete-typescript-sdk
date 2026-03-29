@@ -107,7 +107,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/api/{serviceId}/client/extension/requestable_scopes/update/{clientId}",
   )(pathParams);
