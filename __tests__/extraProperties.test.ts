@@ -123,8 +123,6 @@ describe('ExtraPropertiesTest', () => {
     expect(issueResp.action).toBe('LOCATION');
 
     // Token request — attach properties here
-    // Known SDK bug: TokenRequest.properties is typed as string instead of
-    // Array<Property>. Will be fixed after SDK regeneration from updated OpenAPI spec.
     const tokenResp = await sdkClient.token.process({
       serviceId,
       tokenRequest: {
@@ -133,7 +131,7 @@ describe('ExtraPropertiesTest', () => {
           `&redirect_uri=${encodedRedirect}`,
         clientId,
         clientSecret,
-        properties: [VISIBLE_PROP] as any,
+        properties: [VISIBLE_PROP],
       },
     });
     expect(tokenResp.action).toBe('OK');
