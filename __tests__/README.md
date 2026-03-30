@@ -6,7 +6,11 @@ Integration tests that run against a live Authlete API server. Each test creates
 
 - A running Authlete API server (cloud or self-hosted)
 - A service and service access token
-- Dependencies installed: `npm install`
+- Dependencies installed and SDK built:
+  ```bash
+  npm install
+  npm run build
+  ```
 
 ## Run tests
 
