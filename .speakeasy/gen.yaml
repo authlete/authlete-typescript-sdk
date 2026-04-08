@@ -26,14 +26,17 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
-  versioningStrategy: automatic
-  persistentEdits: {}
+  versioningStrategy: manual
+  persistentEdits:
+    README.md:
+      after: <!-- End SDK Installation [installation] -->
+      before: <!-- Start SDK Example Usage [usage] -->
   tests:
     generateTests: false
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.0.14-beta
+  version: 1.0.0
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}

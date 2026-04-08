@@ -8,6 +8,14 @@ info:
         before: ""
         type: speakeasy-modifications
 actions:
+    - target: $["info"]["description"]
+      update: ""
+      x-speakeasy-metadata:
+        after: cleared
+        before: long description
+        created_at: 1761810000000
+        reviewed_at: 1761810000000
+        type: description-clear
     - target: $["paths"]["/api/{serviceId}/auth/authorization"]["post"]
       update:
         x-speakeasy-group: authorization
