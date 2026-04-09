@@ -8,6 +8,11 @@ import {
   CimdOptions$Outbound,
   CimdOptions$outboundSchema,
 } from "./cimdoptions.js";
+import {
+  Property,
+  Property$Outbound,
+  Property$outboundSchema,
+} from "./property.js";
 
 export type TokenRequest = {
   /**
@@ -56,7 +61,7 @@ export type TokenRequest = {
    * @remarks
    * for details.
    */
-  properties?: string | undefined;
+  properties?: Array<Property> | undefined;
   /**
    * `DPoP` header presented by the client during the request to the token endpoint.
    *
@@ -159,7 +164,7 @@ export type TokenRequest$Outbound = {
   clientSecret?: string | undefined;
   clientCertificate?: string | undefined;
   clientCertificatePath?: Array<string> | undefined;
-  properties?: string | undefined;
+  properties?: Array<Property$Outbound> | undefined;
   dpop?: string | undefined;
   htm?: string | undefined;
   htu?: string | undefined;
@@ -184,7 +189,7 @@ export const TokenRequest$outboundSchema: z.ZodType<
   clientSecret: z.string().optional(),
   clientCertificate: z.string().optional(),
   clientCertificatePath: z.array(z.string()).optional(),
-  properties: z.string().optional(),
+  properties: z.array(Property$outboundSchema).optional(),
   dpop: z.string().optional(),
   htm: z.string().optional(),
   htu: z.string().optional(),

@@ -94,7 +94,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/api/{serviceId}/hsk/create")(pathParams);
 
   const headers = new Headers(compactMap({

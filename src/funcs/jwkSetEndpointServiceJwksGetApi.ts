@@ -102,7 +102,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/api/{serviceId}/service/jwks/get")(pathParams);
 
   const query = encodeFormQuery({

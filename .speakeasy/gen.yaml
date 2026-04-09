@@ -59,6 +59,7 @@ typescript:
   enumFormat: union
   envVarPrefix: AUTHLETE
   exportZodModelNamespace: false
+  fixEnumNameSanitization: false
   flatAdditionalProperties: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first

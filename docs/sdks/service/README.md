@@ -302,6 +302,7 @@ async function run() {
       pkceRequired: true,
       pkceS256Required: false,
       authorizationResponseDuration: 0,
+      authorizationCodeDuration: 0,
       tokenEndpoint: "https://my-service.example.com/token",
       directTokenEndpointEnabled: false,
       supportedTokenAuthMethods: [
@@ -428,6 +429,7 @@ async function run() {
       pkceRequired: true,
       pkceS256Required: false,
       authorizationResponseDuration: 0,
+      authorizationCodeDuration: 0,
       tokenEndpoint: "https://my-service.example.com/token",
       directTokenEndpointEnabled: false,
       supportedTokenAuthMethods: [

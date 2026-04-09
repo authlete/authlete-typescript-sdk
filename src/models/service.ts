@@ -411,6 +411,12 @@ export type Service = {
    */
   authorizationResponseDuration?: number | undefined;
   /**
+   * The duration of authorization codes in seconds.
+   *
+   * @remarks
+   */
+  authorizationCodeDuration?: number | undefined;
+  /**
    * The [token endpoint](https://tools.ietf.org/html/rfc6749#section-3.2) of the service.
    *
    * @remarks
@@ -1547,6 +1553,13 @@ export type Service = {
    * prohibited.
    */
   httpAliasProhibited?: boolean | undefined;
+  /**
+   * The time window of attestation challenges in seconds. This is used for
+   *
+   * @remarks
+   * OAuth 2.0 Attestation-Based Client Authentication.
+   */
+  attestationChallengeTimeWindow?: number | undefined;
 };
 
 export type ServiceInput = {
@@ -1790,6 +1803,12 @@ export type ServiceInput = {
    */
   authorizationResponseDuration?: number | undefined;
   /**
+   * The duration of authorization codes in seconds.
+   *
+   * @remarks
+   */
+  authorizationCodeDuration?: number | undefined;
+  /**
    * The [token endpoint](https://tools.ietf.org/html/rfc6749#section-3.2) of the service.
    *
    * @remarks
@@ -2926,6 +2945,13 @@ export type ServiceInput = {
    * prohibited.
    */
   httpAliasProhibited?: boolean | undefined;
+  /**
+   * The time window of attestation challenges in seconds. This is used for
+   *
+   * @remarks
+   * OAuth 2.0 Attestation-Based Client Authentication.
+   */
+  attestationChallengeTimeWindow?: number | undefined;
 };
 
 /** @internal */
@@ -2976,6 +3002,7 @@ export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
     pkceRequired: z.boolean().optional(),
     pkceS256Required: z.boolean().optional(),
     authorizationResponseDuration: z.number().int().optional(),
+    authorizationCodeDuration: z.number().int().optional(),
     tokenEndpoint: z.string().optional(),
     directTokenEndpointEnabled: z.boolean().optional(),
     supportedTokenAuthMethods: z.array(ClientAuthMethod$inboundSchema)
@@ -3130,6 +3157,7 @@ export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
     cimdQueryPermitted: z.boolean().optional(),
     cimdMetadataPolicy: z.string().optional(),
     httpAliasProhibited: z.boolean().optional(),
+    attestationChallengeTimeWindow: z.number().int().optional(),
   });
 
 export function serviceFromJSON(
@@ -3173,6 +3201,7 @@ export type ServiceInput$Outbound = {
   pkceRequired?: boolean | undefined;
   pkceS256Required?: boolean | undefined;
   authorizationResponseDuration?: number | undefined;
+  authorizationCodeDuration?: number | undefined;
   tokenEndpoint?: string | undefined;
   directTokenEndpointEnabled?: boolean | undefined;
   supportedTokenAuthMethods?: Array<string> | undefined;
@@ -3320,6 +3349,7 @@ export type ServiceInput$Outbound = {
   cimdQueryPermitted?: boolean | undefined;
   cimdMetadataPolicy?: string | undefined;
   httpAliasProhibited?: boolean | undefined;
+  attestationChallengeTimeWindow?: number | undefined;
 };
 
 /** @internal */
@@ -3357,6 +3387,7 @@ export const ServiceInput$outboundSchema: z.ZodType<
   pkceRequired: z.boolean().optional(),
   pkceS256Required: z.boolean().optional(),
   authorizationResponseDuration: z.number().int().optional(),
+  authorizationCodeDuration: z.number().int().optional(),
   tokenEndpoint: z.string().optional(),
   directTokenEndpointEnabled: z.boolean().optional(),
   supportedTokenAuthMethods: z.array(ClientAuthMethod$outboundSchema)
@@ -3511,6 +3542,7 @@ export const ServiceInput$outboundSchema: z.ZodType<
   cimdQueryPermitted: z.boolean().optional(),
   cimdMetadataPolicy: z.string().optional(),
   httpAliasProhibited: z.boolean().optional(),
+  attestationChallengeTimeWindow: z.number().int().optional(),
 });
 
 export function serviceInputToJSON(serviceInput: ServiceInput): string {
