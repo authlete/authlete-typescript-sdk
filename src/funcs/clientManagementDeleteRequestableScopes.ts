@@ -103,7 +103,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/api/{serviceId}/client/extension/requestable_scopes/delete/{clientId}",
   )(pathParams);

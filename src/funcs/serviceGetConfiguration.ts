@@ -102,7 +102,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/api/{serviceId}/service/configuration")(pathParams);
 
   const query = encodeFormQuery({

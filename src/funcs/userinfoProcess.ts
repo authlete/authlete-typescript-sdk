@@ -95,7 +95,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/api/{serviceId}/auth/userinfo")(pathParams);
 
   const headers = new Headers(compactMap({

@@ -97,7 +97,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/api/{serviceId}/vci/offer/info")(pathParams);
 
   const headers = new Headers(compactMap({

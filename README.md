@@ -24,6 +24,9 @@ If you have any questions or need assistance, our team is here to help:
 - [Contact Page](https://www.authlete.com/contact/)
 
 <!-- Start Summary [summary] -->
+## Summary
+
+
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
@@ -32,15 +35,11 @@ If you have any questions or need assistance, our team is here to help:
 * [Authlete Typescript SDK](#authlete-typescript-sdk)
   * [🎓 Tutorials](#tutorials)
   * [🛠 Contact Us](#contact-us)
-  * [🌐 API Servers](#api-servers)
-  * [🔑 Authentication](#authentication)
-  * [🎓 Tutorials](#tutorials-1)
-  * [🛠 Contact Us](#contact-us-1)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [Access Tokens](#access-tokens)
   * [SDK Example Usage](#sdk-example-usage)
-  * [Authentication](#authentication-1)
+  * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
   * [Retries](#retries)
