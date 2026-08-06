@@ -46,7 +46,9 @@ typescript:
     publishConfig:
       access: public
       registry: https://registry.npmjs.org
-  additionalScripts: {}
+  additionalScripts:
+    prebuild: node scripts/patch-root-export.mjs
+    test: node --test test/
   alwaysIncludeInboundAndOutbound: false
   apiPromiseHelpers: false
   author: Speakeasy

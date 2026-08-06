@@ -29,7 +29,9 @@
   },
   "scripts": {
     "lint": "eslint --cache --max-warnings=0 src",
+    "prebuild": "node scripts/patch-root-export.mjs",
     "build": "tshy",
+    "test": "node --test test/",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {},
