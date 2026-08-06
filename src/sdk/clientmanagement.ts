@@ -3,8 +3,15 @@
  */
 
 import { clientManagementDeleteAuthorizations } from "../funcs/clientManagementDeleteAuthorizations.js";
+import { clientManagementDeleteClientGrantedScopes } from "../funcs/clientManagementDeleteClientGrantedScopes.js";
+import { clientManagementDeleteClientTokens } from "../funcs/clientManagementDeleteClientTokens.js";
+import { clientManagementDeleteClientTokensByPost } from "../funcs/clientManagementDeleteClientTokensByPost.js";
 import { clientManagementDeleteGrantedScopes } from "../funcs/clientManagementDeleteGrantedScopes.js";
 import { clientManagementDeleteRequestableScopes } from "../funcs/clientManagementDeleteRequestableScopes.js";
+import { clientManagementGetAuthorizedApplications } from "../funcs/clientManagementGetAuthorizedApplications.js";
+import { clientManagementGetAuthorizedApplicationsByPost } from "../funcs/clientManagementGetAuthorizedApplicationsByPost.js";
+import { clientManagementGetClientGrantedScopes } from "../funcs/clientManagementGetClientGrantedScopes.js";
+import { clientManagementGetClientGrantedScopesByPost } from "../funcs/clientManagementGetClientGrantedScopesByPost.js";
 import { clientManagementGetGrantedScopes } from "../funcs/clientManagementGetGrantedScopes.js";
 import { clientManagementGetRequestableScopes } from "../funcs/clientManagementGetRequestableScopes.js";
 import { clientManagementListAuthorizations } from "../funcs/clientManagementListAuthorizations.js";
@@ -12,12 +19,13 @@ import { clientManagementRefreshSecret } from "../funcs/clientManagementRefreshS
 import { clientManagementUpdateAuthorizations } from "../funcs/clientManagementUpdateAuthorizations.js";
 import { clientManagementUpdateLockFlag } from "../funcs/clientManagementUpdateLockFlag.js";
 import { clientManagementUpdateRequestableScopes } from "../funcs/clientManagementUpdateRequestableScopes.js";
+import { clientManagementUpdateRequestableScopesByPost } from "../funcs/clientManagementUpdateRequestableScopesByPost.js";
 import { clientManagementUpdateSecret } from "../funcs/clientManagementUpdateSecret.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
-export class ClientManagement1 extends ClientSDK {
+export class ClientManagement extends ClientSDK {
   /**
    * Update Client Lock
    *
@@ -76,6 +84,44 @@ export class ClientManagement1 extends ClientSDK {
   }
 
   /**
+   * Get Authorized Applications
+   *
+   * @remarks
+   * Get a list of client applications that an end-user has authorized.
+   *
+   * The subject parameter is required and can be provided as a query parameter.
+   */
+  async getAuthorizedApplications(
+    request: operations.ClientAuthorizationGetListApiRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ClientAuthorizationGetListApiResponse> {
+    return unwrapAsync(clientManagementGetAuthorizedApplications(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get Authorized Applications
+   *
+   * @remarks
+   * Get a list of client applications that an end-user has authorized.
+   *
+   * The subject parameter is required.
+   */
+  async getAuthorizedApplicationsByPost(
+    request: operations.ClientAuthorizationGetListApiPostRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ClientAuthorizationGetListApiPostResponse> {
+    return unwrapAsync(clientManagementGetAuthorizedApplicationsByPost(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Get Authorized Applications (by Subject)
    *
    * @remarks
@@ -111,6 +157,44 @@ export class ClientManagement1 extends ClientSDK {
   }
 
   /**
+   * Delete Client Tokens
+   *
+   * @remarks
+   * Delete all existing access tokens issued to a client application by an end-user.
+   *
+   * The subject parameter is required and must be provided as a query parameter.
+   */
+  async deleteClientTokens(
+    request: operations.ClientAuthorizationDeleteApiRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ClientAuthorizationDeleteApiResponse> {
+    return unwrapAsync(clientManagementDeleteClientTokens(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete Client Tokens
+   *
+   * @remarks
+   * Delete all existing access tokens issued to a client application by an end-user.
+   *
+   * The subject parameter is required.
+   */
+  async deleteClientTokensByPost(
+    request: operations.ClientAuthorizationDeleteApiPostRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ClientAuthorizationDeleteApiPostResponse> {
+    return unwrapAsync(clientManagementDeleteClientTokensByPost(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Delete Client Tokens (by Subject)
    *
    * @remarks
@@ -129,6 +213,42 @@ export class ClientManagement1 extends ClientSDK {
   }
 
   /**
+   * Get Granted Scopes
+   *
+   * @remarks
+   * Get the set of scopes that a user has granted to a client application.
+   */
+  async getClientGrantedScopes(
+    request: operations.ClientGrantedScopesGetApiRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ClientGrantedScopesGetApiResponse> {
+    return unwrapAsync(clientManagementGetClientGrantedScopes(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get Granted Scopes
+   *
+   * @remarks
+   * Get the set of scopes that a user has granted to a client application.
+   *
+   * The subject parameter is required.
+   */
+  async getClientGrantedScopesByPost(
+    request: operations.ClientGrantedScopesGetApiPostRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ClientGrantedScopesGetApiPostResponse> {
+    return unwrapAsync(clientManagementGetClientGrantedScopesByPost(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Get Granted Scopes (by Subject)
    *
    * @remarks
@@ -140,6 +260,27 @@ export class ClientManagement1 extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ClientGrantedScopesGetBySubjectApiResponse> {
     return unwrapAsync(clientManagementGetGrantedScopes(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete Granted Scopes
+   *
+   * @remarks
+   * Delete the set of scopes that an end-user has granted to a client application.
+   *
+   * Even if records about granted scopes are deleted by calling this API, existing access tokens are
+   * not deleted and scopes of existing access tokens are not changed.
+   * The subject parameter is required and must be provided as a query parameter.
+   */
+  async deleteClientGrantedScopes(
+    request: operations.ClientGrantedScopesDeleteApiRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ClientGrantedScopesDeleteApiResponse> {
+    return unwrapAsync(clientManagementDeleteClientGrantedScopes(
       this,
       request,
       options,
@@ -175,6 +316,25 @@ export class ClientManagement1 extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ClientExtensionRequestablesScopesGetApiResponse> {
     return unwrapAsync(clientManagementGetRequestableScopes(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Requestable Scopes
+   *
+   * @remarks
+   * Update requestable scopes of a client
+   */
+  async updateRequestableScopesByPost(
+    request: operations.ClientExtensionRequestablesScopesUpdateApiPostRequest,
+    options?: RequestOptions,
+  ): Promise<
+    operations.ClientExtensionRequestablesScopesUpdateApiPostResponse
+  > {
+    return unwrapAsync(clientManagementUpdateRequestableScopesByPost(
       this,
       request,
       options,
