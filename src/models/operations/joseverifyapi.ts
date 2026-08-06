@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type JoseVerifyApiRequest = {
@@ -12,6 +15,11 @@ export type JoseVerifyApiRequest = {
    */
   serviceId: string;
   joseVerifyRequest?: models.JoseVerifyRequest | undefined;
+};
+
+export type JoseVerifyApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.JoseVerifyResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function joseVerifyApiRequestToJSON(
 ): string {
   return JSON.stringify(
     JoseVerifyApiRequest$outboundSchema.parse(joseVerifyApiRequest),
+  );
+}
+
+/** @internal */
+export const JoseVerifyApiResponse$inboundSchema: z.ZodType<
+  JoseVerifyApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.JoseVerifyResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function joseVerifyApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<JoseVerifyApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => JoseVerifyApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'JoseVerifyApiResponse' from JSON`,
   );
 }

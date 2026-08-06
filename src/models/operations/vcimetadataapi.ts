@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type VciMetadataApiRequest = {
@@ -12,6 +15,11 @@ export type VciMetadataApiRequest = {
    */
   serviceId: string;
   vciMetadataRequest: models.VciMetadataRequest;
+};
+
+export type VciMetadataApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.VciMetadataResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function vciMetadataApiRequestToJSON(
 ): string {
   return JSON.stringify(
     VciMetadataApiRequest$outboundSchema.parse(vciMetadataApiRequest),
+  );
+}
+
+/** @internal */
+export const VciMetadataApiResponse$inboundSchema: z.ZodType<
+  VciMetadataApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.VciMetadataResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function vciMetadataApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<VciMetadataApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VciMetadataApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VciMetadataApiResponse' from JSON`,
   );
 }

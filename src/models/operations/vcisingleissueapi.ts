@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type VciSingleIssueApiRequest = {
@@ -12,6 +15,11 @@ export type VciSingleIssueApiRequest = {
    */
   serviceId: string;
   vciSingleIssueRequest: models.VciSingleIssueRequest;
+};
+
+export type VciSingleIssueApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.VciSingleIssueResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function vciSingleIssueApiRequestToJSON(
 ): string {
   return JSON.stringify(
     VciSingleIssueApiRequest$outboundSchema.parse(vciSingleIssueApiRequest),
+  );
+}
+
+/** @internal */
+export const VciSingleIssueApiResponse$inboundSchema: z.ZodType<
+  VciSingleIssueApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.VciSingleIssueResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function vciSingleIssueApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<VciSingleIssueApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VciSingleIssueApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VciSingleIssueApiResponse' from JSON`,
   );
 }

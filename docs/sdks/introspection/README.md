@@ -89,13 +89,14 @@ run();
 
 ### Response
 
-**Promise\<[models.IntrospectionResponse](../../models/introspectionresponse.md)\>**
+**Promise\<[operations.AuthIntrospectionApiResponse](../../models/operations/authintrospectionapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -172,12 +173,13 @@ run();
 
 ### Response
 
-**Promise\<[models.StandardIntrospectionResponse](../../models/standardintrospectionresponse.md)\>**
+**Promise\<[operations.AuthIntrospectionStandardApiResponse](../../models/operations/authintrospectionstandardapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

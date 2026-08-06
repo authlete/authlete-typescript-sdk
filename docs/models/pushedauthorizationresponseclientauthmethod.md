@@ -10,12 +10,11 @@ Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-con
 ```typescript
 import { PushedAuthorizationResponseClientAuthMethod } from "@authlete/typescript-sdk/models";
 
-let value: PushedAuthorizationResponseClientAuthMethod =
-  "ATTEST_JWT_CLIENT_AUTH";
+let value: PushedAuthorizationResponseClientAuthMethod = "SPIFFE_JWT";
 ```
 
 ## Values
 
 ```typescript
-"NONE" | "CLIENT_SECRET_BASIC" | "CLIENT_SECRET_POST" | "CLIENT_SECRET_JWT" | "PRIVATE_KEY_JWT" | "TLS_CLIENT_AUTH" | "SELF_SIGNED_TLS_CLIENT_AUTH" | "ATTEST_JWT_CLIENT_AUTH"
+"NONE" | "CLIENT_SECRET_BASIC" | "CLIENT_SECRET_POST" | "CLIENT_SECRET_JWT" | "PRIVATE_KEY_JWT" | "TLS_CLIENT_AUTH" | "SELF_SIGNED_TLS_CLIENT_AUTH" | "ATTEST_JWT_CLIENT_AUTH" | "SPIFFE_JWT"
 ```

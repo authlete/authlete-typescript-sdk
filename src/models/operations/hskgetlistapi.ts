@@ -3,12 +3,22 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type HskGetListApiRequest = {
   /**
    * A service ID.
    */
   serviceId: string;
+};
+
+export type HskGetListApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.HskGetListResponse;
 };
 
 /** @internal */
@@ -30,5 +40,30 @@ export function hskGetListApiRequestToJSON(
 ): string {
   return JSON.stringify(
     HskGetListApiRequest$outboundSchema.parse(hskGetListApiRequest),
+  );
+}
+
+/** @internal */
+export const HskGetListApiResponse$inboundSchema: z.ZodType<
+  HskGetListApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.HskGetListResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function hskGetListApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<HskGetListApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HskGetListApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HskGetListApiResponse' from JSON`,
   );
 }

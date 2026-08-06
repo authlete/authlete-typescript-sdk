@@ -87,13 +87,14 @@ run();
 
 ### Response
 
-**Promise\<[models.BackchannelAuthenticationResponse](../../models/backchannelauthenticationresponse.md)\>**
+**Promise\<[operations.BackchannelAuthenticationApiResponse](../../models/operations/backchannelauthenticationapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -170,13 +171,14 @@ run();
 
 ### Response
 
-**Promise\<[models.BackchannelAuthenticationIssueResponse](../../models/backchannelauthenticationissueresponse.md)\>**
+**Promise\<[operations.BackchannelAuthenticationIssueApiResponse](../../models/operations/backchannelauthenticationissueapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -255,13 +257,14 @@ run();
 
 ### Response
 
-**Promise\<[models.BackchannelAuthenticationFailResponse](../../models/backchannelauthenticationfailresponse.md)\>**
+**Promise\<[operations.BackchannelAuthenticationFailApiResponse](../../models/operations/backchannelauthenticationfailapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -343,12 +346,13 @@ run();
 
 ### Response
 
-**Promise\<[models.BackchannelAuthenticationCompleteResponse](../../models/backchannelauthenticationcompleteresponse.md)\>**
+**Promise\<[operations.BackchannelAuthenticationCompleteApiResponse](../../models/operations/backchannelauthenticationcompleteapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

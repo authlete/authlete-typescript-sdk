@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type ClientExtensionRequestablesScopesUpdateApiPostRequest = {
@@ -19,6 +22,11 @@ export type ClientExtensionRequestablesScopesUpdateApiPostRequest = {
   clientId: string;
   clientExtensionRequestableScopesUpdateRequest:
     models.ClientExtensionRequestableScopesUpdateRequest;
+};
+
+export type ClientExtensionRequestablesScopesUpdateApiPostResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.ClientExtensionRequestableScopesUpdateResponse;
 };
 
 /** @internal */
@@ -55,5 +63,36 @@ export function clientExtensionRequestablesScopesUpdateApiPostRequestToJSON(
     ClientExtensionRequestablesScopesUpdateApiPostRequest$outboundSchema.parse(
       clientExtensionRequestablesScopesUpdateApiPostRequest,
     ),
+  );
+}
+
+/** @internal */
+export const ClientExtensionRequestablesScopesUpdateApiPostResponse$inboundSchema:
+  z.ZodType<
+    ClientExtensionRequestablesScopesUpdateApiPostResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.ClientExtensionRequestableScopesUpdateResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  });
+
+export function clientExtensionRequestablesScopesUpdateApiPostResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  ClientExtensionRequestablesScopesUpdateApiPostResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ClientExtensionRequestablesScopesUpdateApiPostResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'ClientExtensionRequestablesScopesUpdateApiPostResponse' from JSON`,
   );
 }

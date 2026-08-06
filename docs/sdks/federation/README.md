@@ -29,6 +29,7 @@ const authlete = new Authlete({
 async function run() {
   const result = await authlete.federation.configuration({
     serviceId: "<id>",
+    requestBody: {},
   });
 
   console.log(result);
@@ -54,6 +55,7 @@ const authlete = new AuthleteCore({
 async function run() {
   const res = await federationConfiguration(authlete, {
     serviceId: "<id>",
+    requestBody: {},
   });
   if (res.ok) {
     const { value: result } = res;
@@ -77,13 +79,14 @@ run();
 
 ### Response
 
-**Promise\<[models.FederationConfigurationResponse](../../models/federationconfigurationresponse.md)\>**
+**Promise\<[operations.FederationConfigurationApiResponse](../../models/operations/federationconfigurationapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -175,12 +178,13 @@ run();
 
 ### Response
 
-**Promise\<[models.FederationRegistrationResponse](../../models/federationregistrationresponse.md)\>**
+**Promise\<[operations.FederationRegistrationApiResponse](../../models/operations/federationregistrationapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

@@ -63,6 +63,30 @@ export type CredentialIssuerMetadata = {
    * property.
    */
   requireCredentialResponseEncryption?: boolean | undefined;
+  /**
+   * The boolean flag indicating whether credential request encryption is required. This property
+   *
+   * @remarks
+   * corresponds to the `credential_request_encryption.encryption_required` metadata. If this flag
+   * is `true`, every credential request to the credential issuer must be encrypted.
+   */
+  requireCredentialRequestEncryption?: boolean | undefined;
+  /**
+   * The supported JWE `zip` (compression) algorithms for credential response encryption. This
+   *
+   * @remarks
+   * property corresponds to the `credential_response_encryption.zip_values_supported` metadata.
+   */
+  credentialResponseEncryptionZipValuesSupported?: Array<string> | undefined;
+  /**
+   * The maximum array size for the `proofs` parameter in a credential request. This property
+   *
+   * @remarks
+   * corresponds to the `batch_credential_issuance.batch_size` metadata. If the value of this
+   * property is 2 or greater, the `batch_credential_issuance` parameter will appear in the
+   * response from the credential issuer metadata endpoint.
+   */
+  batchSize?: number | undefined;
 };
 
 /** @internal */
@@ -82,6 +106,10 @@ export const CredentialIssuerMetadata$inboundSchema: z.ZodType<
   credentialResponseEncryptionEncValuesSupported: z.array(z.string())
     .optional(),
   requireCredentialResponseEncryption: z.boolean().optional(),
+  requireCredentialRequestEncryption: z.boolean().optional(),
+  credentialResponseEncryptionZipValuesSupported: z.array(z.string())
+    .optional(),
+  batchSize: z.number().int().optional(),
 });
 /** @internal */
 export type CredentialIssuerMetadata$Outbound = {
@@ -94,6 +122,9 @@ export type CredentialIssuerMetadata$Outbound = {
   credentialResponseEncryptionAlgValuesSupported?: Array<string> | undefined;
   credentialResponseEncryptionEncValuesSupported?: Array<string> | undefined;
   requireCredentialResponseEncryption?: boolean | undefined;
+  requireCredentialRequestEncryption?: boolean | undefined;
+  credentialResponseEncryptionZipValuesSupported?: Array<string> | undefined;
+  batchSize?: number | undefined;
 };
 
 /** @internal */
@@ -113,6 +144,10 @@ export const CredentialIssuerMetadata$outboundSchema: z.ZodType<
   credentialResponseEncryptionEncValuesSupported: z.array(z.string())
     .optional(),
   requireCredentialResponseEncryption: z.boolean().optional(),
+  requireCredentialRequestEncryption: z.boolean().optional(),
+  credentialResponseEncryptionZipValuesSupported: z.array(z.string())
+    .optional(),
+  batchSize: z.number().int().optional(),
 });
 
 export function credentialIssuerMetadataToJSON(

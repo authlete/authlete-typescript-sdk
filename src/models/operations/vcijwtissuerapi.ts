@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type VciJwtissuerApiRequest = {
@@ -12,6 +15,11 @@ export type VciJwtissuerApiRequest = {
    */
   serviceId: string;
   vciJwtissuerRequest: models.VciJwtissuerRequest;
+};
+
+export type VciJwtissuerApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.VciJwtissuerResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function vciJwtissuerApiRequestToJSON(
 ): string {
   return JSON.stringify(
     VciJwtissuerApiRequest$outboundSchema.parse(vciJwtissuerApiRequest),
+  );
+}
+
+/** @internal */
+export const VciJwtissuerApiResponse$inboundSchema: z.ZodType<
+  VciJwtissuerApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.VciJwtissuerResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function vciJwtissuerApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<VciJwtissuerApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VciJwtissuerApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VciJwtissuerApiResponse' from JSON`,
   );
 }

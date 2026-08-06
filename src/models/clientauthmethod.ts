@@ -21,6 +21,7 @@ export const ClientAuthMethod = {
   TlsClientAuth: "TLS_CLIENT_AUTH",
   SelfSignedTlsClientAuth: "SELF_SIGNED_TLS_CLIENT_AUTH",
   AttestJwtClientAuth: "ATTEST_JWT_CLIENT_AUTH",
+  SpiffeJwt: "SPIFFE_JWT",
 } as const;
 /**
  * The client authentication method that the client application declares that it uses at the token

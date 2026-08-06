@@ -9,7 +9,6 @@ import { tokenManagementReissueIdToken } from "../funcs/tokenManagementReissueId
 import { tokenManagementRevoke } from "../funcs/tokenManagementRevoke.js";
 import { tokenManagementUpdate } from "../funcs/tokenManagementUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -27,7 +26,7 @@ export class TokenManagement extends ClientSDK {
   async reissueIdToken(
     request: operations.IdtokenReissueApiRequest,
     options?: RequestOptions,
-  ): Promise<models.IdtokenReissueResponse> {
+  ): Promise<operations.IdtokenReissueApiResponse> {
     return unwrapAsync(tokenManagementReissueIdToken(
       this,
       request,
@@ -44,7 +43,7 @@ export class TokenManagement extends ClientSDK {
   async list(
     request: operations.AuthTokenGetListApiRequest,
     options?: RequestOptions,
-  ): Promise<models.TokenGetListResponse> {
+  ): Promise<operations.AuthTokenGetListApiResponse> {
     return unwrapAsync(tokenManagementList(
       this,
       request,
@@ -61,7 +60,7 @@ export class TokenManagement extends ClientSDK {
   async create(
     request: operations.AuthTokenCreateApiRequest,
     options?: RequestOptions,
-  ): Promise<models.TokenCreateResponse> {
+  ): Promise<operations.AuthTokenCreateApiResponse> {
     return unwrapAsync(tokenManagementCreate(
       this,
       request,
@@ -78,7 +77,7 @@ export class TokenManagement extends ClientSDK {
   async update(
     request: operations.AuthTokenUpdateApiRequest,
     options?: RequestOptions,
-  ): Promise<models.TokenUpdateResponse> {
+  ): Promise<operations.AuthTokenUpdateApiResponse> {
     return unwrapAsync(tokenManagementUpdate(
       this,
       request,
@@ -95,7 +94,7 @@ export class TokenManagement extends ClientSDK {
   async delete(
     request: operations.AuthTokenDeleteApiRequest,
     options?: RequestOptions,
-  ): Promise<void> {
+  ): Promise<operations.AuthTokenDeleteApiResponse | undefined> {
     return unwrapAsync(tokenManagementDelete(
       this,
       request,
@@ -112,7 +111,7 @@ export class TokenManagement extends ClientSDK {
   async revoke(
     request: operations.AuthTokenRevokeApiRequest,
     options?: RequestOptions,
-  ): Promise<models.TokenRevokeResponse> {
+  ): Promise<operations.AuthTokenRevokeApiResponse> {
     return unwrapAsync(tokenManagementRevoke(
       this,
       request,

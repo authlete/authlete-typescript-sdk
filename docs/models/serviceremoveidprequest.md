@@ -1,0 +1,20 @@
+# ServiceRemoveIdpRequest
+
+## Example Usage
+
+```typescript
+import { ServiceRemoveIdpRequest } from "@authlete/typescript-sdk/models";
+
+let value: ServiceRemoveIdpRequest = {
+  organizationId: 969736,
+  serviceId: 421217,
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                         | Type                                                                                                                                                                                          | Required                                                                                                                                                                                      | Description                                                                                                                                                                                   |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apiServerId`                                                                                                                                                                                 | *number*                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                            | The numeric ID of the API server the service belongs to. Official SDKs inject<br/>this automatically for known Authlete clusters, so it can be omitted there;<br/>all other callers must provide it.<br/> |
+| `organizationId`                                                                                                                                                                              | *number*                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                            | The numeric ID of the organization the service belongs to.                                                                                                                                    |
+| `serviceId`                                                                                                                                                                                   | *number*                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                            | The numeric ID of the service to delete.                                                                                                                                                      |

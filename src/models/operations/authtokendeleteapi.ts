@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type AuthTokenDeleteApiRequest = {
   /**
@@ -16,6 +20,10 @@ export type AuthTokenDeleteApiRequest = {
    * or the value of the hash of the access token.
    */
   accessTokenIdentifier: string;
+};
+
+export type AuthTokenDeleteApiResponse = {
+  headers: { [k: string]: Array<string> };
 };
 
 /** @internal */
@@ -39,5 +47,28 @@ export function authTokenDeleteApiRequestToJSON(
 ): string {
   return JSON.stringify(
     AuthTokenDeleteApiRequest$outboundSchema.parse(authTokenDeleteApiRequest),
+  );
+}
+
+/** @internal */
+export const AuthTokenDeleteApiResponse$inboundSchema: z.ZodType<
+  AuthTokenDeleteApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+  });
+});
+
+export function authTokenDeleteApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<AuthTokenDeleteApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AuthTokenDeleteApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthTokenDeleteApiResponse' from JSON`,
   );
 }

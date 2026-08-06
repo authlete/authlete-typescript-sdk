@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ClientSecretRefreshApiRequest = {
   /**
@@ -15,6 +20,11 @@ export type ClientSecretRefreshApiRequest = {
    * @remarks
    */
   clientIdentifier: string;
+};
+
+export type ClientSecretRefreshApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.ClientSecretRefreshResponse;
 };
 
 /** @internal */
@@ -40,5 +50,30 @@ export function clientSecretRefreshApiRequestToJSON(
     ClientSecretRefreshApiRequest$outboundSchema.parse(
       clientSecretRefreshApiRequest,
     ),
+  );
+}
+
+/** @internal */
+export const ClientSecretRefreshApiResponse$inboundSchema: z.ZodType<
+  ClientSecretRefreshApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.ClientSecretRefreshResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function clientSecretRefreshApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ClientSecretRefreshApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ClientSecretRefreshApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientSecretRefreshApiResponse' from JSON`,
   );
 }

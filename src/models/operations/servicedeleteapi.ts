@@ -3,12 +3,20 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ServiceDeleteApiRequest = {
   /**
    * A service ID.
    */
   serviceId: string;
+};
+
+export type ServiceDeleteApiResponse = {
+  headers: { [k: string]: Array<string> };
 };
 
 /** @internal */
@@ -30,5 +38,28 @@ export function serviceDeleteApiRequestToJSON(
 ): string {
   return JSON.stringify(
     ServiceDeleteApiRequest$outboundSchema.parse(serviceDeleteApiRequest),
+  );
+}
+
+/** @internal */
+export const ServiceDeleteApiResponse$inboundSchema: z.ZodType<
+  ServiceDeleteApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+  });
+});
+
+export function serviceDeleteApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ServiceDeleteApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ServiceDeleteApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ServiceDeleteApiResponse' from JSON`,
   );
 }

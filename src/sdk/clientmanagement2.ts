@@ -11,7 +11,6 @@ import { clientManagementClientGrantedScopesDeleteApi } from "../funcs/clientMan
 import { clientManagementClientGrantedScopesGetApi } from "../funcs/clientManagementClientGrantedScopesGetApi.js";
 import { clientManagementClientGrantedScopesGetApiPost } from "../funcs/clientManagementClientGrantedScopesGetApiPost.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -27,7 +26,7 @@ export class ClientManagement2 extends ClientSDK {
   async clientAuthorizationGetListApi(
     request: operations.ClientAuthorizationGetListApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientAuthorizationGetListResponse> {
+  ): Promise<operations.ClientAuthorizationGetListApiResponse> {
     return unwrapAsync(clientManagementClientAuthorizationGetListApi(
       this,
       request,
@@ -46,7 +45,7 @@ export class ClientManagement2 extends ClientSDK {
   async clientAuthorizationGetListApiPost(
     request: operations.ClientAuthorizationGetListApiPostRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientAuthorizationGetListResponse> {
+  ): Promise<operations.ClientAuthorizationGetListApiPostResponse> {
     return unwrapAsync(clientManagementClientAuthorizationGetListApiPost(
       this,
       request,
@@ -65,7 +64,7 @@ export class ClientManagement2 extends ClientSDK {
   async clientAuthorizationDeleteApi(
     request: operations.ClientAuthorizationDeleteApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientAuthorizationDeleteResponse> {
+  ): Promise<operations.ClientAuthorizationDeleteApiResponse> {
     return unwrapAsync(clientManagementClientAuthorizationDeleteApi(
       this,
       request,
@@ -84,7 +83,7 @@ export class ClientManagement2 extends ClientSDK {
   async clientAuthorizationDeleteApiPost(
     request: operations.ClientAuthorizationDeleteApiPostRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientAuthorizationDeleteResponse> {
+  ): Promise<operations.ClientAuthorizationDeleteApiPostResponse> {
     return unwrapAsync(clientManagementClientAuthorizationDeleteApiPost(
       this,
       request,
@@ -101,7 +100,7 @@ export class ClientManagement2 extends ClientSDK {
   async clientGrantedScopesGetApi(
     request: operations.ClientGrantedScopesGetApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientAuthorizationDeleteResponse> {
+  ): Promise<operations.ClientGrantedScopesGetApiResponse> {
     return unwrapAsync(clientManagementClientGrantedScopesGetApi(
       this,
       request,
@@ -120,7 +119,7 @@ export class ClientManagement2 extends ClientSDK {
   async clientGrantedScopesGetApiPost(
     request: operations.ClientGrantedScopesGetApiPostRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientAuthorizationDeleteResponse> {
+  ): Promise<operations.ClientGrantedScopesGetApiPostResponse> {
     return unwrapAsync(clientManagementClientGrantedScopesGetApiPost(
       this,
       request,
@@ -141,7 +140,7 @@ export class ClientManagement2 extends ClientSDK {
   async clientGrantedScopesDeleteApi(
     request: operations.ClientGrantedScopesDeleteApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientGrantedScopesDeleteResponse> {
+  ): Promise<operations.ClientGrantedScopesDeleteApiResponse> {
     return unwrapAsync(clientManagementClientGrantedScopesDeleteApi(
       this,
       request,
@@ -158,7 +157,9 @@ export class ClientManagement2 extends ClientSDK {
   async clientExtensionRequestablesScopesUpdateApiPost(
     request: operations.ClientExtensionRequestablesScopesUpdateApiPostRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientExtensionRequestableScopesUpdateResponse> {
+  ): Promise<
+    operations.ClientExtensionRequestablesScopesUpdateApiPostResponse
+  > {
     return unwrapAsync(
       clientManagementClientExtensionRequestablesScopesUpdateApiPost(
         this,

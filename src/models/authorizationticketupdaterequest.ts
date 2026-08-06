@@ -3,22 +3,24 @@
  */
 
 import * as z from "zod/v3";
+import {
+  AuthorizationTicketInfo,
+  AuthorizationTicketInfo$Outbound,
+  AuthorizationTicketInfo$outboundSchema,
+} from "./authorizationticketinfo.js";
 
 export type AuthorizationTicketUpdateRequest = {
   /**
    * The ticket.
    */
   ticket: string;
-  /**
-   * The information about the ticket.
-   */
-  info: string;
+  info: AuthorizationTicketInfo;
 };
 
 /** @internal */
 export type AuthorizationTicketUpdateRequest$Outbound = {
   ticket: string;
-  info: string;
+  info: AuthorizationTicketInfo$Outbound;
 };
 
 /** @internal */
@@ -28,7 +30,7 @@ export const AuthorizationTicketUpdateRequest$outboundSchema: z.ZodType<
   AuthorizationTicketUpdateRequest
 > = z.object({
   ticket: z.string(),
-  info: z.string(),
+  info: AuthorizationTicketInfo$outboundSchema,
 });
 
 export function authorizationTicketUpdateRequestToJSON(

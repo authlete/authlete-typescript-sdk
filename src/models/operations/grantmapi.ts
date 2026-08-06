@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GrantMApiRequest = {
@@ -12,6 +15,11 @@ export type GrantMApiRequest = {
    */
   serviceId: string;
   gMRequest: models.GMRequest;
+};
+
+export type GrantMApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.GMResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function grantMApiRequestToJSON(
 ): string {
   return JSON.stringify(
     GrantMApiRequest$outboundSchema.parse(grantMApiRequest),
+  );
+}
+
+/** @internal */
+export const GrantMApiResponse$inboundSchema: z.ZodType<
+  GrantMApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.GMResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function grantMApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GrantMApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GrantMApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GrantMApiResponse' from JSON`,
   );
 }

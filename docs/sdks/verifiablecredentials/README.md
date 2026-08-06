@@ -87,13 +87,14 @@ run();
 
 ### Response
 
-**Promise\<[models.VciMetadataResponse](../../models/vcimetadataresponse.md)\>**
+**Promise\<[operations.VciMetadataApiResponse](../../models/operations/vcimetadataapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -168,13 +169,14 @@ run();
 
 ### Response
 
-**Promise\<[models.VciJwtissuerResponse](../../models/vcijwtissuerresponse.md)\>**
+**Promise\<[operations.VciJwtissuerApiResponse](../../models/operations/vcijwtissuerapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -249,13 +251,14 @@ run();
 
 ### Response
 
-**Promise\<[models.VciJwksResponse](../../models/vcijwksresponse.md)\>**
+**Promise\<[operations.VciJwksApiResponse](../../models/operations/vcijwksapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -326,13 +329,14 @@ run();
 
 ### Response
 
-**Promise\<[models.VciOfferCreateResponse](../../models/vcioffercreateresponse.md)\>**
+**Promise\<[operations.VciOfferCreateApiResponse](../../models/operations/vcioffercreateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -403,13 +407,14 @@ run();
 
 ### Response
 
-**Promise\<[models.VciOfferInfoResponse](../../models/vciofferinforesponse.md)\>**
+**Promise\<[operations.VciOfferInfoApiResponse](../../models/operations/vciofferinfoapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -480,13 +485,14 @@ run();
 
 ### Response
 
-**Promise\<[models.VciSingleParseResponse](../../models/vcisingleparseresponse.md)\>**
+**Promise\<[operations.VciSingleParseApiResponse](../../models/operations/vcisingleparseapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -557,13 +563,14 @@ run();
 
 ### Response
 
-**Promise\<[models.VciSingleIssueResponse](../../models/vcisingleissueresponse.md)\>**
+**Promise\<[operations.VciSingleIssueApiResponse](../../models/operations/vcisingleissueapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -634,13 +641,14 @@ run();
 
 ### Response
 
-**Promise\<[models.VciBatchParseResponse](../../models/vcibatchparseresponse.md)\>**
+**Promise\<[operations.VciBatchParseApiResponse](../../models/operations/vcibatchparseapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -711,13 +719,14 @@ run();
 
 ### Response
 
-**Promise\<[models.VciBatchIssueResponse](../../models/vcibatchissueresponse.md)\>**
+**Promise\<[operations.VciBatchIssueApiResponse](../../models/operations/vcibatchissueapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -788,13 +797,14 @@ run();
 
 ### Response
 
-**Promise\<[models.VciDeferredParseResponse](../../models/vcideferredparseresponse.md)\>**
+**Promise\<[operations.VciDeferredParseApiResponse](../../models/operations/vcideferredparseapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -865,12 +875,13 @@ run();
 
 ### Response
 
-**Promise\<[models.VciDeferredIssueResponse](../../models/vcideferredissueresponse.md)\>**
+**Promise\<[operations.VciDeferredIssueApiResponse](../../models/operations/vcideferredissueapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

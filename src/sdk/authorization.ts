@@ -6,7 +6,6 @@ import { authorizationFail } from "../funcs/authorizationFail.js";
 import { authorizationIssue } from "../funcs/authorizationIssue.js";
 import { authorizationProcessRequest } from "../funcs/authorizationProcessRequest.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { AuthorizationManagement } from "./authorizationmanagement.js";
@@ -27,7 +26,7 @@ export class Authorization extends ClientSDK {
   async processRequest(
     request: operations.AuthAuthorizationApiRequest,
     options?: RequestOptions,
-  ): Promise<models.AuthorizationResponse> {
+  ): Promise<operations.AuthAuthorizationApiResponse> {
     return unwrapAsync(authorizationProcessRequest(
       this,
       request,
@@ -45,7 +44,7 @@ export class Authorization extends ClientSDK {
   async fail(
     request: operations.AuthAuthorizationFailApiRequest,
     options?: RequestOptions,
-  ): Promise<models.AuthorizationFailResponse> {
+  ): Promise<operations.AuthAuthorizationFailApiResponse> {
     return unwrapAsync(authorizationFail(
       this,
       request,
@@ -63,7 +62,7 @@ export class Authorization extends ClientSDK {
   async issue(
     request: operations.AuthAuthorizationIssueApiRequest,
     options?: RequestOptions,
-  ): Promise<models.AuthorizationIssueResponse> {
+  ): Promise<operations.AuthAuthorizationIssueApiResponse> {
     return unwrapAsync(authorizationIssue(
       this,
       request,

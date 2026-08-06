@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ClientAuthorizationDeleteApiRequest = {
   /**
@@ -21,6 +26,11 @@ export type ClientAuthorizationDeleteApiRequest = {
    * @remarks
    */
   subject: string;
+};
+
+export type ClientAuthorizationDeleteApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.ClientAuthorizationDeleteResponse;
 };
 
 /** @internal */
@@ -48,5 +58,31 @@ export function clientAuthorizationDeleteApiRequestToJSON(
     ClientAuthorizationDeleteApiRequest$outboundSchema.parse(
       clientAuthorizationDeleteApiRequest,
     ),
+  );
+}
+
+/** @internal */
+export const ClientAuthorizationDeleteApiResponse$inboundSchema: z.ZodType<
+  ClientAuthorizationDeleteApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.ClientAuthorizationDeleteResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function clientAuthorizationDeleteApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ClientAuthorizationDeleteApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ClientAuthorizationDeleteApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientAuthorizationDeleteApiResponse' from JSON`,
   );
 }

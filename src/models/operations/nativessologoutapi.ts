@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type NativeSsoLogoutApiRequest = {
@@ -12,6 +15,11 @@ export type NativeSsoLogoutApiRequest = {
    */
   serviceId: string;
   nativeSsoLogoutRequest: models.NativeSsoLogoutRequest;
+};
+
+export type NativeSsoLogoutApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.NativeSsoLogoutResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function nativeSsoLogoutApiRequestToJSON(
 ): string {
   return JSON.stringify(
     NativeSsoLogoutApiRequest$outboundSchema.parse(nativeSsoLogoutApiRequest),
+  );
+}
+
+/** @internal */
+export const NativeSsoLogoutApiResponse$inboundSchema: z.ZodType<
+  NativeSsoLogoutApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.NativeSsoLogoutResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function nativeSsoLogoutApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<NativeSsoLogoutApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NativeSsoLogoutApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NativeSsoLogoutApiResponse' from JSON`,
   );
 }

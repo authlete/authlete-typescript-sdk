@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type PushedAuthReqApiRequest = {
@@ -12,6 +15,11 @@ export type PushedAuthReqApiRequest = {
    */
   serviceId: string;
   pushedAuthorizationRequest: models.PushedAuthorizationRequest;
+};
+
+export type PushedAuthReqApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.PushedAuthorizationResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function pushedAuthReqApiRequestToJSON(
 ): string {
   return JSON.stringify(
     PushedAuthReqApiRequest$outboundSchema.parse(pushedAuthReqApiRequest),
+  );
+}
+
+/** @internal */
+export const PushedAuthReqApiResponse$inboundSchema: z.ZodType<
+  PushedAuthReqApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.PushedAuthorizationResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function pushedAuthReqApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<PushedAuthReqApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PushedAuthReqApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PushedAuthReqApiResponse' from JSON`,
   );
 }

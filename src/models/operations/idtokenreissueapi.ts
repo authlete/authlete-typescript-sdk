@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type IdtokenReissueApiRequest = {
@@ -12,6 +15,11 @@ export type IdtokenReissueApiRequest = {
    */
   serviceId: string;
   idtokenReissueRequest?: models.IdtokenReissueRequest | undefined;
+};
+
+export type IdtokenReissueApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.IdtokenReissueResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function idtokenReissueApiRequestToJSON(
 ): string {
   return JSON.stringify(
     IdtokenReissueApiRequest$outboundSchema.parse(idtokenReissueApiRequest),
+  );
+}
+
+/** @internal */
+export const IdtokenReissueApiResponse$inboundSchema: z.ZodType<
+  IdtokenReissueApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.IdtokenReissueResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function idtokenReissueApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<IdtokenReissueApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IdtokenReissueApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IdtokenReissueApiResponse' from JSON`,
   );
 }

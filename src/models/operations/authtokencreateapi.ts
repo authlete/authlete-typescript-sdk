@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type AuthTokenCreateApiRequest = {
@@ -12,6 +15,11 @@ export type AuthTokenCreateApiRequest = {
    */
   serviceId: string;
   tokenCreateRequest: models.TokenCreateRequest;
+};
+
+export type AuthTokenCreateApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.TokenCreateResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function authTokenCreateApiRequestToJSON(
 ): string {
   return JSON.stringify(
     AuthTokenCreateApiRequest$outboundSchema.parse(authTokenCreateApiRequest),
+  );
+}
+
+/** @internal */
+export const AuthTokenCreateApiResponse$inboundSchema: z.ZodType<
+  AuthTokenCreateApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.TokenCreateResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function authTokenCreateApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<AuthTokenCreateApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AuthTokenCreateApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthTokenCreateApiResponse' from JSON`,
   );
 }

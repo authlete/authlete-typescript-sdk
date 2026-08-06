@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type ClientCreateApiRequest = {
@@ -11,6 +15,11 @@ export type ClientCreateApiRequest = {
    */
   serviceId: string;
   client?: models.ClientInput | undefined;
+};
+
+export type ClientCreateApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.Client;
 };
 
 /** @internal */
@@ -34,5 +43,30 @@ export function clientCreateApiRequestToJSON(
 ): string {
   return JSON.stringify(
     ClientCreateApiRequest$outboundSchema.parse(clientCreateApiRequest),
+  );
+}
+
+/** @internal */
+export const ClientCreateApiResponse$inboundSchema: z.ZodType<
+  ClientCreateApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.Client$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function clientCreateApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ClientCreateApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ClientCreateApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientCreateApiResponse' from JSON`,
   );
 }

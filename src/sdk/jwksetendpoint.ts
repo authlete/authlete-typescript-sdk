@@ -4,7 +4,6 @@
 
 import { jwkSetEndpointServiceJwksGetApi } from "../funcs/jwkSetEndpointServiceJwksGetApi.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -25,7 +24,7 @@ export class JWKSetEndpoint extends ClientSDK {
   async serviceJwksGetApi(
     request: operations.ServiceJwksGetApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ServiceJwksGetResponse | undefined> {
+  ): Promise<operations.ServiceJwksGetApiResponse | undefined> {
     return unwrapAsync(jwkSetEndpointServiceJwksGetApi(
       this,
       request,

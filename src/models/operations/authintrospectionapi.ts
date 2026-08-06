@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type AuthIntrospectionApiRequest = {
@@ -12,6 +15,11 @@ export type AuthIntrospectionApiRequest = {
    */
   serviceId: string;
   introspectionRequest: models.IntrospectionRequest;
+};
+
+export type AuthIntrospectionApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.IntrospectionResponse;
 };
 
 /** @internal */
@@ -41,5 +49,30 @@ export function authIntrospectionApiRequestToJSON(
     AuthIntrospectionApiRequest$outboundSchema.parse(
       authIntrospectionApiRequest,
     ),
+  );
+}
+
+/** @internal */
+export const AuthIntrospectionApiResponse$inboundSchema: z.ZodType<
+  AuthIntrospectionApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.IntrospectionResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function authIntrospectionApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<AuthIntrospectionApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AuthIntrospectionApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthIntrospectionApiResponse' from JSON`,
   );
 }

@@ -7,7 +7,6 @@ import { dynamicClientRegistrationGet } from "../funcs/dynamicClientRegistration
 import { dynamicClientRegistrationRegister } from "../funcs/dynamicClientRegistrationRegister.js";
 import { dynamicClientRegistrationUpdate } from "../funcs/dynamicClientRegistrationUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -23,7 +22,7 @@ export class DynamicClientRegistration extends ClientSDK {
   async register(
     request: operations.ClientRegistrationApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientRegistrationResponse> {
+  ): Promise<operations.ClientRegistrationApiResponse> {
     return unwrapAsync(dynamicClientRegistrationRegister(
       this,
       request,
@@ -42,7 +41,7 @@ export class DynamicClientRegistration extends ClientSDK {
   async get(
     request: operations.ClientRegistrationGetApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientRegistrationResponse> {
+  ): Promise<operations.ClientRegistrationGetApiResponse> {
     return unwrapAsync(dynamicClientRegistrationGet(
       this,
       request,
@@ -61,7 +60,7 @@ export class DynamicClientRegistration extends ClientSDK {
   async update(
     request: operations.ClientRegistrationUpdateApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientRegistrationResponse> {
+  ): Promise<operations.ClientRegistrationUpdateApiResponse> {
     return unwrapAsync(dynamicClientRegistrationUpdate(
       this,
       request,
@@ -80,7 +79,7 @@ export class DynamicClientRegistration extends ClientSDK {
   async delete(
     request: operations.ClientRegistrationDeleteApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientRegistrationResponse> {
+  ): Promise<operations.ClientRegistrationDeleteApiResponse> {
     return unwrapAsync(dynamicClientRegistrationDelete(
       this,
       request,

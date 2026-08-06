@@ -703,6 +703,21 @@ export type Client = {
    */
   bcUserCodeRequired?: boolean | undefined;
   /**
+   * The backchannel logout URI for this client. Used by the service to
+   *
+   * @remarks
+   * deliver logout tokens when OpenID Connect Back-Channel Logout 1.0 is
+   * triggered.
+   */
+  backchannelLogoutUri?: string | undefined;
+  /**
+   * The flag indicating whether the client requires that a `sid` (session ID)
+   *
+   * @remarks
+   * claim be included in the logout token sent to `backchannelLogoutUri`.
+   */
+  backchannelLogoutSessionRequired?: boolean | undefined;
+  /**
    * The attributes of this client.
    *
    * @remarks
@@ -951,6 +966,21 @@ export type Client = {
    * @remarks
    */
   clientSource?: ClientClientSource | undefined;
+  /**
+   * The SPIFFE ID of the client. Used for SPIFFE-based client authentication
+   *
+   * @remarks
+   * (`SPIFFE_JWT`). Corresponds to the `spiffe_id` client metadata parameter.
+   */
+  spiffeId?: string | undefined;
+  /**
+   * The endpoint URL of the SPIFFE bundle for this client. Used to fetch
+   *
+   * @remarks
+   * the SPIFFE trust bundle for validating JWT-SVIDs. Corresponds to the
+   * `spiffe_bundle_endpoint` client metadata parameter.
+   */
+  spiffeBundleEndpoint?: string | undefined;
   additionalProperties?: { [k: string]: any } | undefined;
 };
 
@@ -1495,6 +1525,21 @@ export type ClientInput = {
    */
   bcUserCodeRequired?: boolean | undefined;
   /**
+   * The backchannel logout URI for this client. Used by the service to
+   *
+   * @remarks
+   * deliver logout tokens when OpenID Connect Back-Channel Logout 1.0 is
+   * triggered.
+   */
+  backchannelLogoutUri?: string | undefined;
+  /**
+   * The flag indicating whether the client requires that a `sid` (session ID)
+   *
+   * @remarks
+   * claim be included in the logout token sent to `backchannelLogoutUri`.
+   */
+  backchannelLogoutSessionRequired?: boolean | undefined;
+  /**
    * The attributes of this client.
    *
    * @remarks
@@ -1743,6 +1788,21 @@ export type ClientInput = {
    * @remarks
    */
   clientSource?: ClientClientSource | undefined;
+  /**
+   * The SPIFFE ID of the client. Used for SPIFFE-based client authentication
+   *
+   * @remarks
+   * (`SPIFFE_JWT`). Corresponds to the `spiffe_id` client metadata parameter.
+   */
+  spiffeId?: string | undefined;
+  /**
+   * The endpoint URL of the SPIFFE bundle for this client. Used to fetch
+   *
+   * @remarks
+   * the SPIFFE trust bundle for validating JWT-SVIDs. Corresponds to the
+   * `spiffe_bundle_endpoint` client metadata parameter.
+   */
+  spiffeBundleEndpoint?: string | undefined;
   additionalProperties?: { [k: string]: any } | undefined;
 };
 
@@ -1834,6 +1894,8 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> =
       bcNotificationEndpoint: z.string().optional(),
       bcRequestSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
       bcUserCodeRequired: z.boolean().optional(),
+      backchannelLogoutUri: z.string().optional(),
+      backchannelLogoutSessionRequired: z.boolean().optional(),
       attributes: z.array(Pair$inboundSchema).optional(),
       extension: ClientExtension$inboundSchema.optional(),
       authorizationDetailsTypes: z.array(z.string()).optional(),
@@ -1871,6 +1933,8 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> =
       metadataDocumentUpdatedAt: z.number().int().optional(),
       discoveredByMetadataDocument: z.boolean().optional(),
       clientSource: ClientClientSource$inboundSchema.optional(),
+      spiffeId: z.string().optional(),
+      spiffeBundleEndpoint: z.string().optional(),
     }).catchall(z.any()),
     "additionalProperties",
     true,
@@ -1948,6 +2012,8 @@ export type ClientInput$Outbound = {
   bcNotificationEndpoint?: string | undefined;
   bcRequestSignAlg?: string | null | undefined;
   bcUserCodeRequired?: boolean | undefined;
+  backchannelLogoutUri?: string | undefined;
+  backchannelLogoutSessionRequired?: boolean | undefined;
   attributes?: Array<Pair$Outbound> | undefined;
   extension?: ClientExtension$Outbound | undefined;
   authorizationDetailsTypes?: Array<string> | undefined;
@@ -1984,6 +2050,8 @@ export type ClientInput$Outbound = {
   metadataDocumentUpdatedAt?: number | undefined;
   discoveredByMetadataDocument?: boolean | undefined;
   clientSource?: string | undefined;
+  spiffeId?: string | undefined;
+  spiffeBundleEndpoint?: string | undefined;
   [additionalProperties: string]: unknown;
 };
 
@@ -2053,6 +2121,8 @@ export const ClientInput$outboundSchema: z.ZodType<
   bcNotificationEndpoint: z.string().optional(),
   bcRequestSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
   bcUserCodeRequired: z.boolean().optional(),
+  backchannelLogoutUri: z.string().optional(),
+  backchannelLogoutSessionRequired: z.boolean().optional(),
   attributes: z.array(Pair$outboundSchema).optional(),
   extension: ClientExtension$outboundSchema.optional(),
   authorizationDetailsTypes: z.array(z.string()).optional(),
@@ -2090,6 +2160,8 @@ export const ClientInput$outboundSchema: z.ZodType<
   metadataDocumentUpdatedAt: z.number().int().optional(),
   discoveredByMetadataDocument: z.boolean().optional(),
   clientSource: ClientClientSource$outboundSchema.optional(),
+  spiffeId: z.string().optional(),
+  spiffeBundleEndpoint: z.string().optional(),
   additionalProperties: z.record(z.any()).optional(),
 }).transform((v) => {
   return {

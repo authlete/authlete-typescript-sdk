@@ -90,6 +90,13 @@ export type AuthorizationIssueResponse = {
    */
   jwtAccessToken?: string | undefined;
   ticketInfo?: AuthorizationTicketInfo | undefined;
+  /**
+   * the claims that the user has consented for the client application
+   *
+   * @remarks
+   * to know.
+   */
+  consentedClaims?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -114,6 +121,7 @@ export const AuthorizationIssueResponse$inboundSchema: z.ZodType<
   authorizationCode: z.string().optional(),
   jwtAccessToken: z.string().optional(),
   ticketInfo: AuthorizationTicketInfo$inboundSchema.optional(),
+  consentedClaims: z.array(z.string()).optional(),
 });
 
 export function authorizationIssueResponseFromJSON(

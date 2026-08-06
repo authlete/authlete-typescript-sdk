@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ServiceConfigurationApiRequest = {
   /**
@@ -17,6 +21,11 @@ export type ServiceConfigurationApiRequest = {
    * Get the JSON Patch [RFC 6902 JavaScript Object Notation (JSON) Patch](https://www.rfc-editor.org/rfc/rfc6902) to be applied.
    */
   patch?: string | undefined;
+};
+
+export type ServiceConfigurationApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: { [k: string]: any };
 };
 
 /** @internal */
@@ -44,5 +53,30 @@ export function serviceConfigurationApiRequestToJSON(
     ServiceConfigurationApiRequest$outboundSchema.parse(
       serviceConfigurationApiRequest,
     ),
+  );
+}
+
+/** @internal */
+export const ServiceConfigurationApiResponse$inboundSchema: z.ZodType<
+  ServiceConfigurationApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: z.record(z.any()),
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function serviceConfigurationApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ServiceConfigurationApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ServiceConfigurationApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ServiceConfigurationApiResponse' from JSON`,
   );
 }

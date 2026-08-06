@@ -85,13 +85,14 @@ run();
 
 ### Response
 
-**Promise\<[models.TokenResponse](../../models/tokenresponse.md)\>**
+**Promise\<[operations.AuthTokenApiResponse](../../models/operations/authtokenapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -170,13 +171,14 @@ run();
 
 ### Response
 
-**Promise\<[models.TokenFailResponse](../../models/tokenfailresponse.md)\>**
+**Promise\<[operations.AuthTokenFailApiResponse](../../models/operations/authtokenfailapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -255,12 +257,13 @@ run();
 
 ### Response
 
-**Promise\<[models.TokenIssueResponse](../../models/tokenissueresponse.md)\>**
+**Promise\<[operations.AuthTokenIssueApiResponse](../../models/operations/authtokenissueapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

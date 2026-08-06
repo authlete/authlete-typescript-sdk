@@ -1,0 +1,24 @@
+# ClientAuthorizationDeleteBySubjectApiResponse
+
+## Example Usage
+
+```typescript
+import { ClientAuthorizationDeleteBySubjectApiResponse } from "@authlete/typescript-sdk/models/operations";
+
+let value: ClientAuthorizationDeleteBySubjectApiResponse = {
+  headers: {
+    "key": [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  result: {},
+};
+```
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `headers`                                                                                     | Record<string, *string*[]>                                                                    | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `result`                                                                                      | [models.ClientAuthorizationDeleteResponse](../../models/clientauthorizationdeleteresponse.md) | :heavy_check_mark:                                                                            | N/A                                                                                           |

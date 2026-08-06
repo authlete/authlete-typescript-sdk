@@ -5,7 +5,6 @@
 import { userinfoIssue } from "../funcs/userinfoIssue.js";
 import { userinfoProcess } from "../funcs/userinfoProcess.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -19,7 +18,7 @@ export class Userinfo extends ClientSDK {
   async process(
     request: operations.AuthUserinfoApiRequest,
     options?: RequestOptions,
-  ): Promise<models.UserinfoResponse> {
+  ): Promise<operations.AuthUserinfoApiResponse> {
     return unwrapAsync(userinfoProcess(
       this,
       request,
@@ -36,7 +35,7 @@ export class Userinfo extends ClientSDK {
   async issue(
     request: operations.AuthUserinfoIssueApiRequest,
     options?: RequestOptions,
-  ): Promise<models.UserinfoIssueResponse> {
+  ): Promise<operations.AuthUserinfoIssueApiResponse> {
     return unwrapAsync(userinfoIssue(
       this,
       request,

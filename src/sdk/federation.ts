@@ -5,7 +5,6 @@
 import { federationConfiguration } from "../funcs/federationConfiguration.js";
 import { federationRegistration } from "../funcs/federationRegistration.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -23,7 +22,7 @@ export class Federation extends ClientSDK {
   async configuration(
     request: operations.FederationConfigurationApiRequest,
     options?: RequestOptions,
-  ): Promise<models.FederationConfigurationResponse> {
+  ): Promise<operations.FederationConfigurationApiResponse> {
     return unwrapAsync(federationConfiguration(
       this,
       request,
@@ -60,7 +59,7 @@ export class Federation extends ClientSDK {
   async registration(
     request: operations.FederationRegistrationApiRequest,
     options?: RequestOptions,
-  ): Promise<models.FederationRegistrationResponse> {
+  ): Promise<operations.FederationRegistrationApiResponse> {
     return unwrapAsync(federationRegistration(
       this,
       request,

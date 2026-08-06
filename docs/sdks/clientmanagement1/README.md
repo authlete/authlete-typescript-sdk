@@ -90,13 +90,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientFlagUpdateResponse](../../models/clientflagupdateresponse.md)\>**
+**Promise\<[operations.ClientFlagUpdateApiResponse](../../models/operations/clientflagupdateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -171,13 +172,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientSecretRefreshResponse](../../models/clientsecretrefreshresponse.md)\>**
+**Promise\<[operations.ClientSecretRefreshApiResponse](../../models/operations/clientsecretrefreshapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -258,13 +260,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientSecretUpdateResponse](../../models/clientsecretupdateresponse.md)\>**
+**Promise\<[operations.ClientSecretUpdateApiResponse](../../models/operations/clientsecretupdateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -337,13 +340,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientAuthorizationGetListResponse](../../models/clientauthorizationgetlistresponse.md)\>**
+**Promise\<[operations.ClientAuthorizationGetListBySubjectApiResponse](../../models/operations/clientauthorizationgetlistbysubjectapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -427,13 +431,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientAuthorizationUpdateResponse](../../models/clientauthorizationupdateresponse.md)\>**
+**Promise\<[operations.ClientAuthorizationUpdateApiResponse](../../models/operations/clientauthorizationupdateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -508,13 +513,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientAuthorizationDeleteResponse](../../models/clientauthorizationdeleteresponse.md)\>**
+**Promise\<[operations.ClientAuthorizationDeleteBySubjectApiResponse](../../models/operations/clientauthorizationdeletebysubjectapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -589,13 +595,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientAuthorizationDeleteResponse](../../models/clientauthorizationdeleteresponse.md)\>**
+**Promise\<[operations.ClientGrantedScopesGetBySubjectApiResponse](../../models/operations/clientgrantedscopesgetbysubjectapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -670,13 +677,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientGrantedScopesDeleteResponse](../../models/clientgrantedscopesdeleteresponse.md)\>**
+**Promise\<[operations.ClientGrantedScopesDeleteBySubjectApiResponse](../../models/operations/clientgrantedscopesdeletebysubjectapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -748,13 +756,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientExtensionRequestableScopesGetResponse](../../models/clientextensionrequestablescopesgetresponse.md)\>**
+**Promise\<[operations.ClientExtensionRequestablesScopesGetApiResponse](../../models/operations/clientextensionrequestablesscopesgetapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -828,13 +837,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientExtensionRequestableScopesUpdateResponse](../../models/clientextensionrequestablescopesupdateresponse.md)\>**
+**Promise\<[operations.ClientExtensionRequestablesScopesUpdateApiResponse](../../models/operations/clientextensionrequestablesscopesupdateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -854,12 +864,12 @@ const authlete = new Authlete({
 });
 
 async function run() {
-  await authlete.client.management.deleteRequestableScopes({
+  const result = await authlete.client.management.deleteRequestableScopes({
     serviceId: "<id>",
     clientId: "<id>",
   });
 
-
+  console.log(result);
 }
 
 run();
@@ -886,7 +896,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    
+    console.log(result);
   } else {
     console.log("clientManagementDeleteRequestableScopes failed:", res.error);
   }
@@ -906,12 +916,13 @@ run();
 
 ### Response
 
-**Promise\<void\>**
+**Promise\<[operations.ClientExtensionRequestablesScopesDeleteApiResponse](../../models/operations/clientextensionrequestablesscopesdeleteapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

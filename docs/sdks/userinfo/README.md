@@ -79,13 +79,14 @@ run();
 
 ### Response
 
-**Promise\<[models.UserinfoResponse](../../models/userinforesponse.md)\>**
+**Promise\<[operations.AuthUserinfoApiResponse](../../models/operations/authuserinfoapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -161,12 +162,13 @@ run();
 
 ### Response
 
-**Promise\<[models.UserinfoIssueResponse](../../models/userinfoissueresponse.md)\>**
+**Promise\<[operations.AuthUserinfoIssueApiResponse](../../models/operations/authuserinfoissueapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

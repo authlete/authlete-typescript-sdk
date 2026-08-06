@@ -4,7 +4,6 @@
 
 import { grantManagementProcessRequest } from "../funcs/grantManagementProcessRequest.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -19,7 +18,7 @@ export class GrantManagement extends ClientSDK {
   async processRequest(
     request: operations.GrantMApiRequest,
     options?: RequestOptions,
-  ): Promise<models.GMResponse> {
+  ): Promise<operations.GrantMApiResponse> {
     return unwrapAsync(grantManagementProcessRequest(
       this,
       request,

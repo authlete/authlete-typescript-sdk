@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type BackchannelAuthenticationFailApiRequest = {
@@ -13,6 +16,11 @@ export type BackchannelAuthenticationFailApiRequest = {
   serviceId: string;
   backchannelAuthenticationFailRequest:
     models.BackchannelAuthenticationFailRequest;
+};
+
+export type BackchannelAuthenticationFailApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.BackchannelAuthenticationFailResponse;
 };
 
 /** @internal */
@@ -46,5 +54,36 @@ export function backchannelAuthenticationFailApiRequestToJSON(
     BackchannelAuthenticationFailApiRequest$outboundSchema.parse(
       backchannelAuthenticationFailApiRequest,
     ),
+  );
+}
+
+/** @internal */
+export const BackchannelAuthenticationFailApiResponse$inboundSchema: z.ZodType<
+  BackchannelAuthenticationFailApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.BackchannelAuthenticationFailResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function backchannelAuthenticationFailApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  BackchannelAuthenticationFailApiResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      BackchannelAuthenticationFailApiResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'BackchannelAuthenticationFailApiResponse' from JSON`,
   );
 }

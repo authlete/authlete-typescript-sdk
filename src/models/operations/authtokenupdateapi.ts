@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type AuthTokenUpdateApiRequest = {
@@ -12,6 +15,11 @@ export type AuthTokenUpdateApiRequest = {
    */
   serviceId: string;
   tokenUpdateRequest: models.TokenUpdateRequest;
+};
+
+export type AuthTokenUpdateApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.TokenUpdateResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function authTokenUpdateApiRequestToJSON(
 ): string {
   return JSON.stringify(
     AuthTokenUpdateApiRequest$outboundSchema.parse(authTokenUpdateApiRequest),
+  );
+}
+
+/** @internal */
+export const AuthTokenUpdateApiResponse$inboundSchema: z.ZodType<
+  AuthTokenUpdateApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.TokenUpdateResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function authTokenUpdateApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<AuthTokenUpdateApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AuthTokenUpdateApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthTokenUpdateApiResponse' from JSON`,
   );
 }
