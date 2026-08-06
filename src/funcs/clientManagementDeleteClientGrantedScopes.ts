@@ -3,7 +3,7 @@
  */
 
 import { AuthleteCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -27,18 +27,22 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Verify JOSE
+ * Delete Granted Scopes
  *
  * @remarks
- * This API verifies a JOSE object.
+ * Delete the set of scopes that an end-user has granted to a client application.
+ *
+ * Even if records about granted scopes are deleted by calling this API, existing access tokens are
+ * not deleted and scopes of existing access tokens are not changed.
+ * The subject parameter is required and must be provided as a query parameter.
  */
-export function joseObjectJoseVerifyApi(
+export function clientManagementDeleteClientGrantedScopes(
   client: AuthleteCore,
-  request: operations.JoseVerifyApiRequest,
+  request: operations.ClientGrantedScopesDeleteApiRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.JoseVerifyApiResponse,
+    operations.ClientGrantedScopesDeleteApiResponse,
     | errors.ResultError
     | AuthleteError
     | ResponseValidationError
@@ -59,12 +63,12 @@ export function joseObjectJoseVerifyApi(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.JoseVerifyApiRequest,
+  request: operations.ClientGrantedScopesDeleteApiRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.JoseVerifyApiResponse,
+      operations.ClientGrantedScopesDeleteApiResponse,
       | errors.ResultError
       | AuthleteError
       | ResponseValidationError
@@ -80,27 +84,37 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.JoseVerifyApiRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.ClientGrantedScopesDeleteApiRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.jose_verify_request, {
-    explode: true,
-  });
+  const body = null;
 
   const pathParams = {
+    clientId: encodeSimple("clientId", payload.clientId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
     serviceId: encodeSimple("serviceId", payload.serviceId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/api/{serviceId}/jose/verify")(pathParams);
+  const path = pathToFunc(
+    "/api/{serviceId}/client/granted_scopes/delete/{clientId}",
+  )(pathParams);
+
+  const query = encodeFormQuery({
+    "subject": payload.subject,
+  });
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -111,7 +125,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "jose_verify_api",
+    operationID: "client_granted_scopes_delete_api",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -135,10 +149,11 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "DELETE",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || 5000,
@@ -165,7 +180,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.JoseVerifyApiResponse,
+    operations.ClientGrantedScopesDeleteApiResponse,
     | errors.ResultError
     | AuthleteError
     | ResponseValidationError
@@ -176,7 +191,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.JoseVerifyApiResponse$inboundSchema, {
+    M.json(200, operations.ClientGrantedScopesDeleteApiResponse$inboundSchema, {
       key: "Result",
     }),
     M.jsonErr([400, 401, 403], errors.ResultError$inboundSchema),

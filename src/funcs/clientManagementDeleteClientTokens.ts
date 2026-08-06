@@ -3,7 +3,7 @@
  */
 
 import { AuthleteCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -27,18 +27,20 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update Requestable Scopes
+ * Delete Client Tokens
  *
  * @remarks
- * Update requestable scopes of a client
+ * Delete all existing access tokens issued to a client application by an end-user.
+ *
+ * The subject parameter is required and must be provided as a query parameter.
  */
-export function clientManagementClientExtensionRequestablesScopesUpdateApiPost(
+export function clientManagementDeleteClientTokens(
   client: AuthleteCore,
-  request: operations.ClientExtensionRequestablesScopesUpdateApiPostRequest,
+  request: operations.ClientAuthorizationDeleteApiRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.ClientExtensionRequestablesScopesUpdateApiPostResponse,
+    operations.ClientAuthorizationDeleteApiResponse,
     | errors.ResultError
     | AuthleteError
     | ResponseValidationError
@@ -59,12 +61,12 @@ export function clientManagementClientExtensionRequestablesScopesUpdateApiPost(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.ClientExtensionRequestablesScopesUpdateApiPostRequest,
+  request: operations.ClientAuthorizationDeleteApiRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.ClientExtensionRequestablesScopesUpdateApiPostResponse,
+      operations.ClientAuthorizationDeleteApiResponse,
       | errors.ResultError
       | AuthleteError
       | ResponseValidationError
@@ -81,20 +83,16 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations
-        .ClientExtensionRequestablesScopesUpdateApiPostRequest$outboundSchema
-        .parse(value),
+      operations.ClientAuthorizationDeleteApiRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON(
-    "body",
-    payload.client_extension_requestable_scopes_update_request,
-    { explode: true },
-  );
+  const body = null;
 
   const pathParams = {
     clientId: encodeSimple("clientId", payload.clientId, {
@@ -107,11 +105,14 @@ async function $do(
     }),
   };
   const path = pathToFunc(
-    "/api/{serviceId}/client/extension/requestable_scopes/update/{clientId}",
+    "/api/{serviceId}/client/authorization/delete/{clientId}",
   )(pathParams);
 
+  const query = encodeFormQuery({
+    "subject": payload.subject,
+  });
+
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -122,7 +123,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "client_extension_requestables_scopes_update_api_post",
+    operationID: "client_authorization_delete_api",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -146,10 +147,11 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "DELETE",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || 5000,
@@ -176,7 +178,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.ClientExtensionRequestablesScopesUpdateApiPostResponse,
+    operations.ClientAuthorizationDeleteApiResponse,
     | errors.ResultError
     | AuthleteError
     | ResponseValidationError
@@ -187,12 +189,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations
-        .ClientExtensionRequestablesScopesUpdateApiPostResponse$inboundSchema,
-      { key: "Result" },
-    ),
+    M.json(200, operations.ClientAuthorizationDeleteApiResponse$inboundSchema, {
+      key: "Result",
+    }),
     M.jsonErr([400, 401, 403], errors.ResultError$inboundSchema),
     M.jsonErr(429, errors.ResultError$inboundSchema, { hdrs: true }),
     M.jsonErr(500, errors.ResultError$inboundSchema),
