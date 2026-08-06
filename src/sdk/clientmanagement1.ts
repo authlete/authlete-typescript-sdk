@@ -14,7 +14,6 @@ import { clientManagementUpdateLockFlag } from "../funcs/clientManagementUpdateL
 import { clientManagementUpdateRequestableScopes } from "../funcs/clientManagementUpdateRequestableScopes.js";
 import { clientManagementUpdateSecret } from "../funcs/clientManagementUpdateSecret.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -28,7 +27,7 @@ export class ClientManagement1 extends ClientSDK {
   async updateLockFlag(
     request: operations.ClientFlagUpdateApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientFlagUpdateResponse> {
+  ): Promise<operations.ClientFlagUpdateApiResponse> {
     return unwrapAsync(clientManagementUpdateLockFlag(
       this,
       request,
@@ -48,7 +47,7 @@ export class ClientManagement1 extends ClientSDK {
   async refreshSecret(
     request: operations.ClientSecretRefreshApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientSecretRefreshResponse> {
+  ): Promise<operations.ClientSecretRefreshApiResponse> {
     return unwrapAsync(clientManagementRefreshSecret(
       this,
       request,
@@ -68,7 +67,7 @@ export class ClientManagement1 extends ClientSDK {
   async updateSecret(
     request: operations.ClientSecretUpdateApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientSecretUpdateResponse> {
+  ): Promise<operations.ClientSecretUpdateApiResponse> {
     return unwrapAsync(clientManagementUpdateSecret(
       this,
       request,
@@ -86,7 +85,7 @@ export class ClientManagement1 extends ClientSDK {
   async listAuthorizations(
     request: operations.ClientAuthorizationGetListBySubjectApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientAuthorizationGetListResponse> {
+  ): Promise<operations.ClientAuthorizationGetListBySubjectApiResponse> {
     return unwrapAsync(clientManagementListAuthorizations(
       this,
       request,
@@ -103,7 +102,7 @@ export class ClientManagement1 extends ClientSDK {
   async updateAuthorizations(
     request: operations.ClientAuthorizationUpdateApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientAuthorizationUpdateResponse> {
+  ): Promise<operations.ClientAuthorizationUpdateApiResponse> {
     return unwrapAsync(clientManagementUpdateAuthorizations(
       this,
       request,
@@ -121,7 +120,7 @@ export class ClientManagement1 extends ClientSDK {
   async deleteAuthorizations(
     request: operations.ClientAuthorizationDeleteBySubjectApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientAuthorizationDeleteResponse> {
+  ): Promise<operations.ClientAuthorizationDeleteBySubjectApiResponse> {
     return unwrapAsync(clientManagementDeleteAuthorizations(
       this,
       request,
@@ -139,7 +138,7 @@ export class ClientManagement1 extends ClientSDK {
   async getGrantedScopes(
     request: operations.ClientGrantedScopesGetBySubjectApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientAuthorizationDeleteResponse> {
+  ): Promise<operations.ClientGrantedScopesGetBySubjectApiResponse> {
     return unwrapAsync(clientManagementGetGrantedScopes(
       this,
       request,
@@ -157,7 +156,7 @@ export class ClientManagement1 extends ClientSDK {
   async deleteGrantedScopes(
     request: operations.ClientGrantedScopesDeleteBySubjectApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientGrantedScopesDeleteResponse> {
+  ): Promise<operations.ClientGrantedScopesDeleteBySubjectApiResponse> {
     return unwrapAsync(clientManagementDeleteGrantedScopes(
       this,
       request,
@@ -174,7 +173,7 @@ export class ClientManagement1 extends ClientSDK {
   async getRequestableScopes(
     request: operations.ClientExtensionRequestablesScopesGetApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientExtensionRequestableScopesGetResponse> {
+  ): Promise<operations.ClientExtensionRequestablesScopesGetApiResponse> {
     return unwrapAsync(clientManagementGetRequestableScopes(
       this,
       request,
@@ -191,7 +190,7 @@ export class ClientManagement1 extends ClientSDK {
   async updateRequestableScopes(
     request: operations.ClientExtensionRequestablesScopesUpdateApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientExtensionRequestableScopesUpdateResponse> {
+  ): Promise<operations.ClientExtensionRequestablesScopesUpdateApiResponse> {
     return unwrapAsync(clientManagementUpdateRequestableScopes(
       this,
       request,
@@ -208,7 +207,9 @@ export class ClientManagement1 extends ClientSDK {
   async deleteRequestableScopes(
     request: operations.ClientExtensionRequestablesScopesDeleteApiRequest,
     options?: RequestOptions,
-  ): Promise<void> {
+  ): Promise<
+    operations.ClientExtensionRequestablesScopesDeleteApiResponse | undefined
+  > {
     return unwrapAsync(clientManagementDeleteRequestableScopes(
       this,
       request,

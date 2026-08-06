@@ -5,7 +5,6 @@
 import { authorizationManagementGetTicketInfo } from "../funcs/authorizationManagementGetTicketInfo.js";
 import { authorizationManagementUpdateTicket } from "../funcs/authorizationManagementUpdateTicket.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -16,7 +15,7 @@ export class AuthorizationManagement extends ClientSDK {
   async getTicketInfo(
     request: operations.AuthorizationTicketInfoPostApiRequest,
     options?: RequestOptions,
-  ): Promise<models.AuthorizationTicketInfoResponse> {
+  ): Promise<operations.AuthorizationTicketInfoPostApiResponse> {
     return unwrapAsync(authorizationManagementGetTicketInfo(
       this,
       request,
@@ -30,7 +29,7 @@ export class AuthorizationManagement extends ClientSDK {
   async updateTicket(
     request: operations.UpdateAuthorizationTicketRequest,
     options?: RequestOptions,
-  ): Promise<models.AuthorizationTicketUpdateResponse> {
+  ): Promise<operations.UpdateAuthorizationTicketResponse> {
     return unwrapAsync(authorizationManagementUpdateTicket(
       this,
       request,

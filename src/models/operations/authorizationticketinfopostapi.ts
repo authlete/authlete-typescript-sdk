@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type AuthorizationTicketInfoPostApiRequest = {
@@ -12,6 +15,11 @@ export type AuthorizationTicketInfoPostApiRequest = {
    */
   serviceId: string;
   authorizationTicketInfoRequest: models.AuthorizationTicketInfoRequest;
+};
+
+export type AuthorizationTicketInfoPostApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.AuthorizationTicketInfoResponse;
 };
 
 /** @internal */
@@ -43,5 +51,31 @@ export function authorizationTicketInfoPostApiRequestToJSON(
     AuthorizationTicketInfoPostApiRequest$outboundSchema.parse(
       authorizationTicketInfoPostApiRequest,
     ),
+  );
+}
+
+/** @internal */
+export const AuthorizationTicketInfoPostApiResponse$inboundSchema: z.ZodType<
+  AuthorizationTicketInfoPostApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.AuthorizationTicketInfoResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function authorizationTicketInfoPostApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<AuthorizationTicketInfoPostApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      AuthorizationTicketInfoPostApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthorizationTicketInfoPostApiResponse' from JSON`,
   );
 }

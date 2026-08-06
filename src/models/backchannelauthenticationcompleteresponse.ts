@@ -210,6 +210,13 @@ export type BackchannelAuthenticationCompleteResponse = {
    * When `true`, the client metadata was retrieved via the CIMD mechanism rather than from the Authlete database.
    */
   metadataDocumentUsed?: boolean | undefined;
+  /**
+   * the claims that the user has consented for the client application
+   *
+   * @remarks
+   * to know.
+   */
+  consentedClaims?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -252,6 +259,7 @@ export const BackchannelAuthenticationCompleteResponse$inboundSchema: z.ZodType<
   clientEntityIdUsed: z.boolean().optional(),
   metadataDocumentLocation: z.string().optional(),
   metadataDocumentUsed: z.boolean().optional(),
+  consentedClaims: z.array(z.string()).optional(),
 });
 
 export function backchannelAuthenticationCompleteResponseFromJSON(

@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type VciOfferCreateApiRequest = {
@@ -12,6 +15,11 @@ export type VciOfferCreateApiRequest = {
    */
   serviceId: string;
   vciOfferCreateRequest: models.VciOfferCreateRequest;
+};
+
+export type VciOfferCreateApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.VciOfferCreateResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function vciOfferCreateApiRequestToJSON(
 ): string {
   return JSON.stringify(
     VciOfferCreateApiRequest$outboundSchema.parse(vciOfferCreateApiRequest),
+  );
+}
+
+/** @internal */
+export const VciOfferCreateApiResponse$inboundSchema: z.ZodType<
+  VciOfferCreateApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.VciOfferCreateResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function vciOfferCreateApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<VciOfferCreateApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VciOfferCreateApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VciOfferCreateApiResponse' from JSON`,
   );
 }

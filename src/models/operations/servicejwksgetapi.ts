@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ServiceJwksGetApiRequest = {
   /**
@@ -17,6 +22,11 @@ export type ServiceJwksGetApiRequest = {
    * This boolean value indicates whether the JSON in the response should be formatted or not. If `true`, the JSON in the response is pretty-formatted. The default value is `false`.
    */
   pretty?: boolean | undefined;
+};
+
+export type ServiceJwksGetApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result?: models.ServiceJwksGetResponse | undefined;
 };
 
 /** @internal */
@@ -42,5 +52,30 @@ export function serviceJwksGetApiRequestToJSON(
 ): string {
   return JSON.stringify(
     ServiceJwksGetApiRequest$outboundSchema.parse(serviceJwksGetApiRequest),
+  );
+}
+
+/** @internal */
+export const ServiceJwksGetApiResponse$inboundSchema: z.ZodType<
+  ServiceJwksGetApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.ServiceJwksGetResponse$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function serviceJwksGetApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ServiceJwksGetApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ServiceJwksGetApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ServiceJwksGetApiResponse' from JSON`,
   );
 }

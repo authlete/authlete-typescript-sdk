@@ -76,13 +76,14 @@ run();
 
 ### Response
 
-**Promise\<[models.HskCreateResponse](../../models/hskcreateresponse.md)\>**
+**Promise\<[operations.HskCreateApiResponse](../../models/operations/hskcreateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -153,13 +154,14 @@ run();
 
 ### Response
 
-**Promise\<[models.HskDeleteResponse](../../models/hskdeleteresponse.md)\>**
+**Promise\<[operations.HskDeleteApiResponse](../../models/operations/hskdeleteapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -230,13 +232,14 @@ run();
 
 ### Response
 
-**Promise\<[models.HskGetResponse](../../models/hskgetresponse.md)\>**
+**Promise\<[operations.HskGetApiResponse](../../models/operations/hskgetapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -305,12 +308,13 @@ run();
 
 ### Response
 
-**Promise\<[models.HskGetListResponse](../../models/hskgetlistresponse.md)\>**
+**Promise\<[operations.HskGetListApiResponse](../../models/operations/hskgetlistapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type VciOfferInfoApiRequest = {
@@ -12,6 +15,11 @@ export type VciOfferInfoApiRequest = {
    */
   serviceId: string;
   vciOfferInfoRequest: models.VciOfferInfoRequest;
+};
+
+export type VciOfferInfoApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.VciOfferInfoResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function vciOfferInfoApiRequestToJSON(
 ): string {
   return JSON.stringify(
     VciOfferInfoApiRequest$outboundSchema.parse(vciOfferInfoApiRequest),
+  );
+}
+
+/** @internal */
+export const VciOfferInfoApiResponse$inboundSchema: z.ZodType<
+  VciOfferInfoApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.VciOfferInfoResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function vciOfferInfoApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<VciOfferInfoApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VciOfferInfoApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VciOfferInfoApiResponse' from JSON`,
   );
 }

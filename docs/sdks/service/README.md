@@ -8,6 +8,8 @@
 * [list](#list) - List Services
 * [update](#update) - Update Service
 * [delete](#delete) - Delete Service ⚡
+* [create](#create) - Create Service (IDP)
+* [remove](#remove) - Remove Service (IDP) ⚡
 * [getConfiguration](#getconfiguration) - Get Service Configuration
 
 ## get
@@ -128,13 +130,14 @@ run();
 
 ### Response
 
-**Promise\<[models.Service](../../models/service.md)\>**
+**Promise\<[operations.ServiceGetApiResponse](../../models/operations/servicegetapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -252,13 +255,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ServiceGetListResponse](../../models/servicegetlistresponse.md)\>**
+**Promise\<[operations.ServiceGetListApiResponse](../../models/operations/servicegetlistapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -532,13 +536,14 @@ run();
 
 ### Response
 
-**Promise\<[models.Service](../../models/service.md)\>**
+**Promise\<[operations.ServiceUpdateApiResponse](../../models/operations/serviceupdateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -558,11 +563,11 @@ const authlete = new Authlete({
 });
 
 async function run() {
-  await authlete.service.delete({
+  const result = await authlete.service.delete({
     serviceId: "<id>",
   });
 
-
+  console.log(result);
 }
 
 run();
@@ -588,7 +593,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    
+    console.log(result);
   } else {
     console.log("serviceDelete failed:", res.error);
   }
@@ -608,14 +613,191 @@ run();
 
 ### Response
 
-**Promise\<void\>**
+**Promise\<[operations.ServiceDeleteApiResponse](../../models/operations/servicedeleteapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
+| errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
+
+## create
+
+Create a new service on the API server, belonging to the specified organization.
+A service can be created with an organization token or by a user with the CREATE_SERVICE role.
+
+This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
+not on the regional API clusters.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="service_create_idp_api" method="post" path="/api/service" -->
+```typescript
+import { Authlete } from "@authlete/typescript-sdk";
+
+const authlete = new Authlete({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const result = await authlete.service.create({
+    apiServerId: 76281,
+    organizationId: 123456789012345,
+    service: {
+      serviceName: "My service",
+      issuer: "https://my-service.example.com",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AuthleteCore } from "@authlete/typescript-sdk/core.js";
+import { serviceCreate } from "@authlete/typescript-sdk/funcs/serviceCreate.js";
+
+// Use `AuthleteCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const authlete = new AuthleteCore({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const res = await serviceCreate(authlete, {
+    apiServerId: 76281,
+    organizationId: 123456789012345,
+    service: {
+      serviceName: "My service",
+      issuer: "https://my-service.example.com",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("serviceCreate failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [models.ServiceCreateIdpRequest](../../models/servicecreateidprequest.md)                                                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
+
+### Response
+
+**Promise\<[models.Service](../../models/service.md)\>**
+
+### Errors
+
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| errors.IdpError             | 400, 401, 403               | application/json            |
+| errors.IdpError             | 500                         | application/json            |
+| errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
+
+## remove
+
+Delete a service from the API server.
+A service can be deleted with an organization token or by a user with the MODIFY_SERVICE role.
+
+This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
+not on the regional API clusters.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="service_remove_idp_api" method="post" path="/api/service/remove" -->
+```typescript
+import { Authlete } from "@authlete/typescript-sdk";
+
+const authlete = new Authlete({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  await authlete.service.remove({
+    apiServerId: 76281,
+    organizationId: 123456789012345,
+    serviceId: 21653835348762,
+  });
+
+
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AuthleteCore } from "@authlete/typescript-sdk/core.js";
+import { serviceRemove } from "@authlete/typescript-sdk/funcs/serviceRemove.js";
+
+// Use `AuthleteCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const authlete = new AuthleteCore({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const res = await serviceRemove(authlete, {
+    apiServerId: 76281,
+    organizationId: 123456789012345,
+    serviceId: 21653835348762,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("serviceRemove failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [models.ServiceRemoveIdpRequest](../../models/serviceremoveidprequest.md)                                                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
+
+### Response
+
+**Promise\<void\>**
+
+### Errors
+
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| errors.IdpError             | 400, 401, 403               | application/json            |
+| errors.IdpError             | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
 ## getConfiguration
@@ -690,12 +872,13 @@ run();
 
 ### Response
 
-**Promise\<[{ [k: string]: any }](../../models/.md)\>**
+**Promise\<[operations.ServiceConfigurationApiResponse](../../models/operations/serviceconfigurationapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type AuthTokenGetListApiRequest = {
   /**
@@ -33,6 +38,11 @@ export type AuthTokenGetListApiRequest = {
   end?: number | undefined;
 };
 
+export type AuthTokenGetListApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.TokenGetListResponse;
+};
+
 /** @internal */
 export type AuthTokenGetListApiRequest$Outbound = {
   serviceId: string;
@@ -60,5 +70,30 @@ export function authTokenGetListApiRequestToJSON(
 ): string {
   return JSON.stringify(
     AuthTokenGetListApiRequest$outboundSchema.parse(authTokenGetListApiRequest),
+  );
+}
+
+/** @internal */
+export const AuthTokenGetListApiResponse$inboundSchema: z.ZodType<
+  AuthTokenGetListApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.TokenGetListResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function authTokenGetListApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<AuthTokenGetListApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AuthTokenGetListApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthTokenGetListApiResponse' from JSON`,
   );
 }

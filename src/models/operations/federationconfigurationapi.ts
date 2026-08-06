@@ -4,26 +4,50 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
-export type FederationConfigurationApiRequestBody = {};
+export type FederationConfigurationApiRequestBody = {
+  /**
+   * The entity types for which the entity configuration is requested.
+   *
+   * @remarks
+   * When omitted or empty, it defaults to `OPENID_PROVIDER` only
+   * (backward compatibility). Unsupported entity types are ignored.
+   * `OPENID_CREDENTIAL_ISSUER` requires the Verifiable Credentials
+   * feature (Authlete 3.0+).
+   */
+  entityTypes?: Array<models.EntityType> | undefined;
+};
 
 export type FederationConfigurationApiRequest = {
   /**
    * A service ID.
    */
   serviceId: string;
-  requestBody?: FederationConfigurationApiRequestBody | undefined;
+  requestBody: FederationConfigurationApiRequestBody;
+};
+
+export type FederationConfigurationApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.FederationConfigurationResponse;
 };
 
 /** @internal */
-export type FederationConfigurationApiRequestBody$Outbound = {};
+export type FederationConfigurationApiRequestBody$Outbound = {
+  entityTypes?: Array<string> | undefined;
+};
 
 /** @internal */
 export const FederationConfigurationApiRequestBody$outboundSchema: z.ZodType<
   FederationConfigurationApiRequestBody$Outbound,
   z.ZodTypeDef,
   FederationConfigurationApiRequestBody
-> = z.object({});
+> = z.object({
+  entityTypes: z.array(models.EntityType$outboundSchema).optional(),
+});
 
 export function federationConfigurationApiRequestBodyToJSON(
   federationConfigurationApiRequestBody: FederationConfigurationApiRequestBody,
@@ -38,7 +62,7 @@ export function federationConfigurationApiRequestBodyToJSON(
 /** @internal */
 export type FederationConfigurationApiRequest$Outbound = {
   serviceId: string;
-  RequestBody?: FederationConfigurationApiRequestBody$Outbound | undefined;
+  RequestBody: FederationConfigurationApiRequestBody$Outbound;
 };
 
 /** @internal */
@@ -50,7 +74,7 @@ export const FederationConfigurationApiRequest$outboundSchema: z.ZodType<
   serviceId: z.string(),
   requestBody: z.lazy(() =>
     FederationConfigurationApiRequestBody$outboundSchema
-  ).optional(),
+  ),
 }).transform((v) => {
   return remap$(v, {
     requestBody: "RequestBody",
@@ -64,5 +88,31 @@ export function federationConfigurationApiRequestToJSON(
     FederationConfigurationApiRequest$outboundSchema.parse(
       federationConfigurationApiRequest,
     ),
+  );
+}
+
+/** @internal */
+export const FederationConfigurationApiResponse$inboundSchema: z.ZodType<
+  FederationConfigurationApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.FederationConfigurationResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function federationConfigurationApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<FederationConfigurationApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      FederationConfigurationApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FederationConfigurationApiResponse' from JSON`,
   );
 }

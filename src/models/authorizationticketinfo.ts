@@ -24,7 +24,27 @@ export const AuthorizationTicketInfo$inboundSchema: z.ZodType<
 > = z.object({
   context: z.string().optional(),
 });
+/** @internal */
+export type AuthorizationTicketInfo$Outbound = {
+  context?: string | undefined;
+};
 
+/** @internal */
+export const AuthorizationTicketInfo$outboundSchema: z.ZodType<
+  AuthorizationTicketInfo$Outbound,
+  z.ZodTypeDef,
+  AuthorizationTicketInfo
+> = z.object({
+  context: z.string().optional(),
+});
+
+export function authorizationTicketInfoToJSON(
+  authorizationTicketInfo: AuthorizationTicketInfo,
+): string {
+  return JSON.stringify(
+    AuthorizationTicketInfo$outboundSchema.parse(authorizationTicketInfo),
+  );
+}
 export function authorizationTicketInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<AuthorizationTicketInfo, SDKValidationError> {

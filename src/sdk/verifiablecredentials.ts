@@ -14,7 +14,6 @@ import { verifiableCredentialsGetOfferInfo } from "../funcs/verifiableCredential
 import { verifiableCredentialsIssue } from "../funcs/verifiableCredentialsIssue.js";
 import { verifiableCredentialsParse } from "../funcs/verifiableCredentialsParse.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -28,7 +27,7 @@ export class VerifiableCredentials extends ClientSDK {
   async getMetadata(
     request: operations.VciMetadataApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciMetadataResponse> {
+  ): Promise<operations.VciMetadataApiResponse> {
     return unwrapAsync(verifiableCredentialsGetMetadata(
       this,
       request,
@@ -45,7 +44,7 @@ export class VerifiableCredentials extends ClientSDK {
   async getJwtIssuer(
     request: operations.VciJwtissuerApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciJwtissuerResponse> {
+  ): Promise<operations.VciJwtissuerApiResponse> {
     return unwrapAsync(verifiableCredentialsGetJwtIssuer(
       this,
       request,
@@ -62,7 +61,7 @@ export class VerifiableCredentials extends ClientSDK {
   async getJwks(
     request: operations.VciJwksApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciJwksResponse> {
+  ): Promise<operations.VciJwksApiResponse> {
     return unwrapAsync(verifiableCredentialsGetJwks(
       this,
       request,
@@ -79,7 +78,7 @@ export class VerifiableCredentials extends ClientSDK {
   async createOffer(
     request: operations.VciOfferCreateApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciOfferCreateResponse> {
+  ): Promise<operations.VciOfferCreateApiResponse> {
     return unwrapAsync(verifiableCredentialsCreateOffer(
       this,
       request,
@@ -96,7 +95,7 @@ export class VerifiableCredentials extends ClientSDK {
   async getOfferInfo(
     request: operations.VciOfferInfoApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciOfferInfoResponse> {
+  ): Promise<operations.VciOfferInfoApiResponse> {
     return unwrapAsync(verifiableCredentialsGetOfferInfo(
       this,
       request,
@@ -113,7 +112,7 @@ export class VerifiableCredentials extends ClientSDK {
   async parse(
     request: operations.VciSingleParseApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciSingleParseResponse> {
+  ): Promise<operations.VciSingleParseApiResponse> {
     return unwrapAsync(verifiableCredentialsParse(
       this,
       request,
@@ -130,7 +129,7 @@ export class VerifiableCredentials extends ClientSDK {
   async issue(
     request: operations.VciSingleIssueApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciSingleIssueResponse> {
+  ): Promise<operations.VciSingleIssueApiResponse> {
     return unwrapAsync(verifiableCredentialsIssue(
       this,
       request,
@@ -147,7 +146,7 @@ export class VerifiableCredentials extends ClientSDK {
   async batchParse(
     request: operations.VciBatchParseApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciBatchParseResponse> {
+  ): Promise<operations.VciBatchParseApiResponse> {
     return unwrapAsync(verifiableCredentialsBatchParse(
       this,
       request,
@@ -164,7 +163,7 @@ export class VerifiableCredentials extends ClientSDK {
   async batchIssue(
     request: operations.VciBatchIssueApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciBatchIssueResponse> {
+  ): Promise<operations.VciBatchIssueApiResponse> {
     return unwrapAsync(verifiableCredentialsBatchIssue(
       this,
       request,
@@ -181,7 +180,7 @@ export class VerifiableCredentials extends ClientSDK {
   async deferredParse(
     request: operations.VciDeferredParseApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciDeferredParseResponse> {
+  ): Promise<operations.VciDeferredParseApiResponse> {
     return unwrapAsync(verifiableCredentialsDeferredParse(
       this,
       request,
@@ -198,7 +197,7 @@ export class VerifiableCredentials extends ClientSDK {
   async deferredIssue(
     request: operations.VciDeferredIssueApiRequest,
     options?: RequestOptions,
-  ): Promise<models.VciDeferredIssueResponse> {
+  ): Promise<operations.VciDeferredIssueApiResponse> {
     return unwrapAsync(verifiableCredentialsDeferredIssue(
       this,
       request,

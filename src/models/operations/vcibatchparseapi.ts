@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type VciBatchParseApiRequest = {
@@ -12,6 +15,11 @@ export type VciBatchParseApiRequest = {
    */
   serviceId: string;
   vciBatchParseRequest: models.VciBatchParseRequest;
+};
+
+export type VciBatchParseApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.VciBatchParseResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function vciBatchParseApiRequestToJSON(
 ): string {
   return JSON.stringify(
     VciBatchParseApiRequest$outboundSchema.parse(vciBatchParseApiRequest),
+  );
+}
+
+/** @internal */
+export const VciBatchParseApiResponse$inboundSchema: z.ZodType<
+  VciBatchParseApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.VciBatchParseResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function vciBatchParseApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<VciBatchParseApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VciBatchParseApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VciBatchParseApiResponse' from JSON`,
   );
 }

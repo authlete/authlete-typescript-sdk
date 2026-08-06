@@ -1,0 +1,35 @@
+# ServiceCreateIdpRequest
+
+## Example Usage
+
+```typescript
+import { ServiceCreateIdpRequest } from "@authlete/typescript-sdk/models";
+
+let value: ServiceCreateIdpRequest = {
+  organizationId: 559813,
+  service: {
+    serviceName: "My Test Service",
+    issuer: "https://example.com",
+    supportedGrantTypes: [
+      "AUTHORIZATION_CODE",
+      "REFRESH_TOKEN",
+    ],
+    supportedResponseTypes: [
+      "CODE",
+    ],
+    supportedScopes: [
+      {},
+      {},
+      {},
+    ],
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                                                                   | Type                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                             | Example                                                                                                                                                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apiServerId`                                                                                                                                                                                                                                           | *number*                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                      | The numeric ID of the API server to create the service on. Official SDKs inject<br/>this automatically for known Authlete clusters, so it can be omitted there;<br/>all other callers must provide it.<br/>                                             |                                                                                                                                                                                                                                                         |
+| `organizationId`                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                      | The numeric ID of the organization the service belongs to.                                                                                                                                                                                              |                                                                                                                                                                                                                                                         |
+| `service`                                                                                                                                                                                                                                               | [models.ServiceInput](../models/serviceinput.md)                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                     | {<br/>"number": 715948317,<br/>"serviceName": "My Test Service",<br/>"issuer": "https://example.com",<br/>"supportedScopes": [<br/>"profile",<br/>"email",<br/>"openid"<br/>],<br/>"supportedResponseTypes": [<br/>"CODE"<br/>],<br/>"supportedGrantTypes": [<br/>"AUTHORIZATION_CODE",<br/>"REFRESH_TOKEN"<br/>]<br/>} |

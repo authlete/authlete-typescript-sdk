@@ -17,7 +17,11 @@ export type TokenRevokeResponse = {
    */
   resultMessage?: string | undefined;
   /**
-   * The number of tokens revoked
+   * The number of tokens revoked.
+   *
+   * @remarks
+   *
+   * If the target has more than 20 tokens, the response `count` will be 20 and the remainder is left untouched. To fully wipe them, call the endpoint repeatedly until `count` returns 0.
    */
   count?: number | undefined;
 };

@@ -6,7 +6,6 @@ import { deviceFlowAuthorization } from "../funcs/deviceFlowAuthorization.js";
 import { deviceFlowComplete } from "../funcs/deviceFlowComplete.js";
 import { deviceFlowVerification } from "../funcs/deviceFlowVerification.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -22,7 +21,7 @@ export class DeviceFlow extends ClientSDK {
   async authorization(
     request: operations.DeviceAuthorizationApiRequest,
     options?: RequestOptions,
-  ): Promise<models.DeviceAuthorizationResponse> {
+  ): Promise<operations.DeviceAuthorizationApiResponse> {
     return unwrapAsync(deviceFlowAuthorization(
       this,
       request,
@@ -39,7 +38,7 @@ export class DeviceFlow extends ClientSDK {
   async verification(
     request: operations.DeviceVerificationApiRequest,
     options?: RequestOptions,
-  ): Promise<models.DeviceVerificationResponse> {
+  ): Promise<operations.DeviceVerificationApiResponse> {
     return unwrapAsync(deviceFlowVerification(
       this,
       request,
@@ -58,7 +57,7 @@ export class DeviceFlow extends ClientSDK {
   async complete(
     request: operations.DeviceCompleteApiRequest,
     options?: RequestOptions,
-  ): Promise<models.DeviceCompleteResponse> {
+  ): Promise<operations.DeviceCompleteApiResponse> {
     return unwrapAsync(deviceFlowComplete(
       this,
       request,

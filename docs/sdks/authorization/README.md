@@ -81,13 +81,14 @@ run();
 
 ### Response
 
-**Promise\<[models.AuthorizationResponse](../../models/authorizationresponse.md)\>**
+**Promise\<[operations.AuthAuthorizationApiResponse](../../models/operations/authauthorizationapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -166,13 +167,14 @@ run();
 
 ### Response
 
-**Promise\<[models.AuthorizationFailResponse](../../models/authorizationfailresponse.md)\>**
+**Promise\<[operations.AuthAuthorizationFailApiResponse](../../models/operations/authauthorizationfailapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -251,12 +253,13 @@ run();
 
 ### Response
 
-**Promise\<[models.AuthorizationIssueResponse](../../models/authorizationissueresponse.md)\>**
+**Promise\<[operations.AuthAuthorizationIssueApiResponse](../../models/operations/authauthorizationissueapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

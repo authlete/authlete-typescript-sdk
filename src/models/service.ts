@@ -1560,6 +1560,62 @@ export type Service = {
    * OAuth 2.0 Attestation-Based Client Authentication.
    */
   attestationChallengeTimeWindow?: number | undefined;
+  /**
+   * The flag indicating whether the attester roots for Client Attestation JWT
+   *
+   * @remarks
+   * x5c chain validation are enabled.
+   */
+  clientAttesterRootsEnabled?: boolean | undefined;
+  /**
+   * The flag indicating whether only client authentication validated via
+   *
+   * @remarks
+   * attester roots is accepted.
+   */
+  clientAttesterRootsOnly?: boolean | undefined;
+  /**
+   * The flag indicating whether the attester roots for Key Attestation JWT
+   *
+   * @remarks
+   * x5c chain validation are enabled.
+   */
+  keyAttesterRootsEnabled?: boolean | undefined;
+  /**
+   * The flag indicating whether only key attestation validated via
+   *
+   * @remarks
+   * attester roots is accepted.
+   */
+  keyAttesterRootsOnly?: boolean | undefined;
+  /**
+   * The trusted root certificates (PEM-encoded X.509) for validating the
+   *
+   * @remarks
+   * x5c chain in Client Attestation JWTs.
+   */
+  clientAttesterRoots?: Array<string> | undefined;
+  /**
+   * The trusted root certificates (PEM-encoded X.509) for validating the
+   *
+   * @remarks
+   * x5c chain in Key Attestation JWTs.
+   */
+  keyAttesterRoots?: Array<string> | undefined;
+  /**
+   * The flag indicating whether this service supports OpenID Connect
+   *
+   * @remarks
+   * Back-Channel Logout 1.0.
+   */
+  backchannelLogoutSupported?: boolean | undefined;
+  /**
+   * The flag indicating whether this service includes a `sid` (session ID)
+   *
+   * @remarks
+   * claim in ID tokens, supporting per-session backchannel logout.
+   */
+  backchannelLogoutSessionSupported?: boolean | undefined;
 };
 
 export type ServiceInput = {
@@ -2952,6 +3008,62 @@ export type ServiceInput = {
    * OAuth 2.0 Attestation-Based Client Authentication.
    */
   attestationChallengeTimeWindow?: number | undefined;
+  /**
+   * The flag indicating whether the attester roots for Client Attestation JWT
+   *
+   * @remarks
+   * x5c chain validation are enabled.
+   */
+  clientAttesterRootsEnabled?: boolean | undefined;
+  /**
+   * The flag indicating whether only client authentication validated via
+   *
+   * @remarks
+   * attester roots is accepted.
+   */
+  clientAttesterRootsOnly?: boolean | undefined;
+  /**
+   * The flag indicating whether the attester roots for Key Attestation JWT
+   *
+   * @remarks
+   * x5c chain validation are enabled.
+   */
+  keyAttesterRootsEnabled?: boolean | undefined;
+  /**
+   * The flag indicating whether only key attestation validated via
+   *
+   * @remarks
+   * attester roots is accepted.
+   */
+  keyAttesterRootsOnly?: boolean | undefined;
+  /**
+   * The trusted root certificates (PEM-encoded X.509) for validating the
+   *
+   * @remarks
+   * x5c chain in Client Attestation JWTs.
+   */
+  clientAttesterRoots?: Array<string> | undefined;
+  /**
+   * The trusted root certificates (PEM-encoded X.509) for validating the
+   *
+   * @remarks
+   * x5c chain in Key Attestation JWTs.
+   */
+  keyAttesterRoots?: Array<string> | undefined;
+  /**
+   * The flag indicating whether this service supports OpenID Connect
+   *
+   * @remarks
+   * Back-Channel Logout 1.0.
+   */
+  backchannelLogoutSupported?: boolean | undefined;
+  /**
+   * The flag indicating whether this service includes a `sid` (session ID)
+   *
+   * @remarks
+   * claim in ID tokens, supporting per-session backchannel logout.
+   */
+  backchannelLogoutSessionSupported?: boolean | undefined;
 };
 
 /** @internal */
@@ -3158,6 +3270,14 @@ export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
     cimdMetadataPolicy: z.string().optional(),
     httpAliasProhibited: z.boolean().optional(),
     attestationChallengeTimeWindow: z.number().int().optional(),
+    clientAttesterRootsEnabled: z.boolean().optional(),
+    clientAttesterRootsOnly: z.boolean().optional(),
+    keyAttesterRootsEnabled: z.boolean().optional(),
+    keyAttesterRootsOnly: z.boolean().optional(),
+    clientAttesterRoots: z.array(z.string()).optional(),
+    keyAttesterRoots: z.array(z.string()).optional(),
+    backchannelLogoutSupported: z.boolean().optional(),
+    backchannelLogoutSessionSupported: z.boolean().optional(),
   });
 
 export function serviceFromJSON(
@@ -3350,6 +3470,14 @@ export type ServiceInput$Outbound = {
   cimdMetadataPolicy?: string | undefined;
   httpAliasProhibited?: boolean | undefined;
   attestationChallengeTimeWindow?: number | undefined;
+  clientAttesterRootsEnabled?: boolean | undefined;
+  clientAttesterRootsOnly?: boolean | undefined;
+  keyAttesterRootsEnabled?: boolean | undefined;
+  keyAttesterRootsOnly?: boolean | undefined;
+  clientAttesterRoots?: Array<string> | undefined;
+  keyAttesterRoots?: Array<string> | undefined;
+  backchannelLogoutSupported?: boolean | undefined;
+  backchannelLogoutSessionSupported?: boolean | undefined;
 };
 
 /** @internal */
@@ -3543,6 +3671,14 @@ export const ServiceInput$outboundSchema: z.ZodType<
   cimdMetadataPolicy: z.string().optional(),
   httpAliasProhibited: z.boolean().optional(),
   attestationChallengeTimeWindow: z.number().int().optional(),
+  clientAttesterRootsEnabled: z.boolean().optional(),
+  clientAttesterRootsOnly: z.boolean().optional(),
+  keyAttesterRootsEnabled: z.boolean().optional(),
+  keyAttesterRootsOnly: z.boolean().optional(),
+  clientAttesterRoots: z.array(z.string()).optional(),
+  keyAttesterRoots: z.array(z.string()).optional(),
+  backchannelLogoutSupported: z.boolean().optional(),
+  backchannelLogoutSessionSupported: z.boolean().optional(),
 });
 
 export function serviceInputToJSON(serviceInput: ServiceInput): string {

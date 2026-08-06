@@ -9,7 +9,6 @@ import { clientList } from "../funcs/clientList.js";
 import { clientUpdate } from "../funcs/clientUpdate.js";
 import { clientUpdateForm } from "../funcs/clientUpdateForm.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { ClientManagement1 } from "./clientmanagement1.js";
@@ -29,7 +28,7 @@ export class Client extends ClientSDK {
   async get(
     request: operations.ClientGetApiRequest,
     options?: RequestOptions,
-  ): Promise<models.Client> {
+  ): Promise<operations.ClientGetApiResponse> {
     return unwrapAsync(clientGet(
       this,
       request,
@@ -51,7 +50,7 @@ export class Client extends ClientSDK {
   async list(
     request: operations.ClientGetListApiRequest,
     options?: RequestOptions,
-  ): Promise<models.ClientGetListResponse> {
+  ): Promise<operations.ClientGetListApiResponse> {
     return unwrapAsync(clientList(
       this,
       request,
@@ -68,7 +67,7 @@ export class Client extends ClientSDK {
   async create(
     request: operations.ClientCreateApiRequest,
     options?: RequestOptions,
-  ): Promise<models.Client> {
+  ): Promise<operations.ClientCreateApiResponse> {
     return unwrapAsync(clientCreate(
       this,
       request,
@@ -85,7 +84,7 @@ export class Client extends ClientSDK {
   async update(
     request: operations.ClientUpdateApiRequest,
     options?: RequestOptions,
-  ): Promise<models.Client> {
+  ): Promise<operations.ClientUpdateApiResponse> {
     return unwrapAsync(clientUpdate(
       this,
       request,
@@ -102,7 +101,7 @@ export class Client extends ClientSDK {
   async updateForm(
     request: operations.ClientUpdateApiFormRequest,
     options?: RequestOptions,
-  ): Promise<models.Client> {
+  ): Promise<operations.ClientUpdateApiFormResponse> {
     return unwrapAsync(clientUpdateForm(
       this,
       request,
@@ -119,7 +118,7 @@ export class Client extends ClientSDK {
   async delete(
     request: operations.ClientDeleteApiRequest,
     options?: RequestOptions,
-  ): Promise<void> {
+  ): Promise<operations.ClientDeleteApiResponse | undefined> {
     return unwrapAsync(clientDelete(
       this,
       request,

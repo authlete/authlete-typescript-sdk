@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type DeviceCompleteApiRequest = {
@@ -12,6 +15,11 @@ export type DeviceCompleteApiRequest = {
    */
   serviceId: string;
   deviceCompleteRequest: models.DeviceCompleteRequest;
+};
+
+export type DeviceCompleteApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.DeviceCompleteResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function deviceCompleteApiRequestToJSON(
 ): string {
   return JSON.stringify(
     DeviceCompleteApiRequest$outboundSchema.parse(deviceCompleteApiRequest),
+  );
+}
+
+/** @internal */
+export const DeviceCompleteApiResponse$inboundSchema: z.ZodType<
+  DeviceCompleteApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.DeviceCompleteResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function deviceCompleteApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<DeviceCompleteApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeviceCompleteApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeviceCompleteApiResponse' from JSON`,
   );
 }

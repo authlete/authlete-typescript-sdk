@@ -184,6 +184,13 @@ export type ClientLimitedAuthorization = {
    */
   bcUserCodeRequired?: boolean | undefined;
   /**
+   * The flag indicating whether the client requires that a `sid` (session ID)
+   *
+   * @remarks
+   * claim be included in the logout token sent to `backchannelLogoutUri`.
+   */
+  backchannelLogoutSessionRequired?: boolean | undefined;
+  /**
    * The flag to indicate whether this client has been registered dynamically.
    *
    * @remarks
@@ -398,6 +405,7 @@ export const ClientLimitedAuthorization$inboundSchema: z.ZodType<
   modifiedAt: z.number().int().optional(),
   tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
   bcUserCodeRequired: z.boolean().optional(),
+  backchannelLogoutSessionRequired: z.boolean().optional(),
   dynamicallyRegistered: z.boolean().optional(),
   parRequired: z.boolean().optional(),
   requestObjectRequired: z.boolean().optional(),

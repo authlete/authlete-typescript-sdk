@@ -48,6 +48,7 @@ typescript:
       registry: https://registry.npmjs.org
   additionalScripts: {}
   alwaysIncludeInboundAndOutbound: false
+  apiPromiseHelpers: false
   author: Speakeasy
   baseErrorName: AuthleteError
   clientServerStatusCodesAsErrors: true
@@ -58,6 +59,7 @@ typescript:
   enableReactQuery: false
   enumFormat: union
   envVarPrefix: AUTHLETE
+  eventStreamClassName: EventStream
   exportZodModelNamespace: false
   fixEnumNameSanitization: false
   flatAdditionalProperties: false
@@ -90,6 +92,8 @@ typescript:
   packageName: '@authlete/typescript-sdk'
   preApplyUnionDiscriminators: true
   preserveModelFieldNames: false
+  privateIdentifierPrefix: '#'
+  requestExtras: false
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2

@@ -79,13 +79,14 @@ run();
 
 ### Response
 
-**Promise\<[models.Client](../../models/client.md)\>**
+**Promise\<[operations.ClientGetApiResponse](../../models/operations/clientgetapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
-| errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 400, 401, 403, 404          | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -209,13 +210,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientGetListResponse](../../models/clientgetlistresponse.md)\>**
+**Promise\<[operations.ClientGetListApiResponse](../../models/operations/clientgetlistapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -347,13 +349,14 @@ run();
 
 ### Response
 
-**Promise\<[models.Client](../../models/client.md)\>**
+**Promise\<[operations.ClientCreateApiResponse](../../models/operations/clientcreateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -517,13 +520,14 @@ run();
 
 ### Response
 
-**Promise\<[models.Client](../../models/client.md)\>**
+**Promise\<[operations.ClientUpdateApiResponse](../../models/operations/clientupdateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -629,13 +633,14 @@ run();
 
 ### Response
 
-**Promise\<[models.Client](../../models/client.md)\>**
+**Promise\<[operations.ClientUpdateApiFormResponse](../../models/operations/clientupdateapiformresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -655,12 +660,12 @@ const authlete = new Authlete({
 });
 
 async function run() {
-  await authlete.client.delete({
+  const result = await authlete.client.delete({
     serviceId: "<id>",
     clientId: "<id>",
   });
 
-
+  console.log(result);
 }
 
 run();
@@ -687,7 +692,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    
+    console.log(result);
   } else {
     console.log("clientDelete failed:", res.error);
   }
@@ -707,12 +712,13 @@ run();
 
 ### Response
 
-**Promise\<void\>**
+**Promise\<[operations.ClientDeleteApiResponse](../../models/operations/clientdeleteapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

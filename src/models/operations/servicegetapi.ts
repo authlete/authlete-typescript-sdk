@@ -3,12 +3,22 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ServiceGetApiRequest = {
   /**
    * A service ID.
    */
   serviceId: string;
+};
+
+export type ServiceGetApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.Service;
 };
 
 /** @internal */
@@ -30,5 +40,30 @@ export function serviceGetApiRequestToJSON(
 ): string {
   return JSON.stringify(
     ServiceGetApiRequest$outboundSchema.parse(serviceGetApiRequest),
+  );
+}
+
+/** @internal */
+export const ServiceGetApiResponse$inboundSchema: z.ZodType<
+  ServiceGetApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.Service$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function serviceGetApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ServiceGetApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ServiceGetApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ServiceGetApiResponse' from JSON`,
   );
 }

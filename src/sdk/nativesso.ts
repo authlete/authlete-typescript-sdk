@@ -5,7 +5,6 @@
 import { nativeSsoLogout } from "../funcs/nativeSsoLogout.js";
 import { nativeSsoProcess } from "../funcs/nativeSsoProcess.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -24,7 +23,7 @@ export class NativeSso extends ClientSDK {
   async process(
     request: operations.NativeSsoApiRequest,
     options?: RequestOptions,
-  ): Promise<models.NativeSsoResponse> {
+  ): Promise<operations.NativeSsoApiResponse> {
     return unwrapAsync(nativeSsoProcess(
       this,
       request,
@@ -45,7 +44,7 @@ export class NativeSso extends ClientSDK {
   async logout(
     request: operations.NativeSsoLogoutApiRequest,
     options?: RequestOptions,
-  ): Promise<models.NativeSsoLogoutResponse> {
+  ): Promise<operations.NativeSsoLogoutApiResponse> {
     return unwrapAsync(nativeSsoLogout(
       this,
       request,

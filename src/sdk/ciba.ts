@@ -7,7 +7,6 @@ import { cibaFail } from "../funcs/cibaFail.js";
 import { cibaIssue } from "../funcs/cibaIssue.js";
 import { cibaProcessAuthentication } from "../funcs/cibaProcessAuthentication.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -23,7 +22,7 @@ export class Ciba extends ClientSDK {
   async processAuthentication(
     request: operations.BackchannelAuthenticationApiRequest,
     options?: RequestOptions,
-  ): Promise<models.BackchannelAuthenticationResponse> {
+  ): Promise<operations.BackchannelAuthenticationApiResponse> {
     return unwrapAsync(cibaProcessAuthentication(
       this,
       request,
@@ -41,7 +40,7 @@ export class Ciba extends ClientSDK {
   async issue(
     request: operations.BackchannelAuthenticationIssueApiRequest,
     options?: RequestOptions,
-  ): Promise<models.BackchannelAuthenticationIssueResponse> {
+  ): Promise<operations.BackchannelAuthenticationIssueApiResponse> {
     return unwrapAsync(cibaIssue(
       this,
       request,
@@ -59,7 +58,7 @@ export class Ciba extends ClientSDK {
   async fail(
     request: operations.BackchannelAuthenticationFailApiRequest,
     options?: RequestOptions,
-  ): Promise<models.BackchannelAuthenticationFailResponse> {
+  ): Promise<operations.BackchannelAuthenticationFailApiResponse> {
     return unwrapAsync(cibaFail(
       this,
       request,
@@ -78,7 +77,7 @@ export class Ciba extends ClientSDK {
   async complete(
     request: operations.BackchannelAuthenticationCompleteApiRequest,
     options?: RequestOptions,
-  ): Promise<models.BackchannelAuthenticationCompleteResponse> {
+  ): Promise<operations.BackchannelAuthenticationCompleteApiResponse> {
     return unwrapAsync(cibaComplete(
       this,
       request,

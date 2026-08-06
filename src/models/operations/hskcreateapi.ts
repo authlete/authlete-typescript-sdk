@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type HskCreateApiRequest = {
@@ -12,6 +15,11 @@ export type HskCreateApiRequest = {
    */
   serviceId: string;
   hskCreateRequest: models.HskCreateRequest;
+};
+
+export type HskCreateApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.HskCreateResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function hskCreateApiRequestToJSON(
 ): string {
   return JSON.stringify(
     HskCreateApiRequest$outboundSchema.parse(hskCreateApiRequest),
+  );
+}
+
+/** @internal */
+export const HskCreateApiResponse$inboundSchema: z.ZodType<
+  HskCreateApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.HskCreateResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function hskCreateApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<HskCreateApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HskCreateApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HskCreateApiResponse' from JSON`,
   );
 }

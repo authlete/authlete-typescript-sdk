@@ -83,13 +83,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientRegistrationResponse](../../models/clientregistrationresponse.md)\>**
+**Promise\<[operations.ClientRegistrationApiResponse](../../models/operations/clientregistrationapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -169,13 +170,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientRegistrationResponse](../../models/clientregistrationresponse.md)\>**
+**Promise\<[operations.ClientRegistrationGetApiResponse](../../models/operations/clientregistrationgetapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -257,13 +259,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientRegistrationResponse](../../models/clientregistrationresponse.md)\>**
+**Promise\<[operations.ClientRegistrationUpdateApiResponse](../../models/operations/clientregistrationupdateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -343,12 +346,13 @@ run();
 
 ### Response
 
-**Promise\<[models.ClientRegistrationResponse](../../models/clientregistrationresponse.md)\>**
+**Promise\<[operations.ClientRegistrationDeleteApiResponse](../../models/operations/clientregistrationdeleteapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

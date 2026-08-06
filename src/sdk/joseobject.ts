@@ -4,7 +4,6 @@
 
 import { joseObjectJoseVerifyApi } from "../funcs/joseObjectJoseVerifyApi.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -18,7 +17,7 @@ export class JoseObject extends ClientSDK {
   async joseVerifyApi(
     request: operations.JoseVerifyApiRequest,
     options?: RequestOptions,
-  ): Promise<models.JoseVerifyResponse> {
+  ): Promise<operations.JoseVerifyApiResponse> {
     return unwrapAsync(joseObjectJoseVerifyApi(
       this,
       request,

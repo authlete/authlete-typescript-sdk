@@ -9,11 +9,11 @@ should take.
 ```typescript
 import { VciSingleIssueResponseAction } from "@authlete/typescript-sdk/models";
 
-let value: VciSingleIssueResponseAction = "INTERNAL_SERVER_ERROR";
+let value: VciSingleIssueResponseAction = "FORBIDDEN";
 ```
 
 ## Values
 
 ```typescript
-"OK" | "ACCEPTED" | "UNAUTHORIZED" | "FORBIDDEN" | "INTERNAL_SERVER_ERROR" | "CALLER_ERROR"
+"OK" | "OK_JWT" | "ACCEPTED" | "ACCEPTED_JWT" | "BAD_REQUEST" | "UNAUTHORIZED" | "FORBIDDEN" | "INTERNAL_SERVER_ERROR" | "CALLER_ERROR"
 ```

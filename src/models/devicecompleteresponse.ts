@@ -44,6 +44,13 @@ export type DeviceCompleteResponse = {
    * @remarks
    */
   action?: DeviceCompleteResponseAction | undefined;
+  /**
+   * the claims that the user has consented for the client application
+   *
+   * @remarks
+   * to know.
+   */
+  consentedClaims?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -60,6 +67,7 @@ export const DeviceCompleteResponse$inboundSchema: z.ZodType<
   resultCode: z.string().optional(),
   resultMessage: z.string().optional(),
   action: DeviceCompleteResponseAction$inboundSchema.optional(),
+  consentedClaims: z.array(z.string()).optional(),
 });
 
 export function deviceCompleteResponseFromJSON(

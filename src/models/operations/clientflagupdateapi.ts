@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type ClientFlagUpdateApiRequest = {
@@ -16,6 +19,11 @@ export type ClientFlagUpdateApiRequest = {
    */
   clientIdentifier: string;
   clientFlagUpdateRequest?: models.ClientFlagUpdateRequest | undefined;
+};
+
+export type ClientFlagUpdateApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.ClientFlagUpdateResponse;
 };
 
 /** @internal */
@@ -48,5 +56,30 @@ export function clientFlagUpdateApiRequestToJSON(
 ): string {
   return JSON.stringify(
     ClientFlagUpdateApiRequest$outboundSchema.parse(clientFlagUpdateApiRequest),
+  );
+}
+
+/** @internal */
+export const ClientFlagUpdateApiResponse$inboundSchema: z.ZodType<
+  ClientFlagUpdateApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.ClientFlagUpdateResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function clientFlagUpdateApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ClientFlagUpdateApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ClientFlagUpdateApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientFlagUpdateApiResponse' from JSON`,
   );
 }

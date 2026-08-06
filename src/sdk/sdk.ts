@@ -3,7 +3,9 @@
  */
 
 import { ClientSDK } from "../lib/sdks.js";
+import { Audit } from "./audit.js";
 import { Authorization } from "./authorization.js";
+import { BackChannelLogout } from "./backchannellogout.js";
 import { Ciba } from "./ciba.js";
 import { Client } from "./client.js";
 import { ClientManagement2 } from "./clientmanagement2.js";
@@ -28,6 +30,11 @@ export class Authlete extends ClientSDK {
   private _service?: Service;
   get service(): Service {
     return (this._service ??= new Service(this._options));
+  }
+
+  private _audit?: Audit;
+  get audit(): Audit {
+    return (this._audit ??= new Audit(this._options));
   }
 
   private _client?: Client;
@@ -92,6 +99,11 @@ export class Authlete extends ClientSDK {
   private _ciba?: Ciba;
   get ciba(): Ciba {
     return (this._ciba ??= new Ciba(this._options));
+  }
+
+  private _backChannelLogout?: BackChannelLogout;
+  get backChannelLogout(): BackChannelLogout {
+    return (this._backChannelLogout ??= new BackChannelLogout(this._options));
   }
 
   private _deviceFlow?: DeviceFlow;

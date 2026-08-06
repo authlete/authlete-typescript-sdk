@@ -102,6 +102,8 @@ export type TokenRequest = {
    * Additional claims that are added to the payload part of the JWT access token.
    *
    * @remarks
+   *
+   * Effective only in the client_credentials grant flow (and the Native SSO branch of Token Exchange). For other grant flows, set additional JWT claims via the corresponding API: /auth/authorization/issue (authorization_code), /auth/backchannel/authentication/complete (CIBA), /auth/device/complete (device_code). The parameter is silently ignored when sent with other grants.
    */
   jwtAtClaims?: string | undefined;
   /**

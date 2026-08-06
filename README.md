@@ -42,6 +42,7 @@ If you have any questions or need assistance, our team is here to help:
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
+  * [Pagination](#pagination)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -170,6 +171,11 @@ run();
 <details open>
 <summary>Available methods</summary>
 
+### [Audit](docs/sdks/audit/README.md)
+
+* [get](docs/sdks/audit/README.md#get) - Get Audit Logs
+* [getTypes](docs/sdks/audit/README.md#gettypes) - Get Audit Log Event Types
+
 ### [Authorization](docs/sdks/authorization/README.md)
 
 * [processRequest](docs/sdks/authorization/README.md#processrequest) - Process Authorization Request
@@ -180,6 +186,10 @@ run();
 
 * [getTicketInfo](docs/sdks/authorizationmanagement/README.md#getticketinfo) - Get Ticket Information
 * [updateTicket](docs/sdks/authorizationmanagement/README.md#updateticket) - Update Ticket Information
+
+### [BackChannelLogout](docs/sdks/backchannellogout/README.md)
+
+* [backchannelLogoutTokenApi](docs/sdks/backchannellogout/README.md#backchannellogouttokenapi) - Backchannel Logout Token Issuing
 
 ### [Ciba](docs/sdks/ciba/README.md)
 
@@ -287,6 +297,8 @@ run();
 * [list](docs/sdks/service/README.md#list) - List Services
 * [update](docs/sdks/service/README.md#update) - Update Service
 * [delete](docs/sdks/service/README.md#delete) - Delete Service ⚡
+* [create](docs/sdks/service/README.md#create) - Create Service (IDP)
+* [remove](docs/sdks/service/README.md#remove) - Remove Service (IDP) ⚡
 * [getConfiguration](docs/sdks/service/README.md#getconfiguration) - Get Service Configuration
 
 ### [Token](docs/sdks/token/README.md)
@@ -341,11 +353,14 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
+- [`auditGet`](docs/sdks/audit/README.md#get) - Get Audit Logs
+- [`auditGetTypes`](docs/sdks/audit/README.md#gettypes) - Get Audit Log Event Types
 - [`authorizationFail`](docs/sdks/authorization/README.md#fail) - Fail Authorization Request
 - [`authorizationIssue`](docs/sdks/authorization/README.md#issue) - Issue Authorization Response
 - [`authorizationManagementGetTicketInfo`](docs/sdks/authorizationmanagement/README.md#getticketinfo) - Get Ticket Information
 - [`authorizationManagementUpdateTicket`](docs/sdks/authorizationmanagement/README.md#updateticket) - Update Ticket Information
 - [`authorizationProcessRequest`](docs/sdks/authorization/README.md#processrequest) - Process Authorization Request
+- [`backChannelLogoutBackchannelLogoutTokenApi`](docs/sdks/backchannellogout/README.md#backchannellogouttokenapi) - Backchannel Logout Token Issuing
 - [`cibaComplete`](docs/sdks/ciba/README.md#complete) - Complete Backchannel Authentication
 - [`cibaFail`](docs/sdks/ciba/README.md#fail) - Fail Backchannel Authentication Request
 - [`cibaIssue`](docs/sdks/ciba/README.md#issue) - Issue Backchannel Authentication Response
@@ -398,10 +413,12 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`nativeSsoProcess`](docs/sdks/nativesso/README.md#process) - Native SSO Processing
 - [`pushedAuthorizationCreate`](docs/sdks/pushedauthorization/README.md#create) - Process Pushed Authorization Request
 - [`revocationProcess`](docs/sdks/revocation/README.md#process) - Process Revocation Request
+- [`serviceCreate`](docs/sdks/service/README.md#create) - Create Service (IDP)
 - [`serviceDelete`](docs/sdks/service/README.md#delete) - Delete Service ⚡
 - [`serviceGet`](docs/sdks/service/README.md#get) - Get Service
 - [`serviceGetConfiguration`](docs/sdks/service/README.md#getconfiguration) - Get Service Configuration
 - [`serviceList`](docs/sdks/service/README.md#list) - List Services
+- [`serviceRemove`](docs/sdks/service/README.md#remove) - Remove Service (IDP) ⚡
 - [`serviceUpdate`](docs/sdks/service/README.md#update) - Update Service
 - [`tokenFail`](docs/sdks/token/README.md#fail) - Fail Token Request
 - [`tokenIssue`](docs/sdks/token/README.md#issue) - Issue Token Response
@@ -428,6 +445,42 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
+
+<!-- Start Pagination [pagination] -->
+## Pagination
+
+Some of the endpoints in this SDK support pagination. To use pagination, you
+make your SDK calls as usual, but the returned response object will also be an
+async iterable that can be consumed using the [`for await...of`][for-await-of]
+syntax.
+
+[for-await-of]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
+
+Here's an example of one such pagination call:
+
+```typescript
+import { Authlete } from "@authlete/typescript-sdk";
+
+const authlete = new Authlete({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const result = await authlete.audit.get({
+    types: [
+      "service.create",
+    ],
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+
+```
+<!-- End Pagination [pagination] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
@@ -550,9 +603,9 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`AuthleteError`](./src/models/errors/authleteerror.ts): The base class for HTTP error responses.
-  * [`ResultError`](./src/models/errors/resulterror.ts): . *
+  * [`ResultError`](./src/models/errors/resulterror.ts): *
 
-<details><summary>Less common errors (6)</summary>
+<details><summary>Less common errors (7)</summary>
 
 <br />
 
@@ -565,6 +618,7 @@ run();
 
 
 **Inherit from [`AuthleteError`](./src/models/errors/authleteerror.ts)**:
+* [`IdpError`](./src/models/errors/idperror.ts): Error response returned by the Authlete IdP server. Unlike the main API's `resultCode`/`resultMessage` format, IdP errors carry a human-readable `error` message, optionally accompanied by contextual fields (such as `organizationId` or `apiServerId`). Request validation failures instead return an `errors` array of per-field messages. Applicable to 4 of 89 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -622,6 +676,35 @@ const authlete = new Authlete({
 async function run() {
   const result = await authlete.service.get({
     serviceId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+
+```
+
+### Override Server URL Per-Operation
+
+The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
+```typescript
+import { Authlete } from "@authlete/typescript-sdk";
+
+const authlete = new Authlete({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const result = await authlete.service.create({
+    apiServerId: 76281,
+    organizationId: 123456789012345,
+    service: {
+      serviceName: "My service",
+      issuer: "https://my-service.example.com",
+    },
+  }, {
+    serverURL: "https://login.authlete.com",
   });
 
   console.log(result);

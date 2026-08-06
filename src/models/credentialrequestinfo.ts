@@ -17,6 +17,10 @@ export type CredentialRequestInfo = {
    */
   format?: string | undefined;
   /**
+   * The identifier of the credential configuration referenced by the credential request.
+   */
+  credentialConfigurationId?: string | undefined;
+  /**
    * The binding key specified by the proof in the credential request.
    */
   bindingKey?: string | undefined;
@@ -38,6 +42,7 @@ export const CredentialRequestInfo$inboundSchema: z.ZodType<
 > = z.object({
   identifier: z.string().optional(),
   format: z.string().optional(),
+  credentialConfigurationId: z.string().optional(),
   bindingKey: z.string().optional(),
   bindingKeys: z.array(z.string()).optional(),
   details: z.string().optional(),

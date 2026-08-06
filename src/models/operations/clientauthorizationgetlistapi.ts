@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ClientAuthorizationGetListApiRequest = {
   /**
@@ -31,6 +36,11 @@ export type ClientAuthorizationGetListApiRequest = {
    * @remarks
    */
   end?: number | undefined;
+};
+
+export type ClientAuthorizationGetListApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.ClientAuthorizationGetListResponse;
 };
 
 /** @internal */
@@ -62,5 +72,31 @@ export function clientAuthorizationGetListApiRequestToJSON(
     ClientAuthorizationGetListApiRequest$outboundSchema.parse(
       clientAuthorizationGetListApiRequest,
     ),
+  );
+}
+
+/** @internal */
+export const ClientAuthorizationGetListApiResponse$inboundSchema: z.ZodType<
+  ClientAuthorizationGetListApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.ClientAuthorizationGetListResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function clientAuthorizationGetListApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ClientAuthorizationGetListApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ClientAuthorizationGetListApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientAuthorizationGetListApiResponse' from JSON`,
   );
 }

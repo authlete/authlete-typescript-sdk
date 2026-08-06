@@ -4,7 +4,6 @@
 
 import { revocationProcess } from "../funcs/revocationProcess.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -18,7 +17,7 @@ export class Revocation extends ClientSDK {
   async process(
     request: operations.AuthRevocationApiRequest,
     options?: RequestOptions,
-  ): Promise<models.RevocationResponse> {
+  ): Promise<operations.AuthRevocationApiResponse> {
     return unwrapAsync(revocationProcess(
       this,
       request,

@@ -82,12 +82,13 @@ run();
 
 ### Response
 
-**Promise\<[models.PushedAuthorizationResponse](../../models/pushedauthorizationresponse.md)\>**
+**Promise\<[operations.PushedAuthReqApiResponse](../../models/operations/pushedauthreqapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

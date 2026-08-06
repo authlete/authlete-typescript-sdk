@@ -9,7 +9,7 @@ let value: UpdateAuthorizationTicketRequest = {
   serviceId: "<id>",
   authorizationTicketUpdateRequest: {
     ticket: "<value>",
-    info: "<value>",
+    info: {},
   },
 };
 ```

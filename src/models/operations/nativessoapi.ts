@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type NativeSsoApiRequest = {
@@ -12,6 +15,11 @@ export type NativeSsoApiRequest = {
    */
   serviceId: string;
   nativeSsoRequest: models.NativeSsoRequest;
+};
+
+export type NativeSsoApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.NativeSsoResponse;
 };
 
 /** @internal */
@@ -39,5 +47,30 @@ export function nativeSsoApiRequestToJSON(
 ): string {
   return JSON.stringify(
     NativeSsoApiRequest$outboundSchema.parse(nativeSsoApiRequest),
+  );
+}
+
+/** @internal */
+export const NativeSsoApiResponse$inboundSchema: z.ZodType<
+  NativeSsoApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.NativeSsoResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function nativeSsoApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<NativeSsoApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NativeSsoApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NativeSsoApiResponse' from JSON`,
   );
 }

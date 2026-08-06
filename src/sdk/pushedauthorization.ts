@@ -4,7 +4,6 @@
 
 import { pushedAuthorizationCreate } from "../funcs/pushedAuthorizationCreate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -18,7 +17,7 @@ export class PushedAuthorization extends ClientSDK {
   async create(
     request: operations.PushedAuthReqApiRequest,
     options?: RequestOptions,
-  ): Promise<models.PushedAuthorizationResponse> {
+  ): Promise<operations.PushedAuthReqApiResponse> {
     return unwrapAsync(pushedAuthorizationCreate(
       this,
       request,

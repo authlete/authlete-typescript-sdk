@@ -81,13 +81,14 @@ run();
 
 ### Response
 
-**Promise\<[models.IdtokenReissueResponse](../../models/idtokenreissueresponse.md)\>**
+**Promise\<[operations.IdtokenReissueApiResponse](../../models/operations/idtokenreissueapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -157,13 +158,14 @@ run();
 
 ### Response
 
-**Promise\<[models.TokenGetListResponse](../../models/tokengetlistresponse.md)\>**
+**Promise\<[operations.AuthTokenGetListApiResponse](../../models/operations/authtokengetlistapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -251,13 +253,14 @@ run();
 
 ### Response
 
-**Promise\<[models.TokenCreateResponse](../../models/tokencreateresponse.md)\>**
+**Promise\<[operations.AuthTokenCreateApiResponse](../../models/operations/authtokencreateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -339,13 +342,14 @@ run();
 
 ### Response
 
-**Promise\<[models.TokenUpdateResponse](../../models/tokenupdateresponse.md)\>**
+**Promise\<[operations.AuthTokenUpdateApiResponse](../../models/operations/authtokenupdateapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -365,12 +369,12 @@ const authlete = new Authlete({
 });
 
 async function run() {
-  await authlete.token.management.delete({
+  const result = await authlete.token.management.delete({
     serviceId: "<id>",
     accessTokenIdentifier: "<value>",
   });
 
-
+  console.log(result);
 }
 
 run();
@@ -397,7 +401,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    
+    console.log(result);
   } else {
     console.log("tokenManagementDelete failed:", res.error);
   }
@@ -417,13 +421,14 @@ run();
 
 ### Response
 
-**Promise\<void\>**
+**Promise\<[operations.AuthTokenDeleteApiResponse](../../models/operations/authtokendeleteapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -499,12 +504,13 @@ run();
 
 ### Response
 
-**Promise\<[models.TokenRevokeResponse](../../models/tokenrevokeresponse.md)\>**
+**Promise\<[operations.AuthTokenRevokeApiResponse](../../models/operations/authtokenrevokeapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403, 404          | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

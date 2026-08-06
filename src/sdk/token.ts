@@ -6,7 +6,6 @@ import { tokenFail } from "../funcs/tokenFail.js";
 import { tokenIssue } from "../funcs/tokenIssue.js";
 import { tokenProcess } from "../funcs/tokenProcess.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { TokenManagement } from "./tokenmanagement.js";
@@ -27,7 +26,7 @@ export class Token extends ClientSDK {
   async process(
     request: operations.AuthTokenApiRequest,
     options?: RequestOptions,
-  ): Promise<models.TokenResponse> {
+  ): Promise<operations.AuthTokenApiResponse> {
     return unwrapAsync(tokenProcess(
       this,
       request,
@@ -45,7 +44,7 @@ export class Token extends ClientSDK {
   async fail(
     request: operations.AuthTokenFailApiRequest,
     options?: RequestOptions,
-  ): Promise<models.TokenFailResponse> {
+  ): Promise<operations.AuthTokenFailApiResponse> {
     return unwrapAsync(tokenFail(
       this,
       request,
@@ -63,7 +62,7 @@ export class Token extends ClientSDK {
   async issue(
     request: operations.AuthTokenIssueApiRequest,
     options?: RequestOptions,
-  ): Promise<models.TokenIssueResponse> {
+  ): Promise<operations.AuthTokenIssueApiResponse> {
     return unwrapAsync(tokenIssue(
       this,
       request,

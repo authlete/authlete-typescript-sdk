@@ -5,7 +5,6 @@
 import { introspectionProcess } from "../funcs/introspectionProcess.js";
 import { introspectionStandardProcess } from "../funcs/introspectionStandardProcess.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -19,7 +18,7 @@ export class Introspection extends ClientSDK {
   async process(
     request: operations.AuthIntrospectionApiRequest,
     options?: RequestOptions,
-  ): Promise<models.IntrospectionResponse> {
+  ): Promise<operations.AuthIntrospectionApiResponse> {
     return unwrapAsync(introspectionProcess(
       this,
       request,
@@ -37,7 +36,7 @@ export class Introspection extends ClientSDK {
   async standardProcess(
     request: operations.AuthIntrospectionStandardApiRequest,
     options?: RequestOptions,
-  ): Promise<models.StandardIntrospectionResponse> {
+  ): Promise<operations.AuthIntrospectionStandardApiResponse> {
     return unwrapAsync(introspectionStandardProcess(
       this,
       request,

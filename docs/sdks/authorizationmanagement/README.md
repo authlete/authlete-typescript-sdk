@@ -78,13 +78,14 @@ run();
 
 ### Response
 
-**Promise\<[models.AuthorizationTicketInfoResponse](../../models/authorizationticketinforesponse.md)\>**
+**Promise\<[operations.AuthorizationTicketInfoPostApiResponse](../../models/operations/authorizationticketinfopostapiresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
 
@@ -107,7 +108,7 @@ async function run() {
     serviceId: "<id>",
     authorizationTicketUpdateRequest: {
       ticket: "<value>",
-      info: "<value>",
+      info: {},
     },
   });
 
@@ -136,7 +137,7 @@ async function run() {
     serviceId: "<id>",
     authorizationTicketUpdateRequest: {
       ticket: "<value>",
-      info: "<value>",
+      info: {},
     },
   });
   if (res.ok) {
@@ -161,12 +162,13 @@ run();
 
 ### Response
 
-**Promise\<[models.AuthorizationTicketUpdateResponse](../../models/authorizationticketupdateresponse.md)\>**
+**Promise\<[operations.UpdateAuthorizationTicketResponse](../../models/operations/updateauthorizationticketresponse.md)\>**
 
 ### Errors
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
 | errors.ResultError          | 500                         | application/json            |
 | errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |

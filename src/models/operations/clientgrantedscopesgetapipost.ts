@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ClientGrantedScopesGetApiPostRequestBody = {
   /**
@@ -24,6 +28,11 @@ export type ClientGrantedScopesGetApiPostRequest = {
    */
   clientId: string;
   requestBody: ClientGrantedScopesGetApiPostRequestBody;
+};
+
+export type ClientGrantedScopesGetApiPostResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.ClientAuthorizationDeleteResponse;
 };
 
 /** @internal */
@@ -82,5 +91,31 @@ export function clientGrantedScopesGetApiPostRequestToJSON(
     ClientGrantedScopesGetApiPostRequest$outboundSchema.parse(
       clientGrantedScopesGetApiPostRequest,
     ),
+  );
+}
+
+/** @internal */
+export const ClientGrantedScopesGetApiPostResponse$inboundSchema: z.ZodType<
+  ClientGrantedScopesGetApiPostResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.ClientAuthorizationDeleteResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function clientGrantedScopesGetApiPostResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ClientGrantedScopesGetApiPostResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ClientGrantedScopesGetApiPostResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientGrantedScopesGetApiPostResponse' from JSON`,
   );
 }

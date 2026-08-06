@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type ClientUpdateApiRequest = {
@@ -15,6 +19,11 @@ export type ClientUpdateApiRequest = {
    */
   clientId: string;
   client?: models.ClientInput | undefined;
+};
+
+export type ClientUpdateApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.Client;
 };
 
 /** @internal */
@@ -40,5 +49,30 @@ export function clientUpdateApiRequestToJSON(
 ): string {
   return JSON.stringify(
     ClientUpdateApiRequest$outboundSchema.parse(clientUpdateApiRequest),
+  );
+}
+
+/** @internal */
+export const ClientUpdateApiResponse$inboundSchema: z.ZodType<
+  ClientUpdateApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.Client$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function clientUpdateApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ClientUpdateApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ClientUpdateApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClientUpdateApiResponse' from JSON`,
   );
 }

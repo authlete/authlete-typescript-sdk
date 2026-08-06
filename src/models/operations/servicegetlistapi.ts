@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ServiceGetListApiRequest = {
   /**
@@ -13,6 +18,11 @@ export type ServiceGetListApiRequest = {
    * End index (exclusive) of the result set. The default value is 5. Must not be a negative number.
    */
   end?: number | undefined;
+};
+
+export type ServiceGetListApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.ServiceGetListResponse;
 };
 
 /** @internal */
@@ -36,5 +46,30 @@ export function serviceGetListApiRequestToJSON(
 ): string {
   return JSON.stringify(
     ServiceGetListApiRequest$outboundSchema.parse(serviceGetListApiRequest),
+  );
+}
+
+/** @internal */
+export const ServiceGetListApiResponse$inboundSchema: z.ZodType<
+  ServiceGetListApiResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Headers: z.record(z.array(z.string())).default({}),
+  Result: models.ServiceGetListResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Headers": "headers",
+    "Result": "result",
+  });
+});
+
+export function serviceGetListApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ServiceGetListApiResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ServiceGetListApiResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ServiceGetListApiResponse' from JSON`,
   );
 }

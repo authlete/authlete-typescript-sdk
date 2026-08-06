@@ -3,7 +3,7 @@
  */
 
 import { bytesToBase64 } from "./base64.js";
-import { isPlainObject } from "./is-plain-object.js";
+import { isPlainObject } from "./primitives.js";
 
 export class EncodingError extends Error {
   constructor(message: string) {
@@ -513,4 +513,13 @@ export function appendForm(
   } else {
     fd.append(key, String(value));
   }
+}
+
+export async function normalizeBlob(
+  value: Pick<Blob, "arrayBuffer" | "type">,
+): Promise<Blob> {
+  if (value instanceof Blob) {
+    return value;
+  }
+  return new Blob([await value.arrayBuffer()], { type: value.type });
 }

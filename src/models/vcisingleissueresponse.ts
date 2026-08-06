@@ -16,7 +16,10 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
  */
 export const VciSingleIssueResponseAction = {
   Ok: "OK",
+  OkJwt: "OK_JWT",
   Accepted: "ACCEPTED",
+  AcceptedJwt: "ACCEPTED_JWT",
+  BadRequest: "BAD_REQUEST",
   Unauthorized: "UNAUTHORIZED",
   Forbidden: "FORBIDDEN",
   InternalServerError: "INTERNAL_SERVER_ERROR",

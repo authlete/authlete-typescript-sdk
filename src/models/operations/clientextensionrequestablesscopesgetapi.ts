@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ClientExtensionRequestablesScopesGetApiRequest = {
   /**
@@ -15,6 +20,11 @@ export type ClientExtensionRequestablesScopesGetApiRequest = {
    * @remarks
    */
   clientId: string;
+};
+
+export type ClientExtensionRequestablesScopesGetApiResponse = {
+  headers: { [k: string]: Array<string> };
+  result: models.ClientExtensionRequestableScopesGetResponse;
 };
 
 /** @internal */
@@ -42,5 +52,37 @@ export function clientExtensionRequestablesScopesGetApiRequestToJSON(
     ClientExtensionRequestablesScopesGetApiRequest$outboundSchema.parse(
       clientExtensionRequestablesScopesGetApiRequest,
     ),
+  );
+}
+
+/** @internal */
+export const ClientExtensionRequestablesScopesGetApiResponse$inboundSchema:
+  z.ZodType<
+    ClientExtensionRequestablesScopesGetApiResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.ClientExtensionRequestableScopesGetResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  });
+
+export function clientExtensionRequestablesScopesGetApiResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  ClientExtensionRequestablesScopesGetApiResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ClientExtensionRequestablesScopesGetApiResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'ClientExtensionRequestablesScopesGetApiResponse' from JSON`,
   );
 }
