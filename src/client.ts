@@ -72,8 +72,10 @@ export type AuthleteOptions = SDKOptions & {
   /**
    * Cluster ID injected into IDP service create/remove request bodies
    * when the caller has not provided one. Derived automatically from
-   * `serverURL` (or `serverIdx`) for Authlete SaaS clusters;
-   * DC/self-managed customers must set it explicitly.
+   * `serverURL` (or `serverIdx`) for Authlete SaaS clusters — but only
+   * while the IDP is the default (login.authlete.com). Setting a custom
+   * `idpURL` disables derivation, since SaaS cluster IDs are meaningless
+   * for DC/self-managed deployments; set this explicitly there.
    */
   apiServerId?: number | undefined;
 };
@@ -119,11 +121,35 @@ export class Authlete extends AuthleteCore {
     const { idpURL, apiServerId, ...sdkOptions } = options;
 
     const idpOrigin = idpURL ? new URL(idpURL).origin : undefined;
+
+    // Auto-derive the SaaS cluster ID only when the IDP is the default
+    // (login.authlete.com). A custom idpURL signals a DC/self-managed
+    // deployment where Authlete's SaaS cluster IDs are meaningless —
+    // there we inject nothing unless apiServerId is set explicitly.
+    const usesDefaultIdp =
+      idpOrigin === undefined || idpOrigin === DEFAULT_IDP_ORIGIN;
     const resolvedApiServerId = apiServerId
-      ?? SAAS_CLUSTER_IDS[resolveMainOrigin(sdkOptions)];
+      ?? (usesDefaultIdp
+        ? SAAS_CLUSTER_IDS[resolveMainOrigin(sdkOptions)]
+        : undefined);
 
     if (idpOrigin !== undefined || resolvedApiServerId !== undefined) {
-      const httpClient = sdkOptions.httpClient ?? new HTTPClient();
+      // Routing rules are per-instance state, so they must never be
+      // registered on a caller-provided httpClient (which may be shared
+      // across SDK instances). Each instance gets its own private
+      // HTTPClient; a provided one is wrapped via delegation, so its
+      // fetcher and hooks keep working.
+      const inner = sdkOptions.httpClient;
+      const httpClient = inner
+        ? new HTTPClient({
+          fetcher: (input, init) =>
+            inner.request(
+              input instanceof Request && init == null
+                ? input
+                : new Request(input, init),
+            ),
+        })
+        : new HTTPClient();
       httpClient.addHook(
         "beforeRequest",
         buildIdpRoutingHook(idpOrigin, resolvedApiServerId),
