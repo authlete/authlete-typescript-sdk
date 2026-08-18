@@ -92,6 +92,17 @@ function resolveMainOrigin(options: SDKOptions): string {
 }
 
 /**
+ * Normalizes an idpURL to origin + path prefix (no trailing slash), so
+ * DC deployments hosted behind a path prefix (e.g. a gateway at
+ * https://gateway.example.com/authlete-idp) route correctly. Query and
+ * fragment are not part of a base URL and are dropped.
+ */
+function normalizeIdpBase(idpURL: string): string {
+  const u = new URL(idpURL);
+  return u.origin + u.pathname.replace(/\/+$/, "");
+}
+
+/**
  * Drop-in replacement for the generated `Authlete` class that adds
  * IDP-aware routing:
  *
@@ -120,20 +131,20 @@ export class Authlete extends AuthleteCore {
   constructor(options: AuthleteOptions = {}) {
     const { idpURL, apiServerId, ...sdkOptions } = options;
 
-    const idpOrigin = idpURL ? new URL(idpURL).origin : undefined;
+    const idpBase = idpURL ? normalizeIdpBase(idpURL) : undefined;
 
     // Auto-derive the SaaS cluster ID only when the IDP is the default
     // (login.authlete.com). A custom idpURL signals a DC/self-managed
     // deployment where Authlete's SaaS cluster IDs are meaningless —
     // there we inject nothing unless apiServerId is set explicitly.
     const usesDefaultIdp =
-      idpOrigin === undefined || idpOrigin === DEFAULT_IDP_ORIGIN;
+      idpBase === undefined || idpBase === DEFAULT_IDP_ORIGIN;
     const resolvedApiServerId = apiServerId
       ?? (usesDefaultIdp
         ? SAAS_CLUSTER_IDS[resolveMainOrigin(sdkOptions)]
         : undefined);
 
-    if (idpOrigin !== undefined || resolvedApiServerId !== undefined) {
+    if (idpBase !== undefined || resolvedApiServerId !== undefined) {
       // Routing rules are per-instance state, so they must never be
       // registered on a caller-provided httpClient (which may be shared
       // across SDK instances). Each instance gets its own private
@@ -152,7 +163,7 @@ export class Authlete extends AuthleteCore {
         : new HTTPClient();
       httpClient.addHook(
         "beforeRequest",
-        buildIdpRoutingHook(idpOrigin, resolvedApiServerId),
+        buildIdpRoutingHook(idpBase, resolvedApiServerId),
       );
       sdkOptions.httpClient = httpClient;
     }
@@ -162,7 +173,7 @@ export class Authlete extends AuthleteCore {
 }
 
 function buildIdpRoutingHook(
-  idpOrigin: string | undefined,
+  idpBase: string | undefined,
   apiServerId: number | undefined,
 ): (request: Request) => Promise<Request> {
   return async (request: Request): Promise<Request> => {
@@ -175,18 +186,20 @@ function buildIdpRoutingHook(
       return request;
     }
 
-    const targetOrigin = idpOrigin ?? url.origin;
+    // idpBase may carry a path prefix (DC deployments behind a gateway);
+    // the original operation path is appended after it.
+    const targetBase = idpBase ?? url.origin;
     const contentType = request.headers.get("content-type") ?? "";
     const needsApiServerId = apiServerId !== undefined
       && request.method === "POST"
       && API_SERVER_ID_PATHS.has(url.pathname)
       && contentType.includes("application/json");
 
-    if (targetOrigin === url.origin && !needsApiServerId) {
+    if (targetBase === url.origin && !needsApiServerId) {
       return request;
     }
 
-    const targetUrl = targetOrigin + url.pathname + url.search;
+    const targetUrl = targetBase + url.pathname + url.search;
     let body: string | null = null;
 
     if (request.body != null) {
