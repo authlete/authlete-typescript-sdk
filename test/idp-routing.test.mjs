@@ -214,6 +214,37 @@ test("custom idpURL disables derivation even with a SaaS serverURL", async () =>
   assert.equal(JSON.parse(captured[0].body).apiServerId, undefined);
 });
 
+test("idpURL with a path prefix keeps the prefix (gateway deployments)", async () => {
+  const captured = [];
+  const sdk = new Authlete({
+    bearer: "t",
+    idpURL: "https://gateway.customer.com/authlete-idp",
+    apiServerId: 7,
+    httpClient: captureClient(captured),
+  });
+
+  await swallow(sdk.service.create({ organizationId: 1 }));
+
+  assert.equal(
+    captured[0].url.href,
+    "https://gateway.customer.com/authlete-idp/api/service",
+  );
+});
+
+test("idpURL trailing slash is normalized away", async () => {
+  const captured = [];
+  const sdk = new Authlete({
+    bearer: "t",
+    idpURL: "https://idp.example.test/",
+    apiServerId: 7,
+    httpClient: captureClient(captured),
+  });
+
+  await swallow(sdk.service.create({ organizationId: 1 }));
+
+  assert.equal(captured[0].url.href, "https://idp.example.test/api/service");
+});
+
 test("explicit idpURL equal to the default keeps SaaS derivation", async () => {
   const captured = [];
   const sdk = new Authlete({

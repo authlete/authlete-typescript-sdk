@@ -34,6 +34,29 @@ const INDEX_PATH = join(
 const GENERATED_EXPORT = `export * from "./sdk/sdk.js";`;
 const PATCHED_EXPORT = `export * from "./client.js";`;
 
+// The swap below replaces the re-export of sdk/sdk.js with client.js,
+// which re-exports (a subclass of) the Authlete class. If a future
+// regeneration adds MORE exports to sdk/sdk.ts, the swap would silently
+// drop them from the package root — so verify the export surface first.
+const SDK_CLASS_PATH = join(
+  dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "src",
+  "sdk",
+  "sdk.ts",
+);
+const sdkExports = (readFileSync(SDK_CLASS_PATH, "utf8").match(/^export .*/gm) ?? []);
+const unexpected = sdkExports.filter((line) => !/^export class Authlete\b/.test(line));
+if (unexpected.length > 0) {
+  console.error(
+    "[patch-root-export] ERROR: src/sdk/sdk.ts now has exports beyond the " +
+      "Authlete class, which the root-export swap would drop:\n  " +
+      unexpected.join("\n  ") +
+      "\nRe-export them from src/client.ts, then update this check.",
+  );
+  process.exit(1);
+}
+
 const source = readFileSync(INDEX_PATH, "utf8");
 
 if (source.includes(PATCHED_EXPORT)) {
