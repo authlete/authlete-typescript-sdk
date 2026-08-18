@@ -245,6 +245,52 @@ test("idpURL trailing slash is normalized away", async () => {
   assert.equal(captured[0].url.href, "https://idp.example.test/api/service");
 });
 
+// --- Reviewer-authored test cases (Otso) ---
+
+test("two clients sharing one httpClient stay isolated", async () => {
+  const captured = [];
+  const shared = captureClient(captured);
+
+  new Authlete({
+    bearer: "t1",
+    serverURL: "https://us.authlete.com",
+    httpClient: shared,
+  });
+
+  const jp = new Authlete({
+    bearer: "t2",
+    serverURL: "https://jp.authlete.com",
+    httpClient: shared,
+  });
+
+  await swallow(jp.service.create({ organizationId: 1 }));
+
+  assert.equal(captured[0].url.origin, "https://login.authlete.com");
+  assert.equal(
+    JSON.parse(captured[0].body).apiServerId,
+    53285,
+    "the JP client sent another client's cluster ID",
+  );
+});
+
+test("idpURL with an untouched serverURL injects no apiServerId", async () => {
+  const captured = [];
+  const sdk = new Authlete({
+    bearer: "customer-token",
+    idpURL: "https://authlete-login.customer.example",
+    httpClient: captureClient(captured),
+  });
+
+  await swallow(sdk.service.create({ organizationId: 1 }));
+
+  assert.equal(captured[0].url.origin, "https://authlete-login.customer.example");
+  assert.equal(
+    JSON.parse(captured[0].body).apiServerId,
+    undefined,
+    "US apiserver ID was injected into a request aimed at a customer's own IDP",
+  );
+});
+
 test("explicit idpURL equal to the default keeps SaaS derivation", async () => {
   const captured = [];
   const sdk = new Authlete({
