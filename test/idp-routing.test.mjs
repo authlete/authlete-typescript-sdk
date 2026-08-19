@@ -245,6 +245,33 @@ test("idpURL trailing slash is normalized away", async () => {
   assert.equal(captured[0].url.href, "https://idp.example.test/api/service");
 });
 
+test("five clients in mixed configurations share one httpClient, all isolated", async () => {
+  const captured = [];
+  const shared = captureClient(captured);
+  const clients = [
+    new Authlete({ bearer: "1", apiServerId: 101, httpClient: shared }),
+    new Authlete({ bearer: "2", apiServerId: 202, httpClient: shared }),
+    new Authlete({ bearer: "3", serverURL: "https://jp.authlete.com", httpClient: shared }),
+    new Authlete({ bearer: "4", idpURL: "https://idp-4.example.test", apiServerId: 404, httpClient: shared }),
+    new Authlete({ bearer: "5", idpURL: "https://idp-5.example.test", httpClient: shared }),
+  ];
+  for (const client of clients) {
+    await swallow(client.service.create({ organizationId: 1 }));
+  }
+
+  const results = captured.map((c) => ({
+    origin: c.url.origin,
+    apiServerId: JSON.parse(c.body).apiServerId,
+  }));
+  assert.deepEqual(results, [
+    { origin: "https://login.authlete.com", apiServerId: 101 },
+    { origin: "https://login.authlete.com", apiServerId: 202 },
+    { origin: "https://login.authlete.com", apiServerId: 53285 },
+    { origin: "https://idp-4.example.test", apiServerId: 404 },
+    { origin: "https://idp-5.example.test", apiServerId: undefined },
+  ]);
+});
+
 // --- Reviewer-authored test cases (Otso) ---
 
 test("two clients sharing one httpClient stay isolated", async () => {
