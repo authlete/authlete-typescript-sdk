@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  *
  * The subject parameter is required.
  */
-export function clientManagementClientGrantedScopesGetApiPost(
+export function clientManagementGetClientGrantedScopesByPost(
   client: AuthleteCore,
   request: operations.ClientGrantedScopesGetApiPostRequest,
   options?: RequestOptions,

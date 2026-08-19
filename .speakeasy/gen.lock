@@ -9,9 +9,9 @@ management:
   installationURL: https://github.com/authlete/authlete-typescript-sdk
   published: true
 persistentEdits:
-  generation_id: d5ae21c4-6508-49c1-8426-e757f3dccbee
-  pristine_commit_hash: f09b1cd5d0dda1f8ed19506611e6dd3b0deae807
-  pristine_tree_hash: 739d722e30e2b33e91147571dfe9934629d79b3b
+  generation_id: 8bd14204-4b97-4fdb-b484-721b51718ab8
+  pristine_commit_hash: f5ce0577cb3c6da23debd7593a839c673e6ce975
+  pristine_tree_hash: 57c48de89a0ebe9d3042d4ebf976817937655faa
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -551,14 +551,6 @@ trackedFiles:
     id: e3a53a98b946
     last_write_checksum: sha1:0858f33839527209765655cb90955ee70b3c7865
     pristine_git_object: b41d1fc325c67cb900b4c8860f062c70732e1ca8
-  docs/models/joseverifyrequest.md:
-    id: be898099d3a0
-    last_write_checksum: sha1:f631ae44c1915a95a7e5f1fb46c51d5cc540cf26
-    pristine_git_object: 253dc0f81fe3936b0ba8de30018627ff50d4880a
-  docs/models/joseverifyresponse.md:
-    id: 50ae0d6d2923
-    last_write_checksum: sha1:5ee7625fd70fd3e7d185acc477d987b83eb8ef90
-    pristine_git_object: 4690649e5784aaadc983a94e66bd2fa7b64572e8
   docs/models/jwealg.md:
     id: 2bfd154431fb
     last_write_checksum: sha1:5a9c63ae55cd990b738179816c1c2260fe86d0ea
@@ -1135,14 +1127,6 @@ trackedFiles:
     id: 951bdb308184
     last_write_checksum: sha1:e913e8836a68febbf97f6c0adeb5aeb20f1208c7
     pristine_git_object: 7bc7fc8c4f5465d207072dcef9d088966cc38ff6
-  docs/models/operations/joseverifyapirequest.md:
-    id: f346b026c7b6
-    last_write_checksum: sha1:46913dde5bf93f63141badbb2ce40ca1ef73c124
-    pristine_git_object: 90de3d348a7709ed3f4a96480bb2f0c77c641fbe
-  docs/models/operations/joseverifyapiresponse.md:
-    id: 0040494e9cd6
-    last_write_checksum: sha1:1e48690aa90c3cf35a22023125c9cbfda35b79ff
-    pristine_git_object: 8fb395a38822fd65b5bc9297314b78742bc08198
   docs/models/operations/nativessoapirequest.md:
     id: 60b17bdb6c22
     last_write_checksum: sha1:a207c76cdcee849396d43495751053293b40b2eb
@@ -1175,14 +1159,6 @@ trackedFiles:
     id: d98c657cba64
     last_write_checksum: sha1:1e8239ce4f6c73dae03296bc54c0be64b996d608
     pristine_git_object: dfcdfe5896a127eaa88e640dc6a3f8a7958eebcb
-  docs/models/operations/servicedeleteapirequest.md:
-    id: 084c44044d6b
-    last_write_checksum: sha1:f7044071eac0dc1d256181b85edf4d6bb3ecead5
-    pristine_git_object: 9aa973c3c374cf74097ccad510556cab06a76459
-  docs/models/operations/servicedeleteapiresponse.md:
-    id: 3824cf0fe029
-    last_write_checksum: sha1:c7a6e656a4b2a72495db2cea270607b8b50d17be
-    pristine_git_object: b7ddf61a46a617d9006041df6f8bb6a157301181
   docs/models/operations/servicegetapirequest.md:
     id: 1e9c85e81d5b
     last_write_checksum: sha1:e4f15daa62c66b0c421f6725cd1076fd54a79c58
@@ -1199,14 +1175,6 @@ trackedFiles:
     id: c4e2d4ef0657
     last_write_checksum: sha1:4c3ecf827b9d55c626b4613c62bf8c66ef1d663e
     pristine_git_object: 79fcbdbd8a67754c684d4f724b152c12d14a45e3
-  docs/models/operations/servicejwksgetapirequest.md:
-    id: d223ae0e36b0
-    last_write_checksum: sha1:6d3425f92aec845061bc205a10c2e130856ac980
-    pristine_git_object: f1c7f9e8e91fd140ad31cfafa0e8f1453ae5a74d
-  docs/models/operations/servicejwksgetapiresponse.md:
-    id: 9517d2ff53da
-    last_write_checksum: sha1:a708a66dc8e2d085970711c6dd414dcb7f50d821
-    pristine_git_object: c0af3a06edff4bae08903d11e28e4fcacbacbcb7
   docs/models/operations/serviceupdateapirequest.md:
     id: 4386e8c2c108
     last_write_checksum: sha1:9073a10804ed17806d197889288fb5459ad6a894
@@ -1383,10 +1351,6 @@ trackedFiles:
     id: 37bb4eaf55d5
     last_write_checksum: sha1:f2f10f960ff29bf0e1a0df01e98b0699a5fb7774
     pristine_git_object: ffa43b2773923a7c5ccef7903917126257deb7bf
-  docs/models/servicejwksgetresponse.md:
-    id: 91cb44f455b9
-    last_write_checksum: sha1:9e0d3fffc781effb454ca57e07d73e64591e835d
-    pristine_git_object: 43b1e51446948a4c22bbccdfc2e1c81152ba0a3c
   docs/models/serviceprofile.md:
     id: dcc1f74761dd
     last_write_checksum: sha1:3dab123416e6645aac45ec84934efa2fcd5a6452
@@ -1703,14 +1667,10 @@ trackedFiles:
     id: 6fb5a6948c65
     last_write_checksum: sha1:924c7cf3775a59c81fbb30b43e7f233331ef1eef
     pristine_git_object: 32f1677a26fd048a8c875dab8bc2e15349283843
-  docs/sdks/clientmanagement1/README.md:
-    id: c1d012f912af
-    last_write_checksum: sha1:3d00045c4f058c38f7d0d85f2bcdc15f8448cf4d
-    pristine_git_object: 88132322a866934d54590ef07290bf436c356372
-  docs/sdks/clientmanagement2/README.md:
-    id: b1b1dfe49099
-    last_write_checksum: sha1:43b828f810ac8f18f2d4f819ea6d8ec98f950f9c
-    pristine_git_object: 006ff7498abedfa1dff52c8aca1a6c4d063967ee
+  docs/sdks/clientmanagement/README.md:
+    id: 588dad77197a
+    last_write_checksum: sha1:f9fe5c40c8011f6d3e43d7634f23c2e59a7e4969
+    pristine_git_object: a791834550069503f4ec5494dcc09574c0d04b90
   docs/sdks/deviceflow/README.md:
     id: edb9b3efc42f
     last_write_checksum: sha1:427dd8fffacf9ac3efdddbd877d860431be35b82
@@ -1735,14 +1695,6 @@ trackedFiles:
     id: 9f867af7c1f3
     last_write_checksum: sha1:9a756a971ab76f32db718fd822419a8833950509
     pristine_git_object: 6fe80a5237ccb5ca0b7531aeef222b408d749284
-  docs/sdks/joseobject/README.md:
-    id: 204c6612db19
-    last_write_checksum: sha1:7d96ba1f449cb3fc6c41e1ed2edfc8e82e4020ca
-    pristine_git_object: 96ce30e34145fd21ff64e64c0e4f904ae08c7e90
-  docs/sdks/jwksetendpoint/README.md:
-    id: 6fad40b052b6
-    last_write_checksum: sha1:2244a335a502a5723ab6d766d934f6a92ed39b79
-    pristine_git_object: 49881e57a4be2c2079b94b5ffa69d0ef62d11674
   docs/sdks/lifecycle/README.md:
     id: 1888bf01fd21
     last_write_checksum: sha1:9147544a1c335dc5166fe1bca1eeefd645d6469b
@@ -1761,8 +1713,8 @@ trackedFiles:
     pristine_git_object: fee00cd62ea06f4b29c9327dc1a4eb074fd20775
   docs/sdks/service/README.md:
     id: d161cb00129d
-    last_write_checksum: sha1:727524773428591a4fa8c867a47dd99691b73061
-    pristine_git_object: 43ce9a707ed22ed5c06a279a05d8cb6d0e1f3796
+    last_write_checksum: sha1:f35b8be3ac02e3c6547e41ba722ab1aba59de01d
+    pristine_git_object: 31b608f8b64468b69981c3dc3800f309aa73667d
   docs/sdks/token/README.md:
     id: 627ae416a06f
     last_write_checksum: sha1:c7a559a34b14a072eba9138eb6e75c40880a34a4
@@ -1875,42 +1827,22 @@ trackedFiles:
     id: 9d746056409c
     last_write_checksum: sha1:e83b779cbca67e643d9b61cc975645754a7b6ad3
     pristine_git_object: 23df79db0f74a1c7d6a2cb21e57563bca953d4b6
-  src/funcs/clientManagementClientAuthorizationDeleteApi.ts:
-    id: c6379c04fce9
-    last_write_checksum: sha1:630ff4813789b09faf631d917e0f9d9c8fcdce37
-    pristine_git_object: 3a79c8f0689f0e36254f049a72a5d59bc2c7bed0
-  src/funcs/clientManagementClientAuthorizationDeleteApiPost.ts:
-    id: 5ba3d79c98aa
-    last_write_checksum: sha1:0f567a9acbd19983c7c45d4c414d5e9f55f9b93e
-    pristine_git_object: 712c79d72db55eba793de102c75aadf60f6780b0
-  src/funcs/clientManagementClientAuthorizationGetListApi.ts:
-    id: 7bed4548f108
-    last_write_checksum: sha1:ebf022597e5f1c7a278a7f6fdaff2633566ae9c6
-    pristine_git_object: 65b4858da1f65403a7a7f6cf4d30c2fa499b2143
-  src/funcs/clientManagementClientAuthorizationGetListApiPost.ts:
-    id: 747bc887cbf6
-    last_write_checksum: sha1:ba5a16d30897b1ee97f24974825f72daf9dc986e
-    pristine_git_object: f0e9656a1cd1b3b0e75b92779e8a81906064aad6
-  src/funcs/clientManagementClientExtensionRequestablesScopesUpdateApiPost.ts:
-    id: 0022c2fdb639
-    last_write_checksum: sha1:48e16c5df323ed7a030846ea3b568635d29f85c4
-    pristine_git_object: 2f71cb362647431d54012ad4132eb08d6ce95188
-  src/funcs/clientManagementClientGrantedScopesDeleteApi.ts:
-    id: 33c82540aea4
-    last_write_checksum: sha1:106dbdeda8df7a2fee9e3900afb2e3bc95e6e69a
-    pristine_git_object: f86d8101d505f7f18ae65c7f56198b13140e9280
-  src/funcs/clientManagementClientGrantedScopesGetApi.ts:
-    id: 68fcaa982792
-    last_write_checksum: sha1:8e1fd5a8ef170c471eea10584e552afb5e546cb9
-    pristine_git_object: 73b6f1f48ac5732b3d909fb4e1572cd05d8251c4
-  src/funcs/clientManagementClientGrantedScopesGetApiPost.ts:
-    id: 225699972d47
-    last_write_checksum: sha1:da32439e0b74ed45f9087f1ab9ee1cea218e39fb
-    pristine_git_object: 767cd4ddac7e087157ebb20474ea44bda1a351fe
   src/funcs/clientManagementDeleteAuthorizations.ts:
     id: 0b318d6f6c86
     last_write_checksum: sha1:0c7722e257128513906d60e61403199c1029b7e6
     pristine_git_object: 167d9444e80e543cfc1949d320c37e3722b4e27d
+  src/funcs/clientManagementDeleteClientGrantedScopes.ts:
+    id: 32e8215343f9
+    last_write_checksum: sha1:b0bfa76be5b4258ebe39bcefc8ee78492c134c4d
+    pristine_git_object: fc23e3274e9af270e4850036cc2b077822e4e35f
+  src/funcs/clientManagementDeleteClientTokens.ts:
+    id: de6b5bf6385e
+    last_write_checksum: sha1:cf61ab021cb3079e26af41bf5eb0196d1dd1f61f
+    pristine_git_object: 27a0b9a67c8297cf12983d7118b011fda7130113
+  src/funcs/clientManagementDeleteClientTokensByPost.ts:
+    id: 8fc538d67ecc
+    last_write_checksum: sha1:2795d1bb6fc9cca4622cc6688ba16a65f696c40c
+    pristine_git_object: 5435cbd009da6d5ff82dc5aa970844be323d36e1
   src/funcs/clientManagementDeleteGrantedScopes.ts:
     id: 03c3e546d11f
     last_write_checksum: sha1:ebfdf7b8a7fbed6edf196e2172b519e399c14c1a
@@ -1919,6 +1851,22 @@ trackedFiles:
     id: 59373b752993
     last_write_checksum: sha1:3ac7c34d8f6ff96df205ed5d0cb2abef770cc80e
     pristine_git_object: 3c78e2e4adf7413e70293f6122af202acba0c808
+  src/funcs/clientManagementGetAuthorizedApplications.ts:
+    id: 3f65254ce289
+    last_write_checksum: sha1:0056a3ef4c4f230f43387b0e75759c9055ad19b1
+    pristine_git_object: 6d32e3d4e5404e9f0e597f2b285830fd3a2fadb0
+  src/funcs/clientManagementGetAuthorizedApplicationsByPost.ts:
+    id: 36860ba81bed
+    last_write_checksum: sha1:e1b96cce1093b1986b979bd5bf794d477d9244ae
+    pristine_git_object: 2841852eece118786847e65ab744847147507995
+  src/funcs/clientManagementGetClientGrantedScopes.ts:
+    id: f4160f77922b
+    last_write_checksum: sha1:3844545975ef0d6df644e3cec245c79d4a4833ba
+    pristine_git_object: 38d8498bb130886d434431a85b6af97d968d8fbb
+  src/funcs/clientManagementGetClientGrantedScopesByPost.ts:
+    id: db3da3b02e42
+    last_write_checksum: sha1:b2e47f5b7c441c9ca5cf7fecb0ad113e516d575b
+    pristine_git_object: 7ebed6986bbe31a60af9b0c0ebea4094e68a96ec
   src/funcs/clientManagementGetGrantedScopes.ts:
     id: 9b906b687787
     last_write_checksum: sha1:1e3448a1f9cf71055b716a0a65072d0a1b462cd7
@@ -1947,6 +1895,10 @@ trackedFiles:
     id: d01aade6a9e6
     last_write_checksum: sha1:4b9b29bab6f98fd4fcec966a80f6a19f0e2a092a
     pristine_git_object: 70ae734784f6902d599720e3a1057e7391d1f2d3
+  src/funcs/clientManagementUpdateRequestableScopesByPost.ts:
+    id: ce5a09529e90
+    last_write_checksum: sha1:242dd1499604c6203c7aa83badc45498d972ac10
+    pristine_git_object: eef078e9bf2116f66a0c59edadc1c77cd03f512e
   src/funcs/clientManagementUpdateSecret.ts:
     id: 841b531f32e8
     last_write_checksum: sha1:5272a7a46579cc93a0f71e0310f9afd3804b2736
@@ -2023,14 +1975,6 @@ trackedFiles:
     id: ecb14e65ac29
     last_write_checksum: sha1:01e76d037c7de82d722b993780e0b2a1e8acc579
     pristine_git_object: 1dd3ed9227bc997524acba1eda021e1dff5962dd
-  src/funcs/joseObjectJoseVerifyApi.ts:
-    id: 570b9e865276
-    last_write_checksum: sha1:4cffc6d9bbef6db6fe0d9075987c6db106f8afb7
-    pristine_git_object: 99cb76874500445e67e35abf82c8f4051b62adae
-  src/funcs/jwkSetEndpointServiceJwksGetApi.ts:
-    id: 59317bf1f53f
-    last_write_checksum: sha1:9d31421678b4e7c36d9cf5027dbb1dc2b83b99e7
-    pristine_git_object: a4c7db78a69adcbeba1727bb2e67b0473e9fa904
   src/funcs/lifecycleGetApiLifecycleHealthcheck.ts:
     id: dd53405d35ce
     last_write_checksum: sha1:66622339af1b7e5879cdc6072c8f3c1529914127
@@ -2055,10 +1999,6 @@ trackedFiles:
     id: 3fd3bf5b990b
     last_write_checksum: sha1:fd06d1f6c21320f59af7431323b4a2591b84dc80
     pristine_git_object: 5d0e43bbac4227e22c9c4f4e6bd50d5989315839
-  src/funcs/serviceDelete.ts:
-    id: 1331a611be83
-    last_write_checksum: sha1:13186a5135e391581997dac2d980a8c61bc85227
-    pristine_git_object: 887dca52feee97133496e8babfb758eadab5399b
   src/funcs/serviceGet.ts:
     id: 6e04cbf5c130
     last_write_checksum: sha1:e50293fb884adc95b73eacd0b805e2055b9068f4
@@ -2613,8 +2553,8 @@ trackedFiles:
     pristine_git_object: c309809e4db65c5ed0128f767ea2d832f377c9d7
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:b82ea7a50ee8902e4ac8120d16ab64b3495d3bd3
-    pristine_git_object: d4a02394e97a6377f64cc6aa395dec9358348bcf
+    last_write_checksum: sha1:c1ccc4322718a73f1ea3e42a7dbc9ced05f6f15d
+    pristine_git_object: f9c01344ec9678bec5a2f83ae361a93b0d42ad78
   src/models/introspectionrequest.ts:
     id: 6d355f6b4328
     last_write_checksum: sha1:2125ef19afb46d385cb83b4e1dacd4863e52ac6a
@@ -2623,14 +2563,6 @@ trackedFiles:
     id: b319d3cc2718
     last_write_checksum: sha1:604e7a800e1bad44240e4bc9034d460c2f1ddbbb
     pristine_git_object: abcc3d4bd37064a752c0eb8549baaf29f93b068a
-  src/models/joseverifyrequest.ts:
-    id: 2d1c0055204d
-    last_write_checksum: sha1:c756fb1c62d9d97bf6d9b4e554beacde13f6bc45
-    pristine_git_object: 459f41990fa4fe35b450866cc5dd8370462c72a7
-  src/models/joseverifyresponse.ts:
-    id: 16a0d1d864d4
-    last_write_checksum: sha1:fb91d02ee2c65b61ebbc18f04d59b0c014b69acd
-    pristine_git_object: 02770a1ccb1b40a95254bd1f749006f507f564af
   src/models/jwealg.ts:
     id: 6f24db5b47ae
     last_write_checksum: sha1:a688119f01d4c32ddc3f78c9a188e707114b174d
@@ -2925,12 +2857,8 @@ trackedFiles:
     pristine_git_object: 5e2f3e314c249ea74ec634687e25392a4a481c8a
   src/models/operations/index.ts:
     id: 0d9ffaf774d2
-    last_write_checksum: sha1:748cd7d7545dde92842f91e818ac669a2e542eb1
-    pristine_git_object: a27cd2e02cdb5fb71c72afcc2d2ad3923d88de32
-  src/models/operations/joseverifyapi.ts:
-    id: 898abdd56a95
-    last_write_checksum: sha1:1ab2523a153b1add5426a3b4c2b0c9e4759ceafc
-    pristine_git_object: 1dbff7812d26f49aaed1e138ac19094e09ce7ccc
+    last_write_checksum: sha1:7b2c98cd6b66193e56ba40b5f190b2887d25db75
+    pristine_git_object: 2f452ea8f27286f430543a1dd837914916adee1f
   src/models/operations/nativessoapi.ts:
     id: efc25765e44a
     last_write_checksum: sha1:b14c4abd16d6f096ddcadbeae2e5da84d04a41dd
@@ -2951,10 +2879,6 @@ trackedFiles:
     id: 580d01cdeef2
     last_write_checksum: sha1:da4011fddba2c53f5403ff9e206a610349378fc8
     pristine_git_object: ea97c21560b51f1f07e7867df546346184a933bf
-  src/models/operations/servicedeleteapi.ts:
-    id: b0ec78ea17c6
-    last_write_checksum: sha1:e3c95b0937f5fd128cb155ea75cfd94cbd8ccab3
-    pristine_git_object: cbafab11d39e10f44baaf400cc09da08a7da3d44
   src/models/operations/servicegetapi.ts:
     id: 12d1947047b6
     last_write_checksum: sha1:bd20e7500dc3ebc09f4a0002d4cfa31114212491
@@ -2963,10 +2887,6 @@ trackedFiles:
     id: c388a45b3aa3
     last_write_checksum: sha1:fb42865784996ce2f52116a98c1026ca28b66829
     pristine_git_object: 8c77021c90560eadc7e9a0c13d31ac1b275f1f7b
-  src/models/operations/servicejwksgetapi.ts:
-    id: 37561e0d2ad9
-    last_write_checksum: sha1:9d6c5fd5f4cf5dcbb52e31e295cb30ba2eb2a78d
-    pristine_git_object: b3130dc37d6afe0d8d3b6e7083c5e20cae2306a7
   src/models/operations/serviceremoveidpapi.ts:
     id: f932a174b207
     last_write_checksum: sha1:6a6633785a518313d04ea88d3680f80a0df4b295
@@ -3075,10 +2995,6 @@ trackedFiles:
     id: 6ac8810938b7
     last_write_checksum: sha1:3e02e53e5392db475abf2f9d91bacfe29bb94847
     pristine_git_object: be846ab55576538fd2ae901d7e67b33ce2d08fd9
-  src/models/servicejwksgetresponse.ts:
-    id: 96183a412028
-    last_write_checksum: sha1:52c27e46f09fa455a9f93382536b7e72da46bdec
-    pristine_git_object: a494a4350fe1aeb65ccd25a7b8f2707df9a517b9
   src/models/serviceprofile.ts:
     id: 0749bde4a77c
     last_write_checksum: sha1:9f8c2331954dec8807f54eaca49437f34ef2b53f
@@ -3305,16 +3221,12 @@ trackedFiles:
     pristine_git_object: fae6230cefe860c6f6b623823d2578b4eed6c0d5
   src/sdk/client.ts:
     id: 163ab873aeef
-    last_write_checksum: sha1:000806350b897e92938de7b64b91a93dd9f2af3a
-    pristine_git_object: 5425f5137877930e7a5228793488a35bc6d01df8
-  src/sdk/clientmanagement1.ts:
-    id: 1f80309185b7
-    last_write_checksum: sha1:0c6b88455bf047cbf2075c9f38a8b621c6ecbc26
-    pristine_git_object: 42479bc3ad6e992b535f684f1c43671ef18258ac
-  src/sdk/clientmanagement2.ts:
-    id: 5de8b9881c83
-    last_write_checksum: sha1:17808f7e2c192d1ce24c350c9e0e1611cf29d26b
-    pristine_git_object: 6944d58eede1febb62a7f82c5dadb58f96a90028
+    last_write_checksum: sha1:96c689d919e0ee834e65400d9cbc95c8ad128bcc
+    pristine_git_object: f4fd32c94882c536eb4e7f916c194460062ad11d
+  src/sdk/clientmanagement.ts:
+    id: 8b63776e57b4
+    last_write_checksum: sha1:102626343880a83163dce88a69a77b056e9a0d39
+    pristine_git_object: c3011de1abde60178af371a0e16342eb4ca4654a
   src/sdk/deviceflow.ts:
     id: 1603c42f4eb5
     last_write_checksum: sha1:c171e0ee1909a548ef6beb3a062376793976b464
@@ -3343,14 +3255,6 @@ trackedFiles:
     id: a02fbe48d0e0
     last_write_checksum: sha1:a70d5122ae8205ae011838c220681818d011b736
     pristine_git_object: 51892f41a410b8745ff165d91662d91b3e652f6a
-  src/sdk/joseobject.ts:
-    id: a70e5d4b67d2
-    last_write_checksum: sha1:e64dc4164bfb7150eca7f7a6d6843b82f7255010
-    pristine_git_object: 84f3a48a84c6e8d7a9328907b29fab4ca1bfdcd9
-  src/sdk/jwksetendpoint.ts:
-    id: d43b8b956c4e
-    last_write_checksum: sha1:294d87cc9e1fd86a5721128c40b20616c7f10cba
-    pristine_git_object: 447bdb51fbc594d2ee2ca6934d29b7f76e2aaf5b
   src/sdk/lifecycle.ts:
     id: 663cfdd72f15
     last_write_checksum: sha1:337fcaa1b9dfe37cbe85d2ef85705b57640ba83a
@@ -3369,12 +3273,12 @@ trackedFiles:
     pristine_git_object: f83035911d36d65dac2b49a8d713ebeca5a02337
   src/sdk/sdk.ts:
     id: 784571af2f69
-    last_write_checksum: sha1:7b523c8026d3e674bd40367713635b3789ca415b
-    pristine_git_object: 5165c25d360a147f52c9ce7f71dc7c6de732ed9c
+    last_write_checksum: sha1:7fa4f0c52e1ba42d06da74dbb4e3cb58f2e24adb
+    pristine_git_object: 117116c1ea62620803625f9bbc87268caba0e91f
   src/sdk/service.ts:
     id: 5ffa100f898f
-    last_write_checksum: sha1:d93e5628fe24a96dd4866ad2d116db7f23cd679b
-    pristine_git_object: 13f9ff3ad0808d03cb42ef9909e90976f745833e
+    last_write_checksum: sha1:83e155e371253ebe443658b7f9a27b57fc6a3f0a
+    pristine_git_object: 17f433c51e2a02e8ce71d92e2ee3c3ff3998f4d5
   src/sdk/token.ts:
     id: 30fc0dd2597e
     last_write_checksum: sha1:26d55ccac08f14551a43093f95eeec4a88a6dc7e
@@ -4931,7 +4835,27 @@ examples:
         "429":
           application/json: {}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `authlete.authorization.processRequest()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.service.list()`: \n  *  `response.services[]` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.service.update()`: \n  *  `request.service` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.client.get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `authlete.client.list()`: \n  *  `response.clients[]` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.verifiableCredentials.issue()`: \n  *  `response.action` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.federation.registration()`: \n  *  `response.client` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.federation.configuration()`: \n  *  `request.requestBody` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.dynamicClientRegistration.delete()`: \n  *  `response.client` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.dynamicClientRegistration.update()`: \n  *  `response.client` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.client.create()`: \n  *  `request.client` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.client.update()`: \n  *  `request.client` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.client.updateForm()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.dynamicClientRegistration.get()`: \n  *  `response.client` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.dynamicClientRegistration.register()`: \n  *  `response.client` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.service.get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.pushedAuthorization.create()`: \n  *  `response.clientAuthMethod.enum(spiffeJwt)` **Added** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.authorization.management.updateTicket()`: \n  *  `request.authorizationTicketUpdateRequest.info` **Changed** (Breaking ⚠️)\n  *  `error.status[429]` **Added**\n* `authlete.token.management.reissueIdToken()`:  `error.status[429]` **Added**\n* `authlete.userinfo.process()`:  `error.status[429]` **Added**\n* `authlete.client.management.updateAuthorizations()`:  `error.status[429]` **Added**\n* `authlete.client.management.deleteAuthorizations()`:  `error.status[429]` **Added**\n* `authlete.client.management.getGrantedScopes()`:  `error.status[429]` **Added**\n* `authlete.client.management.deleteGrantedScopes()`:  `error.status[429]` **Added**\n* `authlete.client.management.getRequestableScopes()`:  `error.status[429]` **Added**\n* `authlete.client.management.updateRequestableScopes()`:  `error.status[429]` **Added**\n* `authlete.client.management.deleteRequestableScopes()`:  `error.status[429]` **Added**\n* `authlete.clientManagement.clientAuthorizationGetListApi()`:  `error.status[429]` **Added**\n* `authlete.clientManagement.clientAuthorizationGetListApiPost()`:  `error.status[429]` **Added**\n* `authlete.clientManagement.clientAuthorizationDeleteApi()`:  `error.status[429]` **Added**\n* `authlete.clientManagement.clientAuthorizationDeleteApiPost()`:  `error.status[429]` **Added**\n* `authlete.clientManagement.clientGrantedScopesGetApi()`:  `error.status[429]` **Added**\n* `authlete.clientManagement.clientGrantedScopesGetApiPost()`:  `error.status[429]` **Added**\n* `authlete.clientManagement.clientGrantedScopesDeleteApi()`:  `error.status[429]` **Added**\n* `authlete.clientManagement.clientExtensionRequestablesScopesUpdateApiPost()`:  `error.status[429]` **Added**\n* `authlete.client.management.updateSecret()`:  `error.status[429]` **Added**\n* `authlete.authorization.fail()`:  `error.status[429]` **Added**\n* `authlete.authorization.issue()`: \n  *  `response.consentedClaims` **Added**\n  *  `error.status[429]` **Added**\n* `authlete.authorization.management.getTicketInfo()`:  `error.status[429]` **Added**\n* `authlete.client.management.refreshSecret()`:  `error.status[429]` **Added**\n* `authlete.client.management.updateLockFlag()`:  `error.status[429]` **Added**\n* `authlete.token.process()`:  `error.status[429]` **Added**\n* `authlete.token.fail()`:  `error.status[429]` **Added**\n* `authlete.token.issue()`:  `error.status[429]` **Added**\n* `authlete.client.delete()`:  `error.status[429]` **Added**\n* `authlete.token.management.list()`:  `error.status[429]` **Added**\n* `authlete.token.management.create()`:  `error.status[429]` **Added**\n* `authlete.token.management.update()`:  `error.status[429]` **Added**\n* `authlete.token.management.delete()`:  `error.status[429]` **Added**\n* `authlete.token.management.revoke()`:  `error.status[429]` **Added**\n* `authlete.introspection.process()`:  `error.status[429]` **Added**\n* `authlete.introspection.standardProcess()`:  `error.status[429]` **Added**\n* `authlete.revocation.process()`:  `error.status[429]` **Added**\n* `authlete.client.management.listAuthorizations()`:  `error.status[429]` **Added**\n* `authlete.userinfo.issue()`:  `error.status[429]` **Added**\n* `authlete.grantManagement.processRequest()`:  `error.status[429]` **Added**\n* `authlete.jwkSetEndpoint.serviceJwksGetApi()`:  `error.status[429]` **Added**\n* `authlete.service.getConfiguration()`:  `error.status[429]` **Added**\n* `authlete.service.delete()`:  `error.status[429]` **Added**\n* `authlete.backChannelLogout.backchannelLogoutTokenApi()`: **Added**\n* `authlete.audit.getTypes()`: **Added**\n* `authlete.ciba.processAuthentication()`:  `error.status[429]` **Added**\n* `authlete.ciba.issue()`:  `error.status[429]` **Added**\n* `authlete.ciba.fail()`:  `error.status[429]` **Added**\n* `authlete.ciba.complete()`: \n  *  `response.consentedClaims` **Added**\n  *  `error.status[429]` **Added**\n* `authlete.deviceFlow.authorization()`:  `error.status[429]` **Added**\n* `authlete.deviceFlow.verification()`:  `error.status[429]` **Added**\n* `authlete.deviceFlow.complete()`: \n  *  `response.consentedClaims` **Added**\n  *  `error.status[429]` **Added**\n* `authlete.joseObject.joseVerifyApi()`:  `error.status[429]` **Added**\n* `authlete.audit.get()`: **Added**\n* `authlete.service.remove()`: **Added**\n* `authlete.hardwareSecurityKeys.create()`:  `error.status[429]` **Added**\n* `authlete.hardwareSecurityKeys.delete()`:  `error.status[429]` **Added**\n* `authlete.hardwareSecurityKeys.get()`:  `error.status[429]` **Added**\n* `authlete.hardwareSecurityKeys.list()`:  `error.status[429]` **Added**\n* `authlete.verifiableCredentials.getMetadata()`:  `error.status[429]` **Added**\n* `authlete.verifiableCredentials.getJwtIssuer()`:  `error.status[429]` **Added**\n* `authlete.verifiableCredentials.getJwks()`:  `error.status[429]` **Added**\n* `authlete.verifiableCredentials.createOffer()`:  `error.status[429]` **Added**\n* `authlete.verifiableCredentials.getOfferInfo()`:  `error.status[429]` **Added**\n* `authlete.verifiableCredentials.parse()`: \n  *  `response.info.credentialConfigurationId` **Added**\n  *  `error.status[429]` **Added**\n* `authlete.service.create()`: **Added**\n* `authlete.verifiableCredentials.batchParse()`: \n  *  `response.info[].credentialConfigurationId` **Added**\n  *  `error.status[429]` **Added**\n* `authlete.verifiableCredentials.batchIssue()`:  `error.status[429]` **Added**\n* `authlete.verifiableCredentials.deferredParse()`: \n  *  `response.info.credentialConfigurationId` **Added**\n  *  `error.status[429]` **Added**\n* `authlete.verifiableCredentials.deferredIssue()`:  `error.status[429]` **Added**\n* `authlete.nativeSso.process()`:  `error.status[429]` **Added**\n* `authlete.nativeSso.logout()`:  `error.status[429]` **Added**\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `authlete.client.management.getAuthorizedApplications()`: **Added**
+  * `authlete.client.management.getAuthorizedApplicationsByPost()`: **Added**
+  * `authlete.client.management.deleteClientTokens()`: **Added**
+  * `authlete.client.management.deleteClientTokensByPost()`: **Added**
+  * `authlete.client.management.getClientGrantedScopes()`: **Added**
+  * `authlete.client.management.getClientGrantedScopesByPost()`: **Added**
+  * `authlete.client.management.deleteClientGrantedScopes()`: **Added**
+  * `authlete.client.management.updateRequestableScopesByPost()`: **Added**
+  * `authlete.service.delete()`: **Removed** (Breaking ⚠️)
+  * `authlete.clientManagement.clientAuthorizationGetListApi()`: **Removed** (Breaking ⚠️)
+  * `authlete.clientManagement.clientAuthorizationGetListApiPost()`: **Removed** (Breaking ⚠️)
+  * `authlete.clientManagement.clientAuthorizationDeleteApi()`: **Removed** (Breaking ⚠️)
+  * `authlete.clientManagement.clientAuthorizationDeleteApiPost()`: **Removed** (Breaking ⚠️)
+  * `authlete.clientManagement.clientGrantedScopesGetApi()`: **Removed** (Breaking ⚠️)
+  * `authlete.clientManagement.clientGrantedScopesGetApiPost()`: **Removed** (Breaking ⚠️)
+  * `authlete.clientManagement.clientGrantedScopesDeleteApi()`: **Removed** (Breaking ⚠️)
+  * `authlete.clientManagement.clientExtensionRequestablesScopesUpdateApiPost()`: **Removed** (Breaking ⚠️)
+  * `authlete.jwkSetEndpoint.serviceJwksGetApi()`: **Removed** (Breaking ⚠️)
+  * `authlete.joseObject.joseVerifyApi()`: **Removed** (Breaking ⚠️)
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

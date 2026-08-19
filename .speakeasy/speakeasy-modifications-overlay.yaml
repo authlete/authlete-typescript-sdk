@@ -459,7 +459,7 @@ actions:
     - target: $["paths"]["/api/service/create"]
       remove: true
       x-speakeasy-metadata:
-        after: removed
+        after: removed (Create Service, non-IDP)
         before: present
         created_at: 1761810000000
         reviewed_at: 1761810000000
@@ -504,16 +504,14 @@ actions:
         created_at: 1761727785993
         reviewed_at: 1761727785993
         type: method-name
-    - target: $["paths"]["/api/{serviceId}/service/delete"]["delete"]
-      update:
-        x-speakeasy-group: service
-        x-speakeasy-name-override: delete
+    - target: $["paths"]["/api/{serviceId}/service/delete"]
+      remove: true
       x-speakeasy-metadata:
-        after: sdk.service.delete()
-        before: ""
-        created_at: 1761727785993
-        reviewed_at: 1761727785993
-        type: method-name
+        after: removed
+        before: present
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: remove
     - target: $["paths"]["/api/{serviceId}/auth/token"]["post"]
       update:
         x-speakeasy-group: token
@@ -816,21 +814,99 @@ actions:
         created_at: 1761810600000
         reviewed_at: 1761810600000
         type: method-name
-    - target: $["paths"]["/api/{serviceId}/jose/verify"]["post"]
-      update:
-        x-speakeasy-internal: true
+    - target: $["paths"]["/api/{serviceId}/jose/verify"]
+      remove: true
       x-speakeasy-metadata:
-        after: marked internal
-        before: public
-        created_at: 1761811000000
-        reviewed_at: 1761811000000
-        type: internalize
-    - target: $["paths"]["/api/{serviceId}/service/jwks/get"]["get"]
-      update:
-        x-speakeasy-internal: true
+        after: removed
+        before: internal
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: remove
+    - target: $["paths"]["/api/{serviceId}/service/jwks/get"]
+      remove: true
       x-speakeasy-metadata:
-        after: marked internal
-        before: public
-        created_at: 1761811000000
-        reviewed_at: 1761811000000
-        type: internalize
+        after: removed
+        before: internal
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: remove
+    - target: $["paths"]["/api/{serviceId}/client/authorization/get/list"]["get"]
+      update:
+        x-speakeasy-group: client.management
+        x-speakeasy-name-override: getAuthorizedApplications
+      x-speakeasy-metadata:
+        after: sdk.client.management.getAuthorizedApplications()
+        before: sdk.clientManagement.clientAuthorizationGetListApi()
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: method-name
+    - target: $["paths"]["/api/{serviceId}/client/authorization/get/list"]["post"]
+      update:
+        x-speakeasy-group: client.management
+        x-speakeasy-name-override: getAuthorizedApplicationsByPost
+      x-speakeasy-metadata:
+        after: sdk.client.management.getAuthorizedApplicationsByPost()
+        before: sdk.clientManagement.clientAuthorizationGetListApiPost()
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: method-name
+    - target: $["paths"]["/api/{serviceId}/client/authorization/delete/{clientId}"]["delete"]
+      update:
+        x-speakeasy-group: client.management
+        x-speakeasy-name-override: deleteClientTokens
+      x-speakeasy-metadata:
+        after: sdk.client.management.deleteClientTokens()
+        before: sdk.clientManagement.clientAuthorizationDeleteApi()
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: method-name
+    - target: $["paths"]["/api/{serviceId}/client/authorization/delete/{clientId}"]["post"]
+      update:
+        x-speakeasy-group: client.management
+        x-speakeasy-name-override: deleteClientTokensByPost
+      x-speakeasy-metadata:
+        after: sdk.client.management.deleteClientTokensByPost()
+        before: sdk.clientManagement.clientAuthorizationDeleteApiPost()
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: method-name
+    - target: $["paths"]["/api/{serviceId}/client/granted_scopes/get/{clientId}"]["get"]
+      update:
+        x-speakeasy-group: client.management
+        x-speakeasy-name-override: getClientGrantedScopes
+      x-speakeasy-metadata:
+        after: sdk.client.management.getClientGrantedScopes()
+        before: sdk.clientManagement.clientGrantedScopesGetApi()
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: method-name
+    - target: $["paths"]["/api/{serviceId}/client/granted_scopes/get/{clientId}"]["post"]
+      update:
+        x-speakeasy-group: client.management
+        x-speakeasy-name-override: getClientGrantedScopesByPost
+      x-speakeasy-metadata:
+        after: sdk.client.management.getClientGrantedScopesByPost()
+        before: sdk.clientManagement.clientGrantedScopesGetApiPost()
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: method-name
+    - target: $["paths"]["/api/{serviceId}/client/granted_scopes/delete/{clientId}"]["delete"]
+      update:
+        x-speakeasy-group: client.management
+        x-speakeasy-name-override: deleteClientGrantedScopes
+      x-speakeasy-metadata:
+        after: sdk.client.management.deleteClientGrantedScopes()
+        before: sdk.clientManagement.clientGrantedScopesDeleteApi()
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: method-name
+    - target: $["paths"]["/api/{serviceId}/client/extension/requestable_scopes/update/{clientId}"]["post"]
+      update:
+        x-speakeasy-group: client.management
+        x-speakeasy-name-override: updateRequestableScopesByPost
+      x-speakeasy-metadata:
+        after: sdk.client.management.updateRequestableScopesByPost()
+        before: sdk.clientManagement.clientExtensionRequestablesScopesUpdateApiPost()
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: method-name
