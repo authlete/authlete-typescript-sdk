@@ -699,59 +699,6 @@ paths:
         - Service Management
       x-speakeasy-group: service
       x-speakeasy-name-override: update
-  /api/{serviceId}/service/delete:
-    delete:
-      summary: Delete Service ⚡
-      description: |
-        Delete a service.
-      parameters:
-        - in: path
-          name: serviceId
-          description: A service ID.
-          schema:
-            type: string
-          required: true
-      responses:
-        '204':
-          description: The service was successfully deleted.
-        '400':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-      operationId: service_delete_api
-      x-code-samples:
-        - lang: shell
-          label: curl
-          source: |
-            curl -v -X DELETE https://us.authlete.com/api/9503564192/service/delete/21653835348762 \
-            -H 'Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F'
-        - lang: java
-          label: java
-          source: |
-            AuthleteConfiguration conf = ...;
-            AuthleteApi api = AuthleteApiFactory.create(conf);
-
-            long serviceId = ...;
-
-            api.deleteService(serviceId);
-        - lang: python
-          source: |
-            conf = ...
-            api = AuthleteApiImpl(conf)
-
-            serviceId = ...
-
-            api.deleteService(serviceId)
-      tags:
-        - Service Management
-      x-speakeasy-group: service
-      x-speakeasy-name-override: delete
   /api/service:
     servers:
       - url: https://login.authlete.com
@@ -1946,6 +1893,8 @@ paths:
       operationId: client_authorization_get_list_api
       tags:
         - Client Management
+      x-speakeasy-group: client.management
+      x-speakeasy-name-override: getAuthorizedApplications
     post:
       summary: Get Authorized Applications
       description: |
@@ -1988,6 +1937,8 @@ paths:
       operationId: client_authorization_get_list_api_post
       tags:
         - Client Management
+      x-speakeasy-group: client.management
+      x-speakeasy-name-override: getAuthorizedApplicationsByPost
     x-code-samples:
       - lang: shell
         label: curl
@@ -2224,6 +2175,8 @@ paths:
       operationId: client_authorization_delete_api
       tags:
         - Client Management
+      x-speakeasy-group: client.management
+      x-speakeasy-name-override: deleteClientTokens
     post:
       summary: Delete Client Tokens
       description: |
@@ -2277,6 +2230,8 @@ paths:
       operationId: client_authorization_delete_api_post
       tags:
         - Client Management
+      x-speakeasy-group: client.management
+      x-speakeasy-name-override: deleteClientTokensByPost
     x-code-samples:
       - lang: shell
         label: curl
@@ -2433,6 +2388,8 @@ paths:
       operationId: client_granted_scopes_get_api
       tags:
         - Client Management
+      x-speakeasy-group: client.management
+      x-speakeasy-name-override: getClientGrantedScopes
     post:
       summary: Get Granted Scopes
       description: |
@@ -2486,6 +2443,8 @@ paths:
       operationId: client_granted_scopes_get_api_post
       tags:
         - Client Management
+      x-speakeasy-group: client.management
+      x-speakeasy-name-override: getClientGrantedScopesByPost
     x-code-samples:
       - lang: shell
         label: curl
@@ -2635,6 +2594,8 @@ paths:
             api.deleteClientAuthorization(clientId, subject)
       tags:
         - Client Management
+      x-speakeasy-group: client.management
+      x-speakeasy-name-override: deleteClientGrantedScopes
   /api/{serviceId}/client/granted_scopes/delete/{clientId}/{subject}:
     delete:
       summary: Delete Granted Scopes (by Subject)
@@ -5630,109 +5591,6 @@ paths:
         - Grant Management Endpoint
       x-speakeasy-group: grantManagement
       x-speakeasy-name-override: processRequest
-  /api/{serviceId}/service/jwks/get:
-    get:
-      summary: Get JWK Set
-      description: |
-        This API gathers JWK Set information for a service so that its client applications can verify
-        signatures by the service and encrypt their requests to the service.
-
-        This API is supposed to be called from within the implementation of the jwk set endpoint of the
-        service where the service that supports OpenID Connect must expose its JWK Set information so that
-        client applications can verify signatures by the service and encrypt their requests to the service.
-        The URI of the endpoint can be found as the value of `jwks_uri` in [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
-        if the service supports [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html).
-      parameters:
-        - in: path
-          name: serviceId
-          description: A service ID.
-          required: true
-          schema:
-            type: string
-        - in: query
-          name: includePrivateKeys
-          schema:
-            type: boolean
-          required: false
-          description: The boolean value that indicates whether the response should include the private keys associated with the service or not. If `true`, the private keys are included in the response. The default value is `false`.
-        - in: query
-          name: pretty
-          schema:
-            type: boolean
-          required: false
-          description: This boolean value indicates whether the JSON in the response should be formatted or not. If `true`, the JSON in the response is pretty-formatted. The default value is `false`.
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/service_jwks_get_response'
-              example:
-                keys:
-                  - e: AQAB
-                    'n': kVXi0XB8LGYZfFPXymaszWjBQsO22tasQH3PEiPeLSymBHbp7PtqM8O8xblqhbxV-24lKNs2zDugQaBiVt4zpalyYxL5kqnfY247priZRfmeUatdECh81T-i3VcLpz_M5yfljfVp3sFdaURUQNA3ow9VtUfvPIxN_9YIxXN1zP2nLP5amC2XA8xMt5iubRwbbPbrLyg69zTOzosDVhRTSs5adHK5HNwVn8wCCZPbU7u1cQD8hFNn8xlQcmOmJjSXUQ9slBpLc7G-dUEOI59RxiPd4R44GtSe8gA1WFXvOAdtGjivSm8BAbxuNO8HFtDJmpVl9YsDr9FsxirFl9ZPKs
-                    kty: RSA
-                    use: sig
-                    kid: rsa-sig-001
-                  - e: AQAB
-                    'n': lQui3_DlrkLs_dyaOQBOclphIIRTTMo0gNlnAgfEM9xjbYQJQzi0CLtO6eseecE3HtvDBWVTw-rMM_NMJTlPTO0_ODWvmJRjXy9DZGEm05LFd_qr6jZ7cdOvjD7zUC3GI9TIokPbjGzueBPJjtAvv_tAazRFCQQfiFy7sQR3u-J4tM8fNo9szo9H09R_eA29llZ3hU39JDKs9nzG60I1mVZtJYPx0_bnO8eYeVDHqoj4SZ4jeru3iX9iDeccH_cDm3M87UomUh-Ri4LlAxXgewDvOaPxAef9ADkDvBVmRo5t60_PJxQ3Tug2EKK-xF1_T7I4TxgS7ga8entMmCxLca
-                    kty: RSA
-                    use: enc
-                    kid: rsa-enc-001
-                  - crv: P-256
-                    kty: EC
-                    use: sig
-                    'y': 824At71mYpbGK2oOCKAL1Z2scLPrbVwhM882v3a9gBq
-                    x: ZXE3h9BxCyyb_Z9ZJ5qH4Vx650y09qwI1EpZO4o4OmL
-                    kid: ec256-sig-001
-                  - crv: P-256
-                    kty: EC
-                    use: enc
-                    'y': j80Y3leZHHnxC_gN-Ols_l_VfEBQkfGDFFDG5LNJKMl
-                    x: xAdEkaExYWGGAC1xYjwxzvqcaCyDloylZk04yiE9_OF
-                    kid: ec256-enc-001
-        '204':
-          description: No JWK Set available for this service
-        '400':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-      operationId: service_jwks_get_api
-      x-code-samples:
-        - lang: shell
-          label: curl
-          source: |
-            curl -v https://us.authlete.com/api/21653835348762/service/jwks/get?pretty=true \
-            -H 'Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F'
-        - lang: java
-          label: java
-          source: |
-            AuthleteConfiguration conf = ...;
-            AuthleteApi api = AuthleteApiFactory.create(conf);
-
-            boolean pretty = true;
-            boolean includePrivateKey = false;
-
-            api.getServiceJwks(pretty, includePrivateKey);
-        - lang: python
-          source: |
-            conf = ...
-            api = AuthleteApiImpl(conf)
-
-            pretty = True
-            includePrivateKey = False
-
-            api.getServiceJwks(pretty, includePrivateKey)
-      tags:
-        - JWK Set Endpoint
-      x-speakeasy-internal: true
   /api/{serviceId}/service/configuration:
     get:
       summary: Get Service Configuration
@@ -8717,98 +8575,6 @@ paths:
         - Token Operations
       x-speakeasy-group: token.management
       x-speakeasy-name-override: revoke
-  /api/{serviceId}/jose/verify:
-    post:
-      summary: Verify JOSE
-      description: |
-        This API verifies a JOSE object.
-      parameters:
-        - in: path
-          name: serviceId
-          description: A service ID.
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: false
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/jose_verify_request'
-            example:
-              jose: eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE1NTk4MTE3NTAsImlzcyI6IjU3Mjk3NDA4ODY3In0K.csmdholMVcmjqHe59YWgLGNvm7I5Whp4phQCoGxyrlRGMnTgsfxtwyxBgMXQqEPD5q5k9FaEWNk37K8uAtSwrA
-              clockSkew: 100
-              signedByClient: true
-              clientIdentifier: '57297408867'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/jose_verify_request'
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/jose_verify_response'
-              example:
-                resultCode: A160001
-                resultMessage: '[A160001] The JOSE is valid.'
-                signatureValid: true
-                valid: true
-          links:
-            token_exchange:
-              $ref: '#/components/links/token_exchange'
-            token_introspect:
-              $ref: '#/components/links/token_introspect'
-        '400':
-          $ref: '#/components/responses/400'
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-      operationId: jose_verify_api
-      x-code-samples:
-        - lang: shell
-          label: curl
-          source: |
-            curl -v https://us.authlete.com/api/21653835348762/jose/verify \
-            -H 'Authorization: Bearer V5a40R6dWvw2gMkCOBFdZcM95q4HC0Z-T0YKD9-nR6F' \
-            -d jose=eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE1NTk4MTE3NTAsImlzcyI6IjU3Mjk3NDA4ODY3In0K.csmdholMVcmjqHe59YWgLGNvm7I5Whp4phQCoGxyrlRGMnTgsfxtwyxBgMXQqEPD5q5k9FaEWNk37K8uAtSwrA \
-            -d clockSkew=100 \
-            -d signedByClient=true \
-            -d clientIdentifier=57297408867
-        - lang: java
-          label: java
-          source: |
-            AuthleteConfiguration conf = ...;
-            AuthleteApi api = AuthleteApiFactory.create(conf);
-
-            JoseVerifyRequest req = new JoseVerifyRequest();
-            req.setJose("eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE1NTk4MTE3NTAsImlzcyI6IjU3Mjk3NDA4ODY3In0K.csmdholMVcmjqHe59YWgLGNvm7I5Whp4phQCoGxyrlRGMnTgsfxtw");
-            req.setClockSkew(100);
-            req.setSinedByClient(true);
-            req.setClientIdentifier("57297408867");
-
-            api.verifyJose(request);
-        - lang: python
-          source: |
-            conf = ...
-            api = AuthleteApiImpl(conf)
-
-            req = JoseVerifyRequest()
-            req.jose = 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE1NTk4MTE3NTAsImlzcyI6IjU3Mjk3NDA4ODY3In0K.csmdholMVcmjqHe59YWgLGNvm7I5Whp4phQCoGxyrlRGMnTgsfxtw'
-            req.clockSkew = 100
-            req.sinedByClient = True
-            req.clientIdentifier = '57297408867'
-
-            api.verifyJose(req)
-      tags:
-        - Jose Object
-      x-speakeasy-internal: true
   /api/{serviceId}/federation/configuration:
     post:
       summary: Process Entity Configuration Request
@@ -9097,6 +8863,8 @@ paths:
       operationId: client_extension_requestables_scopes_update_api_post
       tags:
         - Client Management
+      x-speakeasy-group: client.management
+      x-speakeasy-name-override: updateRequestableScopesByPost
     put:
       summary: Update Requestable Scopes
       description: |

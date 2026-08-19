@@ -11,12 +11,12 @@ import { clientUpdateForm } from "../funcs/clientUpdateForm.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
-import { ClientManagement1 } from "./clientmanagement1.js";
+import { ClientManagement } from "./clientmanagement.js";
 
 export class Client extends ClientSDK {
-  private _management?: ClientManagement1;
-  get management(): ClientManagement1 {
-    return (this._management ??= new ClientManagement1(this._options));
+  private _management?: ClientManagement;
+  get management(): ClientManagement {
+    return (this._management ??= new ClientManagement(this._options));
   }
 
   /**

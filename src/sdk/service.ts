@@ -3,7 +3,6 @@
  */
 
 import { serviceCreate } from "../funcs/serviceCreate.js";
-import { serviceDelete } from "../funcs/serviceDelete.js";
 import { serviceGet } from "../funcs/serviceGet.js";
 import { serviceGetConfiguration } from "../funcs/serviceGetConfiguration.js";
 import { serviceList } from "../funcs/serviceList.js";
@@ -70,23 +69,6 @@ export class Service extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ServiceUpdateApiResponse> {
     return unwrapAsync(serviceUpdate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Delete Service ⚡
-   *
-   * @remarks
-   * Delete a service.
-   */
-  async delete(
-    request: operations.ServiceDeleteApiRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ServiceDeleteApiResponse | undefined> {
-    return unwrapAsync(serviceDelete(
       this,
       request,
       options,

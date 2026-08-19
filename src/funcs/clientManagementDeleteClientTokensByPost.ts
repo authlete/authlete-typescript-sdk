@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  *
  * The subject parameter is required.
  */
-export function clientManagementClientAuthorizationDeleteApiPost(
+export function clientManagementDeleteClientTokensByPost(
   client: AuthleteCore,
   request: operations.ClientAuthorizationDeleteApiPostRequest,
   options?: RequestOptions,

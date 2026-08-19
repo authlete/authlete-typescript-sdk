@@ -27,18 +27,20 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get Granted Scopes
+ * Get Authorized Applications
  *
  * @remarks
- * Get the set of scopes that a user has granted to a client application.
+ * Get a list of client applications that an end-user has authorized.
+ *
+ * The subject parameter is required and can be provided as a query parameter.
  */
-export function clientManagementClientGrantedScopesGetApi(
+export function clientManagementGetAuthorizedApplications(
   client: AuthleteCore,
-  request: operations.ClientGrantedScopesGetApiRequest,
+  request: operations.ClientAuthorizationGetListApiRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.ClientGrantedScopesGetApiResponse,
+    operations.ClientAuthorizationGetListApiResponse,
     | errors.ResultError
     | AuthleteError
     | ResponseValidationError
@@ -59,12 +61,12 @@ export function clientManagementClientGrantedScopesGetApi(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.ClientGrantedScopesGetApiRequest,
+  request: operations.ClientAuthorizationGetListApiRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.ClientGrantedScopesGetApiResponse,
+      operations.ClientAuthorizationGetListApiResponse,
       | errors.ResultError
       | AuthleteError
       | ResponseValidationError
@@ -81,7 +83,9 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.ClientGrantedScopesGetApiRequest$outboundSchema.parse(value),
+      operations.ClientAuthorizationGetListApiRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -91,20 +95,19 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    clientId: encodeSimple("clientId", payload.clientId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
     serviceId: encodeSimple("serviceId", payload.serviceId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc(
-    "/api/{serviceId}/client/granted_scopes/get/{clientId}",
-  )(pathParams);
+  const path = pathToFunc("/api/{serviceId}/client/authorization/get/list")(
+    pathParams,
+  );
 
   const query = encodeFormQuery({
+    "developer": payload.developer,
+    "end": payload.end,
+    "start": payload.start,
     "subject": payload.subject,
   });
 
@@ -119,7 +122,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "client_granted_scopes_get_api",
+    operationID: "client_authorization_get_list_api",
     oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
@@ -174,7 +177,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.ClientGrantedScopesGetApiResponse,
+    operations.ClientAuthorizationGetListApiResponse,
     | errors.ResultError
     | AuthleteError
     | ResponseValidationError
@@ -185,9 +188,11 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.ClientGrantedScopesGetApiResponse$inboundSchema, {
-      key: "Result",
-    }),
+    M.json(
+      200,
+      operations.ClientAuthorizationGetListApiResponse$inboundSchema,
+      { key: "Result" },
+    ),
     M.jsonErr([400, 401, 403], errors.ResultError$inboundSchema),
     M.jsonErr(429, errors.ResultError$inboundSchema, { hdrs: true }),
     M.jsonErr(500, errors.ResultError$inboundSchema),

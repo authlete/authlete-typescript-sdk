@@ -207,30 +207,27 @@ run();
 * [updateForm](docs/sdks/client/README.md#updateform) - Update Client
 * [delete](docs/sdks/client/README.md#delete) - Delete Client ⚡
 
-#### [Client.Management](docs/sdks/clientmanagement1/README.md)
+#### [Client.Management](docs/sdks/clientmanagement/README.md)
 
-* [updateLockFlag](docs/sdks/clientmanagement1/README.md#updatelockflag) - Update Client Lock
-* [refreshSecret](docs/sdks/clientmanagement1/README.md#refreshsecret) - Rotate Client Secret
-* [updateSecret](docs/sdks/clientmanagement1/README.md#updatesecret) - Update Client Secret
-* [listAuthorizations](docs/sdks/clientmanagement1/README.md#listauthorizations) - Get Authorized Applications (by Subject)
-* [updateAuthorizations](docs/sdks/clientmanagement1/README.md#updateauthorizations) - Update Client Tokens
-* [deleteAuthorizations](docs/sdks/clientmanagement1/README.md#deleteauthorizations) - Delete Client Tokens (by Subject)
-* [getGrantedScopes](docs/sdks/clientmanagement1/README.md#getgrantedscopes) - Get Granted Scopes (by Subject)
-* [deleteGrantedScopes](docs/sdks/clientmanagement1/README.md#deletegrantedscopes) - Delete Granted Scopes (by Subject)
-* [getRequestableScopes](docs/sdks/clientmanagement1/README.md#getrequestablescopes) - Get Requestable Scopes
-* [updateRequestableScopes](docs/sdks/clientmanagement1/README.md#updaterequestablescopes) - Update Requestable Scopes
-* [deleteRequestableScopes](docs/sdks/clientmanagement1/README.md#deleterequestablescopes) - Delete Requestable Scopes
-
-### [ClientManagement](docs/sdks/clientmanagement2/README.md)
-
-* [clientAuthorizationGetListApi](docs/sdks/clientmanagement2/README.md#clientauthorizationgetlistapi) - Get Authorized Applications
-* [clientAuthorizationGetListApiPost](docs/sdks/clientmanagement2/README.md#clientauthorizationgetlistapipost) - Get Authorized Applications
-* [clientAuthorizationDeleteApi](docs/sdks/clientmanagement2/README.md#clientauthorizationdeleteapi) - Delete Client Tokens
-* [clientAuthorizationDeleteApiPost](docs/sdks/clientmanagement2/README.md#clientauthorizationdeleteapipost) - Delete Client Tokens
-* [clientGrantedScopesGetApi](docs/sdks/clientmanagement2/README.md#clientgrantedscopesgetapi) - Get Granted Scopes
-* [clientGrantedScopesGetApiPost](docs/sdks/clientmanagement2/README.md#clientgrantedscopesgetapipost) - Get Granted Scopes
-* [clientGrantedScopesDeleteApi](docs/sdks/clientmanagement2/README.md#clientgrantedscopesdeleteapi) - Delete Granted Scopes
-* [clientExtensionRequestablesScopesUpdateApiPost](docs/sdks/clientmanagement2/README.md#clientextensionrequestablesscopesupdateapipost) - Update Requestable Scopes
+* [updateLockFlag](docs/sdks/clientmanagement/README.md#updatelockflag) - Update Client Lock
+* [refreshSecret](docs/sdks/clientmanagement/README.md#refreshsecret) - Rotate Client Secret
+* [updateSecret](docs/sdks/clientmanagement/README.md#updatesecret) - Update Client Secret
+* [getAuthorizedApplications](docs/sdks/clientmanagement/README.md#getauthorizedapplications) - Get Authorized Applications
+* [getAuthorizedApplicationsByPost](docs/sdks/clientmanagement/README.md#getauthorizedapplicationsbypost) - Get Authorized Applications
+* [listAuthorizations](docs/sdks/clientmanagement/README.md#listauthorizations) - Get Authorized Applications (by Subject)
+* [updateAuthorizations](docs/sdks/clientmanagement/README.md#updateauthorizations) - Update Client Tokens
+* [deleteClientTokens](docs/sdks/clientmanagement/README.md#deleteclienttokens) - Delete Client Tokens
+* [deleteClientTokensByPost](docs/sdks/clientmanagement/README.md#deleteclienttokensbypost) - Delete Client Tokens
+* [deleteAuthorizations](docs/sdks/clientmanagement/README.md#deleteauthorizations) - Delete Client Tokens (by Subject)
+* [getClientGrantedScopes](docs/sdks/clientmanagement/README.md#getclientgrantedscopes) - Get Granted Scopes
+* [getClientGrantedScopesByPost](docs/sdks/clientmanagement/README.md#getclientgrantedscopesbypost) - Get Granted Scopes
+* [getGrantedScopes](docs/sdks/clientmanagement/README.md#getgrantedscopes) - Get Granted Scopes (by Subject)
+* [deleteClientGrantedScopes](docs/sdks/clientmanagement/README.md#deleteclientgrantedscopes) - Delete Granted Scopes
+* [deleteGrantedScopes](docs/sdks/clientmanagement/README.md#deletegrantedscopes) - Delete Granted Scopes (by Subject)
+* [getRequestableScopes](docs/sdks/clientmanagement/README.md#getrequestablescopes) - Get Requestable Scopes
+* [updateRequestableScopesByPost](docs/sdks/clientmanagement/README.md#updaterequestablescopesbypost) - Update Requestable Scopes
+* [updateRequestableScopes](docs/sdks/clientmanagement/README.md#updaterequestablescopes) - Update Requestable Scopes
+* [deleteRequestableScopes](docs/sdks/clientmanagement/README.md#deleterequestablescopes) - Delete Requestable Scopes
 
 ### [DeviceFlow](docs/sdks/deviceflow/README.md)
 
@@ -266,14 +263,6 @@ run();
 * [process](docs/sdks/introspection/README.md#process) - Process Introspection Request
 * [standardProcess](docs/sdks/introspection/README.md#standardprocess) - Process OAuth 2.0 Introspection Request
 
-### [JoseObject](docs/sdks/joseobject/README.md)
-
-* [joseVerifyApi](docs/sdks/joseobject/README.md#joseverifyapi) - Verify JOSE
-
-### [JWKSetEndpoint](docs/sdks/jwksetendpoint/README.md)
-
-* [serviceJwksGetApi](docs/sdks/jwksetendpoint/README.md#servicejwksgetapi) - Get JWK Set
-
 ### [Lifecycle](docs/sdks/lifecycle/README.md)
 
 * [getApiLifecycleHealthcheck](docs/sdks/lifecycle/README.md#getapilifecyclehealthcheck) - Health Check
@@ -296,7 +285,6 @@ run();
 * [get](docs/sdks/service/README.md#get) - Get Service
 * [list](docs/sdks/service/README.md#list) - List Services
 * [update](docs/sdks/service/README.md#update) - Update Service
-* [delete](docs/sdks/service/README.md#delete) - Delete Service ⚡
 * [create](docs/sdks/service/README.md#create) - Create Service (IDP)
 * [remove](docs/sdks/service/README.md#remove) - Remove Service (IDP) ⚡
 * [getConfiguration](docs/sdks/service/README.md#getconfiguration) - Get Service Configuration
@@ -369,25 +357,25 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`clientDelete`](docs/sdks/client/README.md#delete) - Delete Client ⚡
 - [`clientGet`](docs/sdks/client/README.md#get) - Get Client
 - [`clientList`](docs/sdks/client/README.md#list) - List Clients
-- [`clientManagementClientAuthorizationDeleteApi`](docs/sdks/clientmanagement2/README.md#clientauthorizationdeleteapi) - Delete Client Tokens
-- [`clientManagementClientAuthorizationDeleteApiPost`](docs/sdks/clientmanagement2/README.md#clientauthorizationdeleteapipost) - Delete Client Tokens
-- [`clientManagementClientAuthorizationGetListApi`](docs/sdks/clientmanagement2/README.md#clientauthorizationgetlistapi) - Get Authorized Applications
-- [`clientManagementClientAuthorizationGetListApiPost`](docs/sdks/clientmanagement2/README.md#clientauthorizationgetlistapipost) - Get Authorized Applications
-- [`clientManagementClientExtensionRequestablesScopesUpdateApiPost`](docs/sdks/clientmanagement2/README.md#clientextensionrequestablesscopesupdateapipost) - Update Requestable Scopes
-- [`clientManagementClientGrantedScopesDeleteApi`](docs/sdks/clientmanagement2/README.md#clientgrantedscopesdeleteapi) - Delete Granted Scopes
-- [`clientManagementClientGrantedScopesGetApi`](docs/sdks/clientmanagement2/README.md#clientgrantedscopesgetapi) - Get Granted Scopes
-- [`clientManagementClientGrantedScopesGetApiPost`](docs/sdks/clientmanagement2/README.md#clientgrantedscopesgetapipost) - Get Granted Scopes
-- [`clientManagementDeleteAuthorizations`](docs/sdks/clientmanagement1/README.md#deleteauthorizations) - Delete Client Tokens (by Subject)
-- [`clientManagementDeleteGrantedScopes`](docs/sdks/clientmanagement1/README.md#deletegrantedscopes) - Delete Granted Scopes (by Subject)
-- [`clientManagementDeleteRequestableScopes`](docs/sdks/clientmanagement1/README.md#deleterequestablescopes) - Delete Requestable Scopes
-- [`clientManagementGetGrantedScopes`](docs/sdks/clientmanagement1/README.md#getgrantedscopes) - Get Granted Scopes (by Subject)
-- [`clientManagementGetRequestableScopes`](docs/sdks/clientmanagement1/README.md#getrequestablescopes) - Get Requestable Scopes
-- [`clientManagementListAuthorizations`](docs/sdks/clientmanagement1/README.md#listauthorizations) - Get Authorized Applications (by Subject)
-- [`clientManagementRefreshSecret`](docs/sdks/clientmanagement1/README.md#refreshsecret) - Rotate Client Secret
-- [`clientManagementUpdateAuthorizations`](docs/sdks/clientmanagement1/README.md#updateauthorizations) - Update Client Tokens
-- [`clientManagementUpdateLockFlag`](docs/sdks/clientmanagement1/README.md#updatelockflag) - Update Client Lock
-- [`clientManagementUpdateRequestableScopes`](docs/sdks/clientmanagement1/README.md#updaterequestablescopes) - Update Requestable Scopes
-- [`clientManagementUpdateSecret`](docs/sdks/clientmanagement1/README.md#updatesecret) - Update Client Secret
+- [`clientManagementDeleteAuthorizations`](docs/sdks/clientmanagement/README.md#deleteauthorizations) - Delete Client Tokens (by Subject)
+- [`clientManagementDeleteClientGrantedScopes`](docs/sdks/clientmanagement/README.md#deleteclientgrantedscopes) - Delete Granted Scopes
+- [`clientManagementDeleteClientTokens`](docs/sdks/clientmanagement/README.md#deleteclienttokens) - Delete Client Tokens
+- [`clientManagementDeleteClientTokensByPost`](docs/sdks/clientmanagement/README.md#deleteclienttokensbypost) - Delete Client Tokens
+- [`clientManagementDeleteGrantedScopes`](docs/sdks/clientmanagement/README.md#deletegrantedscopes) - Delete Granted Scopes (by Subject)
+- [`clientManagementDeleteRequestableScopes`](docs/sdks/clientmanagement/README.md#deleterequestablescopes) - Delete Requestable Scopes
+- [`clientManagementGetAuthorizedApplications`](docs/sdks/clientmanagement/README.md#getauthorizedapplications) - Get Authorized Applications
+- [`clientManagementGetAuthorizedApplicationsByPost`](docs/sdks/clientmanagement/README.md#getauthorizedapplicationsbypost) - Get Authorized Applications
+- [`clientManagementGetClientGrantedScopes`](docs/sdks/clientmanagement/README.md#getclientgrantedscopes) - Get Granted Scopes
+- [`clientManagementGetClientGrantedScopesByPost`](docs/sdks/clientmanagement/README.md#getclientgrantedscopesbypost) - Get Granted Scopes
+- [`clientManagementGetGrantedScopes`](docs/sdks/clientmanagement/README.md#getgrantedscopes) - Get Granted Scopes (by Subject)
+- [`clientManagementGetRequestableScopes`](docs/sdks/clientmanagement/README.md#getrequestablescopes) - Get Requestable Scopes
+- [`clientManagementListAuthorizations`](docs/sdks/clientmanagement/README.md#listauthorizations) - Get Authorized Applications (by Subject)
+- [`clientManagementRefreshSecret`](docs/sdks/clientmanagement/README.md#refreshsecret) - Rotate Client Secret
+- [`clientManagementUpdateAuthorizations`](docs/sdks/clientmanagement/README.md#updateauthorizations) - Update Client Tokens
+- [`clientManagementUpdateLockFlag`](docs/sdks/clientmanagement/README.md#updatelockflag) - Update Client Lock
+- [`clientManagementUpdateRequestableScopes`](docs/sdks/clientmanagement/README.md#updaterequestablescopes) - Update Requestable Scopes
+- [`clientManagementUpdateRequestableScopesByPost`](docs/sdks/clientmanagement/README.md#updaterequestablescopesbypost) - Update Requestable Scopes
+- [`clientManagementUpdateSecret`](docs/sdks/clientmanagement/README.md#updatesecret) - Update Client Secret
 - [`clientUpdate`](docs/sdks/client/README.md#update) - Update Client
 - [`clientUpdateForm`](docs/sdks/client/README.md#updateform) - Update Client
 - [`deviceFlowAuthorization`](docs/sdks/deviceflow/README.md#authorization) - Process Device Authorization Request
@@ -406,15 +394,12 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`hardwareSecurityKeysList`](docs/sdks/hardwaresecuritykeys/README.md#list) - List Security Keys
 - [`introspectionProcess`](docs/sdks/introspection/README.md#process) - Process Introspection Request
 - [`introspectionStandardProcess`](docs/sdks/introspection/README.md#standardprocess) - Process OAuth 2.0 Introspection Request
-- [`joseObjectJoseVerifyApi`](docs/sdks/joseobject/README.md#joseverifyapi) - Verify JOSE
-- [`jwkSetEndpointServiceJwksGetApi`](docs/sdks/jwksetendpoint/README.md#servicejwksgetapi) - Get JWK Set
 - [`lifecycleGetApiLifecycleHealthcheck`](docs/sdks/lifecycle/README.md#getapilifecyclehealthcheck) - Health Check
 - [`nativeSsoLogout`](docs/sdks/nativesso/README.md#logout) - Native SSO Logout Processing
 - [`nativeSsoProcess`](docs/sdks/nativesso/README.md#process) - Native SSO Processing
 - [`pushedAuthorizationCreate`](docs/sdks/pushedauthorization/README.md#create) - Process Pushed Authorization Request
 - [`revocationProcess`](docs/sdks/revocation/README.md#process) - Process Revocation Request
 - [`serviceCreate`](docs/sdks/service/README.md#create) - Create Service (IDP)
-- [`serviceDelete`](docs/sdks/service/README.md#delete) - Delete Service ⚡
 - [`serviceGet`](docs/sdks/service/README.md#get) - Get Service
 - [`serviceGetConfiguration`](docs/sdks/service/README.md#getconfiguration) - Get Service Configuration
 - [`serviceList`](docs/sdks/service/README.md#list) - List Services
@@ -618,7 +603,7 @@ run();
 
 
 **Inherit from [`AuthleteError`](./src/models/errors/authleteerror.ts)**:
-* [`IdpError`](./src/models/errors/idperror.ts): Error response returned by the Authlete IdP server. Unlike the main API's `resultCode`/`resultMessage` format, IdP errors carry a human-readable `error` message, optionally accompanied by contextual fields (such as `organizationId` or `apiServerId`). Request validation failures instead return an `errors` array of per-field messages. Applicable to 4 of 89 methods.*
+* [`IdpError`](./src/models/errors/idperror.ts): Error response returned by the Authlete IdP server. Unlike the main API's `resultCode`/`resultMessage` format, IdP errors carry a human-readable `error` message, optionally accompanied by contextual fields (such as `organizationId` or `apiServerId`). Request validation failures instead return an `errors` array of per-field messages. Applicable to 4 of 86 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
