@@ -910,3 +910,17 @@ actions:
         created_at: 1761900000000
         reviewed_at: 1761900000000
         type: method-name
+    - target: $
+      update:
+        x-speakeasy-globals:
+          parameters:
+            - name: serviceId
+              in: path
+              schema:
+                type: string
+      x-speakeasy-metadata:
+        after: serviceId settable once on the client
+        before: serviceId required on every call
+        created_at: 1761900000000
+        reviewed_at: 1761900000000
+        type: globals
