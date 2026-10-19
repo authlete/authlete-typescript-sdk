@@ -6,11 +6,9 @@ import * as z from "zod/v3";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * The reason of the failure of the backchannel authentication request. This request parameter is
+ * The reason of the failure of the backchannel authentication request. This request parameter is not mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR` is used as a reason.
  *
  * @remarks
- * not mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR`
- * is used as a reason.
  */
 export const BackchannelAuthenticationFailRequestReason = {
   AccessDenied: "ACCESS_DENIED",
@@ -24,11 +22,9 @@ export const BackchannelAuthenticationFailRequestReason = {
   UnknownUserId: "UNKNOWN_USER_ID",
 } as const;
 /**
- * The reason of the failure of the backchannel authentication request. This request parameter is
+ * The reason of the failure of the backchannel authentication request. This request parameter is not mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR` is used as a reason.
  *
  * @remarks
- * not mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR`
- * is used as a reason.
  */
 export type BackchannelAuthenticationFailRequestReason = ClosedEnum<
   typeof BackchannelAuthenticationFailRequestReason
@@ -36,34 +32,27 @@ export type BackchannelAuthenticationFailRequestReason = ClosedEnum<
 
 export type BackchannelAuthenticationFailRequest = {
   /**
-   * The ticket which should be deleted on a call of Authlete's `/backchannel/authentication/fail` API.
+   * The ticket which should be deleted on a call of Authlete's `/backchannel/authentication/fail` API. This request parameter is not mandatory but optional. If this request parameter is given and the ticket belongs to the service, the specified ticket is deleted from the database. Giving this parameter is recommended to clean up the storage area for the service.
    *
    * @remarks
-   * This request parameter is not mandatory but optional. If this request parameter is given and the
-   * ticket belongs to the service, the specified ticket is deleted from the database. Giving this
-   * parameter is recommended to clean up the storage area for the service.
    */
   ticket: string;
   /**
-   * The reason of the failure of the backchannel authentication request. This request parameter is
+   * The reason of the failure of the backchannel authentication request. This request parameter is not mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR` is used as a reason.
    *
    * @remarks
-   * not mandatory but optional. However, giving this parameter is recommended. If omitted, `SERVER_ERROR`
-   * is used as a reason.
    */
   reason: BackchannelAuthenticationFailRequestReason;
   /**
-   * The description of the error. This corresponds to the `error_description` property in the response
+   * The description of the error. This corresponds to the `error_description` property in the response to the client.
    *
    * @remarks
-   * to the client.
    */
   errorDescription?: string | undefined;
   /**
-   * The URI of a document which describes the error in detail. If this optional request parameter
+   * The URI of a document which describes the error in detail. If this optional request parameter is given, its value is used as the value of the `error_uri` property.
    *
    * @remarks
-   * is given, its value is used as the value of the `error_uri` property.
    */
   errorUri?: string | undefined;
 };

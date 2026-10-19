@@ -9,11 +9,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * The next action that the implementation of the JWT issuer metadata
+ * The next action that the implementation of the JWT issuer metadata endpoint (`/.well-known/jwt-issuer`) should take after getting a response from Authlete's `/vci/jwtissuer` API.
  *
  * @remarks
- * endpoint (`/.well-known/jwt-issuer`) should take after getting
- * a response from Authlete's `/vci/jwtissuer` API.
  */
 export const VciJwtissuerResponseAction = {
   Ok: "OK",
@@ -21,11 +19,9 @@ export const VciJwtissuerResponseAction = {
   InternalServerError: "INTERNAL_SERVER_ERROR",
 } as const;
 /**
- * The next action that the implementation of the JWT issuer metadata
+ * The next action that the implementation of the JWT issuer metadata endpoint (`/.well-known/jwt-issuer`) should take after getting a response from Authlete's `/vci/jwtissuer` API.
  *
  * @remarks
- * endpoint (`/.well-known/jwt-issuer`) should take after getting
- * a response from Authlete's `/vci/jwtissuer` API.
  */
 export type VciJwtissuerResponseAction = ClosedEnum<
   typeof VciJwtissuerResponseAction
@@ -41,18 +37,15 @@ export type VciJwtissuerResponse = {
    */
   resultMessage?: string | undefined;
   /**
-   * The next action that the implementation of the JWT issuer metadata
+   * The next action that the implementation of the JWT issuer metadata endpoint (`/.well-known/jwt-issuer`) should take after getting a response from Authlete's `/vci/jwtissuer` API.
    *
    * @remarks
-   * endpoint (`/.well-known/jwt-issuer`) should take after getting
-   * a response from Authlete's `/vci/jwtissuer` API.
    */
   action?: VciJwtissuerResponseAction | undefined;
   /**
-   * Get the content that the implementation of the credential issuer
+   * Get the content that the implementation of the credential issuer metadata endpoint should use when it constructs a response.
    *
    * @remarks
-   * metadata endpoint should use when it constructs a response.
    */
   responseContent?: string | undefined;
 };

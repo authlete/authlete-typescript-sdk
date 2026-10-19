@@ -6,10 +6,9 @@ import * as z from "zod/v3";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
+ * This is the encryption algorithm to be used when encrypting a JWT on client or server side. Depending upon the context, this refers to encryption done by the client or by the server. For instance:
  *
  * @remarks
- * Depending upon the context, this refers to encryption done by the client or by the server. For instance:
  *   - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response
  *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
  *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
@@ -23,10 +22,9 @@ export const JweEnc = {
   A256Gcm: "A256GCM",
 } as const;
 /**
- * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
+ * This is the encryption algorithm to be used when encrypting a JWT on client or server side. Depending upon the context, this refers to encryption done by the client or by the server. For instance:
  *
  * @remarks
- * Depending upon the context, this refers to encryption done by the client or by the server. For instance:
  *   - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response
  *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
  *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens

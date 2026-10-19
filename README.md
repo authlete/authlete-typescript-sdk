@@ -42,6 +42,7 @@ If you have any questions or need assistance, our team is here to help:
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
+  * [Global Parameters](#global-parameters)
   * [Pagination](#pagination)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
@@ -117,13 +118,12 @@ Make sure that you create a token with the correct scope. If you face permission
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.service.get({
-    serviceId: "<id>",
-  });
+  const result = await authlete.service.get({});
 
   console.log(result);
 }
@@ -150,12 +150,11 @@ import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
+  serviceId: "<id>",
 });
 
 async function run() {
-  const result = await authlete.service.get({
-    serviceId: "<id>",
-  });
+  const result = await authlete.service.get({});
 
   console.log(result);
 }
@@ -206,6 +205,8 @@ run();
 * [update](docs/sdks/client/README.md#update) - Update Client
 * [updateForm](docs/sdks/client/README.md#updateform) - Update Client
 * [delete](docs/sdks/client/README.md#delete) - Delete Client ⚡
+* [listByCursor](docs/sdks/client/README.md#listbycursor) - List Clients (Cursor Pagination)
+* [search](docs/sdks/client/README.md#search) - Search Clients
 
 #### [Client.Management](docs/sdks/clientmanagement/README.md)
 
@@ -357,6 +358,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`clientDelete`](docs/sdks/client/README.md#delete) - Delete Client ⚡
 - [`clientGet`](docs/sdks/client/README.md#get) - Get Client
 - [`clientList`](docs/sdks/client/README.md#list) - List Clients
+- [`clientListByCursor`](docs/sdks/client/README.md#listbycursor) - List Clients (Cursor Pagination)
 - [`clientManagementDeleteAuthorizations`](docs/sdks/clientmanagement/README.md#deleteauthorizations) - Delete Client Tokens (by Subject)
 - [`clientManagementDeleteClientGrantedScopes`](docs/sdks/clientmanagement/README.md#deleteclientgrantedscopes) - Delete Granted Scopes
 - [`clientManagementDeleteClientTokens`](docs/sdks/clientmanagement/README.md#deleteclienttokens) - Delete Client Tokens
@@ -376,6 +378,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`clientManagementUpdateRequestableScopes`](docs/sdks/clientmanagement/README.md#updaterequestablescopes) - Update Requestable Scopes
 - [`clientManagementUpdateRequestableScopesByPost`](docs/sdks/clientmanagement/README.md#updaterequestablescopesbypost) - Update Requestable Scopes
 - [`clientManagementUpdateSecret`](docs/sdks/clientmanagement/README.md#updatesecret) - Update Client Secret
+- [`clientSearch`](docs/sdks/client/README.md#search) - Search Clients
 - [`clientUpdate`](docs/sdks/client/README.md#update) - Update Client
 - [`clientUpdateForm`](docs/sdks/client/README.md#updateform) - Update Client
 - [`deviceFlowAuthorization`](docs/sdks/deviceflow/README.md#authorization) - Process Device Authorization Request
@@ -431,6 +434,44 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
 
+<!-- Start Global Parameters [global-parameters] -->
+## Global Parameters
+
+A parameter is configured globally. This parameter may be set on the SDK client instance itself during initialization. When configured as an option during SDK initialization, This global value will be used as the default on the operations that use it. When such operations are called, there is a place in each to override the global value, if needed.
+
+For example, you can set `serviceId` to `"<id>"` at SDK initialization and then you do not have to pass the same value on calls to operations like `get`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
+
+
+### Available Globals
+
+The following global parameter is available.
+Global parameters can also be set via environment variable.
+
+| Name      | Type   | Description              | Environment         |
+| --------- | ------ | ------------------------ | ------------------- |
+| serviceId | string | The serviceId parameter. | AUTHLETE_SERVICE_ID |
+
+### Example
+
+```typescript
+import { Authlete } from "@authlete/typescript-sdk";
+
+const authlete = new Authlete({
+  serviceId: "<id>",
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const result = await authlete.service.get({});
+
+  console.log(result);
+}
+
+run();
+
+```
+<!-- End Global Parameters [global-parameters] -->
+
 <!-- Start Pagination [pagination] -->
 ## Pagination
 
@@ -477,13 +518,12 @@ To change the default retry strategy for a single API call, simply provide a ret
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.service.get({
-    serviceId: "<id>",
-  }, {
+  const result = await authlete.service.get({}, {
     retries: {
       strategy: "backoff",
       backoff: {
@@ -518,13 +558,12 @@ const authlete = new Authlete({
     },
     retryConnectionErrors: false,
   },
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.service.get({
-    serviceId: "<id>",
-  });
+  const result = await authlete.service.get({});
 
   console.log(result);
 }
@@ -554,14 +593,13 @@ import { Authlete } from "@authlete/typescript-sdk";
 import * as errors from "@authlete/typescript-sdk/models/errors";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   try {
-    const result = await authlete.service.get({
-      serviceId: "<id>",
-    });
+    const result = await authlete.service.get({});
 
     console.log(result);
   } catch (error) {
@@ -603,7 +641,7 @@ run();
 
 
 **Inherit from [`AuthleteError`](./src/models/errors/authleteerror.ts)**:
-* [`IdpError`](./src/models/errors/idperror.ts): Error response returned by the Authlete IdP server. Unlike the main API's `resultCode`/`resultMessage` format, IdP errors carry a human-readable `error` message, optionally accompanied by contextual fields (such as `organizationId` or `apiServerId`). Request validation failures instead return an `errors` array of per-field messages. Applicable to 4 of 86 methods.*
+* [`IdpError`](./src/models/errors/idperror.ts): Error response returned by the Authlete IdP server. Unlike the main API's `resultCode`/`resultMessage` format, IdP errors carry a human-readable `error` message, optionally accompanied by contextual fields (such as `organizationId` or `apiServerId`). Request validation failures instead return an `errors` array of per-field messages. Applicable to 4 of 88 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -632,13 +670,12 @@ import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
   serverIdx: 0,
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.service.get({
-    serviceId: "<id>",
-  });
+  const result = await authlete.service.get({});
 
   console.log(result);
 }
@@ -655,13 +692,12 @@ import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
   serverURL: "https://br.authlete.com",
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.service.get({
-    serviceId: "<id>",
-  });
+  const result = await authlete.service.get({});
 
   console.log(result);
 }

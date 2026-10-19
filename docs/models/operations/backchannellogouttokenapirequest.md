@@ -6,7 +6,6 @@
 import { BackchannelLogoutTokenApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: BackchannelLogoutTokenApiRequest = {
-  serviceId: "<id>",
   backchannelLogoutTokenRequest: {
     clientIdentifier: "<value>",
   },
@@ -17,5 +16,5 @@ let value: BackchannelLogoutTokenApiRequest = {
 
 | Field                                                                                 | Type                                                                                  | Required                                                                              | Description                                                                           |
 | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `serviceId`                                                                           | *string*                                                                              | :heavy_check_mark:                                                                    | A service ID.                                                                         |
+| `serviceId`                                                                           | *string*                                                                              | :heavy_minus_sign:                                                                    | A service ID.                                                                         |
 | `backchannelLogoutTokenRequest`                                                       | [models.BackchannelLogoutTokenRequest](../../models/backchannellogouttokenrequest.md) | :heavy_check_mark:                                                                    | N/A                                                                                   |

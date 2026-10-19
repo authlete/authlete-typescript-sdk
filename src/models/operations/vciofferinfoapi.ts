@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type VciOfferInfoApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type VciOfferInfoApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   vciOfferInfoRequest: models.VciOfferInfoRequest;
 };
 
@@ -24,7 +28,7 @@ export type VciOfferInfoApiResponse = {
 
 /** @internal */
 export type VciOfferInfoApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   vci_offer_info_request: models.VciOfferInfoRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const VciOfferInfoApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   VciOfferInfoApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   vciOfferInfoRequest: models.VciOfferInfoRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

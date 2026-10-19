@@ -43,10 +43,9 @@ export type NativeSsoResponse = {
    */
   action?: NativeSsoResponseAction | undefined;
   /**
-   * The response content that can be used as the message body of the token response that should be
+   * The response content that can be used as the message body of the token response that should be returned from the token endpoint.
    *
    * @remarks
-   * returned from the token endpoint.
    */
   responseContent?: string | undefined;
   /**

@@ -23,11 +23,9 @@ export type TokenIssueRequest = {
    */
   subject: string;
   /**
-   * Extra properties to associate with a newly created access token. Note that properties parameter is accepted only
+   * Extra properties to associate with a newly created access token. Note that properties parameter is accepted only when `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded` if you want to specify properties.
    *
    * @remarks
-   * when `Content-Type` of the request is `application/json`, so don't use `application/x-www-form-urlencoded`
-   * if you want to specify properties.
    */
   properties?: Array<Property> | undefined;
   /**
@@ -43,23 +41,19 @@ export type TokenIssueRequest = {
    */
   accessToken?: string | undefined;
   /**
-   * The duration (in seconds) of the access token that may be issued as a result of the Authlete
+   * The duration (in seconds) of the access token that may be issued as a result of the Authlete API call.
    *
    * @remarks
-   * API call.
    *
-   * When this request parameter holds a positive integer, it is used as the duration of the access
-   * token in. In other cases, this request parameter is ignored.
+   * When this request parameter holds a positive integer, it is used as the duration of the access token in. In other cases, this request parameter is ignored.
    */
   accessTokenDuration?: number | undefined;
   /**
-   * The duration (in seconds) of the refresh token that may be issued as a result of the Authlete
+   * The duration (in seconds) of the refresh token that may be issued as a result of the Authlete API call.
    *
    * @remarks
-   * API call.
    *
-   * When this request parameter holds a positive integer, it is used as the duration of the refresh
-   * token in. In other cases, this request parameter is ignored.
+   * When this request parameter holds a positive integer, it is used as the duration of the refresh token in. In other cases, this request parameter is ignored.
    */
   refreshTokenDuration?: number | undefined;
 };

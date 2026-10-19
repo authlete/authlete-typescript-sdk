@@ -9,11 +9,7 @@
 
 ## configuration
 
-This API gathers the federation configuration about a service.
-The authorization server implementation should
-retrieve the value of the `action`
-response parameter from the API response and take the following steps
-according to the value.
+This API gathers the federation configuration about a service. The authorization server implementation should retrieve the value of the `action` response parameter from the API response and take the following steps according to the value.
 
 
 ### Example Usage
@@ -23,12 +19,12 @@ according to the value.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.federation.configuration({
-    serviceId: "<id>",
     requestBody: {},
   });
 
@@ -49,12 +45,12 @@ import { federationConfiguration } from "@authlete/typescript-sdk/funcs/federati
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await federationConfiguration(authlete, {
-    serviceId: "<id>",
     requestBody: {},
   });
   if (res.ok) {
@@ -92,27 +88,8 @@ run();
 
 ## registration
 
-The Authlete API is for implementations of the **federation registration
-endpoint** that accepts "explicit client registration". Its details are
-defined in [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).
-The endpoint accepts `POST` requests whose `Content-Type`
-is either of the following.
-1. `application/entity-statement+jwt`- `application/trust-chain+json`
-When the `Content-Type` of a request is
-`application/entity-statement+jwt`, the content of the request is
-the entity configuration of a relying party that is to be registered.
-In this case, the implementation of the federation registration endpoint
-should call Authlete's `/federation/registration` API with the
-entity configuration set to the `entityConfiguration` request
-parameter.
-On the other hand, when the `Content-Type` of a request is
-`application/trust-chain+json`, the content of the request is a
-JSON array that contains entity statements in JWT format. The sequence
-of the entity statements composes the trust chain of a relying party
-that is to be registered. In this case, the implementation of the
-federation registration endpoint should call Authlete's
-`/federation/registration` API with the trust chain set to the
-`trustChain` request parameter.
+The Authlete API is for implementations of the **federation registration endpoint** that accepts "explicit client registration". Its details are defined in [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html). The endpoint accepts `POST` requests whose `Content-Type` is either of the following.
+1. `application/entity-statement+jwt`- `application/trust-chain+json` When the `Content-Type` of a request is `application/entity-statement+jwt`, the content of the request is the entity configuration of a relying party that is to be registered. In this case, the implementation of the federation registration endpoint should call Authlete's `/federation/registration` API with the entity configuration set to the `entityConfiguration` request parameter. On the other hand, when the `Content-Type` of a request is `application/trust-chain+json`, the content of the request is a JSON array that contains entity statements in JWT format. The sequence of the entity statements composes the trust chain of a relying party that is to be registered. In this case, the implementation of the federation registration endpoint should call Authlete's `/federation/registration` API with the trust chain set to the `trustChain` request parameter.
 
 
 ### Example Usage
@@ -122,12 +99,12 @@ federation registration endpoint should call Authlete's
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.federation.registration({
-    serviceId: "<id>",
     federationRegistrationRequest: {},
   });
 
@@ -148,12 +125,12 @@ import { federationRegistration } from "@authlete/typescript-sdk/funcs/federatio
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await federationRegistration(authlete, {
-    serviceId: "<id>",
     federationRegistrationRequest: {},
   });
   if (res.ok) {

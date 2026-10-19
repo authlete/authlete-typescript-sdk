@@ -1,7 +1,6 @@
 # VciSingleIssueResponseAction
 
-The next action that the implementation of the credential endpoint
-should take.
+The next action that the implementation of the credential endpoint should take.
 
 
 ## Example Usage

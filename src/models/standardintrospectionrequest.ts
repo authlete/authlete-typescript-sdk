@@ -6,16 +6,11 @@ import * as z from "zod/v3";
 
 export type StandardIntrospectionRequest = {
   /**
-   * Request parameters which comply with the introspection request defined
+   * Request parameters which comply with the introspection request defined in "[2.1. Introspection Request](https://datatracker.ietf.org/doc/html/rfc7662#section-2.1)" in RFC 7662.
    *
    * @remarks
-   * in "[2.1. Introspection Request](https://datatracker.ietf.org/doc/html/rfc7662#section-2.1)" in
-   * RFC 7662.
    *
-   * The implementation of the introspection endpoint of your authorization server will receive an
-   * HTTP POST [[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231)] request with parameters
-   * in the `application/x-www-form-urlencoded` format. It is the entity body of the request that
-   * Authlete's  `/api/auth/introspection/standard` API expects as the value of `parameters`.
+   * The implementation of the introspection endpoint of your authorization server will receive an HTTP POST [[RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231)] request with parameters in the `application/x-www-form-urlencoded` format. It is the entity body of the request that Authlete's  `/api/auth/introspection/standard` API expects as the value of `parameters`.
    */
   parameters: string;
   /**
@@ -23,13 +18,9 @@ export type StandardIntrospectionRequest = {
    *
    * @remarks
    *
-   * Authlete has a mechanism whereby to associate arbitrary key-value pairs with an access token.
-   * Each key-value pair has a hidden attribute. By default, key-value pairs whose hidden attribute
-   * is set to `true` are not embedded in the standard introspection output.
+   * Authlete has a mechanism whereby to associate arbitrary key-value pairs with an access token. Each key-value pair has a hidden attribute. By default, key-value pairs whose hidden attribute is set to `true` are not embedded in the standard introspection output.
    *
-   * If the `withHiddenProperties` request parameter is given and its value is `true`, `/api/auth/introspection/standard
-   * API includes all the associated key-value pairs into the output regardless of the value of the
-   * hidden attribute.
+   * If the `withHiddenProperties` request parameter is given and its value is `true`, `/api/auth/introspection/standard API includes all the associated key-value pairs into the output regardless of the value of the hidden attribute.
    */
   withHiddenProperties?: boolean | undefined;
   /**
@@ -37,12 +28,9 @@ export type StandardIntrospectionRequest = {
    *
    * @remarks
    *
-   * If the `rsUri` request parameter is given and the token has audience values, Authlete checks if
-   * the value of the `rsUri` request parameter is contained in the audience values. If not contained,
-   * Authlete generates an introspection response with the `active` property set to `false`.
+   * If the `rsUri` request parameter is given and the token has audience values, Authlete checks if the value of the `rsUri` request parameter is contained in the audience values. If not contained, Authlete generates an introspection response with the `active` property set to `false`.
    *
-   * The `rsUri` request parameter is required when the resource server requests a JWT introspection
-   * response, i.e., when the value of the `httpAcceptHeader` request parameter is set to `"application/token-introspection+jwt"`.
+   * The `rsUri` request parameter is required when the resource server requests a JWT introspection response, i.e., when the value of the `httpAcceptHeader` request parameter is set to `"application/token-introspection+jwt"`.
    */
   rsUri?: string | undefined;
   /**
@@ -50,40 +38,29 @@ export type StandardIntrospectionRequest = {
    *
    * @remarks
    *
-   * If the value of the `httpAcceptHeader` request parameter is `"application/token-introspection+jwt"`,
-   * Authlete generates a JWT introspection response. See "[4. Requesting a JWT Response](https://www.rfc-editor.org/rfc/rfc9701.html#section-4)"
-   * of "[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)"
-   * for more details.
+   * If the value of the `httpAcceptHeader` request parameter is `"application/token-introspection+jwt"`, Authlete generates a JWT introspection response. See "[4. Requesting a JWT Response](https://www.rfc-editor.org/rfc/rfc9701.html#section-4)" of "[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)" for more details.
    */
   httpAcceptHeader?: string | undefined;
   /**
-   * The JWS `alg` algorithm for signing the introspection response. This parameter corresponds to
+   * The JWS `alg` algorithm for signing the introspection response. This parameter corresponds to `introspection_signed_response_alg` defined in "[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)" of "[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)".
    *
    * @remarks
-   * `introspection_signed_response_alg` defined in "[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)"
-   * of "[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)".
    *
    * The default value is `RS256`.
    */
   introspectionSignAlg?: string | undefined;
   /**
-   * The JWE `alg` algorithm for encrypting the introspection response. This parameter corresponds
+   * The JWE `alg` algorithm for encrypting the introspection response. This parameter corresponds to `introspection_encrypted_response_alg` defined in "[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)" of "[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)".
    *
    * @remarks
-   * to `introspection_encrypted_response_alg` defined in "[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)"
-   * of "[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)".
    *
-   * If the `introspectionEncryptionAlg` request parameter is specified, Authlete generates a JWT
-   * introspection response encrypted with the algorithm by this property and the algorithm specified by
-   * the `introspectionEncryptionEnc` request parameter.
+   * If the `introspectionEncryptionAlg` request parameter is specified, Authlete generates a JWT introspection response encrypted with the algorithm by this property and the algorithm specified by the `introspectionEncryptionEnc` request parameter.
    */
   introspectionEncryptionAlg?: string | undefined;
   /**
-   * The JWE `enc` algorithm for encrypting the introspection response. This parameter corresponds
+   * The JWE `enc` algorithm for encrypting the introspection response. This parameter corresponds to `introspection_encrypted_response_enc` defined in "[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)" of "[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)".
    *
    * @remarks
-   * to `introspection_encrypted_response_enc` defined in "[6. Client Metadata](https://www.rfc-editor.org/rfc/rfc9701.html#section-6)"
-   * of "[RFC 9701: JWT Response for OAuth Token Introspection](https://www.rfc-editor.org/rfc/rfc9701.html)".
    *
    * The default value is `A128CBC_HS256`.
    */
@@ -93,8 +70,7 @@ export type StandardIntrospectionRequest = {
    *
    * @remarks
    *
-   * The `sharedKeyForSign` request parameter is required when the introspection response is requested
-   * to be signed with a symmetric algorithm.
+   * The `sharedKeyForSign` request parameter is required when the introspection response is requested to be signed with a symmetric algorithm.
    */
   sharedKeyForSign?: string | undefined;
   /**
@@ -102,8 +78,7 @@ export type StandardIntrospectionRequest = {
    *
    * @remarks
    *
-   * The `sharedKeyForEncryption` request parameter is required when the introspection response is
-   * requested to be encrypted with a symmetric algorithm.
+   * The `sharedKeyForEncryption` request parameter is required when the introspection response is requested to be encrypted with a symmetric algorithm.
    */
   sharedKeyForEncryption?: string | undefined;
   /**
@@ -111,8 +86,7 @@ export type StandardIntrospectionRequest = {
    *
    * @remarks
    *
-   * The `publicKeyForEncryption` request parameter is required when the introspection response is
-   * requested to be encrypted with an asymmetric algorithm.
+   * The `publicKeyForEncryption` request parameter is required when the introspection response is requested to be encrypted with an asymmetric algorithm.
    */
   publicKeyForEncryption?: string | undefined;
 };

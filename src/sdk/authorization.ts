@@ -20,8 +20,7 @@ export class Authorization extends ClientSDK {
    * Process Authorization Request
    *
    * @remarks
-   * This API parses request parameters of an authorization request and returns necessary data for the authorization server
-   * implementation to process the authorization request further.
+   * This API parses request parameters of an authorization request and returns necessary data for the authorization server implementation to process the authorization request further.
    */
   async processRequest(
     request: operations.AuthAuthorizationApiRequest,
@@ -38,8 +37,7 @@ export class Authorization extends ClientSDK {
    * Fail Authorization Request
    *
    * @remarks
-   * This API generates a content of an error authorization response that the authorization server implementation
-   * returns to the client application.
+   * This API generates a content of an error authorization response that the authorization server implementation returns to the client application.
    */
   async fail(
     request: operations.AuthAuthorizationFailApiRequest,
@@ -56,8 +54,7 @@ export class Authorization extends ClientSDK {
    * Issue Authorization Response
    *
    * @remarks
-   * This API parses request parameters of an authorization request and returns necessary data for the
-   * authorization server implementation to process the authorization request further.
+   * This API parses request parameters of an authorization request and returns necessary data for the authorization server implementation to process the authorization request further.
    */
   async issue(
     request: operations.AuthAuthorizationIssueApiRequest,

@@ -11,31 +11,25 @@ export type IntrospectionRequest = {
    */
   token: string;
   /**
-   * A string array listing names of scopes which the caller (= a protected resource endpoint of the
+   * A string array listing names of scopes which the caller (= a protected resource endpoint of the service) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`, the format of `scopes` is a space-separated list of scope names.
    *
    * @remarks
-   * service) requires. When the content type of the request from the service is `application/x-www-form-urlencoded`,
-   * the format of `scopes` is a space-separated list of scope names.
    *
-   * If this parameter is a non-empty array and if it contains a scope which is not covered by the
-   * access token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.
+   * If this parameter is a non-empty array and if it contains a scope which is not covered by the access token,`action=FORBIDDEN` with `error=insufficient_scope` is returned from Authlete.
    */
   scopes?: Array<string> | undefined;
   /**
-   * A subject (= a user account managed by the service) whom the caller (= a protected resource
+   * A subject (= a user account managed by the service) whom the caller (= a protected resource endpoint of the service) requires.
    *
    * @remarks
-   * endpoint of the service) requires.
    *
-   * If this parameter is not `null` and if the value does not match the subject who is associated
-   * with the access token, `action=FORBIDDEN` with `error=invalid_request` is returned from Authlete.
+   * If this parameter is not `null` and if the value does not match the subject who is associated with the access token, `action=FORBIDDEN` with `error=invalid_request` is returned from Authlete.
    */
   subject?: string | undefined;
   /**
-   * Client certificate in PEM format, used to validate binding against access tokens using the TLS
+   * Client certificate in PEM format, used to validate binding against access tokens using the TLS client certificate confirmation method.
    *
    * @remarks
-   * client certificate confirmation method.
    */
   clientCertificate?: string | undefined;
   /**
@@ -43,19 +37,15 @@ export type IntrospectionRequest = {
    *
    * @remarks
    *
-   * The header contains a signed JWT which includes the public key that is paired with the private
-   * key used to sign the JWT. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application
-   * Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.
+   * The header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.
    */
   dpop?: string | undefined;
   /**
-   * HTTP method of the request from the client to the protected resource endpoint. This field is
+   * HTTP method of the request from the client to the protected resource endpoint. This field is used to validate the `DPoP` header.
    *
    * @remarks
-   * used to validate the `DPoP` header.
    *
-   * See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
-   * for details.
+   * See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.
    */
   htm?: string | undefined;
   /**
@@ -63,8 +53,7 @@ export type IntrospectionRequest = {
    *
    * @remarks
    *
-   * See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
-   * for details.
+   * See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.
    */
   htu?: string | undefined;
   /**
@@ -74,17 +63,15 @@ export type IntrospectionRequest = {
    */
   resources?: Array<string> | undefined;
   /**
-   * Authentication Context Class Reference values one of which the user authentication performed during the course
+   * Authentication Context Class Reference values one of which the user authentication performed during the course of issuing the access token must satisfy.
    *
    * @remarks
-   * of issuing the access token must satisfy.
    */
   acrValues?: Array<string> | undefined;
   /**
-   * The maximum authentication age which is the maximum allowable elapsed time since the user authentication
+   * The maximum authentication age which is the maximum allowable elapsed time since the user authentication was performed during the course of issuing the access token.
    *
    * @remarks
-   * was performed during the course of issuing the access token.
    */
   maxAge?: number | undefined;
   /**
@@ -106,10 +93,9 @@ export type IntrospectionRequest = {
    */
   message?: string | undefined;
   /**
-   * HTTP headers to be included in processing the signature. If this is a signed request, this must include the
+   * HTTP headers to be included in processing the signature. If this is a signed request, this must include the Signature and Signature-Input headers, as well as any additional headers covered by the signature.
    *
    * @remarks
-   * Signature and Signature-Input headers, as well as any additional headers covered by the signature.
    */
   headers?: Array<Pair> | undefined;
   /**
@@ -123,10 +109,7 @@ export type IntrospectionRequest = {
    *
    * @remarks
    *
-   * If this request parameter is set to `true` or if the service's `dpopNonceRequired` property is
-   * set to `true`, the `/auth/introspection` API checks if the DPoP proof JWT includes the expected
-   * `nonce` value. In this case, the response from the `/auth/introspection` API will include the
-   * `dpopNonce` response parameter, which should be used as the value of the DPoP-Nonce HTTP header.
+   * If this request parameter is set to `true` or if the service's `dpopNonceRequired` property is set to `true`, the `/auth/introspection` API checks if the DPoP proof JWT includes the expected `nonce` value. In this case, the response from the `/auth/introspection` API will include the `dpopNonce` response parameter, which should be used as the value of the DPoP-Nonce HTTP header.
    */
   dpopNonceRequired?: boolean | undefined;
   /**
@@ -134,13 +117,9 @@ export type IntrospectionRequest = {
    *
    * @remarks
    *
-   * When the resource request must comply with the HTTP message signing requirements defined in the
-   * FAPI 2.0 Message Signing specification, the `"content-digest"` component identifier must be included
-   * in the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))
-   * if the resource request contains a request body.
+   * When the resource request must comply with the HTTP message signing requirements defined in the FAPI 2.0 Message Signing specification, the `"content-digest"` component identifier must be included in the signature base of the HTTP message signature (see [RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html)) if the resource request contains a request body.
    *
-   * When this `requestBodyContained` parameter is set to `true`, Authlete checks whether `"content-digest"`
-   * is included in the signature base, if the FAPI profile applies to the resource request.
+   * When this `requestBodyContained` parameter is set to `true`, Authlete checks whether `"content-digest"` is included in the signature base, if the FAPI profile applies to the resource request.
    */
   requestBodyContained?: boolean | undefined;
 };

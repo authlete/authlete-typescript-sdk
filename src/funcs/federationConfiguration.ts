@@ -30,11 +30,7 @@ import { Result } from "../types/fp.js";
  * Process Entity Configuration Request
  *
  * @remarks
- * This API gathers the federation configuration about a service.
- * The authorization server implementation should
- * retrieve the value of the `action`
- * response parameter from the API response and take the following steps
- * according to the value.
+ * This API gathers the federation configuration about a service. The authorization server implementation should retrieve the value of the `action` response parameter from the API response and take the following steps according to the value.
  */
 export function federationConfiguration(
   client: AuthleteCore,
@@ -95,10 +91,11 @@ async function $do(
   const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/federation/configuration")(
     pathParams,

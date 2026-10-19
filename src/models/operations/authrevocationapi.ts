@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type AuthRevocationApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type AuthRevocationApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   revocationRequest: models.RevocationRequest;
 };
 
@@ -24,7 +28,7 @@ export type AuthRevocationApiResponse = {
 
 /** @internal */
 export type AuthRevocationApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   revocation_request: models.RevocationRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const AuthRevocationApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthRevocationApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   revocationRequest: models.RevocationRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

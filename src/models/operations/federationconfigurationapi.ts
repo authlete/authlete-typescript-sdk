@@ -9,15 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type FederationConfigurationApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type FederationConfigurationApiRequestBody = {
   /**
-   * The entity types for which the entity configuration is requested.
+   * The entity types for which the entity configuration is requested. When omitted or empty, it defaults to `OPENID_PROVIDER` only (backward compatibility). Unsupported entity types are ignored. `OPENID_CREDENTIAL_ISSUER` requires the Verifiable Credentials feature (Authlete 3.0+).
    *
    * @remarks
-   * When omitted or empty, it defaults to `OPENID_PROVIDER` only
-   * (backward compatibility). Unsupported entity types are ignored.
-   * `OPENID_CREDENTIAL_ISSUER` requires the Verifiable Credentials
-   * feature (Authlete 3.0+).
    */
   entityTypes?: Array<models.EntityType> | undefined;
 };
@@ -26,7 +26,7 @@ export type FederationConfigurationApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   requestBody: FederationConfigurationApiRequestBody;
 };
 
@@ -61,7 +61,7 @@ export function federationConfigurationApiRequestBodyToJSON(
 
 /** @internal */
 export type FederationConfigurationApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   RequestBody: FederationConfigurationApiRequestBody$Outbound;
 };
 
@@ -71,7 +71,7 @@ export const FederationConfigurationApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FederationConfigurationApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   requestBody: z.lazy(() =>
     FederationConfigurationApiRequestBody$outboundSchema
   ),

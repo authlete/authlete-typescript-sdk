@@ -6,7 +6,6 @@
 import { BackchannelAuthenticationApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: BackchannelAuthenticationApiRequest = {
-  serviceId: "<id>",
   backchannelAuthenticationRequest: {
     parameters: "<value>",
   },
@@ -17,5 +16,5 @@ let value: BackchannelAuthenticationApiRequest = {
 
 | Field                                                                                       | Type                                                                                        | Required                                                                                    | Description                                                                                 |
 | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `serviceId`                                                                                 | *string*                                                                                    | :heavy_check_mark:                                                                          | A service ID.                                                                               |
+| `serviceId`                                                                                 | *string*                                                                                    | :heavy_minus_sign:                                                                          | A service ID.                                                                               |
 | `backchannelAuthenticationRequest`                                                          | [models.BackchannelAuthenticationRequest](../../models/backchannelauthenticationrequest.md) | :heavy_check_mark:                                                                          | N/A                                                                                         |

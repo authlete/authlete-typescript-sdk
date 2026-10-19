@@ -20,11 +20,9 @@ export type Hsk = {
    */
   kty?: string | undefined;
   /**
-   * Get the use of the key on the HSM.
+   * Get the use of the key on the HSM. When the key use is "sig" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature. When the key use is "enc" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key
    *
    * @remarks
-   * When the key use is "sig" (signature), the private key on the HSM is used to sign data and the corresponding public key is used to verify the signature.
-   * When the key use is "enc" (encryption), the private key on the HSM is used to decrypt encrypted data which have been encrypted with the corresponding public key
    */
   use?: string | undefined;
   /**
@@ -34,17 +32,15 @@ export type Hsk = {
    */
   kid?: string | undefined;
   /**
-   * The name of the HSM.
+   * The name of the HSM. The identifier for the HSM that sits behind the Authlete server. For example, "google".
    *
    * @remarks
-   * The identifier for the HSM that sits behind the Authlete server. For example, "google".
    */
   hsmName?: string | undefined;
   /**
-   * The handle for the key on the HSM.
+   * The handle for the key on the HSM. A handle is a base64url-encoded 256-bit random value (43 letters) which is assigned by Authlete on the call of the /api/hsk/create API
    *
    * @remarks
-   * A handle is a base64url-encoded 256-bit random value (43 letters) which is assigned by Authlete on the call of the /api/hsk/create API
    */
   handle?: string | undefined;
   /**
@@ -54,11 +50,9 @@ export type Hsk = {
    */
   publicKey?: string | undefined;
   /**
-   * The algorithm of the key on the HSM. When the key use is `"sig"`, the algorithm represents a
+   * The algorithm of the key on the HSM. When the key use is `"sig"`, the algorithm represents a signing algorithm such as `"ES256"`. When the key use is `"enc"`, the algorithm represents an encryption algorithm such as `"RSA-OAEP-256"`.
    *
    * @remarks
-   * signing algorithm such as `"ES256"`. When the key use is `"enc"`, the algorithm represents an
-   * encryption algorithm such as `"RSA-OAEP-256"`.
    */
   alg?: string | undefined;
 };

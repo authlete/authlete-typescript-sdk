@@ -6,7 +6,6 @@
 import { ClientSecretUpdateApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: ClientSecretUpdateApiRequest = {
-  serviceId: "<id>",
   clientIdentifier: "<value>",
   clientSecretUpdateRequest: {
     clientSecret: "<value>",
@@ -18,6 +17,6 @@ let value: ClientSecretUpdateApiRequest = {
 
 | Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
 | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `serviceId`                                                                   | *string*                                                                      | :heavy_check_mark:                                                            | A service ID.                                                                 |
+| `serviceId`                                                                   | *string*                                                                      | :heavy_minus_sign:                                                            | A service ID.                                                                 |
 | `clientIdentifier`                                                            | *string*                                                                      | :heavy_check_mark:                                                            | The client ID or the client ID alias of a client.<br/>                        |
 | `clientSecretUpdateRequest`                                                   | [models.ClientSecretUpdateRequest](../../models/clientsecretupdaterequest.md) | :heavy_check_mark:                                                            | N/A                                                                           |

@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type AuthTokenGetListApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type AuthTokenGetListApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * Client Identifier (client ID or client ID alias).
    *
@@ -45,7 +49,7 @@ export type AuthTokenGetListApiResponse = {
 
 /** @internal */
 export type AuthTokenGetListApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   clientIdentifier?: string | undefined;
   subject?: string | undefined;
   start?: number | undefined;
@@ -58,7 +62,7 @@ export const AuthTokenGetListApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthTokenGetListApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   clientIdentifier: z.string().optional(),
   subject: z.string().optional(),
   start: z.number().int().optional(),

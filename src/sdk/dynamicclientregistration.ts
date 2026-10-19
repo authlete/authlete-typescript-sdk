@@ -15,9 +15,7 @@ export class DynamicClientRegistration extends ClientSDK {
    * Register Client
    *
    * @remarks
-   * Register a client. This API is supposed to be used to implement a client registration endpoint that
-   * complies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591) (OAuth 2.0 Dynamic Client
-   * Registration Protocol).
+   * Register a client. This API is supposed to be used to implement a client registration endpoint that complies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591) (OAuth 2.0 Dynamic Client Registration Protocol).
    */
   async register(
     request: operations.ClientRegistrationApiRequest,
@@ -34,9 +32,7 @@ export class DynamicClientRegistration extends ClientSDK {
    * Get Client
    *
    * @remarks
-   * Get a dynamically registered client. This API is supposed to be used to implement a client registration
-   * management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)
-   * (OAuth 2.0 Dynamic Registration Management).
+   * Get a dynamically registered client. This API is supposed to be used to implement a client registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592) (OAuth 2.0 Dynamic Registration Management).
    */
   async get(
     request: operations.ClientRegistrationGetApiRequest,
@@ -53,9 +49,7 @@ export class DynamicClientRegistration extends ClientSDK {
    * Update Client
    *
    * @remarks
-   * Update a dynamically registered client. This API is supposed to be used to implement a client
-   * registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)
-   * (OAuth 2.0 Dynamic Registration Management).
+   * Update a dynamically registered client. This API is supposed to be used to implement a client registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592) (OAuth 2.0 Dynamic Registration Management).
    */
   async update(
     request: operations.ClientRegistrationUpdateApiRequest,
@@ -72,9 +66,7 @@ export class DynamicClientRegistration extends ClientSDK {
    * Delete Client
    *
    * @remarks
-   * Delete a dynamically registered client. This API is supposed to be used to implement a client
-   * registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)
-   * (OAuth 2.0 Dynamic Registration Management).
+   * Delete a dynamically registered client. This API is supposed to be used to implement a client registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592) (OAuth 2.0 Dynamic Registration Management).
    */
   async delete(
     request: operations.ClientRegistrationDeleteApiRequest,

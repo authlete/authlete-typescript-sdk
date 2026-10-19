@@ -30,11 +30,7 @@ import { Result } from "../types/fp.js";
  * Native SSO Logout Processing
  *
  * @remarks
- * The `/nativesso/logout` API is supposed to be used to support the concept of "logout from all applications"
- * in the context of [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
- * (Native SSO). This is accomplished by deleting access/refresh token records associated with the
- * specified session ID. In Authlete's implementation, access/refresh token records can be associated
- * with a session ID only through the mechanism introduced by Native SSO.
+ * The `/nativesso/logout` API is supposed to be used to support the concept of "logout from all applications" in the context of [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) (Native SSO). This is accomplished by deleting access/refresh token records associated with the specified session ID. In Authlete's implementation, access/refresh token records can be associated with a session ID only through the mechanism introduced by Native SSO.
  */
 export function nativeSsoLogout(
   client: AuthleteCore,
@@ -96,10 +92,11 @@ async function $do(
   });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/nativesso/logout")(pathParams);
 

@@ -39,17 +39,15 @@ export type GMResponse = {
    */
   action?: GMResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client application.
+   * The content that the authorization server implementation is to return to the client application. Its format varies depending on the value of `action` parameter.
    *
    * @remarks
-   * Its format varies depending on the value of `action` parameter.
    */
   responseContent?: string | undefined;
   /**
-   * Get the expected nonce value for DPoP proof JWT, which should be used
+   * Get the expected nonce value for DPoP proof JWT, which should be used as the value of the `DPoP-Nonce` HTTP header.
    *
    * @remarks
-   * as the value of the `DPoP-Nonce` HTTP header.
    */
   dpopNonce?: string | undefined;
 };

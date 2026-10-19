@@ -38,10 +38,9 @@ export type StandardIntrospectionResponse = {
    */
   action?: StandardIntrospectionResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client
+   * The content that the authorization server implementation is to return to the client application.
    *
    * @remarks
-   * application.
    */
   responseContent?: string | undefined;
 };

@@ -13,8 +13,7 @@ export type AuthorizationDetailsElement = {
    *
    * @remarks
    *
-   * From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string.
-   * This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
+   * From _"OAuth 2.0 Rich Authorization Requests"_: _"The type of authorization data as a string. This field MAY define which other elements are allowed in the request. This element is REQUIRED."_
    *
    * This property is always NOT `null`.
    */
@@ -24,8 +23,7 @@ export type AuthorizationDetailsElement = {
    *
    * @remarks
    *
-   * From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of
-   * the resource or resource server. This is typically composed of URIs."_
+   * From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the location of the resource or resource server. This is typically composed of URIs."_
    *
    * This property may be `null`.
    */
@@ -35,45 +33,39 @@ export type AuthorizationDetailsElement = {
    *
    * @remarks
    *
-   * From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions
-   * to be taken at the resource. The values of the strings are determined by the API being protected."_
+   * From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of actions to be taken at the resource. The values of the strings are determined by the API being protected."_
    *
    * This property may be `null`.
    */
   actions?: Array<string> | undefined;
   /**
-   * From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested
+   * From _"OAuth 2.0 Rich Authorization Requests"_: _"An array of strings representing the kinds of data being requested from the resource."_
    *
    * @remarks
-   * from the resource."_
    *
    * This property may be `null`.
    */
   dataTypes?: Array<string> | undefined;
   /**
-   * The identifier of a specific resource.
+   * The identifier of a specific resource. From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
    *
    * @remarks
-   * From _"OAuth 2.0 Rich Authorization Requests"_: _"A string identifier indicating a specific resource available at the API."_
    *
    * This property may be `null`.
    */
   identifier?: string | undefined;
   /**
-   * The types or levels of privilege.
+   * The types or levels of privilege. From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or levels of privilege being requested at the resource."_
    *
    * @remarks
-   * From "OAuth 2.0 Rich Authorization Requests": _"An array of strings representing the types or
-   * levels of privilege being requested at the resource."_
    *
    * This property may be `null`.
    */
   privileges?: Array<string> | undefined;
   /**
-   * The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`.
+   * The RAR request in the JSON format excluding the pre-defined attributes such as `type` and `locations`. The content and semantics are specific to the deployment and the use case implemented.
    *
    * @remarks
-   * The content and semantics are specific to the deployment and the use case implemented.
    */
   otherFields?: string | undefined;
 };

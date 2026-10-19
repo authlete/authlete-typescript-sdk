@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type NativeSsoApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type NativeSsoApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   nativeSsoRequest: models.NativeSsoRequest;
 };
 
@@ -24,7 +28,7 @@ export type NativeSsoApiResponse = {
 
 /** @internal */
 export type NativeSsoApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   native_sso_request: models.NativeSsoRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const NativeSsoApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NativeSsoApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   nativeSsoRequest: models.NativeSsoRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

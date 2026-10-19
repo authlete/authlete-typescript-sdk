@@ -25,13 +25,12 @@ import { serviceGet } from "@authlete/typescript-sdk/funcs/serviceGet.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await serviceGet(authlete, {
-    serviceId: "<id>",
-  });
+  const res = await serviceGet(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

@@ -34,12 +34,9 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Returns the list of available audit log event types for this environment.
  *
- * Accessible with a user access token or an organization token that has the
- * `view_audit_log` permission (e.g. a token created with the `admin` or
- * `audit_reader` preset).
+ * Accessible with a user access token or an organization token that has the `view_audit_log` permission (e.g. a token created with the `admin` or `audit_reader` preset).
  *
- * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
- * not on the regional API clusters.
+ * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`), not on the regional API clusters.
  */
 export function auditGetTypes(
   client: AuthleteCore,

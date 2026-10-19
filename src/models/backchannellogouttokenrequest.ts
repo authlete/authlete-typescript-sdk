@@ -6,24 +6,21 @@ import * as z from "zod/v3";
 
 export type BackchannelLogoutTokenRequest = {
   /**
-   * The identifier of the client application. Either a client ID or a client
+   * The identifier of the client application. Either a client ID or a client alias.
    *
    * @remarks
-   * alias.
    */
   clientIdentifier: string;
   /**
-   * The subject (end-user) identifier. The logout token will be issued for
+   * The subject (end-user) identifier. The logout token will be issued for this subject. At least one of `subject` or `sessionId` must be provided.
    *
    * @remarks
-   * this subject. At least one of `subject` or `sessionId` must be provided.
    */
   subject?: string | undefined;
   /**
-   * The session ID (`sid`) identifying the user session to log out. At least
+   * The session ID (`sid`) identifying the user session to log out. At least one of `subject` or `sessionId` must be provided.
    *
    * @remarks
-   * one of `subject` or `sessionId` must be provided.
    */
   sessionId?: string | undefined;
 };

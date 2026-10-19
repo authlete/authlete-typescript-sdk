@@ -20,8 +20,7 @@ export class Token extends ClientSDK {
    * Process Token Request
    *
    * @remarks
-   * This API parses request parameters of an authorization request and returns necessary data for the
-   * authorization server implementation to process the authorization request further.
+   * This API parses request parameters of an authorization request and returns necessary data for the authorization server implementation to process the authorization request further.
    */
   async process(
     request: operations.AuthTokenApiRequest,
@@ -38,8 +37,7 @@ export class Token extends ClientSDK {
    * Fail Token Request
    *
    * @remarks
-   * This API generates a content of an error token response that the authorization server implementation
-   * returns to the client application.
+   * This API generates a content of an error token response that the authorization server implementation returns to the client application.
    */
   async fail(
     request: operations.AuthTokenFailApiRequest,
@@ -56,8 +54,7 @@ export class Token extends ClientSDK {
    * Issue Token Response
    *
    * @remarks
-   * This API generates a content of a successful token response that the authorization server implementation
-   * returns to the client application.
+   * This API generates a content of a successful token response that the authorization server implementation returns to the client application.
    */
   async issue(
     request: operations.AuthTokenIssueApiRequest,

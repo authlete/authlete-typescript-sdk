@@ -12,8 +12,7 @@ export class GrantManagement extends ClientSDK {
    * Process Grant Management Request
    *
    * @remarks
-   * The API is for the implementation of the grant management endpoint which is
-   * defined in "[Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)".
+   * The API is for the implementation of the grant management endpoint which is defined in "[Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)".
    */
   async processRequest(
     request: operations.GrantMApiRequest,

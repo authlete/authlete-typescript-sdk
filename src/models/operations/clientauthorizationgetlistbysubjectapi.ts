@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientAuthorizationGetListBySubjectApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientAuthorizationGetListBySubjectApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * Unique user ID of an end-user.
    *
@@ -45,7 +49,7 @@ export type ClientAuthorizationGetListBySubjectApiResponse = {
 
 /** @internal */
 export type ClientAuthorizationGetListBySubjectApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   subject: string;
   developer?: string | undefined;
   start?: number | undefined;
@@ -59,7 +63,7 @@ export const ClientAuthorizationGetListBySubjectApiRequest$outboundSchema:
     z.ZodTypeDef,
     ClientAuthorizationGetListBySubjectApiRequest
   > = z.object({
-    serviceId: z.string(),
+    serviceId: z.string().optional(),
     subject: z.string(),
     developer: z.string().optional(),
     start: z.number().int().optional(),

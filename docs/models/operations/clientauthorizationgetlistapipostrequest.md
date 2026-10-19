@@ -6,7 +6,6 @@
 import { ClientAuthorizationGetListApiPostRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: ClientAuthorizationGetListApiPostRequest = {
-  serviceId: "<id>",
   clientAuthorizationGetListRequest: {
     subject: "<value>",
   },
@@ -17,5 +16,5 @@ let value: ClientAuthorizationGetListApiPostRequest = {
 
 | Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `serviceId`                                                                                   | *string*                                                                                      | :heavy_check_mark:                                                                            | A service ID.                                                                                 |
+| `serviceId`                                                                                   | *string*                                                                                      | :heavy_minus_sign:                                                                            | A service ID.                                                                                 |
 | `clientAuthorizationGetListRequest`                                                           | [models.ClientAuthorizationGetListRequest](../../models/clientauthorizationgetlistrequest.md) | :heavy_check_mark:                                                                            | N/A                                                                                           |

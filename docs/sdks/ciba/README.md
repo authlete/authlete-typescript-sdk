@@ -11,9 +11,7 @@
 
 ## processAuthentication
 
-This API parses request parameters of a [backchannel authentication request](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_request)
-and returns necessary data for the authorization server implementation to process the backchannel
-authentication request further.
+This API parses request parameters of a [backchannel authentication request](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_request) and returns necessary data for the authorization server implementation to process the backchannel authentication request further.
 
 
 ### Example Usage
@@ -23,12 +21,12 @@ authentication request further.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.ciba.processAuthentication({
-    serviceId: "<id>",
     backchannelAuthenticationRequest: {
       parameters: "login_hint=john&scope=openid&client_notification_token=my-client-notification-token&user_code=my-user-code",
       clientId: "26862190133482",
@@ -53,12 +51,12 @@ import { cibaProcessAuthentication } from "@authlete/typescript-sdk/funcs/cibaPr
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await cibaProcessAuthentication(authlete, {
-    serviceId: "<id>",
     backchannelAuthenticationRequest: {
       parameters: "login_hint=john&scope=openid&client_notification_token=my-client-notification-token&user_code=my-user-code",
       clientId: "26862190133482",
@@ -100,8 +98,7 @@ run();
 
 ## issue
 
-This API prepares JSON that contains an `auth_req_id`. The JSON should be used as the response body
-of the response which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint)
+This API prepares JSON that contains an `auth_req_id`. The JSON should be used as the response body of the response which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint)
 
 
 ### Example Usage
@@ -111,12 +108,12 @@ of the response which is returned to the client from the [backchannel authentica
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.ciba.issue({
-    serviceId: "<id>",
     backchannelAuthenticationIssueRequest: {
       ticket: "NFIHGx_btVrWmtAD093D-87JxvT4DAtuijEkLVHbS4Q",
     },
@@ -139,12 +136,12 @@ import { cibaIssue } from "@authlete/typescript-sdk/funcs/cibaIssue.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await cibaIssue(authlete, {
-    serviceId: "<id>",
     backchannelAuthenticationIssueRequest: {
       ticket: "NFIHGx_btVrWmtAD093D-87JxvT4DAtuijEkLVHbS4Q",
     },
@@ -184,8 +181,7 @@ run();
 
 ## fail
 
-The API prepares JSON that contains an error. The JSON should be used as the response body of the
-response which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint).
+The API prepares JSON that contains an error. The JSON should be used as the response body of the response which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint).
 
 
 ### Example Usage
@@ -195,12 +191,12 @@ response which is returned to the client from the [backchannel authentication en
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.ciba.fail({
-    serviceId: "<id>",
     backchannelAuthenticationFailRequest: {
       ticket: "<value>",
       reason: "MISSING_USER_CODE",
@@ -224,12 +220,12 @@ import { cibaFail } from "@authlete/typescript-sdk/funcs/cibaFail.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await cibaFail(authlete, {
-    serviceId: "<id>",
     backchannelAuthenticationFailRequest: {
       ticket: "<value>",
       reason: "MISSING_USER_CODE",
@@ -270,9 +266,7 @@ run();
 
 ## complete
 
-This API returns information about what action the authorization server should take after it receives
-the result of end-user's decision about whether the end-user has approved or rejected a client application's
-request on the authentication device.
+This API returns information about what action the authorization server should take after it receives the result of end-user's decision about whether the end-user has approved or rejected a client application's request on the authentication device.
 
 
 ### Example Usage
@@ -282,12 +276,12 @@ request on the authentication device.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.ciba.complete({
-    serviceId: "<id>",
     backchannelAuthenticationCompleteRequest: {
       ticket: "NFIHGx_btVrWmtAD093D-87JxvT4DAtuijEkLVHbS4Q",
       result: "AUTHORIZED",
@@ -312,12 +306,12 @@ import { cibaComplete } from "@authlete/typescript-sdk/funcs/cibaComplete.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await cibaComplete(authlete, {
-    serviceId: "<id>",
     backchannelAuthenticationCompleteRequest: {
       ticket: "NFIHGx_btVrWmtAD093D-87JxvT4DAtuijEkLVHbS4Q",
       result: "AUTHORIZED",

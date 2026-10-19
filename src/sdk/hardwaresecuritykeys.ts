@@ -57,7 +57,7 @@ export class HardwareSecurityKeys extends ClientSDK {
    * List Security Keys
    */
   async list(
-    request: operations.HskGetListApiRequest,
+    request?: operations.HskGetListApiRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.HskGetListApiResponse> {
     return unwrapAsync(hardwareSecurityKeysList(

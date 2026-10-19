@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type HskGetListApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type HskGetListApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
 };
 
 export type HskGetListApiResponse = {
@@ -23,7 +27,7 @@ export type HskGetListApiResponse = {
 
 /** @internal */
 export type HskGetListApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
 };
 
 /** @internal */
@@ -32,7 +36,7 @@ export const HskGetListApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HskGetListApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
 });
 
 export function hskGetListApiRequestToJSON(

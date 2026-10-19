@@ -6,7 +6,6 @@
 import { AuthIntrospectionApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: AuthIntrospectionApiRequest = {
-  serviceId: "<id>",
   introspectionRequest: {
     token: "<value>",
   },
@@ -17,5 +16,5 @@ let value: AuthIntrospectionApiRequest = {
 
 | Field                                                               | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `serviceId`                                                         | *string*                                                            | :heavy_check_mark:                                                  | A service ID.                                                       |
+| `serviceId`                                                         | *string*                                                            | :heavy_minus_sign:                                                  | A service ID.                                                       |
 | `introspectionRequest`                                              | [models.IntrospectionRequest](../../models/introspectionrequest.md) | :heavy_check_mark:                                                  | N/A                                                                 |

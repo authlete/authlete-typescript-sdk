@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  */
 export function hardwareSecurityKeysList(
   client: AuthleteCore,
-  request: operations.HskGetListApiRequest,
+  request?: operations.HskGetListApiRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function hardwareSecurityKeysList(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.HskGetListApiRequest,
+  request?: operations.HskGetListApiRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -77,7 +77,8 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.HskGetListApiRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.HskGetListApiRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -87,10 +88,11 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload?.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/hsk/get/list")(pathParams);
 

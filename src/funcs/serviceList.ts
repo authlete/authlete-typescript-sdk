@@ -32,12 +32,9 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Get a list of services.
  *
- * If the access token can only view or modify clients underneath a service, but does not
- * have access to view that service directly, a limited view of the service will be returned.
- * Otherwise, all properties of the service are returned.
+ * If the access token can only view or modify clients underneath a service, but does not have access to view that service directly, a limited view of the service will be returned. Otherwise, all properties of the service are returned.
  *
- * If the access token is an administrative token, this returns a list of all services on the Authlete instance.
- * Otherwise, all services that the access token can view, even in a limited fashion, are returned.
+ * If the access token is an administrative token, this returns a list of all services on the Authlete instance. Otherwise, all services that the access token can view, even in a limited fashion, are returned.
  */
 export function serviceList(
   client: AuthleteCore,

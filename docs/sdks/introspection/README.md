@@ -19,12 +19,12 @@ This API gathers information about an access token.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.introspection.process({
-    serviceId: "<id>",
     introspectionRequest: {
       token: "VFGsNK-5sXiqterdaR7b5QbRX9VTwVCQB87jbr2_xAI",
       scopes: [
@@ -52,12 +52,12 @@ import { introspectionProcess } from "@authlete/typescript-sdk/funcs/introspecti
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await introspectionProcess(authlete, {
-    serviceId: "<id>",
     introspectionRequest: {
       token: "VFGsNK-5sXiqterdaR7b5QbRX9VTwVCQB87jbr2_xAI",
       scopes: [
@@ -102,8 +102,7 @@ run();
 
 ## standardProcess
 
-This API exists to help your authorization server provide its own introspection API which complies
-with [RFC 7662](https://tools.ietf.org/html/rfc7662) (OAuth 2.0 Token Introspection).
+This API exists to help your authorization server provide its own introspection API which complies with [RFC 7662](https://tools.ietf.org/html/rfc7662) (OAuth 2.0 Token Introspection).
 
 
 ### Example Usage
@@ -113,12 +112,12 @@ with [RFC 7662](https://tools.ietf.org/html/rfc7662) (OAuth 2.0 Token Introspect
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.introspection.standardProcess({
-    serviceId: "<id>",
     standardIntrospectionRequest: {
       parameters: "token=VFGsNK-5sXiqterdaR7b5QbRX9VTwVCQB87jbr2_xAI&token_type_hint=access_token",
     },
@@ -141,12 +140,12 @@ import { introspectionStandardProcess } from "@authlete/typescript-sdk/funcs/int
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await introspectionStandardProcess(authlete, {
-    serviceId: "<id>",
     standardIntrospectionRequest: {
       parameters: "token=VFGsNK-5sXiqterdaR7b5QbRX9VTwVCQB87jbr2_xAI&token_type_hint=access_token",
     },

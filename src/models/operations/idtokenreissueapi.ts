@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type IdtokenReissueApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type IdtokenReissueApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   idtokenReissueRequest?: models.IdtokenReissueRequest | undefined;
 };
 
@@ -24,7 +28,7 @@ export type IdtokenReissueApiResponse = {
 
 /** @internal */
 export type IdtokenReissueApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   idtoken_reissue_request?: models.IdtokenReissueRequest$Outbound | undefined;
 };
 
@@ -34,7 +38,7 @@ export const IdtokenReissueApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   IdtokenReissueApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   idtokenReissueRequest: models.IdtokenReissueRequest$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {

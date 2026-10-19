@@ -10,24 +10,21 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AuditEntriesGetResponse = {
   /**
-   * The audit log entries on this page, in reverse chronological order. Entries sharing the
+   * The audit log entries on this page, in reverse chronological order. Entries sharing the same timestamp are never split across pages, so a page may contain more than `limit` entries.
    *
    * @remarks
-   * same timestamp are never split across pages, so a page may contain more than `limit` entries.
    */
   entries?: Array<AuditLogEntry> | undefined;
   /**
-   * An opaque cursor pointing at the next page. Pass this value as the `cursor` parameter of the
+   * An opaque cursor pointing at the next page. Pass this value as the `cursor` parameter of the next request to fetch the following page. Absent or `null` on the last page.
    *
    * @remarks
-   * next request to fetch the following page. Absent or `null` on the last page.
    */
   nextCursor?: string | null | undefined;
   /**
-   * The effective page size limit applied to this response. May differ from the requested `limit`
+   * The effective page size limit applied to this response. May differ from the requested `limit` if the requested value was outside the allowed range.
    *
    * @remarks
-   * if the requested value was outside the allowed range.
    */
   limit?: number | undefined;
 };

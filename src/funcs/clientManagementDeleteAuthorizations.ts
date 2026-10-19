@@ -30,8 +30,7 @@ import { Result } from "../types/fp.js";
  * Delete Client Tokens (by Subject)
  *
  * @remarks
- * Delete all existing access tokens issued to a client application by an end-user.
- * In this variant, the subject is provided in the path.
+ * Delete all existing access tokens issued to a client application by an end-user. In this variant, the subject is provided in the path.
  */
 export function clientManagementDeleteAuthorizations(
   client: AuthleteCore,
@@ -97,10 +96,11 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
     subject: encodeSimple("subject", payload.subject, {
       explode: false,
       charEncoding: "percent",

@@ -40,10 +40,9 @@ export type UserinfoIssueResponse = {
    */
   action?: UserinfoIssueResponseAction | undefined;
   /**
-   * The content that the authorization server implementation can use as the value of `WWW-Authenticate`
+   * The content that the authorization server implementation can use as the value of `WWW-Authenticate` header on errors.
    *
    * @remarks
-   * header on errors.
    */
   responseContent?: string | undefined;
   /**

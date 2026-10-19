@@ -47,10 +47,9 @@ export type DeviceAuthorizationResponse = {
    */
   action?: DeviceAuthorizationResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client
+   * The content that the authorization server implementation is to return to the client application. Its format varies depending on the value of `action` parameter.
    *
    * @remarks
-   * application. Its format varies depending on the value of `action` parameter.
    */
   responseContent?: string | undefined;
   /**
@@ -60,17 +59,15 @@ export type DeviceAuthorizationResponse = {
    */
   clientId?: number | undefined;
   /**
-   * The client ID alias of the client application that has made the device authorization
+   * The client ID alias of the client application that has made the device authorization request.
    *
    * @remarks
-   * request.
    */
   clientIdAlias?: string | undefined;
   /**
-   * `true` if the value of the client_id request parameter included in the device authorization
+   * `true` if the value of the client_id request parameter included in the device authorization request is the client ID alias. `false` if the value is the original numeric client ID.
    *
    * @remarks
-   * request is the client ID alias. `false` if the value is the original numeric client ID.
    */
   clientIdAliasUsed?: boolean | undefined;
   /**
@@ -80,10 +77,9 @@ export type DeviceAuthorizationResponse = {
    */
   clientName?: string | undefined;
   /**
-   * The client authentication method that should be performed at the device authorization
+   * The client authentication method that should be performed at the device authorization endpoint.
    *
    * @remarks
-   * endpoint.
    */
   clientAuthMethod?: string | undefined;
   /**
@@ -93,11 +89,9 @@ export type DeviceAuthorizationResponse = {
    */
   scopes?: Array<Scope> | undefined;
   /**
-   * The names of the claims which were requested indirectly via some special scopes.
+   * The names of the claims which were requested indirectly via some special scopes. See [5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) in OpenID Connect Core 1.0 for details.
    *
    * @remarks
-   * See [5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims)
-   * in OpenID Connect Core 1.0 for details.
    */
   claimNames?: Array<string> | undefined;
   /**
@@ -105,54 +99,43 @@ export type DeviceAuthorizationResponse = {
    *
    * @remarks
    *
-   * Basically, this property holds the value of the `acr_values` request parameter in the
-   * device authorization request. However, because unsupported ACR values are dropped
-   * on Authlete side, if the `acr_values` request parameter contains unrecognized ACR values,
-   * the list returned by this property becomes different from the value of the `acr_values`
-   * request parameter.
+   * Basically, this property holds the value of the `acr_values` request parameter in the device authorization request. However, because unsupported ACR values are dropped on Authlete side, if the `acr_values` request parameter contains unrecognized ACR values, the list returned by this property becomes different from the value of the `acr_values` request parameter.
    */
   acrs?: Array<string> | undefined;
   /**
-   * The device verification code. This corresponds to the `device_code` property in the
+   * The device verification code. This corresponds to the `device_code` property in the response to the client.
    *
    * @remarks
-   * response to the client.
    */
   deviceCode?: string | undefined;
   /**
-   * The end-user verification code. This corresponds to the `user_code` property in the
+   * The end-user verification code. This corresponds to the `user_code` property in the response to the client.
    *
    * @remarks
-   * response to the client.
    */
   userCode?: string | undefined;
   /**
-   * The end-user verification URI. This corresponds to the `verification_uri` property in
+   * The end-user verification URI. This corresponds to the `verification_uri` property in the response to the client.
    *
    * @remarks
-   * the response to the client.
    */
   verificationUri?: string | undefined;
   /**
-   * The end-user verification URI that includes the end-user verification code. This corresponds
+   * The end-user verification URI that includes the end-user verification code. This corresponds to the `verification_uri_complete` property in the response to the client.
    *
    * @remarks
-   * to the `verification_uri_complete` property in the response to the client.
    */
   verificationUriComplete?: string | undefined;
   /**
-   * The duration of the device verification code in seconds. This corresponds to the `expires_in`
+   * The duration of the device verification code in seconds. This corresponds to the `expires_in` property in the response to the client.
    *
    * @remarks
-   * property in the response to the client.
    */
   expiresIn?: number | undefined;
   /**
-   * The minimum amount of time in seconds that the client must wait for between polling
+   * The minimum amount of time in seconds that the client must wait for between polling requests to the token endpoint. This corresponds to the `interval` property in the response to the client.
    *
    * @remarks
-   * requests to the token endpoint. This corresponds to the `interval` property in the response
-   * to the client.
    */
   interval?: number | undefined;
   /**
@@ -162,18 +145,15 @@ export type DeviceAuthorizationResponse = {
    */
   warnings?: Array<string> | undefined;
   /**
-   * The resources specified by the `resource` request parameters. See "Resource Indicators
+   * The resources specified by the `resource` request parameters. See "Resource Indicators for OAuth 2.0" for details.
    *
    * @remarks
-   * for OAuth 2.0" for details.
    */
   resources?: Array<string> | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
   /**
@@ -199,8 +179,7 @@ export type DeviceAuthorizationResponse = {
    *
    * @remarks
    *
-   * The `grant_management_action` request parameter is defined in
-   * [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
+   * The `grant_management_action` request parameter is defined in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
    */
   gmAction?: GrantManagementAction | undefined;
   /**
@@ -208,32 +187,14 @@ export type DeviceAuthorizationResponse = {
    *
    * @remarks
    *
-   * The `grant_id` request parameter is defined in
-   * [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)
-   * , which is supported by Authlete 2.3 and newer versions.
+   * The `grant_id` request parameter is defined in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html) , which is supported by Authlete 2.3 and newer versions.
    */
   grantId?: string | undefined;
   grant?: Grant | undefined;
   /**
-   * The subject identifying the user who has given the grant identified
+   * The subject identifying the user who has given the grant identified by the `grant_id` request parameter of the device authorization request. Authlete 2.3 and newer versions support [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html). An authorization request may contain a `grant_id` request parameter which is defined in the specification. If the value of the request parameter is valid, &#123;@link #getGrantSubject()&#125; will return the subject of the user who has given the grant to the client application. Authorization server implementations may use the value returned from &#123;@link #getGrantSubject()&#125; in order to determine the user to authenticate. The user your system will authenticate during the authorization process (or has already authenticated) may be different from the user of the grant. The first implementer's draft of "Grant Management for OAuth 2.0" does not mention anything about the case, so the behavior in the case is left to implementations. Authlete will not perform the grant management action when the `subject` passed to Authlete does not match the user of the grant.
    *
    * @remarks
-   * by the `grant_id` request parameter of the device authorization
-   * request.
-   * Authlete 2.3 and newer versions support [Grant Management
-   * for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html). An authorization request may contain a `grant_id`
-   * request parameter which is defined in the specification. If the value of
-   * the request parameter is valid, &#123;@link #getGrantSubject()&#125; will return
-   * the subject of the user who has given the grant to the client application.
-   * Authorization server implementations may use the value returned from
-   * &#123;@link #getGrantSubject()&#125; in order to determine the user to authenticate.
-   * The user your system will authenticate during the authorization process
-   * (or has already authenticated) may be different from the user of the
-   * grant. The first implementer's draft of "Grant Management for OAuth 2.0"
-   * does not mention anything about the case, so the behavior in the case is
-   * left to implementations. Authlete will not perform the grant management
-   * action when the `subject` passed to Authlete does not match the
-   * user of the grant.
    */
   grantSubject?: string | undefined;
   /**

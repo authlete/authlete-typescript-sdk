@@ -86,10 +86,9 @@ export type TokenCreateResponse = {
    */
   scopes?: Array<string> | undefined;
   /**
-   * The subject (= unique identifier) of the user associated with the newly issued access
+   * The subject (= unique identifier) of the user associated with the newly issued access token.
    *
    * @remarks
-   * token.
    */
   subject?: string | undefined;
   /**
@@ -99,26 +98,21 @@ export type TokenCreateResponse = {
    */
   tokenType?: string | undefined;
   /**
-   * If the authorization server is configured to issue JWT-based access tokens (= if `Service.accessTokenSignAlg`
+   * If the authorization server is configured to issue JWT-based access tokens (= if `Service.accessTokenSignAlg` is set to a `non-null` value), a JWT-based access token is issued along with the original random-string one.
    *
    * @remarks
-   * is set to a `non-null` value), a JWT-based access token is issued along with the original
-   * random-string one.
    */
   jwtAccessToken?: string | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
   /**
-   * the flag which indicates whether the access token is for an external
+   * the flag which indicates whether the access token is for an external attachment.
    *
    * @remarks
-   * attachment.
    */
   forExternalAttachment?: boolean | undefined;
   /**
@@ -144,9 +138,7 @@ export type TokenCreateResponse = {
    *
    * @remarks
    *
-   * NOTE: A refresh token must be associated with a session ID, which is the ID of the user's authentication
-   * session, in order to be used to obtain a [Native SSO](https://openid.net/specs/openid-connect-native-sso-1_0.html)-compliant
-   * ID token in the refresh token flow.
+   * NOTE: A refresh token must be associated with a session ID, which is the ID of the user's authentication session, in order to be used to obtain a [Native SSO](https://openid.net/specs/openid-connect-native-sso-1_0.html)-compliant ID token in the refresh token flow.
    */
   sessionId?: string | undefined;
 };

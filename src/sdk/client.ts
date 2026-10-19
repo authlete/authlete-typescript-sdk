@@ -6,11 +6,14 @@ import { clientCreate } from "../funcs/clientCreate.js";
 import { clientDelete } from "../funcs/clientDelete.js";
 import { clientGet } from "../funcs/clientGet.js";
 import { clientList } from "../funcs/clientList.js";
+import { clientListByCursor } from "../funcs/clientListByCursor.js";
+import { clientSearch } from "../funcs/clientSearch.js";
 import { clientUpdate } from "../funcs/clientUpdate.js";
 import { clientUpdateForm } from "../funcs/clientUpdateForm.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 import { ClientManagement } from "./clientmanagement.js";
 
 export class Client extends ClientSDK {
@@ -42,13 +45,11 @@ export class Client extends ClientSDK {
    * @remarks
    * Get a list of clients on a service.
    *
-   * If the access token can view a full service (including an admin), all clients within the
-   * service are returned. Otherwise, only clients that the access token can view within the
-   * service are returned.
+   * If the access token can view a full service (including an admin), all clients within the service are returned. Otherwise, only clients that the access token can view within the service are returned.
    * - ViewClient: []
    */
   async list(
-    request: operations.ClientGetListApiRequest,
+    request?: operations.ClientGetListApiRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.ClientGetListApiResponse> {
     return unwrapAsync(clientList(
@@ -65,7 +66,7 @@ export class Client extends ClientSDK {
    * Create a new client.
    */
   async create(
-    request: operations.ClientCreateApiRequest,
+    request?: operations.ClientCreateApiRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.ClientCreateApiResponse> {
     return unwrapAsync(clientCreate(
@@ -120,6 +121,44 @@ export class Client extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ClientDeleteApiResponse | undefined> {
     return unwrapAsync(clientDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * List Clients (Cursor Pagination)
+   *
+   * @remarks
+   * Retrieve the clients in the requested service via cursor based iteration.
+   */
+  async listByCursor(
+    request: operations.ClientCursorListApiRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.ClientCursorListApiResponse, { cursor: string }>
+  > {
+    return unwrapResultIterator(clientListByCursor(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Search Clients
+   *
+   * @remarks
+   * Search the clients in the requested service that match the condition provided in the `q` query parameter. Results are returned via cursor based iteration. To iterate through all clients without a search condition, use the `/api/&#123;serviceId&#125;/client` API instead.
+   */
+  async search(
+    request: operations.ClientSearchApiRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.ClientSearchApiResponse, { cursor: string }>
+  > {
+    return unwrapResultIterator(clientSearch(
       this,
       request,
       options,

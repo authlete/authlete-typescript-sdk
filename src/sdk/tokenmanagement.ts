@@ -17,14 +17,10 @@ export class TokenManagement extends ClientSDK {
    * Reissue ID Token
    *
    * @remarks
-   * The API is expected to be called only when the value of the `action`
-   * parameter in a response from the `/auth/token` API is [ID_TOKEN_REISSUABLE](https://authlete.github.io/authlete-java-common/com/authlete/common/dto/TokenResponse.Action.html#ID_TOKEN_REISSUABLE). The purpose
-   * of the `/idtoken/reissue` API is to generate a token response that
-   * includes a new ID token together with a new access token and a refresh
-   * token.
+   * The API is expected to be called only when the value of the `action` parameter in a response from the `/auth/token` API is [ID_TOKEN_REISSUABLE](https://authlete.github.io/authlete-java-common/com/authlete/common/dto/TokenResponse.Action.html#ID_TOKEN_REISSUABLE). The purpose of the `/idtoken/reissue` API is to generate a token response that includes a new ID token together with a new access token and a refresh token.
    */
   async reissueIdToken(
-    request: operations.IdtokenReissueApiRequest,
+    request?: operations.IdtokenReissueApiRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.IdtokenReissueApiResponse> {
     return unwrapAsync(tokenManagementReissueIdToken(
@@ -41,7 +37,7 @@ export class TokenManagement extends ClientSDK {
    * Get the list of access tokens that are associated with the service.
    */
   async list(
-    request: operations.AuthTokenGetListApiRequest,
+    request?: operations.AuthTokenGetListApiRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.AuthTokenGetListApiResponse> {
     return unwrapAsync(tokenManagementList(

@@ -6,11 +6,9 @@ import * as z from "zod/v3";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * The client authentication method that the client application declares that it uses at the token
+ * The client authentication method that the client application declares that it uses at the token endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
  *
  * @remarks
- * endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
- * Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
  */
 export const ClientAuthMethod = {
   None: "NONE",
@@ -24,11 +22,9 @@ export const ClientAuthMethod = {
   SpiffeJwt: "SPIFFE_JWT",
 } as const;
 /**
- * The client authentication method that the client application declares that it uses at the token
+ * The client authentication method that the client application declares that it uses at the token endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
  *
  * @remarks
- * endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
- * Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
  */
 export type ClientAuthMethod = ClosedEnum<typeof ClientAuthMethod>;
 

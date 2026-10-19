@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type AuthAuthorizationIssueApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type AuthAuthorizationIssueApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   authorizationIssueRequest: models.AuthorizationIssueRequest;
 };
 
@@ -24,7 +28,7 @@ export type AuthAuthorizationIssueApiResponse = {
 
 /** @internal */
 export type AuthAuthorizationIssueApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   authorization_issue_request: models.AuthorizationIssueRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const AuthAuthorizationIssueApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthAuthorizationIssueApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   authorizationIssueRequest: models.AuthorizationIssueRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

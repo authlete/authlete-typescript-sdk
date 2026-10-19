@@ -30,8 +30,7 @@ import { Result } from "../types/fp.js";
  * Delete Granted Scopes (by Subject)
  *
  * @remarks
- * Delete the set of scopes that an end-user has granted to a client application.
- * In this variant, the subject is provided in the path.
+ * Delete the set of scopes that an end-user has granted to a client application. In this variant, the subject is provided in the path.
  */
 export function clientManagementDeleteGrantedScopes(
   client: AuthleteCore,
@@ -97,10 +96,11 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
     subject: encodeSimple("subject", payload.subject, {
       explode: false,
       charEncoding: "percent",

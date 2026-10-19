@@ -6,7 +6,6 @@
 import { NativeSsoApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: NativeSsoApiRequest = {
-  serviceId: "715948317",
   nativeSsoRequest: {
     accessToken: "<value>",
     deviceSecret: "<value>",
@@ -16,7 +15,7 @@ let value: NativeSsoApiRequest = {
 
 ## Fields
 
-| Field                                                       | Type                                                        | Required                                                    | Description                                                 | Example                                                     |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `serviceId`                                                 | *string*                                                    | :heavy_check_mark:                                          | A service ID.                                               | 715948317                                                   |
-| `nativeSsoRequest`                                          | [models.NativeSsoRequest](../../models/nativessorequest.md) | :heavy_check_mark:                                          | N/A                                                         |                                                             |
+| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `serviceId`                                                 | *string*                                                    | :heavy_minus_sign:                                          | A service ID.                                               |
+| `nativeSsoRequest`                                          | [models.NativeSsoRequest](../../models/nativessorequest.md) | :heavy_check_mark:                                          | N/A                                                         |

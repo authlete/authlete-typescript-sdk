@@ -30,9 +30,7 @@ import { Result } from "../types/fp.js";
  * Register Client
  *
  * @remarks
- * Register a client. This API is supposed to be used to implement a client registration endpoint that
- * complies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591) (OAuth 2.0 Dynamic Client
- * Registration Protocol).
+ * Register a client. This API is supposed to be used to implement a client registration endpoint that complies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591) (OAuth 2.0 Dynamic Client Registration Protocol).
  */
 export function dynamicClientRegistrationRegister(
   client: AuthleteCore,
@@ -93,10 +91,11 @@ async function $do(
   const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/client/registration")(pathParams);
 

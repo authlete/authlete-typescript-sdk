@@ -1,9 +1,6 @@
 # VciMetadataResponseAction
 
-The next action that the implementation of the credential issuer
-metadata endpoint (`/.well-known/openid-credential-issuer`)
-should take after getting a response from Authlete's
-`/vci/metadata` API.
+The next action that the implementation of the credential issuer metadata endpoint (`/.well-known/openid-credential-issuer`) should take after getting a response from Authlete's `/vci/metadata` API.
 
 
 ## Example Usage

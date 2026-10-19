@@ -1,7 +1,6 @@
 # TokenType
 
-The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693).
-The API returns short codes (enum constant names) in response fields.
+The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693). The API returns short codes (enum constant names) in response fields.
 
 
 ## Example Usage

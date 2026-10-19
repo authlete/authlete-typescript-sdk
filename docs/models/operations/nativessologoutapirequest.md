@@ -6,7 +6,6 @@
 import { NativeSsoLogoutApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: NativeSsoLogoutApiRequest = {
-  serviceId: "<id>",
   nativeSsoLogoutRequest: {
     sessionId: "<id>",
   },
@@ -17,5 +16,5 @@ let value: NativeSsoLogoutApiRequest = {
 
 | Field                                                                   | Type                                                                    | Required                                                                | Description                                                             |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `serviceId`                                                             | *string*                                                                | :heavy_check_mark:                                                      | A service ID.                                                           |
+| `serviceId`                                                             | *string*                                                                | :heavy_minus_sign:                                                      | A service ID.                                                           |
 | `nativeSsoLogoutRequest`                                                | [models.NativeSsoLogoutRequest](../../models/nativessologoutrequest.md) | :heavy_check_mark:                                                      | N/A                                                                     |

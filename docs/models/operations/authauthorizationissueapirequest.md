@@ -6,7 +6,6 @@
 import { AuthAuthorizationIssueApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: AuthAuthorizationIssueApiRequest = {
-  serviceId: "<id>",
   authorizationIssueRequest: {
     ticket: "<value>",
     subject: "<value>",
@@ -18,5 +17,5 @@ let value: AuthAuthorizationIssueApiRequest = {
 
 | Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
 | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `serviceId`                                                                   | *string*                                                                      | :heavy_check_mark:                                                            | A service ID.                                                                 |
+| `serviceId`                                                                   | *string*                                                                      | :heavy_minus_sign:                                                            | A service ID.                                                                 |
 | `authorizationIssueRequest`                                                   | [models.AuthorizationIssueRequest](../../models/authorizationissuerequest.md) | :heavy_check_mark:                                                            | N/A                                                                           |

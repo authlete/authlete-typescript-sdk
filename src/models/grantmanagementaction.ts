@@ -10,8 +10,7 @@ import { ClosedEnum } from "../types/enums.js";
  *
  * @remarks
  *
- * The `grant_management_action` request parameter is defined in
- * [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
+ * The `grant_management_action` request parameter is defined in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
  */
 export const GrantManagementAction = {
   Create: "CREATE",
@@ -25,8 +24,7 @@ export const GrantManagementAction = {
  *
  * @remarks
  *
- * The `grant_management_action` request parameter is defined in
- * [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
+ * The `grant_management_action` request parameter is defined in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
  */
 export type GrantManagementAction = ClosedEnum<typeof GrantManagementAction>;
 

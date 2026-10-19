@@ -14,8 +14,7 @@ export class Audit extends ClientSDK {
    * Get Audit Logs
    *
    * @remarks
-   * Retrieve audit logs as a cursor-paginated list. Results can be filtered by time range, event type,
-   * and organization.
+   * Retrieve audit logs as a cursor-paginated list. Results can be filtered by time range, event type, and organization.
    */
   async get(
     request?: operations.AuditEntriesGetIdpApiRequest | undefined,
@@ -36,12 +35,9 @@ export class Audit extends ClientSDK {
    * @remarks
    * Returns the list of available audit log event types for this environment.
    *
-   * Accessible with a user access token or an organization token that has the
-   * `view_audit_log` permission (e.g. a token created with the `admin` or
-   * `audit_reader` preset).
+   * Accessible with a user access token or an organization token that has the `view_audit_log` permission (e.g. a token created with the `admin` or `audit_reader` preset).
    *
-   * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
-   * not on the regional API clusters.
+   * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`), not on the regional API clusters.
    */
   async getTypes(
     options?: RequestOptions,

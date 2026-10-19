@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function tokenManagementList(
   client: AuthleteCore,
-  request: operations.AuthTokenGetListApiRequest,
+  request?: operations.AuthTokenGetListApiRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function tokenManagementList(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.AuthTokenGetListApiRequest,
+  request?: operations.AuthTokenGetListApiRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -81,7 +81,9 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.AuthTokenGetListApiRequest$outboundSchema.parse(value),
+      operations.AuthTokenGetListApiRequest$outboundSchema.optional().parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -91,18 +93,19 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload?.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/auth/token/get/list")(pathParams);
 
   const query = encodeFormQuery({
-    "clientIdentifier": payload.clientIdentifier,
-    "end": payload.end,
-    "start": payload.start,
-    "subject": payload.subject,
+    "clientIdentifier": payload?.clientIdentifier,
+    "end": payload?.end,
+    "start": payload?.start,
+    "subject": payload?.subject,
   });
 
   const headers = new Headers(compactMap({

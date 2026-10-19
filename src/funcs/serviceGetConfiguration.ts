@@ -32,15 +32,11 @@ import { Result } from "../types/fp.js";
  * @remarks
  * This API gathers configuration information about a service.
  *
- * This API is supposed to be called from within the implementation of the configuration endpoint of
- * the service where the service that supports OpenID Connect and [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html)
- * must expose its configuration information in a JSON format. Details about the format are described
- * in "[3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)"
- * in OpenID Connect Discovery 1.0.
+ * This API is supposed to be called from within the implementation of the configuration endpoint of the service where the service that supports OpenID Connect and [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html) must expose its configuration information in a JSON format. Details about the format are described in "[3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)" in OpenID Connect Discovery 1.0.
  */
 export function serviceGetConfiguration(
   client: AuthleteCore,
-  request: operations.ServiceConfigurationApiRequest,
+  request?: operations.ServiceConfigurationApiRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -65,7 +61,7 @@ export function serviceGetConfiguration(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.ServiceConfigurationApiRequest,
+  request?: operations.ServiceConfigurationApiRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -87,7 +83,9 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.ServiceConfigurationApiRequest$outboundSchema.parse(value),
+      operations.ServiceConfigurationApiRequest$outboundSchema.optional().parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -97,16 +95,17 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload?.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/service/configuration")(pathParams);
 
   const query = encodeFormQuery({
-    "patch": payload.patch,
-    "pretty": payload.pretty,
+    "patch": payload?.patch,
+    "pretty": payload?.pretty,
   });
 
   const headers = new Headers(compactMap({

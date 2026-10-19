@@ -30,9 +30,7 @@ import { Result } from "../types/fp.js";
  * Process Backchannel Authentication Request
  *
  * @remarks
- * This API parses request parameters of a [backchannel authentication request](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_request)
- * and returns necessary data for the authorization server implementation to process the backchannel
- * authentication request further.
+ * This API parses request parameters of a [backchannel authentication request](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_request) and returns necessary data for the authorization server implementation to process the backchannel authentication request further.
  */
 export function cibaProcessAuthentication(
   client: AuthleteCore,
@@ -97,10 +95,11 @@ async function $do(
   });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/backchannel/authentication")(
     pathParams,

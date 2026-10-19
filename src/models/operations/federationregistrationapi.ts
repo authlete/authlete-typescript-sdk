@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type FederationRegistrationApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type FederationRegistrationApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   federationRegistrationRequest: models.FederationRegistrationRequest;
 };
 
@@ -24,7 +28,7 @@ export type FederationRegistrationApiResponse = {
 
 /** @internal */
 export type FederationRegistrationApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   federation_registration_request:
     models.FederationRegistrationRequest$Outbound;
 };
@@ -35,7 +39,7 @@ export const FederationRegistrationApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FederationRegistrationApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   federationRegistrationRequest:
     models.FederationRegistrationRequest$outboundSchema,
 }).transform((v) => {

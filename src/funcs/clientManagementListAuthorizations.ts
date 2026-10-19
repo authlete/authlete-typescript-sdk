@@ -30,8 +30,7 @@ import { Result } from "../types/fp.js";
  * Get Authorized Applications (by Subject)
  *
  * @remarks
- * Get a list of client applications that an end-user has authorized.
- * In this variant, the subject is provided in the path.
+ * Get a list of client applications that an end-user has authorized. In this variant, the subject is provided in the path.
  */
 export function clientManagementListAuthorizations(
   client: AuthleteCore,
@@ -93,10 +92,11 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
     subject: encodeSimple("subject", payload.subject, {
       explode: false,
       charEncoding: "percent",

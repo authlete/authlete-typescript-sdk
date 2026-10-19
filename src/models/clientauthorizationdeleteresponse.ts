@@ -25,33 +25,27 @@ export type ClientAuthorizationDeleteResponse = {
    */
   clientId?: number | undefined;
   /**
-   * Get the subject (= unique identifier) of the user
+   * Get the subject (= unique identifier) of the user who has granted authorization to the client.
    *
    * @remarks
-   * who has granted authorization to the client.
    */
   subject?: string | undefined;
   /**
-   * Get the scopes granted to the client application by the last
+   * Get the scopes granted to the client application by the last authorization process by the user (who is identified by the subject).
    *
    * @remarks
-   * authorization process by the user (who is identified by the
-   * subject).
    */
   latestGrantedScopes?: Array<string> | undefined;
   /**
-   * Get the scopes granted to the client application by all the
+   * Get the scopes granted to the client application by all the past authorization processes. Note that revoked scopes are not included.
    *
    * @remarks
-   * past authorization processes. Note that revoked scopes are
-   * not included.
    */
   mergedGrantedScopes?: Array<string> | undefined;
   /**
-   * Get the timestamp in milliseconds since Unix epoch
+   * Get the timestamp in milliseconds since Unix epoch at which this record was modified.
    *
    * @remarks
-   * at which this record was modified.
    */
   modifiedAt?: number | undefined;
 };

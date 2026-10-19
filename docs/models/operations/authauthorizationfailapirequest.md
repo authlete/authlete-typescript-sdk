@@ -6,10 +6,9 @@
 import { AuthAuthorizationFailApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: AuthAuthorizationFailApiRequest = {
-  serviceId: "<id>",
   authorizationFailRequest: {
     ticket: "<value>",
-    reason: "CONSENT_REQUIRED",
+    reason: "INVALID_TARGET",
   },
 };
 ```
@@ -18,5 +17,5 @@ let value: AuthAuthorizationFailApiRequest = {
 
 | Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `serviceId`                                                                 | *string*                                                                    | :heavy_check_mark:                                                          | A service ID.                                                               |
+| `serviceId`                                                                 | *string*                                                                    | :heavy_minus_sign:                                                          | A service ID.                                                               |
 | `authorizationFailRequest`                                                  | [models.AuthorizationFailRequest](../../models/authorizationfailrequest.md) | :heavy_check_mark:                                                          | N/A                                                                         |

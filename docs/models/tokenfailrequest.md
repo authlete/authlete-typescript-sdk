@@ -7,7 +7,7 @@ import { TokenFailRequest } from "@authlete/typescript-sdk/models";
 
 let value: TokenFailRequest = {
   ticket: "<value>",
-  reason: "INVALID_TARGET",
+  reason: "UNAUTHORIZED_CLIENT",
 };
 ```
 

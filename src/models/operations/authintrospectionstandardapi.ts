@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type AuthIntrospectionStandardApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type AuthIntrospectionStandardApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   standardIntrospectionRequest: models.StandardIntrospectionRequest;
 };
 
@@ -24,7 +28,7 @@ export type AuthIntrospectionStandardApiResponse = {
 
 /** @internal */
 export type AuthIntrospectionStandardApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   standard_introspection_request: models.StandardIntrospectionRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const AuthIntrospectionStandardApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthIntrospectionStandardApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   standardIntrospectionRequest:
     models.StandardIntrospectionRequest$outboundSchema,
 }).transform((v) => {

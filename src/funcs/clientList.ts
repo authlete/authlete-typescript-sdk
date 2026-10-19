@@ -32,14 +32,12 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Get a list of clients on a service.
  *
- * If the access token can view a full service (including an admin), all clients within the
- * service are returned. Otherwise, only clients that the access token can view within the
- * service are returned.
+ * If the access token can view a full service (including an admin), all clients within the service are returned. Otherwise, only clients that the access token can view within the service are returned.
  * - ViewClient: []
  */
 export function clientList(
   client: AuthleteCore,
-  request: operations.ClientGetListApiRequest,
+  request?: operations.ClientGetListApiRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -64,7 +62,7 @@ export function clientList(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.ClientGetListApiRequest,
+  request?: operations.ClientGetListApiRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -85,7 +83,8 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.ClientGetListApiRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.ClientGetListApiRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -95,17 +94,18 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload?.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/client/get/list")(pathParams);
 
   const query = encodeFormQuery({
-    "developer": payload.developer,
-    "end": payload.end,
-    "start": payload.start,
+    "developer": payload?.developer,
+    "end": payload?.end,
+    "start": payload?.start,
   });
 
   const headers = new Headers(compactMap({

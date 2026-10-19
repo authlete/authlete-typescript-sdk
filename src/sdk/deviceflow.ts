@@ -14,9 +14,7 @@ export class DeviceFlow extends ClientSDK {
    * Process Device Authorization Request
    *
    * @remarks
-   * This API parses request parameters of a [device authorization request](https://datatracker.ietf.org/doc/html/rfc8628#section-3.1)
-   * and returns necessary data for the authorization server implementation to process the device authorization
-   * request further.
+   * This API parses request parameters of a [device authorization request](https://datatracker.ietf.org/doc/html/rfc8628#section-3.1) and returns necessary data for the authorization server implementation to process the device authorization request further.
    */
   async authorization(
     request: operations.DeviceAuthorizationApiRequest,
@@ -50,9 +48,7 @@ export class DeviceFlow extends ClientSDK {
    * Complete Device Authorization
    *
    * @remarks
-   * This API returns information about what action the authorization server should take after it receives
-   * the result of end-user's decision about whether the end-user has approved or rejected a client
-   * application's request.
+   * This API returns information about what action the authorization server should take after it receives the result of end-user's decision about whether the end-user has approved or rejected a client application's request.
    */
   async complete(
     request: operations.DeviceCompleteApiRequest,

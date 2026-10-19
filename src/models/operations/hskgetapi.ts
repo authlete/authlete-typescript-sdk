@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type HskGetApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type HskGetApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   handle: string;
 };
 
@@ -24,7 +28,7 @@ export type HskGetApiResponse = {
 
 /** @internal */
 export type HskGetApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   handle: string;
 };
 
@@ -34,7 +38,7 @@ export const HskGetApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HskGetApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   handle: z.string(),
 });
 

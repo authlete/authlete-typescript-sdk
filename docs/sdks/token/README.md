@@ -10,8 +10,7 @@
 
 ## process
 
-This API parses request parameters of an authorization request and returns necessary data for the
-authorization server implementation to process the authorization request further.
+This API parses request parameters of an authorization request and returns necessary data for the authorization server implementation to process the authorization request further.
 
 
 ### Example Usage
@@ -21,12 +20,12 @@ authorization server implementation to process the authorization request further
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.token.process({
-    serviceId: "<id>",
     tokenRequest: {
       parameters: "grant_type=authorization_code&code=Xv_su944auuBgc5mfUnxXayiiQU9Z4-T_Yae_UfExmo&redirect_uri=https%3A%2F%2Fmy-client.example.com%2Fcb1&code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk",
       clientId: "26478243745571",
@@ -51,12 +50,12 @@ import { tokenProcess } from "@authlete/typescript-sdk/funcs/tokenProcess.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await tokenProcess(authlete, {
-    serviceId: "<id>",
     tokenRequest: {
       parameters: "grant_type=authorization_code&code=Xv_su944auuBgc5mfUnxXayiiQU9Z4-T_Yae_UfExmo&redirect_uri=https%3A%2F%2Fmy-client.example.com%2Fcb1&code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk",
       clientId: "26478243745571",
@@ -98,8 +97,7 @@ run();
 
 ## fail
 
-This API generates a content of an error token response that the authorization server implementation
-returns to the client application.
+This API generates a content of an error token response that the authorization server implementation returns to the client application.
 
 
 ### Example Usage
@@ -109,12 +107,12 @@ returns to the client application.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.token.fail({
-    serviceId: "<id>",
     tokenFailRequest: {
       ticket: "83BNqKIhGMyrkvop_7jQjv2Z1612LNdGSQKkvkrf47c",
       reason: "INVALID_RESOURCE_OWNER_CREDENTIALS",
@@ -138,12 +136,12 @@ import { tokenFail } from "@authlete/typescript-sdk/funcs/tokenFail.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await tokenFail(authlete, {
-    serviceId: "<id>",
     tokenFailRequest: {
       ticket: "83BNqKIhGMyrkvop_7jQjv2Z1612LNdGSQKkvkrf47c",
       reason: "INVALID_RESOURCE_OWNER_CREDENTIALS",
@@ -184,8 +182,7 @@ run();
 
 ## issue
 
-This API generates a content of a successful token response that the authorization server implementation
-returns to the client application.
+This API generates a content of a successful token response that the authorization server implementation returns to the client application.
 
 
 ### Example Usage
@@ -195,12 +192,12 @@ returns to the client application.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.token.issue({
-    serviceId: "<id>",
     tokenIssueRequest: {
       ticket: "p7SXQ9JFjng7KFOZdCMBKcoR3ift7B54l1LGIgQXqEM",
       subject: "john",
@@ -224,12 +221,12 @@ import { tokenIssue } from "@authlete/typescript-sdk/funcs/tokenIssue.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await tokenIssue(authlete, {
-    serviceId: "<id>",
     tokenIssueRequest: {
       ticket: "p7SXQ9JFjng7KFOZdCMBKcoR3ift7B54l1LGIgQXqEM",
       subject: "john",

@@ -6,7 +6,6 @@
 import { DeviceCompleteApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: DeviceCompleteApiRequest = {
-  serviceId: "<id>",
   deviceCompleteRequest: {
     userCode: "<value>",
     result: "AUTHORIZED",
@@ -19,5 +18,5 @@ let value: DeviceCompleteApiRequest = {
 
 | Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `serviceId`                                                           | *string*                                                              | :heavy_check_mark:                                                    | A service ID.                                                         |
+| `serviceId`                                                           | *string*                                                              | :heavy_minus_sign:                                                    | A service ID.                                                         |
 | `deviceCompleteRequest`                                               | [models.DeviceCompleteRequest](../../models/devicecompleterequest.md) | :heavy_check_mark:                                                    | N/A                                                                   |

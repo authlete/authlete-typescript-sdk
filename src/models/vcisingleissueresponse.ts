@@ -9,10 +9,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * The next action that the implementation of the credential endpoint
+ * The next action that the implementation of the credential endpoint should take.
  *
  * @remarks
- * should take.
  */
 export const VciSingleIssueResponseAction = {
   Ok: "OK",
@@ -26,10 +25,9 @@ export const VciSingleIssueResponseAction = {
   CallerError: "CALLER_ERROR",
 } as const;
 /**
- * The next action that the implementation of the credential endpoint
+ * The next action that the implementation of the credential endpoint should take.
  *
  * @remarks
- * should take.
  */
 export type VciSingleIssueResponseAction = ClosedEnum<
   typeof VciSingleIssueResponseAction
@@ -45,17 +43,15 @@ export type VciSingleIssueResponse = {
    */
   resultMessage?: string | undefined;
   /**
-   * The next action that the implementation of the credential endpoint
+   * The next action that the implementation of the credential endpoint should take.
    *
    * @remarks
-   * should take.
    */
   action?: VciSingleIssueResponseAction | undefined;
   /**
-   * The content of the response that the implementation of the credential
+   * The content of the response that the implementation of the credential endpoint should return.
    *
    * @remarks
-   * endpoint should return.
    */
   responseContent?: string | undefined;
   /**

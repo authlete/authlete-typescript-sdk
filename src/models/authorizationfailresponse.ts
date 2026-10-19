@@ -38,10 +38,9 @@ export type AuthorizationFailResponse = {
    */
   action?: AuthorizationFailResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client application.
+   * The content that the authorization server implementation is to return to the client application. Its format varies depending on the value of `action` parameter.
    *
    * @remarks
-   * Its format varies depending on the value of `action` parameter.
    */
   responseContent?: string | undefined;
 };

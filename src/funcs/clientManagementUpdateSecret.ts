@@ -32,8 +32,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Update the client secret of a client.
  *
- * If you want to have the Authlete server generate a new value of the client secret, use `/api/client/secret/refresh`
- * API.
+ * If you want to have the Authlete server generate a new value of the client secret, use `/api/client/secret/refresh` API.
  */
 export function clientManagementUpdateSecret(
   client: AuthleteCore,
@@ -101,10 +100,11 @@ async function $do(
       payload.clientIdentifier,
       { explode: false, charEncoding: "percent" },
     ),
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc(
     "/api/{serviceId}/client/secret/update/{clientIdentifier}",

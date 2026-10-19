@@ -6,7 +6,6 @@
 import { ClientExtensionRequestablesScopesDeleteApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: ClientExtensionRequestablesScopesDeleteApiRequest = {
-  serviceId: "<id>",
   clientId: "<id>",
 };
 ```
@@ -15,5 +14,5 @@ let value: ClientExtensionRequestablesScopesDeleteApiRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `serviceId`        | *string*           | :heavy_check_mark: | A service ID.      |
+| `serviceId`        | *string*           | :heavy_minus_sign: | A service ID.      |
 | `clientId`         | *string*           | :heavy_check_mark: | A client ID.<br/>  |

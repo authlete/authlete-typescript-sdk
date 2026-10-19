@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type PushedAuthReqApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type PushedAuthReqApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   pushedAuthorizationRequest: models.PushedAuthorizationRequest;
 };
 
@@ -24,7 +28,7 @@ export type PushedAuthReqApiResponse = {
 
 /** @internal */
 export type PushedAuthReqApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   pushed_authorization_request: models.PushedAuthorizationRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const PushedAuthReqApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PushedAuthReqApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   pushedAuthorizationRequest: models.PushedAuthorizationRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

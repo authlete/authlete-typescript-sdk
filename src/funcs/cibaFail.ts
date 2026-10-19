@@ -30,8 +30,7 @@ import { Result } from "../types/fp.js";
  * Fail Backchannel Authentication Request
  *
  * @remarks
- * The API prepares JSON that contains an error. The JSON should be used as the response body of the
- * response which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint).
+ * The API prepares JSON that contains an error. The JSON should be used as the response body of the response which is returned to the client from the [backchannel authentication endpoint](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html#auth_backchannel_endpoint).
  */
 export function cibaFail(
   client: AuthleteCore,
@@ -98,10 +97,11 @@ async function $do(
   );
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/backchannel/authentication/fail")(
     pathParams,

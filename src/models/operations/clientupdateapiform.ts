@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientUpdateApiFormGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientUpdateApiFormRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * A client ID.
    */
@@ -28,7 +32,7 @@ export type ClientUpdateApiFormResponse = {
 
 /** @internal */
 export type ClientUpdateApiFormRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   clientId: string;
   RequestBody?: { [k: string]: any } | undefined;
 };
@@ -39,7 +43,7 @@ export const ClientUpdateApiFormRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientUpdateApiFormRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   clientId: z.string(),
   requestBody: z.record(z.any()).optional(),
 }).transform((v) => {

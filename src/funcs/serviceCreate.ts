@@ -34,11 +34,9 @@ import { Result } from "../types/fp.js";
  * Create Service (IDP)
  *
  * @remarks
- * Create a new service on the API server, belonging to the specified organization.
- * A service can be created with an organization token or by a user with the CREATE_SERVICE role.
+ * Create a new service on the API server, belonging to the specified organization. A service can be created with an organization token or by a user with the CREATE_SERVICE role.
  *
- * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
- * not on the regional API clusters.
+ * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`), not on the regional API clusters.
  */
 export function serviceCreate(
   client: AuthleteCore,

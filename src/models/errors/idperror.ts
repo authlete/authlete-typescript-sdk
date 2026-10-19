@@ -7,12 +7,9 @@ import { collectExtraKeys as collectExtraKeys$ } from "../../lib/schemas.js";
 import { AuthleteError } from "./authleteerror.js";
 
 /**
- * Error response returned by the Authlete IdP server. Unlike the main API's
+ * Error response returned by the Authlete IdP server. Unlike the main API's `resultCode`/`resultMessage` format, IdP errors carry a human-readable `error` message, optionally accompanied by contextual fields (such as `organizationId` or `apiServerId`). Request validation failures instead return an `errors` array of per-field messages.
  *
  * @remarks
- * `resultCode`/`resultMessage` format, IdP errors carry a human-readable `error` message,
- * optionally accompanied by contextual fields (such as `organizationId` or `apiServerId`).
- * Request validation failures instead return an `errors` array of per-field messages.
  */
 export type IdpErrorData = {
   /**
@@ -28,12 +25,9 @@ export type IdpErrorData = {
 };
 
 /**
- * Error response returned by the Authlete IdP server. Unlike the main API's
+ * Error response returned by the Authlete IdP server. Unlike the main API's `resultCode`/`resultMessage` format, IdP errors carry a human-readable `error` message, optionally accompanied by contextual fields (such as `organizationId` or `apiServerId`). Request validation failures instead return an `errors` array of per-field messages.
  *
  * @remarks
- * `resultCode`/`resultMessage` format, IdP errors carry a human-readable `error` message,
- * optionally accompanied by contextual fields (such as `organizationId` or `apiServerId`).
- * Request validation failures instead return an `errors` array of per-field messages.
  */
 export class IdpError extends AuthleteError {
   /**

@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type GrantMApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type GrantMApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   gMRequest: models.GMRequest;
 };
 
@@ -24,7 +28,7 @@ export type GrantMApiResponse = {
 
 /** @internal */
 export type GrantMApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   g_m_request: models.GMRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const GrantMApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GrantMApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   gMRequest: models.GMRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

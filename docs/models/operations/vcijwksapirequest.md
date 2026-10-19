@@ -6,7 +6,6 @@
 import { VciJwksApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: VciJwksApiRequest = {
-  serviceId: "<id>",
   vciJwksRequest: {
     pretty: false,
   },
@@ -17,5 +16,5 @@ let value: VciJwksApiRequest = {
 
 | Field                                                   | Type                                                    | Required                                                | Description                                             |
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| `serviceId`                                             | *string*                                                | :heavy_check_mark:                                      | A service ID.                                           |
+| `serviceId`                                             | *string*                                                | :heavy_minus_sign:                                      | A service ID.                                           |
 | `vciJwksRequest`                                        | [models.VciJwksRequest](../../models/vcijwksrequest.md) | :heavy_check_mark:                                      | N/A                                                     |

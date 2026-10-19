@@ -8,8 +8,7 @@
 
 ## processRequest
 
-The API is for the implementation of the grant management endpoint which is
-defined in "[Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)".
+The API is for the implementation of the grant management endpoint which is defined in "[Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)".
 
 
 ### Example Usage
@@ -19,12 +18,12 @@ defined in "[Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.grantManagement.processRequest({
-    serviceId: "<id>",
     gMRequest: {
       accessToken: "eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE1NTk4MTE3NTAsImlzcyI6IjU3Mjk3NDA4ODY3In0K.csmdholMVcmjqHe59YWgLGNvm7I5Whp4phQCoGxyrlRGMnTgsfxtwyxBgMXQqEPD5q5k9FaEWNk37K8uAtSwrA",
       gmAction: "REVOKE",
@@ -49,12 +48,12 @@ import { grantManagementProcessRequest } from "@authlete/typescript-sdk/funcs/gr
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await grantManagementProcessRequest(authlete, {
-    serviceId: "<id>",
     gMRequest: {
       accessToken: "eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE1NTk4MTE3NTAsImlzcyI6IjU3Mjk3NDA4ODY3In0K.csmdholMVcmjqHe59YWgLGNvm7I5Whp4phQCoGxyrlRGMnTgsfxtwyxBgMXQqEPD5q5k9FaEWNk37K8uAtSwrA",
       gmAction: "REVOKE",

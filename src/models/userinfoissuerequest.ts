@@ -7,10 +7,9 @@ import { Pair, Pair$Outbound, Pair$outboundSchema } from "./pair.js";
 
 export type UserinfoIssueRequest = {
   /**
-   * The access token that has been passed to the userinfo endpoint by the client application. In other words,
+   * The access token that has been passed to the userinfo endpoint by the client application. In other words, the access token which was contained in the userinfo request.
    *
    * @remarks
-   * the access token which was contained in the userinfo request.
    */
   token: string;
   /**
@@ -20,10 +19,9 @@ export type UserinfoIssueRequest = {
    */
   claims?: string | undefined;
   /**
-   * The value of the `sub` claim. If the value of this request parameter is not empty, it is used as the value of
+   * The value of the `sub` claim. If the value of this request parameter is not empty, it is used as the value of the `sub` claim. Otherwise, the value of the subject associated with the access token is used.
    *
    * @remarks
-   * the `sub` claim. Otherwise, the value of the subject associated with the access token is used.
    */
   sub?: string | undefined;
   /**
@@ -39,10 +37,9 @@ export type UserinfoIssueRequest = {
    */
   requestSignature?: string | undefined;
   /**
-   * HTTP headers to be included in processing the signature. If this is a signed request, this must include the
+   * HTTP headers to be included in processing the signature. If this is a signed request, this must include the Signature and Signature-Input headers, as well as any additional headers covered by the signature.
    *
    * @remarks
-   * Signature and Signature-Input headers, as well as any additional headers covered by the signature.
    */
   headers?: Array<Pair> | undefined;
   /**

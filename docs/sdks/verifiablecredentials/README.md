@@ -27,12 +27,12 @@ Get verifiable credential issuer metadata
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.getMetadata({
-    serviceId: "<id>",
     vciMetadataRequest: {
       pretty: true,
     },
@@ -55,12 +55,12 @@ import { verifiableCredentialsGetMetadata } from "@authlete/typescript-sdk/funcs
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsGetMetadata(authlete, {
-    serviceId: "<id>",
     vciMetadataRequest: {
       pretty: true,
     },
@@ -109,12 +109,12 @@ Get JWT issuer information for VCI
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.getJwtIssuer({
-    serviceId: "<id>",
     vciJwtissuerRequest: {
       pretty: true,
     },
@@ -137,12 +137,12 @@ import { verifiableCredentialsGetJwtIssuer } from "@authlete/typescript-sdk/func
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsGetJwtIssuer(authlete, {
-    serviceId: "<id>",
     vciJwtissuerRequest: {
       pretty: true,
     },
@@ -191,12 +191,12 @@ Get JSON Web Key Set for VCI
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.getJwks({
-    serviceId: "<id>",
     vciJwksRequest: {
       pretty: false,
     },
@@ -219,12 +219,12 @@ import { verifiableCredentialsGetJwks } from "@authlete/typescript-sdk/funcs/ver
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsGetJwks(authlete, {
-    serviceId: "<id>",
     vciJwksRequest: {
       pretty: false,
     },
@@ -273,12 +273,12 @@ Create a verifiable credential offer
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.createOffer({
-    serviceId: "<id>",
     vciOfferCreateRequest: {},
   });
 
@@ -299,12 +299,12 @@ import { verifiableCredentialsCreateOffer } from "@authlete/typescript-sdk/funcs
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsCreateOffer(authlete, {
-    serviceId: "<id>",
     vciOfferCreateRequest: {},
   });
   if (res.ok) {
@@ -351,12 +351,12 @@ Get information about a verifiable credential offer
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.getOfferInfo({
-    serviceId: "<id>",
     vciOfferInfoRequest: {},
   });
 
@@ -377,12 +377,12 @@ import { verifiableCredentialsGetOfferInfo } from "@authlete/typescript-sdk/func
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsGetOfferInfo(authlete, {
-    serviceId: "<id>",
     vciOfferInfoRequest: {},
   });
   if (res.ok) {
@@ -429,12 +429,12 @@ Parse a single verifiable credential
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.parse({
-    serviceId: "<id>",
     vciSingleParseRequest: {},
   });
 
@@ -455,12 +455,12 @@ import { verifiableCredentialsParse } from "@authlete/typescript-sdk/funcs/verif
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsParse(authlete, {
-    serviceId: "<id>",
     vciSingleParseRequest: {},
   });
   if (res.ok) {
@@ -507,12 +507,12 @@ Issue a single verifiable credential
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.issue({
-    serviceId: "<id>",
     vciSingleIssueRequest: {},
   });
 
@@ -533,12 +533,12 @@ import { verifiableCredentialsIssue } from "@authlete/typescript-sdk/funcs/verif
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsIssue(authlete, {
-    serviceId: "<id>",
     vciSingleIssueRequest: {},
   });
   if (res.ok) {
@@ -585,12 +585,12 @@ Parse multiple verifiable credentials in batch
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.batchParse({
-    serviceId: "<id>",
     vciBatchParseRequest: {},
   });
 
@@ -611,12 +611,12 @@ import { verifiableCredentialsBatchParse } from "@authlete/typescript-sdk/funcs/
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsBatchParse(authlete, {
-    serviceId: "<id>",
     vciBatchParseRequest: {},
   });
   if (res.ok) {
@@ -663,12 +663,12 @@ Issue multiple verifiable credentials in batch
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.batchIssue({
-    serviceId: "<id>",
     vciBatchIssueRequest: {},
   });
 
@@ -689,12 +689,12 @@ import { verifiableCredentialsBatchIssue } from "@authlete/typescript-sdk/funcs/
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsBatchIssue(authlete, {
-    serviceId: "<id>",
     vciBatchIssueRequest: {},
   });
   if (res.ok) {
@@ -741,12 +741,12 @@ Parse a deferred verifiable credential
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.deferredParse({
-    serviceId: "<id>",
     vciDeferredParseRequest: {},
   });
 
@@ -767,12 +767,12 @@ import { verifiableCredentialsDeferredParse } from "@authlete/typescript-sdk/fun
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsDeferredParse(authlete, {
-    serviceId: "<id>",
     vciDeferredParseRequest: {},
   });
   if (res.ok) {
@@ -819,12 +819,12 @@ Issue a deferred verifiable credential
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.verifiableCredentials.deferredIssue({
-    serviceId: "<id>",
     vciDeferredIssueRequest: {},
   });
 
@@ -845,12 +845,12 @@ import { verifiableCredentialsDeferredIssue } from "@authlete/typescript-sdk/fun
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await verifiableCredentialsDeferredIssue(authlete, {
-    serviceId: "<id>",
     vciDeferredIssueRequest: {},
   });
   if (res.ok) {

@@ -28,34 +28,27 @@ export type AuditEntriesGetIdpApiRequest = {
    */
   before?: Date | undefined;
   /**
-   * Filter by event type (e.g. `service.create`, `security.login`, `client.create`).
+   * Filter by event type (e.g. `service.create`, `security.login`, `client.create`). Can be specified multiple times. The set of available event types is environment-specific and includes server-side types; retrieve the full list from the `/api/audit/types` endpoint.
    *
    * @remarks
-   * Can be specified multiple times. The set of available event types is environment-specific
-   * and includes server-side types; retrieve the full list from the `/api/audit/types` endpoint.
    */
   types?: Array<string> | undefined;
   /**
-   * The organization to retrieve audit logs for. Not required when authenticating with an
+   * The organization to retrieve audit logs for. Not required when authenticating with an organization token — the token's own organization is used, and a differing value is rejected. Required for user access tokens, unless the user is an Authlete administrator (administrators may omit it to query across all organizations).
    *
    * @remarks
-   * organization token — the token's own organization is used, and a differing value is
-   * rejected. Required for user access tokens, unless the user is an Authlete administrator
-   * (administrators may omit it to query across all organizations).
    */
   organizationId?: number | undefined;
   /**
-   * The maximum number of entries to return per page. Values outside the allowed range are
+   * The maximum number of entries to return per page. Values outside the allowed range are clamped; the effective value is echoed back in the response.
    *
    * @remarks
-   * clamped; the effective value is echoed back in the response.
    */
   limit?: number | undefined;
   /**
-   * An opaque cursor returned as `nextCursor` by a previous response. When provided, it takes
+   * An opaque cursor returned as `nextCursor` by a previous response. When provided, it takes precedence over the `before` parameter.
    *
    * @remarks
-   * precedence over the `before` parameter.
    */
   cursor?: string | undefined;
 };

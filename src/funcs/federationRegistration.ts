@@ -30,27 +30,8 @@ import { Result } from "../types/fp.js";
  * Process Federation Registration Request
  *
  * @remarks
- * The Authlete API is for implementations of the **federation registration
- * endpoint** that accepts "explicit client registration". Its details are
- * defined in [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html).
- * The endpoint accepts `POST` requests whose `Content-Type`
- * is either of the following.
- * 1. `application/entity-statement+jwt`- `application/trust-chain+json`
- * When the `Content-Type` of a request is
- * `application/entity-statement+jwt`, the content of the request is
- * the entity configuration of a relying party that is to be registered.
- * In this case, the implementation of the federation registration endpoint
- * should call Authlete's `/federation/registration` API with the
- * entity configuration set to the `entityConfiguration` request
- * parameter.
- * On the other hand, when the `Content-Type` of a request is
- * `application/trust-chain+json`, the content of the request is a
- * JSON array that contains entity statements in JWT format. The sequence
- * of the entity statements composes the trust chain of a relying party
- * that is to be registered. In this case, the implementation of the
- * federation registration endpoint should call Authlete's
- * `/federation/registration` API with the trust chain set to the
- * `trustChain` request parameter.
+ * The Authlete API is for implementations of the **federation registration endpoint** that accepts "explicit client registration". Its details are defined in [OpenID Connect Federation 1.0](https://openid.net/specs/openid-connect-federation-1_0.html). The endpoint accepts `POST` requests whose `Content-Type` is either of the following.
+ * 1. `application/entity-statement+jwt`- `application/trust-chain+json` When the `Content-Type` of a request is `application/entity-statement+jwt`, the content of the request is the entity configuration of a relying party that is to be registered. In this case, the implementation of the federation registration endpoint should call Authlete's `/federation/registration` API with the entity configuration set to the `entityConfiguration` request parameter. On the other hand, when the `Content-Type` of a request is `application/trust-chain+json`, the content of the request is a JSON array that contains entity statements in JWT format. The sequence of the entity statements composes the trust chain of a relying party that is to be registered. In this case, the implementation of the federation registration endpoint should call Authlete's `/federation/registration` API with the trust chain set to the `trustChain` request parameter.
  */
 export function federationRegistration(
   client: AuthleteCore,
@@ -113,10 +94,11 @@ async function $do(
   });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/federation/registration")(
     pathParams,

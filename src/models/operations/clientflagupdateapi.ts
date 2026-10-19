@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientFlagUpdateApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientFlagUpdateApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * A client ID.
    */
@@ -28,7 +32,7 @@ export type ClientFlagUpdateApiResponse = {
 
 /** @internal */
 export type ClientFlagUpdateApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   clientIdentifier: string;
   client_flag_update_request?:
     | models.ClientFlagUpdateRequest$Outbound
@@ -41,7 +45,7 @@ export const ClientFlagUpdateApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientFlagUpdateApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   clientIdentifier: z.string(),
   clientFlagUpdateRequest: models.ClientFlagUpdateRequest$outboundSchema
     .optional(),

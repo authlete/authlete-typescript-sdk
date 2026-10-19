@@ -46,32 +46,27 @@ export type BackchannelAuthenticationCompleteResponse = {
    */
   action?: BackchannelAuthenticationCompleteResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client
+   * The content that the authorization server implementation is to return to the client application. Its format varies depending on the value of `action` parameter.
    *
    * @remarks
-   * application. Its format varies depending on the value of `action` parameter.
    */
   responseContent?: string | undefined;
   /**
-   * The client ID of the client application that has made the backchannel authentication
+   * The client ID of the client application that has made the backchannel authentication request.
    *
    * @remarks
-   * request.
    */
   clientId?: number | undefined;
   /**
-   * The client ID alias of the client application that has made the backchannel authentication
+   * The client ID alias of the client application that has made the backchannel authentication request.
    *
    * @remarks
-   * request.
    */
   clientIdAlias?: string | undefined;
   /**
-   * `true` if the value of the client_id request parameter included in the backchannel
+   * `true` if the value of the client_id request parameter included in the backchannel authentication request is the client ID alias. `false` if the value is the original numeric client ID.
    *
    * @remarks
-   * authentication request is the client ID alias. `false` if the value is the original
-   * numeric client ID.
    */
   clientIdAliasUsed?: boolean | undefined;
   /**
@@ -82,18 +77,15 @@ export type BackchannelAuthenticationCompleteResponse = {
   clientName?: string | undefined;
   deliveryMode?: DeliveryMode | undefined;
   /**
-   * The client notification endpoint to which a notification needs to be sent. This corresponds
+   * The client notification endpoint to which a notification needs to be sent. This corresponds to the `client_notification_endpoint` metadata of the client application.
    *
    * @remarks
-   * to the `client_notification_endpoint` metadata of the client application.
    */
   clientNotificationEndpoint?: string | undefined;
   /**
-   * The client notification token which needs to be embedded as a Bearer token in the Authorization
+   * The client notification token which needs to be embedded as a Bearer token in the Authorization header in the notification. This is the value of the `client_notification_token` request parameter included in the backchannel authentication request.
    *
    * @remarks
-   * header in the notification. This is the value of the `client_notification_token` request
-   * parameter included in the backchannel authentication request.
    */
   clientNotificationToken?: string | undefined;
   /**
@@ -145,19 +137,15 @@ export type BackchannelAuthenticationCompleteResponse = {
    */
   jwtAccessToken?: string | undefined;
   /**
-   * The resources specified by the `resource` request parameters or by the `resource` property
+   * The resources specified by the `resource` request parameters or by the `resource` property in the request object. If both are given, the values in the request object should be set. See "Resource Indicators for OAuth 2.0" for details.
    *
    * @remarks
-   * in the request object. If both are given, the values in the request object should be
-   * set. See "Resource Indicators for OAuth 2.0" for details.
    */
   resources?: Array<string> | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
   /**
@@ -177,9 +165,7 @@ export type BackchannelAuthenticationCompleteResponse = {
    *
    * @remarks
    *
-   * The `grant_id` request parameter is defined in
-   * [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)
-   * , which is supported by Authlete 2.3 and newer versions.
+   * The `grant_id` request parameter is defined in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html) , which is supported by Authlete 2.3 and newer versions.
    */
   grantId?: string | undefined;
   /**
@@ -211,10 +197,9 @@ export type BackchannelAuthenticationCompleteResponse = {
    */
   metadataDocumentUsed?: boolean | undefined;
   /**
-   * the claims that the user has consented for the client application
+   * the claims that the user has consented for the client application to know.
    *
    * @remarks
-   * to know.
    */
   consentedClaims?: Array<string> | undefined;
 };

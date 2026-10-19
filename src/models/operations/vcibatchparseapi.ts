@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type VciBatchParseApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type VciBatchParseApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   vciBatchParseRequest: models.VciBatchParseRequest;
 };
 
@@ -24,7 +28,7 @@ export type VciBatchParseApiResponse = {
 
 /** @internal */
 export type VciBatchParseApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   vci_batch_parse_request: models.VciBatchParseRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const VciBatchParseApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   VciBatchParseApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   vciBatchParseRequest: models.VciBatchParseRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

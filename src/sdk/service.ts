@@ -20,11 +20,10 @@ export class Service extends ClientSDK {
    * @remarks
    * Get a service.
    *
-   * If the access token can only view or modify clients underneath this service, but does not
-   * have access to view this service directly, a limited view of the service will be returned.
+   * If the access token can only view or modify clients underneath this service, but does not have access to view this service directly, a limited view of the service will be returned.
    */
   async get(
-    request: operations.ServiceGetApiRequest,
+    request?: operations.ServiceGetApiRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.ServiceGetApiResponse> {
     return unwrapAsync(serviceGet(
@@ -40,12 +39,9 @@ export class Service extends ClientSDK {
    * @remarks
    * Get a list of services.
    *
-   * If the access token can only view or modify clients underneath a service, but does not
-   * have access to view that service directly, a limited view of the service will be returned.
-   * Otherwise, all properties of the service are returned.
+   * If the access token can only view or modify clients underneath a service, but does not have access to view that service directly, a limited view of the service will be returned. Otherwise, all properties of the service are returned.
    *
-   * If the access token is an administrative token, this returns a list of all services on the Authlete instance.
-   * Otherwise, all services that the access token can view, even in a limited fashion, are returned.
+   * If the access token is an administrative token, this returns a list of all services on the Authlete instance. Otherwise, all services that the access token can view, even in a limited fashion, are returned.
    */
   async list(
     request?: operations.ServiceGetListApiRequest | undefined,
@@ -65,7 +61,7 @@ export class Service extends ClientSDK {
    * Update a service.
    */
   async update(
-    request: operations.ServiceUpdateApiRequest,
+    request?: operations.ServiceUpdateApiRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.ServiceUpdateApiResponse> {
     return unwrapAsync(serviceUpdate(
@@ -79,11 +75,9 @@ export class Service extends ClientSDK {
    * Create Service (IDP)
    *
    * @remarks
-   * Create a new service on the API server, belonging to the specified organization.
-   * A service can be created with an organization token or by a user with the CREATE_SERVICE role.
+   * Create a new service on the API server, belonging to the specified organization. A service can be created with an organization token or by a user with the CREATE_SERVICE role.
    *
-   * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
-   * not on the regional API clusters.
+   * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`), not on the regional API clusters.
    */
   async create(
     request: models.ServiceCreateIdpRequest,
@@ -100,11 +94,9 @@ export class Service extends ClientSDK {
    * Remove Service (IDP) ⚡
    *
    * @remarks
-   * Delete a service from the API server.
-   * A service can be deleted with an organization token or by a user with the MODIFY_SERVICE role.
+   * Delete a service from the API server. A service can be deleted with an organization token or by a user with the MODIFY_SERVICE role.
    *
-   * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
-   * not on the regional API clusters.
+   * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`), not on the regional API clusters.
    */
   async remove(
     request: models.ServiceRemoveIdpRequest,
@@ -123,14 +115,10 @@ export class Service extends ClientSDK {
    * @remarks
    * This API gathers configuration information about a service.
    *
-   * This API is supposed to be called from within the implementation of the configuration endpoint of
-   * the service where the service that supports OpenID Connect and [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html)
-   * must expose its configuration information in a JSON format. Details about the format are described
-   * in "[3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)"
-   * in OpenID Connect Discovery 1.0.
+   * This API is supposed to be called from within the implementation of the configuration endpoint of the service where the service that supports OpenID Connect and [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html) must expose its configuration information in a JSON format. Details about the format are described in "[3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)" in OpenID Connect Discovery 1.0.
    */
   async getConfiguration(
-    request: operations.ServiceConfigurationApiRequest,
+    request?: operations.ServiceConfigurationApiRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.ServiceConfigurationApiResponse> {
     return unwrapAsync(serviceGetConfiguration(

@@ -6,7 +6,6 @@
 import { DeviceVerificationApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: DeviceVerificationApiRequest = {
-  serviceId: "<id>",
   deviceVerificationRequest: {
     userCode: "<value>",
   },
@@ -17,5 +16,5 @@ let value: DeviceVerificationApiRequest = {
 
 | Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
 | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `serviceId`                                                                   | *string*                                                                      | :heavy_check_mark:                                                            | A service ID.                                                                 |
+| `serviceId`                                                                   | *string*                                                                      | :heavy_minus_sign:                                                            | A service ID.                                                                 |
 | `deviceVerificationRequest`                                                   | [models.DeviceVerificationRequest](../../models/deviceverificationrequest.md) | :heavy_check_mark:                                                            | N/A                                                                           |

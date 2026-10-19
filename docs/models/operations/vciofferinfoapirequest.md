@@ -6,7 +6,6 @@
 import { VciOfferInfoApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: VciOfferInfoApiRequest = {
-  serviceId: "<id>",
   vciOfferInfoRequest: {},
 };
 ```
@@ -15,5 +14,5 @@ let value: VciOfferInfoApiRequest = {
 
 | Field                                                             | Type                                                              | Required                                                          | Description                                                       |
 | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `serviceId`                                                       | *string*                                                          | :heavy_check_mark:                                                | A service ID.                                                     |
+| `serviceId`                                                       | *string*                                                          | :heavy_minus_sign:                                                | A service ID.                                                     |
 | `vciOfferInfoRequest`                                             | [models.VciOfferInfoRequest](../../models/vciofferinforequest.md) | :heavy_check_mark:                                                | N/A                                                               |

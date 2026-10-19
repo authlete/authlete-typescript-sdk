@@ -8,11 +8,15 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type ServiceConfigurationApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ServiceConfigurationApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * This boolean value indicates whether the JSON in the response should be formatted or not. If `true`, the JSON in the response is pretty-formatted. The default value is `false`.
    */
@@ -30,7 +34,7 @@ export type ServiceConfigurationApiResponse = {
 
 /** @internal */
 export type ServiceConfigurationApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   pretty?: boolean | undefined;
   patch?: string | undefined;
 };
@@ -41,7 +45,7 @@ export const ServiceConfigurationApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ServiceConfigurationApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   pretty: z.boolean().optional(),
   patch: z.string().optional(),
 });

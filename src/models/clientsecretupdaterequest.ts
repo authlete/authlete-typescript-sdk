@@ -6,10 +6,9 @@ import * as z from "zod/v3";
 
 export type ClientSecretUpdateRequest = {
   /**
-   * The new value of the client secret. Valid characters for a client secret are `A-Z`, `a-z`, `0-9`,
+   * The new value of the client secret. Valid characters for a client secret are `A-Z`, `a-z`, `0-9`, `-`, and `_`. The maximum length of a client secret is 86.
    *
    * @remarks
-   * `-`, and `_`. The maximum length of a client secret is 86.
    */
   clientSecret: string;
 };

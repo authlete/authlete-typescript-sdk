@@ -42,24 +42,21 @@ export type AuthorizationIssueResponse = {
    */
   action?: AuthorizationIssueResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client application.
+   * The content that the authorization server implementation is to return to the client application. Its format varies depending on the value of `action` parameter.
    *
    * @remarks
-   * Its format varies depending on the value of `action` parameter.
    */
   responseContent?: string | undefined;
   /**
-   * The newly issued access token. Note that an access token is issued from an authorization endpoint only
+   * The newly issued access token. Note that an access token is issued from an authorization endpoint only when `response_type` contains token.
    *
    * @remarks
-   * when `response_type` contains token.
    */
   accessToken?: string | undefined;
   /**
-   * The datetime at which the newly issued access token will expire. The value is represented in milliseconds
+   * The datetime at which the newly issued access token will expire. The value is represented in milliseconds since the Unix epoch (1970-01-01).
    *
    * @remarks
-   * since the Unix epoch (1970-01-01).
    */
   accessTokenExpiresAt?: number | undefined;
   /**
@@ -69,32 +66,28 @@ export type AuthorizationIssueResponse = {
    */
   accessTokenDuration?: number | undefined;
   /**
-   * The newly issued ID token. Note that an ID token is issued from an authorization endpoint only
+   * The newly issued ID token. Note that an ID token is issued from an authorization endpoint only when `response_type` contains `id_token`.
    *
    * @remarks
-   * when `response_type` contains `id_token`.
    */
   idToken?: string | undefined;
   /**
-   * The newly issued authorization code. Note that an authorization code is issued only
+   * The newly issued authorization code. Note that an authorization code is issued only when `response_type` contains code.
    *
    * @remarks
-   * when `response_type` contains code.
    */
   authorizationCode?: string | undefined;
   /**
-   * The newly issued access token in JWT format. If the service is not configured to issue JWT-based access tokens,
+   * The newly issued access token in JWT format. If the service is not configured to issue JWT-based access tokens, this property is always set to `null`.
    *
    * @remarks
-   * this property is always set to `null`.
    */
   jwtAccessToken?: string | undefined;
   ticketInfo?: AuthorizationTicketInfo | undefined;
   /**
-   * the claims that the user has consented for the client application
+   * the claims that the user has consented for the client application to know.
    *
    * @remarks
-   * to know.
    */
   consentedClaims?: Array<string> | undefined;
 };

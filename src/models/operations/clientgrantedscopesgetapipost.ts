@@ -9,6 +9,10 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientGrantedScopesGetApiPostGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientGrantedScopesGetApiPostRequestBody = {
   /**
    * Unique user ID of an end-user.
@@ -20,7 +24,7 @@ export type ClientGrantedScopesGetApiPostRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * A client ID.
    *
@@ -62,7 +66,7 @@ export function clientGrantedScopesGetApiPostRequestBodyToJSON(
 
 /** @internal */
 export type ClientGrantedScopesGetApiPostRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   clientId: string;
   RequestBody: ClientGrantedScopesGetApiPostRequestBody$Outbound;
 };
@@ -73,7 +77,7 @@ export const ClientGrantedScopesGetApiPostRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientGrantedScopesGetApiPostRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   clientId: z.string(),
   requestBody: z.lazy(() =>
     ClientGrantedScopesGetApiPostRequestBody$outboundSchema

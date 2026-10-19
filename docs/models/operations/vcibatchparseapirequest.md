@@ -6,7 +6,6 @@
 import { VciBatchParseApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: VciBatchParseApiRequest = {
-  serviceId: "<id>",
   vciBatchParseRequest: {},
 };
 ```
@@ -15,5 +14,5 @@ let value: VciBatchParseApiRequest = {
 
 | Field                                                               | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `serviceId`                                                         | *string*                                                            | :heavy_check_mark:                                                  | A service ID.                                                       |
+| `serviceId`                                                         | *string*                                                            | :heavy_minus_sign:                                                  | A service ID.                                                       |
 | `vciBatchParseRequest`                                              | [models.VciBatchParseRequest](../../models/vcibatchparserequest.md) | :heavy_check_mark:                                                  | N/A                                                                 |

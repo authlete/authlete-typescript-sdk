@@ -9,12 +9,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * The next action that the implementation of the credential issuer
+ * The next action that the implementation of the credential issuer metadata endpoint (`/.well-known/openid-credential-issuer`) should take after getting a response from Authlete's `/vci/metadata` API.
  *
  * @remarks
- * metadata endpoint (`/.well-known/openid-credential-issuer`)
- * should take after getting a response from Authlete's
- * `/vci/metadata` API.
  */
 export const VciMetadataResponseAction = {
   Ok: "OK",
@@ -22,12 +19,9 @@ export const VciMetadataResponseAction = {
   InternalServerError: "INTERNAL_SERVER_ERROR",
 } as const;
 /**
- * The next action that the implementation of the credential issuer
+ * The next action that the implementation of the credential issuer metadata endpoint (`/.well-known/openid-credential-issuer`) should take after getting a response from Authlete's `/vci/metadata` API.
  *
  * @remarks
- * metadata endpoint (`/.well-known/openid-credential-issuer`)
- * should take after getting a response from Authlete's
- * `/vci/metadata` API.
  */
 export type VciMetadataResponseAction = ClosedEnum<
   typeof VciMetadataResponseAction
@@ -43,19 +37,15 @@ export type VciMetadataResponse = {
    */
   resultMessage?: string | undefined;
   /**
-   * The next action that the implementation of the credential issuer
+   * The next action that the implementation of the credential issuer metadata endpoint (`/.well-known/openid-credential-issuer`) should take after getting a response from Authlete's `/vci/metadata` API.
    *
    * @remarks
-   * metadata endpoint (`/.well-known/openid-credential-issuer`)
-   * should take after getting a response from Authlete's
-   * `/vci/metadata` API.
    */
   action?: VciMetadataResponseAction | undefined;
   /**
-   * Get the content that the implementation of the credential issuer
+   * Get the content that the implementation of the credential issuer metadata endpoint should use when it constructs a response.
    *
    * @remarks
-   * metadata endpoint should use when it constructs a response.
    */
   responseContent?: string | undefined;
 };

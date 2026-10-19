@@ -10,9 +10,7 @@
 
 ## authorization
 
-This API parses request parameters of a [device authorization request](https://datatracker.ietf.org/doc/html/rfc8628#section-3.1)
-and returns necessary data for the authorization server implementation to process the device authorization
-request further.
+This API parses request parameters of a [device authorization request](https://datatracker.ietf.org/doc/html/rfc8628#section-3.1) and returns necessary data for the authorization server implementation to process the device authorization request further.
 
 
 ### Example Usage
@@ -22,12 +20,12 @@ request further.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.deviceFlow.authorization({
-    serviceId: "<id>",
     deviceAuthorizationRequest: {
       parameters: "client_id=26888344961664&scope=history.read",
       clientId: "26888344961664",
@@ -52,12 +50,12 @@ import { deviceFlowAuthorization } from "@authlete/typescript-sdk/funcs/deviceFl
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await deviceFlowAuthorization(authlete, {
-    serviceId: "<id>",
     deviceAuthorizationRequest: {
       parameters: "client_id=26888344961664&scope=history.read",
       clientId: "26888344961664",
@@ -109,12 +107,12 @@ The API returns information associated with a user code.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.deviceFlow.verification({
-    serviceId: "<id>",
     deviceVerificationRequest: {
       userCode: "XWWKPBWVXQ",
     },
@@ -137,12 +135,12 @@ import { deviceFlowVerification } from "@authlete/typescript-sdk/funcs/deviceFlo
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await deviceFlowVerification(authlete, {
-    serviceId: "<id>",
     deviceVerificationRequest: {
       userCode: "XWWKPBWVXQ",
     },
@@ -182,9 +180,7 @@ run();
 
 ## complete
 
-This API returns information about what action the authorization server should take after it receives
-the result of end-user's decision about whether the end-user has approved or rejected a client
-application's request.
+This API returns information about what action the authorization server should take after it receives the result of end-user's decision about whether the end-user has approved or rejected a client application's request.
 
 
 ### Example Usage
@@ -194,12 +190,12 @@ application's request.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.deviceFlow.complete({
-    serviceId: "<id>",
     deviceCompleteRequest: {
       userCode: "XWWKPBWVXQ",
       result: "AUTHORIZED",
@@ -224,12 +220,12 @@ import { deviceFlowComplete } from "@authlete/typescript-sdk/funcs/deviceFlowCom
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await deviceFlowComplete(authlete, {
-    serviceId: "<id>",
     deviceCompleteRequest: {
       userCode: "XWWKPBWVXQ",
       result: "AUTHORIZED",
