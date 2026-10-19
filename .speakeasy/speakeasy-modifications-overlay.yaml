@@ -166,6 +166,28 @@ actions:
         created_at: 1792400000000
         reviewed_at: 1792400000000
         type: method-name
+    - target: $["paths"]["/api/{serviceId}/client"]["get"]["parameters"][?(@.name == "serviceId")]
+      update:
+        schema:
+          type: string
+          pattern: '^\d+$'
+      x-speakeasy-metadata:
+        after: serviceId string, as on every other endpoint
+        before: serviceId integer
+        created_at: 1792410000000
+        reviewed_at: 1792410000000
+        type: parameter-type
+    - target: $["paths"]["/api/{serviceId}/client/search"]["get"]["parameters"][?(@.name == "serviceId")]
+      update:
+        schema:
+          type: string
+          pattern: '^\d+$'
+      x-speakeasy-metadata:
+        after: serviceId string, as on every other endpoint
+        before: serviceId integer
+        created_at: 1792410000000
+        reviewed_at: 1792410000000
+        type: parameter-type
     - target: $["paths"]["/api/{serviceId}/client/lock_flag/update/{clientIdentifier}"]["post"]
       update:
         x-speakeasy-group: client.management
