@@ -1,0 +1,25 @@
+name: Tests
+permissions:
+  contents: read
+"on":
+  pull_request: {}
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # prebuild runs scripts/patch-root-export.mjs, re-pointing the root
+      # export at the IDP-aware client after any Speakeasy regeneration.
+      - run: npm run build
+      # Includes test/root-export.test.mjs, which fails if the root export
+      # ever serves the plain generated class (unpatched index.ts).
+      - run: npm test
+      - run: npm run lint
