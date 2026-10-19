@@ -146,6 +146,26 @@ actions:
         created_at: 1761727785993
         reviewed_at: 1761727785993
         type: method-name
+    - target: $["paths"]["/api/{serviceId}/client"]["get"]
+      update:
+        x-speakeasy-group: client
+        x-speakeasy-name-override: listByCursor
+      x-speakeasy-metadata:
+        after: sdk.client.listByCursor()
+        before: sdk.clientManagement.clientCursorListApi()
+        created_at: 1792400000000
+        reviewed_at: 1792400000000
+        type: method-name
+    - target: $["paths"]["/api/{serviceId}/client/search"]["get"]
+      update:
+        x-speakeasy-group: client
+        x-speakeasy-name-override: search
+      x-speakeasy-metadata:
+        after: sdk.client.search()
+        before: sdk.clientManagement.clientSearchApi()
+        created_at: 1792400000000
+        reviewed_at: 1792400000000
+        type: method-name
     - target: $["paths"]["/api/{serviceId}/client/lock_flag/update/{clientIdentifier}"]["post"]
       update:
         x-speakeasy-group: client.management
