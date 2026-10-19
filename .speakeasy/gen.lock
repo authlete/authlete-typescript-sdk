@@ -4,14 +4,14 @@ management:
   docVersion: 3.0.16
   speakeasyVersion: 1.802.0
   generationVersion: 2.948.4
-  releaseVersion: 2.0.0
+  releaseVersion: 2.0.1
   repoURL: https://github.com/authlete/authlete-typescript-sdk.git
   installationURL: https://github.com/authlete/authlete-typescript-sdk
   published: true
 persistentEdits:
-  generation_id: d217c385-1bd3-4cc9-8bb3-e78472698008
-  pristine_commit_hash: d4bb0f04ccdf903a7ea52f4eb50b69027a6ad277
-  pristine_tree_hash: 4c4a8c4609845f70636fff7e9f554d0d98596651
+  generation_id: 23a2c48c-c810-46e6-a0d4-412ddee279c1
+  pristine_commit_hash: 3b7beebee87cad912f91e5c84c2ae6d12e88381c
+  pristine_tree_hash: 49f1da1829aaa08356a50b5155721dbca94e9c79
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -974,10 +974,14 @@ trackedFiles:
     id: 42e2d50b4ec6
     last_write_checksum: sha1:a7b8c2eaec9ea50403d97a6b7e85cc902bda5e5b
     pristine_git_object: 5fa63753065ca37d8ec6d8eeea6fd94f418ac0c4
+  docs/models/operations/clientcursorlistapiglobals.md:
+    id: 29d5dbdf1159
+    last_write_checksum: sha1:528ebf840825abc13fbac18e4b76e598f4d7d144
+    pristine_git_object: 24381565f280182bcb97c8eb21e5324d55f0feac
   docs/models/operations/clientcursorlistapirequest.md:
     id: 864538702b40
-    last_write_checksum: sha1:b3160d4feca907be442593a8c567b1d3f7c2c3fd
-    pristine_git_object: b86790fdce64cd9278a28106d7a3e564775117e4
+    last_write_checksum: sha1:1349ddded56e21e7e0522021ad2cc08eb9d2d7db
+    pristine_git_object: 8ef14ab9d8e204e4cc79480d188e9520f2d7836d
   docs/models/operations/clientcursorlistapiresponse.md:
     id: 5967d6092c45
     last_write_checksum: sha1:d85a0a50cbda8ebcc5e4fcc05ee8a921418dd466
@@ -1210,10 +1214,14 @@ trackedFiles:
     id: b31c947076f0
     last_write_checksum: sha1:147c71b945764164fa363987d96d9ff319983a88
     pristine_git_object: a7ea637bdfdfdd89cb1152e72fc5c9c06fd91b4e
+  docs/models/operations/clientsearchapiglobals.md:
+    id: 0bde0102905c
+    last_write_checksum: sha1:3a6488b7ae5bac6d1001f9104815df7dc3e6d843
+    pristine_git_object: c2e71efee66c13847a74892502782112280f4761
   docs/models/operations/clientsearchapirequest.md:
     id: 14f2484a57b9
-    last_write_checksum: sha1:c1bdec0991efd280688e765a46c80aa19d63b33d
-    pristine_git_object: b24e7989301e79069bf9a40a0736c10ee4a0d4fe
+    last_write_checksum: sha1:07ae69bfb3d0dba39f1c3be3e98bd163698ea692
+    pristine_git_object: 65321a95afe52575de99ee646e94c74da2de916e
   docs/models/operations/clientsearchapiresponse.md:
     id: aab1dfeb6ff9
     last_write_checksum: sha1:757c926be33e207928ab022a92b309292fbc26ea
@@ -2024,8 +2032,8 @@ trackedFiles:
     pristine_git_object: 80846599a14ebbac4a84b1d7aa4775e9915db90e
   docs/sdks/client/README.md:
     id: 6fb5a6948c65
-    last_write_checksum: sha1:d653c0bd0533bdfb4d771fadac0a3b0c36fccc91
-    pristine_git_object: 8fb6c0c4acb415b3008686356aab2b6729fda513
+    last_write_checksum: sha1:cd815c9691f818f3dc3a9e7d425ebb92c69f82f6
+    pristine_git_object: a5270f95c5fea21483458fbfd64053a872b58f41
   docs/sdks/clientmanagement/README.md:
     id: 588dad77197a
     last_write_checksum: sha1:e0fdfdd35460620126065c4aac1aae334c3ddebe
@@ -2112,12 +2120,12 @@ trackedFiles:
     pristine_git_object: acbba9721c284ad18d545a2dbe1337abcd1b5226
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:36a185663bfd17c5e6abe06e21360da3b8dce375
-    pristine_git_object: 020460eddfd9f5eed18b3cf8bc86a7b04e185694
+    last_write_checksum: sha1:34e1b2c5015fb50bb7536e5fc3697735edc501b2
+    pristine_git_object: d00e61af6a8f8ac55dba657501bf80896efa277e
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:832b6426db49091e69c108944178f6835504fac9
-    pristine_git_object: 7c699a66f675e2276a2819484001b0f277a14612
+    last_write_checksum: sha1:19b45aec88d243bfb5ec6bd474bc6362f4c6e619
+    pristine_git_object: 84a0329c83697d07cf8cb1e422b3602c24d485b2
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d2e0ad6b984b5be0cd66f84e06b451806539d6d0
@@ -2188,8 +2196,8 @@ trackedFiles:
     pristine_git_object: f465f3e91bee0f6628a6be7d149a12ed5da8de08
   src/funcs/clientListByCursor.ts:
     id: e245b23688d2
-    last_write_checksum: sha1:85b4cbf73fd2c5042d1fae4a79a8defefc97e33d
-    pristine_git_object: ebb532077a5f9afe5face6a1ab815d2d7d74984d
+    last_write_checksum: sha1:e4470bce72cd77c8d1c0bdaeb85e7b4341c932f3
+    pristine_git_object: 99d82b9918b716be72f19137d927b8ac2fe4547c
   src/funcs/clientManagementDeleteAuthorizations.ts:
     id: 0b318d6f6c86
     last_write_checksum: sha1:48ffe58a933735b89155041e49f5e39f0346fcb8
@@ -2268,8 +2276,8 @@ trackedFiles:
     pristine_git_object: 9ac4686b9ebff57b1b519b506dc0cb2e9641471d
   src/funcs/clientSearch.ts:
     id: 1a567dad74cf
-    last_write_checksum: sha1:3264163f59eebc0aac3c7b202b70c75ffafada84
-    pristine_git_object: a685642d7bfe9e8f8310a2325cb28b46a8e9623e
+    last_write_checksum: sha1:f6aba4ea1598b4d625e32f40fb0126ecb6bdd290
+    pristine_git_object: d7567d2b34d38ab5c6e1d1286bc33f6971f52d10
   src/funcs/clientUpdate.ts:
     id: b82885136065
     last_write_checksum: sha1:8d07c9f3299ef676c66e06ba7354680ea5b36fc1
@@ -2496,8 +2504,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:f95d93de7ed193a6396edbdcf0d7f4aaf15eb0bd
-    pristine_git_object: 10be8945aabc68e4a0d62f77c11bdd57cced2942
+    last_write_checksum: sha1:79625b674441e595f771fb2fc2ae1ec94cddae71
+    pristine_git_object: 8afaf6084586c8dd80850f0afef7ac664121f51b
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a257d6f6108693db2197617c579400bc8f0da914
@@ -3096,8 +3104,8 @@ trackedFiles:
     pristine_git_object: 9318b523052ec35718571b0de05bc454754f61b7
   src/models/operations/clientcursorlistapi.ts:
     id: 67afb7e607d1
-    last_write_checksum: sha1:3d2625b66e9c2fe65364abf55a416f90b3ab27fd
-    pristine_git_object: a7734dccefec4bc3fe7ab8e2afd572674c66d601
+    last_write_checksum: sha1:53d5202091fbe76b027ab31a1a3fabb2241ea6b2
+    pristine_git_object: 3272d3b849cd7d8f6aa96646b3eb8b9a173d20f0
   src/models/operations/clientdeleteapi.ts:
     id: 288b64fbbd0b
     last_write_checksum: sha1:fbebd4c4e4103156e2eb54be683e1671752e2078
@@ -3168,8 +3176,8 @@ trackedFiles:
     pristine_git_object: aca0186eb2770c82509384a63d5715c33d072a8d
   src/models/operations/clientsearchapi.ts:
     id: a9273496b5e3
-    last_write_checksum: sha1:9331ae3e10c76e9b7f3a7076d906521deba4969a
-    pristine_git_object: 6a4004eff5f9d56df7a81849ebcb15197a3cc3cf
+    last_write_checksum: sha1:7143d60539fa10c56ec61292cf5c5113ac9c331c
+    pristine_git_object: ac529917a90154060fa20e1710bb000c6ff538c0
   src/models/operations/clientsecretrefreshapi.ts:
     id: d3c79083344c
     last_write_checksum: sha1:93719992d111dd317d0c533e0146ff41a184ffca
@@ -3596,8 +3604,8 @@ trackedFiles:
     pristine_git_object: b5165163b34d2c2856b8d62169ddb9165687ecd7
   src/sdk/client.ts:
     id: 163ab873aeef
-    last_write_checksum: sha1:9e5d8b6f73c264686ac7e61abb529c903d5cb4c5
-    pristine_git_object: 55aaa8aef636ab1b0b673062a9129e9fdce18d2c
+    last_write_checksum: sha1:981f45da145947a613935ac89f63cc24a245f01e
+    pristine_git_object: 3ca0e1818e5363f83670c96a651151528110c4d1
   src/sdk/clientmanagement.ts:
     id: 8b63776e57b4
     last_write_checksum: sha1:252aa015bed26dca6fd00e62b5d1a2de55a94c08
@@ -4262,7 +4270,7 @@ examples:
     speakeasy-default-client-cursor-list-api:
       parameters:
         path:
-          serviceId: 255950
+          serviceId: "255950"
       responses:
         "200":
           application/json: {"entities": [{"number": 1140735077, "serviceNumber": 715948317, "clientName": "My Test Client", "clientId": 1140735077, "clientSecret": "gXz97ISgLs4HuXwOZWch8GEmgL4YMvUJwu3er_kDVVGcA0UOhA9avLPbEmoeZdagi9yC_-tEiT2BdRyH9dbrQQ", "clientType": "PUBLIC", "grantTypes": ["AUTHORIZATION_CODE"], "responseTypes": ["CODE"], "redirectUris": ["https://example.com/callback"]}]}
@@ -4553,7 +4561,7 @@ examples:
     speakeasy-default-client-search-api:
       parameters:
         path:
-          serviceId: 581816
+          serviceId: "581816"
       responses:
         "200":
           application/json: {"entities": [{"number": 1140735077, "serviceNumber": 715948317, "clientName": "My Test Client", "clientId": 1140735077, "clientSecret": "gXz97ISgLs4HuXwOZWch8GEmgL4YMvUJwu3er_kDVVGcA0UOhA9avLPbEmoeZdagi9yC_-tEiT2BdRyH9dbrQQ", "clientType": "PUBLIC", "grantTypes": ["AUTHORIZATION_CODE"], "responseTypes": ["CODE"], "redirectUris": ["https://example.com/callback"]}]}
@@ -5236,7 +5244,10 @@ examples:
         "429":
           application/json: {}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `authlete.authorization.processRequest()`: \n  *  `request.serviceId` **Changed**\n  *  `response.service` **Changed** (Breaking ⚠️)\n* `authlete.deviceFlow.verification()`: \n  *  `request.serviceId` **Changed**\n  *  `response.scopes[].attributes` **Changed** (Breaking ⚠️)\n* `authlete.service.get()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `authlete.service.list()`:  `response.services[]` **Changed** (Breaking ⚠️)\n* `authlete.service.update()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `authlete.service.create()`: \n  *  `request.service` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `authlete.deviceFlow.authorization()`: \n  *  `request.serviceId` **Changed**\n  *  `response.scopes[].attributes` **Changed** (Breaking ⚠️)\n* `authlete.ciba.processAuthentication()`: \n  *  `request.serviceId` **Changed**\n  *  `response.scopes[].attributes` **Changed** (Breaking ⚠️)\n* `authlete.introspection.process()`: \n  *  `request.serviceId` **Changed**\n  *  `response.scopeDetails[].attributes` **Changed** (Breaking ⚠️)\n* `authlete.client.create()`:  `request` **Changed** (Breaking ⚠️)\n* `authlete.client.update()`:  `request` **Changed** (Breaking ⚠️)\n* `authlete.token.process()`: \n  *  `request.serviceId` **Changed**\n  *  `response.subjectTokenInfo.scopes[].attributes` **Changed** (Breaking ⚠️)\n* `authlete.client.management.deleteClientTokensByPost()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.list()`:  `request` **Changed**\n* `authlete.client.management.refreshSecret()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.updateSecret()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.getAuthorizedApplications()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.getAuthorizedApplicationsByPost()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.listAuthorizations()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.updateAuthorizations()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.deleteClientTokens()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.listByCursor()`: **Added**\n* `authlete.client.management.deleteAuthorizations()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.getClientGrantedScopes()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.getClientGrantedScopesByPost()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.getGrantedScopes()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.deleteClientGrantedScopes()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.deleteGrantedScopes()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.getRequestableScopes()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.updateRequestableScopesByPost()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.updateRequestableScopes()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.deleteRequestableScopes()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.delete()`: \n  *  `request.serviceId` **Changed**\n* `authlete.authorization.fail()`:  `request` **Changed**\n* `authlete.authorization.issue()`: \n  *  `request.serviceId` **Changed**\n* `authlete.authorization.management.getTicketInfo()`: \n  *  `request.serviceId` **Changed**\n* `authlete.authorization.management.updateTicket()`: \n  *  `request.serviceId` **Changed**\n* `authlete.pushedAuthorization.create()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.updateForm()`: \n  *  `request.serviceId` **Changed**\n* `authlete.token.fail()`:  `request` **Changed**\n* `authlete.token.issue()`: \n  *  `request.serviceId` **Changed**\n* `authlete.token.management.reissueIdToken()`:  `request` **Changed**\n* `authlete.token.management.list()`:  `request` **Changed**\n* `authlete.token.management.create()`: \n  *  `request.serviceId` **Changed**\n* `authlete.token.management.update()`: \n  *  `request.serviceId` **Changed**\n* `authlete.token.management.delete()`: \n  *  `request.serviceId` **Changed**\n* `authlete.token.management.revoke()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.management.updateLockFlag()`: \n  *  `request.serviceId` **Changed**\n* `authlete.introspection.standardProcess()`: \n  *  `request.serviceId` **Changed**\n* `authlete.revocation.process()`: \n  *  `request.serviceId` **Changed**\n* `authlete.userinfo.process()`: \n  *  `request.serviceId` **Changed**\n* `authlete.userinfo.issue()`: \n  *  `request.serviceId` **Changed**\n* `authlete.grantManagement.processRequest()`: \n  *  `request.serviceId` **Changed**\n* `authlete.dynamicClientRegistration.register()`: \n  *  `request.serviceId` **Changed**\n* `authlete.dynamicClientRegistration.get()`: \n  *  `request.serviceId` **Changed**\n* `authlete.dynamicClientRegistration.update()`: \n  *  `request.serviceId` **Changed**\n* `authlete.dynamicClientRegistration.delete()`: \n  *  `request.serviceId` **Changed**\n* `authlete.client.get()`: \n  *  `request.serviceId` **Changed**\n* `authlete.ciba.issue()`: \n  *  `request.serviceId` **Changed**\n* `authlete.ciba.fail()`: \n  *  `request.serviceId` **Changed**\n* `authlete.ciba.complete()`: \n  *  `request.serviceId` **Changed**\n* `authlete.backChannelLogout.backchannelLogoutTokenApi()`: \n  *  `request.serviceId` **Changed**\n* `authlete.service.getConfiguration()`:  `request` **Changed**\n* `authlete.client.search()`: **Added**\n* `authlete.deviceFlow.complete()`: \n  *  `request.serviceId` **Changed**\n* `authlete.federation.configuration()`: \n  *  `request.serviceId` **Changed**\n* `authlete.federation.registration()`: \n  *  `request.serviceId` **Changed**\n* `authlete.hardwareSecurityKeys.create()`: \n  *  `request.serviceId` **Changed**\n* `authlete.hardwareSecurityKeys.delete()`: \n  *  `request.serviceId` **Changed**\n* `authlete.hardwareSecurityKeys.get()`: \n  *  `request.serviceId` **Changed**\n* `authlete.hardwareSecurityKeys.list()`:  `request` **Changed**\n* `authlete.verifiableCredentials.getMetadata()`: \n  *  `request.serviceId` **Changed**\n* `authlete.verifiableCredentials.getJwtIssuer()`: \n  *  `request.serviceId` **Changed**\n* `authlete.verifiableCredentials.getJwks()`: \n  *  `request.serviceId` **Changed**\n* `authlete.verifiableCredentials.createOffer()`: \n  *  `request.serviceId` **Changed**\n* `authlete.verifiableCredentials.getOfferInfo()`: \n  *  `request.serviceId` **Changed**\n* `authlete.verifiableCredentials.parse()`: \n  *  `request.serviceId` **Changed**\n* `authlete.verifiableCredentials.issue()`:  `request` **Changed**\n* `authlete.verifiableCredentials.batchParse()`: \n  *  `request.serviceId` **Changed**\n* `authlete.verifiableCredentials.batchIssue()`: \n  *  `request.serviceId` **Changed**\n* `authlete.verifiableCredentials.deferredParse()`: \n  *  `request.serviceId` **Changed**\n* `authlete.verifiableCredentials.deferredIssue()`: \n  *  `request.serviceId` **Changed**\n* `authlete.nativeSso.process()`: \n  *  `request.serviceId` **Changed**\n* `authlete.nativeSso.logout()`: \n  *  `request.serviceId` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `authlete.client.listByCursor()`:  `request` **Changed** (Breaking ⚠️)
+  * `authlete.client.search()`:  `request` **Changed** (Breaking ⚠️)
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

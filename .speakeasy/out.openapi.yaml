@@ -2603,7 +2603,8 @@ paths:
           description: The ID of the service to retrieve a list of clients from.
           required: true
           schema:
-            type: integer
+            type: string
+            pattern: '^\d+$'
         - in: query
           name: cursor
           schema:
@@ -2703,7 +2704,8 @@ paths:
           description: The ID of the service to retrieve a list of clients from.
           required: true
           schema:
-            type: integer
+            type: string
+            pattern: '^\d+$'
         - in: query
           name: q
           schema:

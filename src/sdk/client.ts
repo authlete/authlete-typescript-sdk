@@ -134,7 +134,7 @@ export class Client extends ClientSDK {
    * Retrieve the clients in the requested service via cursor based iteration.
    */
   async listByCursor(
-    request: operations.ClientCursorListApiRequest,
+    request?: operations.ClientCursorListApiRequest | undefined,
     options?: RequestOptions,
   ): Promise<
     PageIterator<operations.ClientCursorListApiResponse, { cursor: string }>
@@ -153,7 +153,7 @@ export class Client extends ClientSDK {
    * Search the clients in the requested service that match the condition provided in the `q` query parameter. Results are returned via cursor based iteration. To iterate through all clients without a search condition, use the `/api/&#123;serviceId&#125;/client` API instead.
    */
   async search(
-    request: operations.ClientSearchApiRequest,
+    request?: operations.ClientSearchApiRequest | undefined,
     options?: RequestOptions,
   ): Promise<
     PageIterator<operations.ClientSearchApiResponse, { cursor: string }>
