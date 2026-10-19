@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientSearchApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientSearchApiRequest = {
   /**
    * The ID of the service to retrieve a list of clients from.
    */
-  serviceId: number;
+  serviceId?: string | undefined;
   /**
    * The search query. See the description of this API for the supported syntax and fields.
    *
@@ -53,7 +57,7 @@ export type ClientSearchApiResponse = {
 
 /** @internal */
 export type ClientSearchApiRequest$Outbound = {
-  serviceId: number;
+  serviceId?: string | undefined;
   q?: string | undefined;
   cursor?: string | undefined;
   limit?: number | undefined;
@@ -66,7 +70,7 @@ export const ClientSearchApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientSearchApiRequest
 > = z.object({
-  serviceId: z.number().int(),
+  serviceId: z.string().optional(),
   q: z.string().optional(),
   cursor: z.string().optional(),
   limit: z.number().int().optional(),

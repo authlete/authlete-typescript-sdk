@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientCursorListApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientCursorListApiRequest = {
   /**
    * The ID of the service to retrieve a list of clients from.
    */
-  serviceId: number;
+  serviceId?: string | undefined;
   /**
    * This should be set to the value of `nextCursor` from a previous call to this endpoint. Which will retrieve the next set of clients available and receive the next available set. If this is not provided the list operation will start from the beginning.
    *
@@ -42,7 +46,7 @@ export type ClientCursorListApiResponse = {
 
 /** @internal */
 export type ClientCursorListApiRequest$Outbound = {
-  serviceId: number;
+  serviceId?: string | undefined;
   cursor?: string | undefined;
   limit?: number | undefined;
   includeTotalCount?: boolean | undefined;
@@ -54,7 +58,7 @@ export const ClientCursorListApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientCursorListApiRequest
 > = z.object({
-  serviceId: z.number().int(),
+  serviceId: z.string().optional(),
   cursor: z.string().optional(),
   limit: z.number().int().optional(),
   includeTotalCount: z.boolean().optional(),

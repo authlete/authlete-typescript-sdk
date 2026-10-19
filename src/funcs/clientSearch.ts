@@ -40,7 +40,7 @@ import {
  */
 export function clientSearch(
   client: AuthleteCore,
-  request: operations.ClientSearchApiRequest,
+  request?: operations.ClientSearchApiRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   PageIterator<
@@ -68,7 +68,7 @@ export function clientSearch(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.ClientSearchApiRequest,
+  request?: operations.ClientSearchApiRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -92,7 +92,8 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.ClientSearchApiRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.ClientSearchApiRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -102,18 +103,19 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload?.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/client/search")(pathParams);
 
   const query = encodeFormQuery({
-    "cursor": payload.cursor,
-    "includeTotalCount": payload.includeTotalCount,
-    "limit": payload.limit,
-    "q": payload.q,
+    "cursor": payload?.cursor,
+    "includeTotalCount": payload?.includeTotalCount,
+    "limit": payload?.limit,
+    "q": payload?.q,
   });
 
   const headers = new Headers(compactMap({
@@ -242,7 +244,7 @@ async function $do(
       clientSearch(
         client,
         {
-          ...request,
+          ...request!,
           cursor: nextCursor,
         },
         options,

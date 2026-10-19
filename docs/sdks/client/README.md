@@ -723,13 +723,12 @@ Retrieve the clients in the requested service via cursor based iteration.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "255950",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.client.listByCursor({
-    serviceId: 255950,
-  });
+  const result = await authlete.client.listByCursor({});
 
   for await (const page of result) {
     console.log(page);
@@ -750,13 +749,12 @@ import { clientListByCursor } from "@authlete/typescript-sdk/funcs/clientListByC
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "255950",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await clientListByCursor(authlete, {
-    serviceId: 255950,
-  });
+  const res = await clientListByCursor(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     for await (const page of result) {
@@ -803,13 +801,12 @@ Search the clients in the requested service that match the condition provided in
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "581816",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.client.search({
-    serviceId: 581816,
-  });
+  const result = await authlete.client.search({});
 
   for await (const page of result) {
     console.log(page);
@@ -830,13 +827,12 @@ import { clientSearch } from "@authlete/typescript-sdk/funcs/clientSearch.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "581816",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await clientSearch(authlete, {
-    serviceId: 581816,
-  });
+  const res = await clientSearch(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     for await (const page of result) {
