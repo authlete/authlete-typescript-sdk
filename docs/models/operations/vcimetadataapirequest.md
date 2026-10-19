@@ -6,7 +6,6 @@
 import { VciMetadataApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: VciMetadataApiRequest = {
-  serviceId: "<id>",
   vciMetadataRequest: {
     pretty: false,
   },
@@ -17,5 +16,5 @@ let value: VciMetadataApiRequest = {
 
 | Field                                                           | Type                                                            | Required                                                        | Description                                                     |
 | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
-| `serviceId`                                                     | *string*                                                        | :heavy_check_mark:                                              | A service ID.                                                   |
+| `serviceId`                                                     | *string*                                                        | :heavy_minus_sign:                                              | A service ID.                                                   |
 | `vciMetadataRequest`                                            | [models.VciMetadataRequest](../../models/vcimetadatarequest.md) | :heavy_check_mark:                                              | N/A                                                             |

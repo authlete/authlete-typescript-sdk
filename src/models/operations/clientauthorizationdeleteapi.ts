@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientAuthorizationDeleteApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientAuthorizationDeleteApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * A client ID.
    *
@@ -35,7 +39,7 @@ export type ClientAuthorizationDeleteApiResponse = {
 
 /** @internal */
 export type ClientAuthorizationDeleteApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   clientId: string;
   subject: string;
 };
@@ -46,7 +50,7 @@ export const ClientAuthorizationDeleteApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientAuthorizationDeleteApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   clientId: z.string(),
   subject: z.string(),
 });

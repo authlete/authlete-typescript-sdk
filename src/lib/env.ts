@@ -3,15 +3,23 @@
  */
 
 import * as z from "zod/v3";
+import { SDKOptions } from "./config.js";
 
 export interface Env {
   AUTHLETE_BEARER?: string | undefined;
+
+  /**
+   * Sets the serviceId parameter for all supported operations
+   */
+  AUTHLETE_SERVICE_ID?: string | undefined;
 
   AUTHLETE_DEBUG?: boolean | undefined;
 }
 
 export const envSchema: z.ZodType<Env, z.ZodTypeDef, unknown> = z.object({
   AUTHLETE_BEARER: z.string().optional(),
+
+  AUTHLETE_SERVICE_ID: z.string().optional(),
 
   AUTHLETE_DEBUG: z.coerce.boolean().optional(),
 });
@@ -58,4 +66,19 @@ export function env(): Env {
  */
 export function resetEnv() {
   envMemo = undefined;
+}
+
+/**
+ * Populates global parameters with environment variables.
+ */
+export function fillGlobals(options: SDKOptions): SDKOptions {
+  const clone = { ...options };
+
+  const envVars = env();
+
+  if (typeof envVars.AUTHLETE_SERVICE_ID !== "undefined") {
+    clone.serviceId ??= envVars.AUTHLETE_SERVICE_ID;
+  }
+
+  return clone;
 }

@@ -29,51 +29,41 @@ export type TokenCreateRequest = {
    */
   clientId?: number | undefined;
   /**
-   * The subject (= unique identifier) of the user who will be associated with a newly created access
+   * The subject (= unique identifier) of the user who will be associated with a newly created access token. This parameter is required unless the grant type is `CLIENT_CREDENTIALS`. The value must consist of only ASCII characters and its length must not exceed 100.
    *
    * @remarks
-   * token. This parameter is required unless the grant type is `CLIENT_CREDENTIALS`. The value must
-   * consist of only ASCII characters and its length must not exceed 100.
    */
   subject?: string | undefined;
   /**
-   * The scopes which will be associated with a newly created access token. Scopes that are not supported
+   * The scopes which will be associated with a newly created access token. Scopes that are not supported by the service cannot be specified and requesting them will cause an error.
    *
    * @remarks
-   * by the service cannot be specified and requesting them will cause an error.
    */
   scopes?: Array<string> | undefined;
   /**
-   * The duration of a newly created access token in seconds. If the value is 0, the duration is determined
+   * The duration of a newly created access token in seconds. If the value is 0, the duration is determined according to the settings of the service.
    *
    * @remarks
-   * according to the settings of the service.
    */
   accessTokenDuration?: number | undefined;
   /**
-   * The duration of a newly created refresh token in seconds. If the value is 0, the duration is
+   * The duration of a newly created refresh token in seconds. If the value is 0, the duration is determined according to the settings of the service.
    *
    * @remarks
-   * determined according to the settings of the service.
    *
-   * A refresh token is not created (1) if the service does not support `REFRESH_TOKEN`, or (2) if the
-   * specified grant type is either `IMPLICIT`or `CLIENT_CREDENTIALS`.
+   * A refresh token is not created (1) if the service does not support `REFRESH_TOKEN`, or (2) if the specified grant type is either `IMPLICIT`or `CLIENT_CREDENTIALS`.
    */
   refreshTokenDuration?: number | undefined;
   /**
-   * Extra properties to associate with a newly created access token. Note that properties parameter
+   * Extra properties to associate with a newly created access token. Note that properties parameter is accepted only when the HTTP method of the request is POST and Content-Type of the request is `application/json`, so don't use `GET` method or `application/x-www-form-urlencoded` if you want to specify properties.
    *
    * @remarks
-   * is accepted only when the HTTP method of the request is POST and Content-Type of the request is
-   * `application/json`, so don't use `GET` method or `application/x-www-form-urlencoded` if you want
-   * to specify properties.
    */
   properties?: Array<Property> | undefined;
   /**
-   * A boolean request parameter which indicates whether to emulate that the client ID alias is used
+   * A boolean request parameter which indicates whether to emulate that the client ID alias is used instead of the original numeric client ID when a new access token is created.
    *
    * @remarks
-   * instead of the original numeric client ID when a new access token is created.
    */
   clientIdAliasUsed?: boolean | undefined;
   /**
@@ -89,53 +79,41 @@ export type TokenCreateRequest = {
    */
   refreshToken?: string | undefined;
   /**
-   * Get whether the access token expires or not. By default, all access tokens expire after a period
+   * Get whether the access token expires or not. By default, all access tokens expire after a period of time determined by their service.
    *
    * @remarks
-   * of time determined by their service.
    *
-   * If this request parameter is `true`, then the access token will not automatically expire and must
-   * be revoked or deleted manually at the service. If this request parameter is true, the `accessTokenDuration`
-   * request parameter is ignored.
+   * If this request parameter is `true`, then the access token will not automatically expire and must be revoked or deleted manually at the service. If this request parameter is true, the `accessTokenDuration` request parameter is ignored.
    */
   accessTokenPersistent?: boolean | undefined;
   /**
-   * The thumbprint of the MTLS certificate bound to this token. If this property is set, a certificate
+   * The thumbprint of the MTLS certificate bound to this token. If this property is set, a certificate with the corresponding value MUST be presented with the access token when it is used by a client. The value of this property must be a SHA256 certificate thumbprint, base64url encoded.
    *
    * @remarks
-   * with the corresponding value MUST be presented with the access token when it is used by a client.
-   * The value of this property must be a SHA256 certificate thumbprint, base64url encoded.
    */
   certificateThumbprint?: string | undefined;
   /**
-   * The thumbprint of the public key used for DPoP presentation of this token. If this property is
+   * The thumbprint of the public key used for DPoP presentation of this token. If this property is set, a DPoP proof signed with the corresponding private key MUST be presented with the access token when it is used by a client. Additionally, the token's `token_type` will be set to 'DPoP'.
    *
    * @remarks
-   * set, a DPoP proof signed with the corresponding private key MUST be presented with the access
-   * token when it is used by a client. Additionally, the token's `token_type` will be set to 'DPoP'.
    */
   dpopKeyThumbprint?: string | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
   /**
-   * The value of the resources to associate with the token. This property represents the value of
+   * The value of the resources to associate with the token. This property represents the value of one or more `resource` request parameters which is defined in "RFC8707 Resource Indicators for OAuth 2.0".
    *
    * @remarks
-   * one or more `resource` request parameters which is defined in "RFC8707 Resource Indicators for
-   * OAuth 2.0".
    */
   resources?: Array<string> | undefined;
   /**
-   * the flag which indicates whether the access token is for an external
+   * the flag which indicates whether the access token is for an external attachment.
    *
    * @remarks
-   * attachment.
    */
   forExternalAttachment?: boolean | undefined;
   /**
@@ -145,10 +123,9 @@ export type TokenCreateRequest = {
    */
   jwtAtClaims?: string | undefined;
   /**
-   * The Authentication Context Class Reference of the user authentication that the authorization server performed
+   * The Authentication Context Class Reference of the user authentication that the authorization server performed during the course of issuing the access token.
    *
    * @remarks
-   * during the course of issuing the access token.
    */
   acr?: string | undefined;
   /**
@@ -170,10 +147,9 @@ export type TokenCreateRequest = {
    */
   clientIdentifier?: string | undefined;
   /**
-   * The session ID, which is the ID of the user's authentication session, associated with a newly
+   * The session ID, which is the ID of the user's authentication session, associated with a newly created access token.
    *
    * @remarks
-   * created access token.
    */
   sessionId?: string | undefined;
   /**

@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type VciJwtissuerApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type VciJwtissuerApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   vciJwtissuerRequest: models.VciJwtissuerRequest;
 };
 
@@ -24,7 +28,7 @@ export type VciJwtissuerApiResponse = {
 
 /** @internal */
 export type VciJwtissuerApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   vci_jwtissuer_request: models.VciJwtissuerRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const VciJwtissuerApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   VciJwtissuerApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   vciJwtissuerRequest: models.VciJwtissuerRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

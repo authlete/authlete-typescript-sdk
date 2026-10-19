@@ -6,62 +6,40 @@ import * as z from "zod/v3";
 
 export type IdtokenReissueRequest = {
   /**
-   * The value of this parameter should be (a) the value of the
+   * The value of this parameter should be (a) the value of the "`jwtAccessToken`" parameter in a response from the `/auth/token` API when the value is available, or (b) the value of the "`accessToken`" parameter in the response from the `/auth/token` API when the value of the "`jwtAccessToken`" parameter is not available.
    *
    * @remarks
-   * "`jwtAccessToken`" parameter in a response from the
-   * `/auth/token` API when the value is available, or (b)
-   * the value of the "`accessToken`" parameter in the
-   * response from the `/auth/token` API when the value of
-   * the "`jwtAccessToken`" parameter is not available.
    */
   accessToken: string;
   /**
-   * The value of this parameter should be the value of the
+   * The value of this parameter should be the value of the "`refreshToken`" parameter in a response from the `/auth/token` API.
    *
    * @remarks
-   * "`refreshToken`" parameter in a response from the
-   * `/auth/token` API.
    */
-  refreshToken: string;
+  refreshToken?: string | undefined;
   /**
-   * The value that should be used as the value of the "`sub`"
+   * The value that should be used as the value of the "`sub`" claim of the ID token. This parameter is optional. When omitted, the value of the subject associated with the access token is used.
    *
    * @remarks
-   * claim of the ID token.
-   * This parameter is optional. When omitted, the value of the subject
-   * associated with the access token is used.
    */
   sub?: string | undefined;
   /**
-   * Additional claims that should be embedded in the payload part of
+   * Additional claims that should be embedded in the payload part of the ID token. The format is a JSON object. This parameter is optional.
    *
    * @remarks
-   * the ID token. The format is a JSON object.
-   * This parameter is optional.
    */
   claims?: string | undefined;
   /**
-   * Additional parameters that should be embedded in the JWS header of
+   * Additional parameters that should be embedded in the JWS header of the ID token. The format is a JSON object. This parameter is optional.
    *
    * @remarks
-   * the ID token. The format is a JSON object.
-   * This parameter is optional.
    */
   idtHeaderParams?: string | undefined;
   /**
-   * The type of the "`aud`" claim of the ID token being issued.
+   * The type of the "`aud`" claim of the ID token being issued. Valid values of this parameter are as follows.
    *
    * @remarks
-   * Valid values of this parameter are as follows.
-   * > | Value | Description |
-   * > | --- | --- |
-   * > | "`array`" | The type of the `aud` claim becomes an array of strings. |
-   * > | "`string`" | The type of the `aud` claim becomes a single string. |
-   * This parameter is optional, and the default value on omission is
-   * "`array`".
-   * This parameter takes precedence over the `idTokenAudType` property
-   * of &#123;@link Service&#125; (cf. &#123;@link Service#getIdTokenAudType()&#125;).
+   * > | Value | Description | | --- | --- | | "`array`" | The type of the `aud` claim becomes an array of strings. | | "`string`" | The type of the `aud` claim becomes a single string. | This parameter is optional, and the default value on omission is "`array`". This parameter takes precedence over the `idTokenAudType` property of &#123;@link Service&#125; (cf. &#123;@link Service#getIdTokenAudType()&#125;).
    */
   idTokenAudType?: string | undefined;
 };
@@ -69,7 +47,7 @@ export type IdtokenReissueRequest = {
 /** @internal */
 export type IdtokenReissueRequest$Outbound = {
   accessToken: string;
-  refreshToken: string;
+  refreshToken?: string | undefined;
   sub?: string | undefined;
   claims?: string | undefined;
   idtHeaderParams?: string | undefined;
@@ -83,7 +61,7 @@ export const IdtokenReissueRequest$outboundSchema: z.ZodType<
   IdtokenReissueRequest
 > = z.object({
   accessToken: z.string(),
-  refreshToken: z.string(),
+  refreshToken: z.string().optional(),
   sub: z.string().optional(),
   claims: z.string().optional(),
   idtHeaderParams: z.string().optional(),

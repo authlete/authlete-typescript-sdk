@@ -6,10 +6,9 @@ import * as z from "zod/v3";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * The signature algorithm for JWT. This value is represented on 'alg' attribute
+ * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
  *
  * @remarks
- * of the header of JWT.
  *
  * it's semantics depends upon where is this defined, for instance:
  *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -34,10 +33,9 @@ export const JwsAlg = {
   EdDSA: "EdDSA",
 } as const;
 /**
- * The signature algorithm for JWT. This value is represented on 'alg' attribute
+ * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
  *
  * @remarks
- * of the header of JWT.
  *
  * it's semantics depends upon where is this defined, for instance:
  *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).

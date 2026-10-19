@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientGrantedScopesGetBySubjectApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientGrantedScopesGetBySubjectApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * A client ID.
    *
@@ -35,7 +39,7 @@ export type ClientGrantedScopesGetBySubjectApiResponse = {
 
 /** @internal */
 export type ClientGrantedScopesGetBySubjectApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   clientId: string;
   subject: string;
 };
@@ -47,7 +51,7 @@ export const ClientGrantedScopesGetBySubjectApiRequest$outboundSchema:
     z.ZodTypeDef,
     ClientGrantedScopesGetBySubjectApiRequest
   > = z.object({
-    serviceId: z.string(),
+    serviceId: z.string().optional(),
     clientId: z.string(),
     subject: z.string(),
   });

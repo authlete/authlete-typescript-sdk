@@ -6,7 +6,6 @@
 import { GrantMApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: GrantMApiRequest = {
-  serviceId: "<id>",
   gMRequest: {},
 };
 ```
@@ -15,5 +14,5 @@ let value: GrantMApiRequest = {
 
 | Field                                         | Type                                          | Required                                      | Description                                   |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| `serviceId`                                   | *string*                                      | :heavy_check_mark:                            | A service ID.                                 |
+| `serviceId`                                   | *string*                                      | :heavy_minus_sign:                            | A service ID.                                 |
 | `gMRequest`                                   | [models.GMRequest](../../models/gmrequest.md) | :heavy_check_mark:                            | N/A                                           |

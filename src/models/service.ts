@@ -27,12 +27,6 @@ import {
   ClientRegistrationType$outboundSchema,
 } from "./clientregistrationtype.js";
 import {
-  CredentialIssuerMetadata,
-  CredentialIssuerMetadata$inboundSchema,
-  CredentialIssuerMetadata$Outbound,
-  CredentialIssuerMetadata$outboundSchema,
-} from "./credentialissuermetadata.js";
-import {
   DeliveryMode,
   DeliveryMode$inboundSchema,
   DeliveryMode$outboundSchema,
@@ -110,11 +104,6 @@ import {
   TrustAnchor$outboundSchema,
 } from "./trustanchor.js";
 import {
-  UserCodeCharset,
-  UserCodeCharset$inboundSchema,
-  UserCodeCharset$outboundSchema,
-} from "./usercodecharset.js";
-import {
   VerifiedClaimsValidationSchema,
   VerifiedClaimsValidationSchema$inboundSchema,
   VerifiedClaimsValidationSchema$outboundSchema,
@@ -125,6 +114,94 @@ export const SupportedSnse = {
 } as const;
 export type SupportedSnse = ClosedEnum<typeof SupportedSnse>;
 
+export const SupportedDeveloperSnse = {
+  Facebook: "FACEBOOK",
+} as const;
+export type SupportedDeveloperSnse = ClosedEnum<typeof SupportedDeveloperSnse>;
+
+/**
+ * The character set for end-user verification codes (`user_code`) for Device Flow.
+ *
+ * @remarks
+ */
+export const UserCodeCharset = {
+  Base20: "BASE20",
+  Numeric: "NUMERIC",
+} as const;
+/**
+ * The character set for end-user verification codes (`user_code`) for Device Flow.
+ *
+ * @remarks
+ */
+export type UserCodeCharset = ClosedEnum<typeof UserCodeCharset>;
+
+export type CredentialIssuerMetadata = {
+  /**
+   * The identifiers of the authorization servers that the credential issuer relies on for authorization. This property corresponds to the authorization_servers metadata. When the credential issuer works as an authorization server for itself, this property should be omitted.
+   *
+   * @remarks
+   */
+  authorizationServers?: Array<string> | undefined;
+  /**
+   * The identifier of a credential request.
+   */
+  credentialIssuer?: string | undefined;
+  /**
+   * The URL of the credential endpoint of the credential issuer.
+   */
+  credentialEndpoint?: string | undefined;
+  /**
+   * The URL of the batch credential endpoint of the credential issuer.
+   */
+  batchCredentialEndpoint?: string | undefined;
+  /**
+   * The URL of the deferred credential endpoint of the credential issuer.
+   */
+  deferredCredentialEndpoint?: string | undefined;
+  /**
+   * A JSON object describing supported credential configurations. This property corresponds to the credential_configurations_supported metadata. Note: Due to a breaking change in December 2023, this was changed from a JSON array to a JSON object.
+   *
+   * @remarks
+   */
+  credentialsSupported?: string | undefined;
+  /**
+   * The supported JWE `alg` algorithms for credential response encryption. This property corresponds to the `credential_response_encryption.alg_values_supported` metadata.
+   *
+   * @remarks
+   */
+  credentialResponseEncryptionAlgValuesSupported?: Array<string> | undefined;
+  /**
+   * The supported JWE `enc` algorithms for credential response encryption. This property corresponds to the `credential_response_encryption.enc_values_supported` metadata.
+   *
+   * @remarks
+   */
+  credentialResponseEncryptionEncValuesSupported?: Array<string> | undefined;
+  /**
+   * The boolean flag indicating whether credential response encryption is required. This property corresponds to the `credential_response_encryption.encryption_required metadata`. If this flag is `true`, every credential request to the credential issuer must include the `credential_response_encryption` property.
+   *
+   * @remarks
+   */
+  requireCredentialResponseEncryption?: boolean | undefined;
+  /**
+   * The boolean flag indicating whether credential request encryption is required. This property corresponds to the `credential_request_encryption.encryption_required` metadata. If this flag is `true`, every credential request to the credential issuer must be encrypted.
+   *
+   * @remarks
+   */
+  requireCredentialRequestEncryption?: boolean | undefined;
+  /**
+   * The supported JWE `zip` (compression) algorithms for credential response encryption. This property corresponds to the `credential_response_encryption.zip_values_supported` metadata.
+   *
+   * @remarks
+   */
+  credentialResponseEncryptionZipValuesSupported?: Array<string> | undefined;
+  /**
+   * The maximum array size for the `proofs` parameter in a credential request. This property corresponds to the `batch_credential_issuance.batch_size` metadata. If the value of this property is 2 or greater, the `batch_credential_issuance` parameter will appear in the response from the credential issuer metadata endpoint.
+   *
+   * @remarks
+   */
+  batchSize?: number | undefined;
+};
+
 export type Service = {
   /**
    * The sequential number of the service. The value of this property is assigned by Authlete.
@@ -133,7 +210,7 @@ export type Service = {
   /**
    * The name of this service.
    */
-  serviceName?: string | undefined;
+  serviceName?: string | null | undefined;
   /**
    * The issuer identifier of the service.
    *
@@ -141,44 +218,39 @@ export type Service = {
    *
    * A URL that starts with  https:// and has no query or fragment component.
    *
-   * The value of this property is used as `iss` claim in an [ID token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)
-   * and `issuer` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `iss` claim in an [ID token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) and `issuer` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  issuer?: string | undefined;
+  issuer?: string | null | undefined;
   /**
    * The description about the service.
    */
-  description?: string | undefined;
+  description?: string | null | undefined;
   /**
    * The service ID used in Authlete API calls. The value of this property is assigned by Authlete.
    */
   apiKey?: number | undefined;
   /**
-   * The API secret of this service. This value is assigned by Authlete and
+   * The API secret of this service. This value is assigned by Authlete and is used for service authentication in API calls.
    *
    * @remarks
-   * is used for service authentication in API calls.
    */
-  apiSecret?: string | undefined;
+  apiSecret?: string | null | undefined;
   /**
-   * The endpoint for batch token notifications. This endpoint is called when
+   * The endpoint for batch token notifications. This endpoint is called when multiple tokens are issued or revoked in a batch operation.
    *
    * @remarks
-   * multiple tokens are issued or revoked in a batch operation.
    */
-  tokenBatchNotificationEndpoint?: string | undefined;
+  tokenBatchNotificationEndpoint?: string | null | undefined;
   /**
-   * The flag indicating whether the audience of client assertion JWTs must
+   * The flag indicating whether the audience of client assertion JWTs must match the issuer identifier of this service.
    *
    * @remarks
-   * match the issuer identifier of this service.
    */
   clientAssertionAudRestrictedToIssuer?: boolean | undefined;
   /**
-   * The number of the organization that owns this service. This value is
+   * The number of the organization that owns this service. This value is assigned by Authlete.
    *
    * @remarks
-   * assigned by Authlete.
    */
   serviceOwnerNumber?: number | undefined;
   /**
@@ -188,67 +260,71 @@ export type Service = {
    */
   clientsPerDeveloper?: number | undefined;
   /**
-   * The endpoint for developer authentication callbacks. This is used when
+   * The endpoint for developer authentication callbacks. This is used when developers log into the developer portal.
    *
    * @remarks
-   * developers log into the developer portal.
    */
-  developerAuthenticationCallbackEndpoint?: string | undefined;
+  developerAuthenticationCallbackEndpoint?: string | null | undefined;
   /**
-   * The API key for basic authentication at the developer authentication
+   * The API key for basic authentication at the developer authentication callback endpoint.
    *
    * @remarks
-   * callback endpoint.
    */
-  developerAuthenticationCallbackApiKey?: string | undefined;
+  developerAuthenticationCallbackApiKey?: string | null | undefined;
   /**
-   * The API secret for basic authentication at the developer authentication
+   * The API secret for basic authentication at the developer authentication callback endpoint.
    *
    * @remarks
-   * callback endpoint.
    */
-  developerAuthenticationCallbackApiSecret?: string | undefined;
+  developerAuthenticationCallbackApiSecret?: string | null | undefined;
   /**
-   * Social login services (SNS) that this service supports for end-user
+   * Social login services (SNS) that this service supports for end-user authentication.
    *
    * @remarks
-   * authentication.
    */
-  supportedSnses?: Array<SupportedSnse> | undefined;
+  supportedSnses?: Array<SupportedSnse> | null | undefined;
   /**
-   * The credentials for social login services (SNS) that are used for
+   * The credentials for social login services (SNS) that are used for end-user authentication.
    *
    * @remarks
-   * end-user authentication.
    */
-  snsCredentials?: Array<SnsCredentials> | undefined;
+  snsCredentials?: Array<SnsCredentials> | null | undefined;
+  /**
+   * Social login services (SNS) that this service supports for developer authentication.
+   *
+   * @remarks
+   */
+  supportedDeveloperSnses?: Array<SupportedDeveloperSnse> | null | undefined;
+  /**
+   * The credentials for social login services (SNS) that are used for developer authentication.
+   *
+   * @remarks
+   */
+  developerSnsCredentials?: Array<SnsCredentials> | null | undefined;
   /**
    * Deprecated. Always `true`.
    */
   clientIdAliasEnabled?: boolean | undefined;
   /**
-   * The `metadata` of the service. The content of the returned array depends on contexts.
+   * The `metadata` of the service. The content of the returned array depends on contexts. The predefined service metadata is listed in the following table.
    *
    * @remarks
-   * The predefined service metadata is listed in the following table.
    *
    *   | Key | Description |
    *   | --- | --- |
    *   | `clientCount` | The number of client applications which belong to this service.  |
    */
-  metadata?: Array<Pair> | undefined;
+  metadata?: Array<Pair> | null | undefined;
   /**
-   * The time at which this service was created. The value is represented as milliseconds since the
+   * The time at which this service was created. The value is represented as milliseconds since the UNIX epoch (`1970-01-01`).
    *
    * @remarks
-   * UNIX epoch (`1970-01-01`).
    */
   createdAt?: number | undefined;
   /**
-   * The time at which this service was last modified. The value is represented as milliseconds since
+   * The time at which this service was last modified. The value is represented as milliseconds since the UNIX epoch (1970-01-01).
    *
    * @remarks
-   * the UNIX epoch (1970-01-01).
    */
   modifiedAt?: number | undefined;
   /**
@@ -256,76 +332,67 @@ export type Service = {
    *
    * @remarks
    *
-   * The endpoint must be implemented if you do not implement the UI at the authorization endpoint
-   * but use the one provided by Authlete.
+   * The endpoint must be implemented if you do not implement the UI at the authorization endpoint but use the one provided by Authlete.
    *
-   * The user authentication at the authorization endpoint provided by Authlete is performed by making
-   * a `POST` request to this endpoint.
+   * The user authentication at the authorization endpoint provided by Authlete is performed by making a `POST` request to this endpoint.
    */
-  authenticationCallbackEndpoint?: string | undefined;
+  authenticationCallbackEndpoint?: string | null | undefined;
   /**
    * API key for basic authentication at the authentication callback endpoint.
    *
    * @remarks
    *
-   * If the value is not empty, Authlete generates Authorization header for Basic authentication when
-   * making a request to the authentication callback endpoint.
+   * If the value is not empty, Authlete generates Authorization header for Basic authentication when making a request to the authentication callback endpoint.
    */
-  authenticationCallbackApiKey?: string | undefined;
+  authenticationCallbackApiKey?: string | null | undefined;
   /**
    * API secret for `basic` authentication at the authentication callback endpoint.
    */
-  authenticationCallbackApiSecret?: string | undefined;
+  authenticationCallbackApiSecret?: string | null | undefined;
   /**
    * Values of acrs (authentication context class references) that the service supports.
    *
    * @remarks
    *
-   * The value of this property is used as `acr_values_supported`
-   * property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `acr_values_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedAcrs?: Array<string> | undefined;
+  supportedAcrs?: Array<string> | null | undefined;
   /**
    * Values of `grant_type` request parameter that the service supports.
    *
    * @remarks
    *
-   * The value of this property is used as `grant_types_supported property` in the
-   * [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `grant_types_supported property` in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedGrantTypes?: Array<GrantType> | undefined;
+  supportedGrantTypes?: Array<GrantType> | null | undefined;
   /**
-   * Values of `response_type` request parameter that
+   * Values of `response_type` request parameter that the service supports. Valid values are listed in Response Type.
    *
    * @remarks
-   * the service supports. Valid values are listed in Response Type.
    *
-   * The value of this property is used as `response_types_supported` property in the
-   * [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `response_types_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedResponseTypes?: Array<ResponseType> | undefined;
+  supportedResponseTypes?: Array<ResponseType> | null | undefined;
   /**
    * The supported data types that can be used as values of the type field in `authorization_details`.
    *
    * @remarks
    *
-   * This property corresponds to the `authorization_details_types_supported` metadata. See "OAuth 2.0
-   * Rich Authorization Requests" (RAR) for details.
+   * This property corresponds to the `authorization_details_types_supported` metadata. See "OAuth 2.0 Rich Authorization Requests" (RAR) for details.
    */
-  supportedAuthorizationDetailsTypes?: Array<string> | undefined;
+  supportedAuthorizationDetailsTypes?: Array<string> | null | undefined;
   /**
    * The profiles that this service supports.
    *
    * @remarks
    */
-  supportedServiceProfiles?: Array<ServiceProfile> | undefined;
+  supportedServiceProfiles?: Array<ServiceProfile> | null | undefined;
   /**
    * The flag to indicate whether the `error_description` response parameter is omitted.
    *
    * @remarks
    *
-   * According to [RFC 6749](https://tools.ietf.org/html/rfc6749), an authorization server may include
-   * the `error_description` response parameter in error responses.
+   * According to [RFC 6749](https://tools.ietf.org/html/rfc6749), an authorization server may include the `error_description` response parameter in error responses.
    *
    * If `true`, Authlete does not embed the `error_description` response parameter in error responses.
    */
@@ -337,8 +404,7 @@ export type Service = {
    *
    * According to [RFC 6749](https://tools.ietf.org/html/rfc6749), an authorization server may include the `error_uri` response parameter in error responses.
    *
-   * If `true`, Authlete does not embed the
-   * `error_uri` response parameter in error responses.
+   * If `true`, Authlete does not embed the `error_uri` response parameter in error responses.
    */
   errorUriOmitted?: boolean | undefined;
   /**
@@ -348,16 +414,15 @@ export type Service = {
    *
    * A URL that starts with `https://` and has no fragment component. For example, `https://example.com/auth/authorization`.
    *
-   * The value of this property is used as `authorization_endpoint` property in the [OpenID Provider
-   * Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `authorization_endpoint` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  authorizationEndpoint?: string | undefined;
+  authorizationEndpoint?: string | null | undefined;
   /**
-   * The flag to indicate whether the direct authorization endpoint is enabled or not.
+   * Deprecated. The direct authorization endpoint was removed in Authlete 3.0.15, so this flag has no effect and is always returned as `false`.
    *
    * @remarks
    *
-   * The path of the endpoint is `/api/auth/authorization/direct/service-api-key`.
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   directAuthorizationEndpointEnabled?: boolean | undefined;
   /**
@@ -369,7 +434,7 @@ export type Service = {
    *
    * The value of this property is used as `ui_locales_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedUiLocales?: Array<string> | undefined;
+  supportedUiLocales?: Array<string> | null | undefined;
   /**
    * Values of `display` request parameter that service supports.
    *
@@ -377,7 +442,7 @@ export type Service = {
    *
    * The value of this property is used as `display_values_supported` property in the Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedDisplays?: Array<Display> | undefined;
+  supportedDisplays?: Array<Display> | null | undefined;
   /**
    * The flag to indicate whether the use of Proof Key for Code Exchange (PKCE) is always required for authorization requests by Authorization Code Flow.
    *
@@ -393,9 +458,7 @@ export type Service = {
    *
    * @remarks
    *
-   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request
-   * whenever it includes the `code_challenge` request parameter.
-   * Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
+   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request whenever it includes the `code_challenge` request parameter. Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
    */
   pkceS256Required?: boolean | undefined;
   /**
@@ -403,11 +466,7 @@ export type Service = {
    *
    * @remarks
    *
-   * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
-   * defines new values for the `response_mode` request parameter. They are `query.jwt`, `fragment.jwt`,
-   * `form_post.jwt` and `jwt`. If one of them is specified as the response mode, response parameters
-   * from the authorization endpoint will be packed into a JWT. This property is used to compute the
-   * value of the `exp` claim of the JWT.
+   * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html) defines new values for the `response_mode` request parameter. They are `query.jwt`, `fragment.jwt`, `form_post.jwt` and `jwt`. If one of them is specified as the response mode, response parameters from the authorization endpoint will be packed into a JWT. This property is used to compute the value of the `exp` claim of the JWT.
    */
   authorizationResponseDuration?: number | undefined;
   /**
@@ -423,15 +482,15 @@ export type Service = {
    *
    * A URL that starts with `https://` and has not fragment component. For example, `https://example.com/auth/token`.
    *
-   * The value of this property is used as `token_endpoint` property in the
-   * [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `token_endpoint` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  tokenEndpoint?: string | undefined;
+  tokenEndpoint?: string | null | undefined;
   /**
-   * The flag to indicate whether the direct token endpoint is enabled or not. The path of the endpoint
+   * Deprecated. The direct token endpoint was removed in Authlete 3.0.15, so this flag has no effect and is always returned as `false`.
    *
    * @remarks
-   * is `/api/auth/token/direct/service-api-key`.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   directTokenEndpointEnabled?: boolean | undefined;
   /**
@@ -439,10 +498,9 @@ export type Service = {
    *
    * @remarks
    *
-   * The value of this property is used as `token_endpoint_auth_methods_supports` property in the
-   * [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `token_endpoint_auth_methods_supports` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedTokenAuthMethods?: Array<ClientAuthMethod> | undefined;
+  supportedTokenAuthMethods?: Array<ClientAuthMethod> | null | undefined;
   /**
    * The flag to indicate token requests from public clients without the `client_id` request parameter are allowed when the client can be guessed from `authorization_code` or `refresh_token`.
    *
@@ -458,9 +516,13 @@ export type Service = {
    *
    * A URL that starts with `https://`. For example, `https://example.com/auth/revocation`.
    */
-  revocationEndpoint?: string | undefined;
+  revocationEndpoint?: string | null | undefined;
   /**
-   * The flag to indicate whether the direct revocation endpoint is enabled or not. The URL of the endpoint is `/api/auth/revocation/direct/service-api-key`.
+   * Deprecated. The direct revocation endpoint was removed in Authlete 3.0.15, so this flag has no effect and is always returned as `false`.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   directRevocationEndpointEnabled?: boolean | undefined;
   /**
@@ -468,13 +530,17 @@ export type Service = {
    *
    * @remarks
    */
-  supportedRevocationAuthMethods?: Array<ClientAuthMethod> | undefined;
+  supportedRevocationAuthMethods?: Array<ClientAuthMethod> | null | undefined;
   /**
    * The URI of the introspection endpoint.
    */
-  introspectionEndpoint?: string | undefined;
+  introspectionEndpoint?: string | null | undefined;
   /**
-   * The flag to indicate whether the direct userinfo endpoint is enabled or not. The path of the endpoint is `/api/auth/userinfo/direct/{serviceApiKey}`.
+   * Deprecated. The direct introspection endpoint was removed in Authlete 3.0.15, so this flag has no effect and is always returned as `false`.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   directIntrospectionEndpointEnabled?: boolean | undefined;
   /**
@@ -482,7 +548,10 @@ export type Service = {
    *
    * @remarks
    */
-  supportedIntrospectionAuthMethods?: Array<ClientAuthMethod> | undefined;
+  supportedIntrospectionAuthMethods?:
+    | Array<ClientAuthMethod>
+    | null
+    | undefined;
   /**
    * The URI of the pushed authorization request endpoint.
    *
@@ -490,7 +559,7 @@ export type Service = {
    *
    * This property corresponds to the `pushed_authorization_request_endpoint` metadata defined in "[5. Authorization Server Metadata](https://tools.ietf.org/html/draft-lodderstedt-oauth-par#section-5)" of OAuth 2.0 Pushed Authorization Requests.
    */
-  pushedAuthReqEndpoint?: string | undefined;
+  pushedAuthReqEndpoint?: string | null | undefined;
   /**
    * The duration of pushed authorization requests in seconds.
    *
@@ -498,34 +567,25 @@ export type Service = {
    */
   pushedAuthReqDuration?: number | undefined;
   /**
-   * The flag to indicate whether this service requires that clients use the pushed authorization
+   * The flag to indicate whether this service requires that clients use the pushed authorization request endpoint.
    *
    * @remarks
-   * request endpoint.
    *
-   * This property corresponds to the `require_pushed_authorization_requests` server metadata defined
-   * in [OAuth 2.0 Pushed Authorization Requests](https://tools.ietf.org/html/draft-lodderstedt-oauth-par).
+   * This property corresponds to the `require_pushed_authorization_requests` server metadata defined in [OAuth 2.0 Pushed Authorization Requests](https://tools.ietf.org/html/draft-lodderstedt-oauth-par).
    */
   parRequired?: boolean | undefined;
   /**
-   * The flag to indicate whether this service requires that authorization requests always utilize
+   * The flag to indicate whether this service requires that authorization requests always utilize a request object by using either request or `request_uri` request parameter.
    *
    * @remarks
-   * a request object by using either request or `request_uri` request parameter.
    *
-   * If this flag is set to `true` and the value of `traditionalRequestObjectProcessingApplied` is
-   * `false`, the value of `require_signed_request_object` server metadata of this service is reported
-   * as `true` in the discovery document. The metadata is defined in JAR (JWT Secured Authorization Request).
-   * That `require_signed_request_object` is `true` means that authorization requests which don't
-   * conform to the JAR specification are rejected.
+   * If this flag is set to `true` and the value of `traditionalRequestObjectProcessingApplied` is `false`, the value of `require_signed_request_object` server metadata of this service is reported as `true` in the discovery document. The metadata is defined in JAR (JWT Secured Authorization Request). That `require_signed_request_object` is `true` means that authorization requests which don't conform to the JAR specification are rejected.
    */
   requestObjectRequired?: boolean | undefined;
   /**
-   * The flag to indicate whether a request object is processed based on rules defined in
+   * The flag to indicate whether a request object is processed based on rules defined in [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) or JAR (JWT Secured Authorization Request).
    *
    * @remarks
-   * [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) or JAR (JWT
-   * Secured Authorization Request).
    */
   traditionalRequestObjectProcessingApplied?: boolean | undefined;
   /**
@@ -539,25 +599,23 @@ export type Service = {
    *
    * @remarks
    */
-  trustedRootCertificates?: Array<string> | undefined;
+  trustedRootCertificates?: Array<string> | null | undefined;
   /**
    * The MTLS endpoint aliases.
    *
    * @remarks
    */
-  mtlsEndpointAliases?: Array<NamedUri> | undefined;
+  mtlsEndpointAliases?: Array<NamedUri> | null | undefined;
   /**
    * The access token type.
    *
    * @remarks
    *
-   * This value is used as the value of `token_type` property in access token responses. If this service
-   * complies with [RFC 6750](https://tools.ietf.org/html/rfc6750), the value of this property should
-   * be `Bearer`.
+   * This value is used as the value of `token_type` property in access token responses. If this service complies with [RFC 6750](https://tools.ietf.org/html/rfc6750), the value of this property should be `Bearer`.
    *
    * See [RFC 6749 (OAuth 2.0), 7.1. Access Token Types](https://tools.ietf.org/html/rfc6749#section-7.1) for details.
    */
-  accessTokenType?: string | undefined;
+  accessTokenType?: string | null | undefined;
   /**
    * The flag to indicate whether this service supports issuing TLS client certificate bound access tokens.
    *
@@ -565,10 +623,9 @@ export type Service = {
    */
   tlsClientCertificateBoundAccessTokens?: boolean | undefined;
   /**
-   * The duration of access tokens in seconds. This value is used as the value of `expires_in` property
+   * The duration of access tokens in seconds. This value is used as the value of `expires_in` property in access token responses. `expires_in` is defined [RFC 6749, 5.1. Successful Response](https://tools.ietf.org/html/rfc6749#section-5.1).
    *
    * @remarks
-   * in access token responses. `expires_in` is defined [RFC 6749, 5.1. Successful Response](https://tools.ietf.org/html/rfc6749#section-5.1).
    */
   accessTokenDuration?: number | undefined;
   /**
@@ -582,10 +639,9 @@ export type Service = {
    */
   singleAccessTokenPerSubject?: boolean | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -598,36 +654,25 @@ export type Service = {
    *
    * @remarks
    *
-   * A JWK Set can be registered as a property of a service. A JWK Set can contain 0 or more JWKs.
-   * Authlete Server has to pick up one JWK for signing from the JWK Set when it generates a JWT-based
-   * access token. Authlete Server searches the registered JWK Set for a JWK which satisfies conditions
-   * for access token signature. If the number of JWK candidates which satisfy the conditions is 1,
-   * there is no problem. On the other hand, if there exist multiple candidates, a Key ID is needed
-   * to be specified so that Authlete Server can pick up one JWK from among the JWK candidates.
+   * A JWK Set can be registered as a property of a service. A JWK Set can contain 0 or more JWKs. Authlete Server has to pick up one JWK for signing from the JWK Set when it generates a JWT-based access token. Authlete Server searches the registered JWK Set for a JWK which satisfies conditions for access token signature. If the number of JWK candidates which satisfy the conditions is 1, there is no problem. On the other hand, if there exist multiple candidates, a Key ID is needed to be specified so that Authlete Server can pick up one JWK from among the JWK candidates.
    */
-  accessTokenSignatureKeyId?: string | undefined;
+  accessTokenSignatureKeyId?: string | null | undefined;
   /**
    * The duration of refresh tokens in seconds. The related specifications have no requirements on refresh token duration, but Authlete sets expiration for refresh tokens.
    */
   refreshTokenDuration?: number | undefined;
   /**
-   * The flag to indicate whether the remaining duration of the used refresh token is taken over to
+   * The flag to indicate whether the remaining duration of the used refresh token is taken over to the newly issued refresh token.
    *
    * @remarks
-   * the newly issued refresh token.
    */
   refreshTokenDurationKept?: boolean | undefined;
   /**
-   * The flag which indicates whether duration of refresh tokens are reset when they are used even
+   * The flag which indicates whether duration of refresh tokens are reset when they are used even if the `refreshTokenKept` property of this service set to is `true` (= even if "Refresh Token Continuous Use" is "Kept").
    *
    * @remarks
-   * if the `refreshTokenKept` property of this service set to is `true` (= even if "Refresh Token
-   * Continuous Use" is "Kept").
    *
-   * This flag has no effect when the `refreshTokenKept` property is set to `false`. In other words,
-   * if this service issues a new refresh token on every refresh token request, the refresh token
-   * will have fresh duration (unless `refreshTokenDurationKept` is set to `true`) and this
-   * `refreshTokenDurationReset` property is not referenced.
+   * This flag has no effect when the `refreshTokenKept` property is set to `false`. In other words, if this service issues a new refresh token on every refresh token request, the refresh token will have fresh duration (unless `refreshTokenDurationKept` is set to `true`) and this `refreshTokenDurationReset` property is not referenced.
    */
   refreshTokenDurationReset?: boolean | undefined;
   /**
@@ -645,7 +690,7 @@ export type Service = {
    *
    * @remarks
    */
-  supportedScopes?: Array<Scope> | undefined;
+  supportedScopes?: Array<Scope> | null | undefined;
   /**
    * The flag to indicate whether requests that request no scope are rejected or not.
    *
@@ -653,10 +698,9 @@ export type Service = {
    */
   scopeRequired?: boolean | undefined;
   /**
-   * 'The duration of [ID token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)s
+   * 'The duration of [ID token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)s in seconds. This value is used to calculate the value of `exp` claim in an ID token.'
    *
    * @remarks
-   * in seconds. This value is used to calculate the value of `exp` claim in an ID token.'
    */
   idTokenDuration?: number | undefined;
   /**
@@ -668,60 +712,49 @@ export type Service = {
    */
   allowableClockSkew?: number | undefined;
   /**
-   * Claim types supported by the service. Valid values are listed in Claim Type. Note that Authlete
+   * Claim types supported by the service. Valid values are listed in Claim Type. Note that Authlete currently doesn't provide any API to help implementations for `AGGREGATED` and `DISTRIBUTED`.
    *
    * @remarks
-   * currently doesn't provide any API to help implementations for `AGGREGATED` and `DISTRIBUTED`.
    *
-   * The value of this property is used as `claim_types_supported` property in the [OpenID Provider
-   * Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `claim_types_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedClaimTypes?: Array<ClaimType> | undefined;
+  supportedClaimTypes?: Array<ClaimType> | null | undefined;
   /**
-   * Claim locales that the service supports. Each element is a language tag defined in [RFC 5646](https://tools.ietf.org/html/rfc5646).
+   * Claim locales that the service supports. Each element is a language tag defined in [RFC 5646](https://tools.ietf.org/html/rfc5646). For example, `en-US` and `ja-JP`. See [OpenID Connect Core 1.0, 5.2. Languages and Scripts](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsLanguagesAndScripts) for details.
    *
    * @remarks
-   * For example, `en-US` and `ja-JP`. See [OpenID Connect Core 1.0, 5.2. Languages and Scripts](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsLanguagesAndScripts)
-   * for details.
    *
-   * The value of this property is used as `claims_locales_supported` property in the
-   * [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `claims_locales_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedClaimLocales?: Array<string> | undefined;
+  supportedClaimLocales?: Array<string> | null | undefined;
   /**
-   * Claim names that the service supports. The standard claim names listed in [OpenID Connect Core 1.0,
+   * Claim names that the service supports. The standard claim names listed in [OpenID Connect Core 1.0, 5.1. Standard Claim](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) should be supported. The following is the list of standard claims.
    *
    * @remarks
-   * 5.1. Standard Claim](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) should
-   * be supported. The following is the list of standard claims.
    */
-  supportedClaims?: Array<string> | undefined;
+  supportedClaims?: Array<string> | null | undefined;
   /**
-   * The flag indicating whether claims specified by shortcut scopes (e.g. `profile`) are included
+   * The flag indicating whether claims specified by shortcut scopes (e.g. `profile`) are included in the issued ID token only when no access token is issued.
    *
    * @remarks
-   * in the issued ID token only when no access token is issued.
    */
   claimShortcutRestrictive?: boolean | undefined;
   /**
-   * The URL of the service's [JSON Web Key Set](https://tools.ietf.org/html/rfc7517) document. For
+   * The URL of the service's [JSON Web Key Set](https://tools.ietf.org/html/rfc7517) document. For example, `http://example.com/auth/jwks`.
    *
    * @remarks
-   * example, `http://example.com/auth/jwks`.
    *
-   * Client applications accesses this URL (1) to get the public key of the service to validate the
-   * signature of an ID token issued by the service and (2) to get the public key of the service to
-   * encrypt an request object of the client application. See [OpenID Connect Core 1.0, 10. Signatures
-   * and Encryption](https://openid.net/specs/openid-connect-core-1_0.html#SigEnc) for details.
+   * Client applications accesses this URL (1) to get the public key of the service to validate the signature of an ID token issued by the service and (2) to get the public key of the service to encrypt an request object of the client application. See [OpenID Connect Core 1.0, 10. Signatures and Encryption](https://openid.net/specs/openid-connect-core-1_0.html#SigEnc) for details.
    *
    * The value of this property is used as `jwks_uri` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  jwksUri?: string | undefined;
+  jwksUri?: string | null | undefined;
   /**
-   * 'The flag to indicate whether the direct jwks endpoint is enabled or not. The path of the endpoint
+   * Deprecated. The direct JWKS endpoint was removed in Authlete 3.0.15, so this flag has no effect and is always returned as `false`.
    *
    * @remarks
-   * is `/api/service/jwks/get/direct/service-api-key`. '
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   directJwksEndpointEnabled?: boolean | undefined;
   /**
@@ -729,72 +762,63 @@ export type Service = {
    *
    * @remarks
    *
-   * If this property is not `null` in a `/service/create` request or a `/service/update` request,
-   * Authlete hosts the content in the database. This property must not be `null` and must contain
-   * pairs of public/private keys if the service wants to support asymmetric signatures for ID tokens
-   * and asymmetric encryption for request objects. See [OpenID Connect Core 1.0, 10. Signatures and
-   * Encryption](https://openid.net/specs/openid-connect-core-1_0.html#SigEnc) for details.
+   * If this property is not `null` in a `/service/create` request or a `/service/update` request, Authlete hosts the content in the database. This property must not be `null` and must contain pairs of public/private keys if the service wants to support asymmetric signatures for ID tokens and asymmetric encryption for request objects. See [OpenID Connect Core 1.0, 10. Signatures and Encryption](https://openid.net/specs/openid-connect-core-1_0.html#SigEnc) for details.
    */
-  jwks?: string | undefined;
+  jwks?: string | null | undefined;
   /**
    * The key ID to identify a JWK used for ID token signature using an asymmetric key.
    *
    * @remarks
    */
-  idTokenSignatureKeyId?: string | undefined;
+  idTokenSignatureKeyId?: string | null | undefined;
   /**
    * The key ID to identify a JWK used for user info signature using an asymmetric key.
    *
    * @remarks
    */
-  userInfoSignatureKeyId?: string | undefined;
+  userInfoSignatureKeyId?: string | null | undefined;
   /**
    * The key ID to identify a JWK used for signing authorization responses using an asymmetric key.
    *
    * @remarks
    */
-  authorizationSignatureKeyId?: string | undefined;
+  authorizationSignatureKeyId?: string | null | undefined;
   /**
-   * The [user info endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo) of the
+   * The [user info endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo) of the service. A URL that starts with `https://`. For example, `https://example.com/auth/userinfo`.
    *
    * @remarks
-   * service. A URL that starts with `https://`. For example, `https://example.com/auth/userinfo`.
    *
    * The value of this property is used as `userinfo_endpoint` property in the [OpenID Provider Metadata](http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  userInfoEndpoint?: string | undefined;
+  userInfoEndpoint?: string | null | undefined;
   /**
-   * The flag to indicate whether the direct userinfo endpoint is enabled or not. The path
+   * Deprecated. The direct userinfo endpoint was removed in Authlete 3.0.15, so this flag has no effect and is always returned as `false`.
    *
    * @remarks
-   * of the endpoint is `/api/auth/userinfo/direct/service-api-key`.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   directUserInfoEndpointEnabled?: boolean | undefined;
   /**
-   * The boolean flag which indicates whether the [OAuth 2.0 Dynamic Client Registration Protocol](https://tools.ietf.org/html/rfc7591)
+   * The boolean flag which indicates whether the [OAuth 2.0 Dynamic Client Registration Protocol](https://tools.ietf.org/html/rfc7591) is supported.
    *
    * @remarks
-   * is supported.
    */
   dynamicRegistrationSupported?: boolean | undefined;
   /**
-   * The [registration endpoint](http://openid.net/specs/openid-connect-registration-1_0.html#ClientRegistration)
+   * The [registration endpoint](http://openid.net/specs/openid-connect-registration-1_0.html#ClientRegistration) of the service. A URL that starts with `https://`. For example, `https://example.com/auth/registration`.
    *
    * @remarks
-   * of the service. A URL that starts with `https://`. For example, `https://example.com/auth/registration`.
    *
    * The value of this property is used as `registration_endpoint` property in the [OpenID Provider Metadata](http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  registrationEndpoint?: string | undefined;
+  registrationEndpoint?: string | null | undefined;
   /**
-   * The URI of the registration management endpoint. If dynamic client registration is supported,
+   * The URI of the registration management endpoint. If dynamic client registration is supported, and this is set, this URI will be used as the basis of the client's management endpoint by appending `/clientid&#125;/` to it as a path element. If this is unset, the value of `registrationEndpoint` will be used as the URI base instead.
    *
    * @remarks
-   * and this is set, this URI will be used as the basis of the client's management endpoint by appending
-   * `/clientid&#125;/` to it as a path element. If this is unset, the value of `registrationEndpoint` will
-   * be used as the URI base instead.
    */
-  registrationManagementEndpoint?: string | undefined;
+  registrationManagementEndpoint?: string | null | undefined;
   /**
    * The URL of the "Policy" of the service.
    *
@@ -802,7 +826,7 @@ export type Service = {
    *
    * The value of this property is used as `op_policy_uri` property in the [OpenID Provider Metadata](http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  policyUri?: string | undefined;
+  policyUri?: string | null | undefined;
   /**
    * The URL of the "Terms Of Service" of the service.
    *
@@ -810,7 +834,7 @@ export type Service = {
    *
    * The value of this property is used as `op_tos_uri` property in the [OpenID Provider Metadata](http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  tosUri?: string | undefined;
+  tosUri?: string | null | undefined;
   /**
    * The URL of a page where documents for developers can be found.
    *
@@ -818,53 +842,46 @@ export type Service = {
    *
    * The value of this property is used as `service_documentation` property in the [OpenID Provider Metadata](http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  serviceDocumentation?: string | undefined;
+  serviceDocumentation?: string | null | undefined;
   /**
-   * The URI of backchannel authentication endpoint, which is defined in the specification of [CIBA
+   * The URI of backchannel authentication endpoint, which is defined in the specification of [CIBA (Client Initiated Backchannel Authentication)](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html).
    *
    * @remarks
-   * (Client Initiated Backchannel Authentication)](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html).
    */
-  backchannelAuthenticationEndpoint?: string | undefined;
+  backchannelAuthenticationEndpoint?: string | null | undefined;
   /**
-   * The supported backchannel token delivery modes. This property corresponds to the `backchannel_token_delivery_modes_supported`
+   * The supported backchannel token delivery modes. This property corresponds to the `backchannel_token_delivery_modes_supported` metadata.
    *
    * @remarks
-   * metadata.
    *
-   * Backchannel token delivery modes are defined in the specification of [CIBA (Client Initiated
-   * Backchannel Authentication)](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html).
+   * Backchannel token delivery modes are defined in the specification of [CIBA (Client Initiated Backchannel Authentication)](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html).
    */
-  supportedBackchannelTokenDeliveryModes?: Array<DeliveryMode> | undefined;
+  supportedBackchannelTokenDeliveryModes?:
+    | Array<DeliveryMode>
+    | null
+    | undefined;
   /**
-   * The duration of backchannel authentication request IDs issued from the backchannel authentication
+   * The duration of backchannel authentication request IDs issued from the backchannel authentication endpoint in seconds. This is used as the value of the `expires_in` property in responses from the backchannel authentication endpoint.
    *
    * @remarks
-   * endpoint in seconds. This is used as the value of the `expires_in` property in responses from
-   * the backchannel authentication endpoint.
    */
   backchannelAuthReqIdDuration?: number | undefined;
   /**
-   * The minimum interval between polling requests to the token endpoint from client applications in
+   * The minimum interval between polling requests to the token endpoint from client applications in seconds. This is used as the value of the `interval` property in responses from the backchannel authentication endpoint.
    *
    * @remarks
-   * seconds. This is used as the value of the `interval` property in responses from the backchannel
-   * authentication endpoint.
    */
   backchannelPollingInterval?: number | undefined;
   /**
-   * The boolean flag which indicates whether the `user_code` request parameter is supported at the
+   * The boolean flag which indicates whether the `user_code` request parameter is supported at the backchannel authentication endpoint. This property corresponds to the `backchannel_user_code_parameter_supported` metadata.
    *
    * @remarks
-   * backchannel authentication endpoint. This property corresponds to the `backchannel_user_code_parameter_supported`
-   * metadata.
    */
   backchannelUserCodeParameterSupported?: boolean | undefined;
   /**
-   * The flag to indicate whether the `binding_message` request parameter is always required whenever
+   * The flag to indicate whether the `binding_message` request parameter is always required whenever a backchannel authentication request is judged as a request for Financial-grade API.
    *
    * @remarks
-   * a backchannel authentication request is judged as a request for Financial-grade API.
    */
   backchannelBindingMessageRequiredInFapi?: boolean | undefined;
   /**
@@ -874,44 +891,32 @@ export type Service = {
    *
    * Device authorization endpoint is defined in the specification of OAuth 2.0 Device Authorization Grant.
    */
-  deviceAuthorizationEndpoint?: string | undefined;
+  deviceAuthorizationEndpoint?: string | null | undefined;
   /**
-   * The verification URI for the device flow. This URI is used as the value of the `verification_uri`
+   * The verification URI for the device flow. This URI is used as the value of the `verification_uri` parameter in responses from the device authorization endpoint.
    *
    * @remarks
-   * parameter in responses from the device authorization endpoint.
    */
-  deviceVerificationUri?: string | undefined;
+  deviceVerificationUri?: string | null | undefined;
   /**
-   * The verification URI for the device flow with a placeholder for a user code. This URI is used
+   * The verification URI for the device flow with a placeholder for a user code. This URI is used to build the value of the `verification_uri_complete` parameter in responses from the device authorization endpoint.
    *
    * @remarks
-   * to build the value of the `verification_uri_complete` parameter in responses from the device
-   * authorization endpoint.
    */
-  deviceVerificationUriComplete?: string | undefined;
+  deviceVerificationUriComplete?: string | null | undefined;
   /**
-   * The duration of device verification codes and end-user verification codes issued from the device
+   * The duration of device verification codes and end-user verification codes issued from the device authorization endpoint in seconds. This is used as the value of the `expires_in` property in responses from the device authorization endpoint.
    *
    * @remarks
-   * authorization endpoint in seconds. This is used as the value of the `expires_in` property in responses
-   * from the device authorization endpoint.
    */
   deviceFlowCodeDuration?: number | undefined;
   /**
-   * The minimum interval between polling requests to the token endpoint from client applications in
+   * The minimum interval between polling requests to the token endpoint from client applications in seconds in device flow. This is used as the value of the `interval` property in responses from the device authorization endpoint.
    *
    * @remarks
-   * seconds in device flow. This is used as the value of the `interval` property in responses from
-   * the device authorization endpoint.
    */
   deviceFlowPollingInterval?: number | undefined;
-  /**
-   * The character set for end-user verification codes (`user_code`) for Device Flow.
-   *
-   * @remarks
-   */
-  userCodeCharset?: UserCodeCharset | undefined;
+  userCodeCharset?: UserCodeCharset | null | undefined;
   /**
    * The length of end-user verification codes (`user_code`) for Device Flow.
    *
@@ -919,39 +924,35 @@ export type Service = {
    */
   userCodeLength?: number | undefined;
   /**
-   * Trust frameworks supported by this service. This corresponds to the `trust_frameworks_supported`
+   * Trust frameworks supported by this service. This corresponds to the `trust_frameworks_supported` [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    *
    * @remarks
-   * [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    */
-  supportedTrustFrameworks?: Array<string> | undefined;
+  supportedTrustFrameworks?: Array<string> | null | undefined;
   /**
    * Evidence supported by this service. This corresponds to the `evidence_supported` [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    *
    * @remarks
    */
-  supportedEvidence?: Array<string> | undefined;
+  supportedEvidence?: Array<string> | null | undefined;
   /**
-   * Identity documents supported by this service. This corresponds to the `id_documents_supported`
+   * Identity documents supported by this service. This corresponds to the `id_documents_supported` [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    *
    * @remarks
-   * [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    */
-  supportedIdentityDocuments?: Array<string> | undefined;
+  supportedIdentityDocuments?: Array<string> | null | undefined;
   /**
-   * Verification methods supported by this service. This corresponds to the `id_documents_verification_methods_supported`
+   * Verification methods supported by this service. This corresponds to the `id_documents_verification_methods_supported` [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    *
    * @remarks
-   * [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    */
-  supportedVerificationMethods?: Array<string> | undefined;
+  supportedVerificationMethods?: Array<string> | null | undefined;
   /**
-   * Verified claims supported by this service. This corresponds to the `claims_in_verified_claims_supported`
+   * Verified claims supported by this service. This corresponds to the `claims_in_verified_claims_supported` [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    *
    * @remarks
-   * [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    */
-  supportedVerifiedClaims?: Array<string> | undefined;
+  supportedVerifiedClaims?: Array<string> | null | undefined;
   /**
    * The verified claims validation schema set.
    *
@@ -965,12 +966,11 @@ export type Service = {
    *
    * @remarks
    */
-  attributes?: Array<Pair> | undefined;
+  attributes?: Array<Pair> | null | undefined;
   /**
-   * The flag indicating whether the nbf claim in the request object is optional even when the authorization
+   * The flag indicating whether the nbf claim in the request object is optional even when the authorization request is regarded as a FAPI-Part2 request.
    *
    * @remarks
-   * request is regarded as a FAPI-Part2 request.
    */
   nbfOptional?: boolean | undefined;
   /**
@@ -984,33 +984,29 @@ export type Service = {
    *
    * @remarks
    */
-  supportedCustomClientMetadata?: Array<string> | undefined;
+  supportedCustomClientMetadata?: Array<string> | null | undefined;
   /**
-   * The flag indicating whether the expiration date of an access token never exceeds that of the
+   * The flag indicating whether the expiration date of an access token never exceeds that of the corresponding refresh token.
    *
    * @remarks
-   * corresponding refresh token.
    */
   tokenExpirationLinked?: boolean | undefined;
   /**
-   * The flag indicating whether encryption of request object is required when the request object
+   * The flag indicating whether encryption of request object is required when the request object is passed through the front channel.
    *
    * @remarks
-   * is passed through the front channel.
    */
   frontChannelRequestObjectEncryptionRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg`
+   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg` client metadata of the client that has sent the request object.
    *
    * @remarks
-   * client metadata of the client that has sent the request object.
    */
   requestObjectEncryptionAlgMatchRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the JWE `enc` of encrypted request object must match the `request_object_encryption_enc`
+   * The flag indicating whether the JWE `enc` of encrypted request object must match the `request_object_encryption_enc` client metadata of the client that has sent the request object.
    *
    * @remarks
-   * client metadata of the client that has sent the request object.
    */
   requestObjectEncryptionEncMatchRequired?: boolean | undefined;
   /**
@@ -1018,11 +1014,9 @@ export type Service = {
    *
    * @remarks
    *
-   * When this flag is `false`, keys managed in HSMs are not used even if they exist. In addition,
-   * `/api/hsk/*` APIs reject all requests.
+   * When this flag is `false`, keys managed in HSMs are not used even if they exist. In addition, `/api/hsk/*` APIs reject all requests.
    *
-   * Even if this flag is `true`, HSM-related features do not work if the configuration of the Authlete
-   * server you are using does not support HSM.
+   * Even if this flag is `true`, HSM-related features do not work if the configuration of the Authlete server you are using does not support HSM.
    */
   hsmEnabled?: boolean | undefined;
   /**
@@ -1030,41 +1024,33 @@ export type Service = {
    *
    * @remarks
    *
-   * This `hsks` property is output only, meaning that `hsks` in requests to `/api/service/create`
-   * API and `/api/service/update` API do not have any effect. The contents of this property is controlled
-   * only by `/api/hsk/*` APIs.
+   * This `hsks` property is output only, meaning that `hsks` in requests to `/api/service/create` API and `/api/service/update` API do not have any effect. The contents of this property is controlled only by `/api/hsk/*` APIs.
    */
-  hsks?: Array<Hsk> | undefined;
+  hsks?: Array<Hsk> | null | undefined;
   /**
    * The URL of the grant management endpoint.
    *
    * @remarks
    */
-  grantManagementEndpoint?: string | undefined;
+  grantManagementEndpoint?: string | null | undefined;
   /**
-   * The flag indicating whether every authorization request (and any request serving as an authorization
+   * The flag indicating whether every authorization request (and any request serving as an authorization request such as CIBA backchannel authentication request and device authorization request) must include the `grant_management_action` request parameter.
    *
    * @remarks
-   * request such as CIBA backchannel authentication request and device authorization request) must
-   * include the `grant_management_action` request parameter.
    */
   grantManagementActionRequired?: boolean | undefined;
   /**
-   * The flag indicating whether Authlete's `/api/client/registration` API uses `UNAUTHORIZED` as
+   * The flag indicating whether Authlete's `/api/client/registration` API uses `UNAUTHORIZED` as a value of the `action` response parameter when appropriate.
    *
    * @remarks
-   * a value of the `action` response parameter when appropriate.
    */
   unauthorizedOnClientConfigSupported?: boolean | undefined;
   /**
-   * The flag indicating whether the `scope` request parameter in dynamic client registration and
+   * The flag indicating whether the `scope` request parameter in dynamic client registration and update requests (RFC 7591 and RFC 7592) is used as scopes that the client can request.
    *
    * @remarks
-   * update requests (RFC 7591 and RFC 7592) is used as scopes that the client can request.
    *
-   * Limiting the range of scopes that a client can request is achieved by listing scopes in the
-   * `client.extension.requestableScopes` property and setting the `client.extension.requestableScopesEnabled`
-   * property to `true`. This feature is called "requestable scopes".
+   * Limiting the range of scopes that a client can request is achieved by listing scopes in the `client.extension.requestableScopes` property and setting the `client.extension.requestableScopesEnabled` property to `true`. This feature is called "requestable scopes".
    *
    * This property affects behaviors of `/api/client/registration` and other family APIs.
    */
@@ -1076,41 +1062,39 @@ export type Service = {
    *
    * A URL that starts with `https://` and has no fragment component. For example, `https://example.com/auth/endSession`.
    *
-   * The value of this property is used as `end_session_endpoint` property in the [OpenID Provider
-   * Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `end_session_endpoint` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  endSessionEndpoint?: string | undefined;
+  endSessionEndpoint?: string | null | undefined;
   /**
-   * The flag indicating whether the port number component of redirection URIs can be variable when
+   * The URL of the challenge endpoint, which is defined in OAuth 2.0 Attestation-Based Client Authentication.
    *
    * @remarks
-   * the host component indicates loopback.
+   */
+  challengeEndpoint?: string | null | undefined;
+  /**
+   * The flag indicating whether the port number component of redirection URIs can be variable when the host component indicates loopback.
+   *
+   * @remarks
    */
   loopbackRedirectionUriVariable?: boolean | undefined;
   /**
-   * The flag indicating whether Authlete checks whether the `aud` claim of request objects matches
+   * The flag indicating whether Authlete checks whether the `aud` claim of request objects matches the issuer identifier of this service.
    *
    * @remarks
-   * the issuer identifier of this service.
    */
   requestObjectAudienceChecked?: boolean | undefined;
   /**
-   * The flag indicating whether Authlete generates access tokens for
+   * The flag indicating whether Authlete generates access tokens for external attachments and embeds them in ID tokens and userinfo responses.
    *
    * @remarks
-   * external attachments and embeds them in ID tokens and userinfo
-   * responses.
    */
   accessTokenForExternalAttachmentEmbedded?: boolean | undefined;
   /**
-   * Identifiers of entities that can issue entity statements for this
+   * Identifiers of entities that can issue entity statements for this service. This property corresponds to the `authority_hints` property that appears in a self-signed entity statement that is defined in OpenID Connect Federation 1.0.
    *
    * @remarks
-   * service. This property corresponds to the `authority_hints`
-   * property that appears in a self-signed entity statement that is
-   * defined in OpenID Connect Federation 1.0.
    */
-  authorityHints?: Array<string> | undefined;
+  authorityHints?: Array<string> | null | undefined;
   /**
    * flag indicating whether this service supports OpenID Connect Federation 1
    *
@@ -1118,20 +1102,17 @@ export type Service = {
    */
   federationEnabled?: boolean | undefined;
   /**
-   * JWK Set document containing keys that are used to sign (1) self-signed
+   * JWK Set document containing keys that are used to sign (1) self-signed entity statement of this service and (2) the response from `signed_jwks_uri`.
    *
    * @remarks
-   * entity statement of this service and (2) the response from
-   * `signed_jwks_uri`.
    */
-  federationJwks?: string | undefined;
+  federationJwks?: string | null | undefined;
   /**
-   * A key ID to identify a JWK used to sign the entity configuration and
+   * A key ID to identify a JWK used to sign the entity configuration and the signed JWK Set.
    *
    * @remarks
-   * the signed JWK Set.
    */
-  federationSignatureKeyId?: string | undefined;
+  federationSignatureKeyId?: string | null | undefined;
   /**
    * The duration of the entity configuration in seconds.
    *
@@ -1139,203 +1120,165 @@ export type Service = {
    */
   federationConfigurationDuration?: number | undefined;
   /**
-   * The URI of the federation registration endpoint. This property corresponds
+   * The URI of the federation registration endpoint. This property corresponds to the `federation_registration_endpoint` server metadata that is defined in OpenID Connect Federation 1.0.
    *
    * @remarks
-   * to the `federation_registration_endpoint` server metadata that is
-   * defined in OpenID Connect Federation 1.0.
    */
-  federationRegistrationEndpoint?: string | undefined;
+  federationRegistrationEndpoint?: string | null | undefined;
   /**
-   * The human-readable name representing the organization that operates
+   * The human-readable name representing the organization that operates this service. This property corresponds to the `organization_name` server metadata that is defined in OpenID Connect Federation 1.0.
    *
    * @remarks
-   * this service. This property corresponds to the `organization_name`
-   * server metadata that is defined in OpenID Connect Federation 1.0.
    */
-  organizationName?: string | undefined;
+  organizationName?: string | null | undefined;
   /**
-   * The transformed claims predefined by this service in JSON format.
+   * The transformed claims predefined by this service in JSON format. This property corresponds to the `transformed_claims_predefined` server metadata.
    *
    * @remarks
-   * This property corresponds to the `transformed_claims_predefined`
-   * server metadata.
    */
-  predefinedTransformedClaims?: string | undefined;
+  predefinedTransformedClaims?: string | null | undefined;
   /**
-   * flag indicating whether refresh token requests with the same
+   * flag indicating whether refresh token requests with the same refresh token can be made multiple times in quick succession and they can obtain the same renewed refresh token within the short period.
    *
    * @remarks
-   * refresh token can be made multiple times in quick succession and
-   * they can obtain the same renewed refresh token within the short
-   * period.
    */
   refreshTokenIdempotent?: boolean | undefined;
   /**
-   * The URI of the endpoint that returns this service's JWK Set document in
+   * The URI of the endpoint that returns this service's JWK Set document in the JWT format. This property corresponds to the `signed_jwks_uri` server metadata defined in OpenID Connect Federation 1.0.
    *
    * @remarks
-   * the JWT format. This property corresponds to the `signed_jwks_uri`
-   * server metadata defined in OpenID Connect Federation 1.0.
    */
-  signedJwksUri?: string | undefined;
+  signedJwksUri?: string | null | undefined;
   /**
-   * Supported attachment types. This property corresponds to the &#123;@code
+   * Supported attachment types. This property corresponds to the &#123;@code attachments_supported&#125; server metadata which was added by the third implementer's draft of OpenID Connect for Identity Assurance 1.0.
    *
    * @remarks
-   * attachments_supported&#125; server metadata which was added by the third
-   * implementer's draft of OpenID Connect for Identity Assurance 1.0.
    */
-  supportedAttachments?: Array<AttachmentType> | undefined;
+  supportedAttachments?: Array<AttachmentType> | null | undefined;
   /**
-   * Supported algorithms used to compute digest values of external
+   * Supported algorithms used to compute digest values of external attachments. This property corresponds to the `digest_algorithms_supported` server metadata which was added by the third implementer's draft of OpenID Connect for Identity Assurance 1.0.
    *
    * @remarks
-   * attachments. This property corresponds to the
-   * `digest_algorithms_supported` server metadata which was added
-   * by the third implementer's draft of OpenID Connect for Identity
-   * Assurance 1.0.
    */
-  supportedDigestAlgorithms?: Array<string> | undefined;
+  supportedDigestAlgorithms?: Array<string> | null | undefined;
   /**
-   * Document types supported by this service. This property corresponds
+   * Document types supported by this service. This property corresponds to the `documents_supported` server metadata.
    *
    * @remarks
-   * to the `documents_supported` server metadata.
    */
-  supportedDocuments?: Array<string> | undefined;
+  supportedDocuments?: Array<string> | null | undefined;
   /**
-   * validation and verification processes supported by this service.
+   * validation and verification processes supported by this service. This property corresponds to the `documents_methods_supported` server metadata.
    *
    * @remarks
-   * This property corresponds to the `documents_methods_supported`
-   * server metadata.
    *
-   * The third implementer's draft of [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html)
-   * renamed the
-   * `id_documents_verification_methods_supported` server metadata to
-   * `documents_methods_supported`.
+   * The third implementer's draft of [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html) renamed the `id_documents_verification_methods_supported` server metadata to `documents_methods_supported`.
    */
-  supportedDocumentsMethods?: Array<string> | undefined;
+  supportedDocumentsMethods?: Array<string> | null | undefined;
   /**
-   * Document validation methods supported by this service. This property
+   * Document validation methods supported by this service. This property corresponds to the `documents_validation_methods_supported` server metadata which was added by the third implementer's draft of
    *
    * @remarks
-   * corresponds to the `documents_validation_methods_supported` server
-   * metadata which was added by the third implementer's draft of
    */
-  supportedDocumentsValidationMethods?: Array<string> | undefined;
+  supportedDocumentsValidationMethods?: Array<string> | null | undefined;
   /**
-   * Document verification methods supported by this service. This property
+   * Document verification methods supported by this service. This property corresponds to the `documents_verification_methods_supported` server metadata which was added by the third implementer's draft of [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html)
    *
    * @remarks
-   * corresponds to the `documents_verification_methods_supported` server
-   * metadata which was added by the third implementer's draft of
-   * [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html)
    */
-  supportedDocumentsVerificationMethods?: Array<string> | undefined;
+  supportedDocumentsVerificationMethods?: Array<string> | null | undefined;
   /**
-   * Electronic record types supported by this service. This property
+   * Electronic record types supported by this service. This property corresponds to the `electronic_records_supported` server metadata which was added by the third implementer's draft of [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html)
    *
    * @remarks
-   * corresponds to the `electronic_records_supported` server metadata
-   * which was added by the third implementer's draft of
-   * [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html)
    */
-  supportedElectronicRecords?: Array<string> | undefined;
-  supportedClientRegistrationTypes?: Array<ClientRegistrationType> | undefined;
+  supportedElectronicRecords?: Array<string> | null | undefined;
+  supportedClientRegistrationTypes?:
+    | Array<ClientRegistrationType>
+    | null
+    | undefined;
   /**
-   * The flag indicating whether to prohibit unidentifiable clients from
+   * The flag indicating whether to prohibit unidentifiable clients from making token exchange requests.
    *
    * @remarks
-   * making token exchange requests.
    */
   tokenExchangeByIdentifiableClientsOnly?: boolean | undefined;
   /**
-   * The flag indicating whether to prohibit public clients from making
+   * The flag indicating whether to prohibit public clients from making token exchange requests.
    *
    * @remarks
-   * token exchange requests.
    */
   tokenExchangeByConfidentialClientsOnly?: boolean | undefined;
   /**
-   * The flag indicating whether to prohibit clients that have no explicit
+   * The flag indicating whether to prohibit clients that have no explicit permission from making token exchange requests.
    *
    * @remarks
-   * permission from making token exchange requests.
    */
   tokenExchangeByPermittedClientsOnly?: boolean | undefined;
   /**
-   * The flag indicating whether to reject token exchange requests which
+   * The flag indicating whether to reject token exchange requests which use encrypted JWTs as input tokens.
    *
    * @remarks
-   * use encrypted JWTs as input tokens.
    */
   tokenExchangeEncryptedJwtRejected?: boolean | undefined;
   /**
-   * The flag indicating whether to reject token exchange requests which
+   * The flag indicating whether to reject token exchange requests which use unsigned JWTs as input tokens.
    *
    * @remarks
-   * use unsigned JWTs as input tokens.
    */
   tokenExchangeUnsignedJwtRejected?: boolean | undefined;
   /**
-   * The flag indicating whether to prohibit unidentifiable clients from
+   * The flag indicating whether to prohibit unidentifiable clients from using the grant type "urn:ietf:params:oauth:grant-type:jwt-bearer".
    *
    * @remarks
-   * using the grant type "urn:ietf:params:oauth:grant-type:jwt-bearer".
    */
   jwtGrantByIdentifiableClientsOnly?: boolean | undefined;
   /**
-   * The flag indicating whether to reject token requests that use an
+   * The flag indicating whether to reject token requests that use an encrypted JWT as an authorization grant with the grant type "urn:ietf:params:oauth:grant-type:jwt-bearer".
    *
    * @remarks
-   * encrypted JWT as an authorization grant with the grant type
-   * "urn:ietf:params:oauth:grant-type:jwt-bearer".
    */
   jwtGrantEncryptedJwtRejected?: boolean | undefined;
   /**
-   * The flag indicating whether to reject token requests that use an
+   * The flag indicating whether to reject token requests that use an unsigned JWT as an authorization grant with the grant type "urn:ietf:params:oauth:grant-type:jwt-bearer".
    *
    * @remarks
-   * unsigned JWT as an authorization grant with the grant type
-   * "urn:ietf:params:oauth:grant-type:jwt-bearer".
    */
   jwtGrantUnsignedJwtRejected?: boolean | undefined;
   /**
-   * The flag indicating whether to block DCR (Dynamic Client Registration)
+   * The flag indicating whether to block DCR (Dynamic Client Registration) requests whose "software_id" has already been used previously.
    *
    * @remarks
-   * requests whose "software_id" has already been used previously.
    */
   dcrDuplicateSoftwareIdBlocked?: boolean | undefined;
   /**
-   * The trust anchors that are referenced when this service resolves
+   * The trust anchors that are referenced when this service resolves trust chains of relying parties.
    *
    * @remarks
-   * trust chains of relying parties.
    *
-   * If this property is empty, client registration fails regardless of
-   * whether its type is `automatic` or `explicit`. It means
-   * that OpenID Connect Federation 1.0 does not work.
+   * If this property is empty, client registration fails regardless of whether its type is `automatic` or `explicit`. It means that OpenID Connect Federation 1.0 does not work.
    */
-  trustAnchors?: Array<TrustAnchor> | undefined;
+  trustAnchors?: Array<TrustAnchor> | null | undefined;
   /**
-   * The flag indicating whether the openid scope should be dropped from
+   * The flag indicating whether the openid scope should be dropped from scopes list assigned to access token issued when a refresh token grant is used.
    *
    * @remarks
-   * scopes list assigned to access token issued when a refresh token grant
-   * is used.
    */
   openidDroppedOnRefreshWithoutOfflineAccess?: boolean | undefined;
   /**
-   * Supported document check methods. This property corresponds to the `documents_check_methods_supported`
+   * The flag indicating whether to refrain from issuing an ID token when the `openid` scope has been removed from the scopes to be granted by the `scopes` request parameter of the `/auth/authorization/issue` API.
    *
    * @remarks
-   * server metadata which was added by the fourth implementer's draft of OpenID Connect for Identity
-   * Assurance 1.0.
+   *
+   * Flows whose `response_type` contains `id_token`, and flows that requested Native SSO, are not affected, because both require an ID token.
    */
-  supportedDocumentsCheckMethods?: Array<string> | undefined;
+  idTokenDroppedOnIssueWithoutOpenid?: boolean | undefined;
+  /**
+   * Supported document check methods. This property corresponds to the `documents_check_methods_supported` server metadata which was added by the fourth implementer's draft of OpenID Connect for Identity Assurance 1.0.
+   *
+   * @remarks
+   */
+  supportedDocumentsCheckMethods?: Array<string> | null | undefined;
   /**
    * The flag indicating whether this service signs responses from the resource server.
    *
@@ -1349,26 +1292,23 @@ export type Service = {
    */
   cnonceDuration?: number | undefined;
   /**
-   * Whether to require DPoP proof JWTs to include the `nonce` claim
+   * Whether to require DPoP proof JWTs to include the `nonce` claim whenever they are presented.
    *
    * @remarks
-   * whenever they are presented.
    */
   dpopNonceRequired?: boolean | undefined;
   /**
-   * Get the flag indicating whether the feature of Verifiable Credentials
+   * Get the flag indicating whether the feature of Verifiable Credentials for this service is enabled or not.
    *
    * @remarks
-   * for this service is enabled or not.
    */
   verifiableCredentialsEnabled?: boolean | undefined;
   /**
-   * The URL at which the JWK Set document of the credential issuer is
+   * The URL at which the JWK Set document of the credential issuer is exposed.
    *
    * @remarks
-   * exposed.
    */
-  credentialJwksUri?: string | undefined;
+  credentialJwksUri?: string | null | undefined;
   /**
    * The default duration of credential offers in seconds.
    *
@@ -1382,17 +1322,15 @@ export type Service = {
    */
   dpopNonceDuration?: number | undefined;
   /**
-   * The flag indicating whether token requests using the pre-authorized
+   * The flag indicating whether token requests using the pre-authorized code grant flow by unidentifiable clients are allowed.
    *
    * @remarks
-   * code grant flow by unidentifiable clients are allowed.
    */
   preAuthorizedGrantAnonymousAccessSupported?: boolean | undefined;
   /**
-   * The duration of transaction ID in seconds that may be issued as a
+   * The duration of transaction ID in seconds that may be issued as a result of a credential request or a batch credential request.
    *
    * @remarks
-   * result of a credential request or a batch credential request.
    */
   credentialTransactionDuration?: number | undefined;
   /**
@@ -1400,13 +1338,13 @@ export type Service = {
    *
    * @remarks
    */
-  introspectionSignatureKeyId?: string | undefined;
+  introspectionSignatureKeyId?: string | null | undefined;
   /**
    * The key ID of the key for signing introspection responses.
    *
    * @remarks
    */
-  resourceSignatureKeyId?: string | undefined;
+  resourceSignatureKeyId?: string | null | undefined;
   /**
    * The default length of user PINs.
    *
@@ -1418,60 +1356,51 @@ export type Service = {
    *
    * @remarks
    */
-  supportedPromptValues?: Array<Prompt> | undefined;
+  supportedPromptValues?: Array<Prompt> | null | undefined;
   /**
-   * The flag indicating whether to enable the feature of ID token
+   * The flag indicating whether to enable the feature of ID token reissuance in the refresh token flow.
    *
    * @remarks
-   * reissuance in the refresh token flow.
    */
   idTokenReissuable?: boolean | undefined;
   /**
-   * The JWK Set document containing private keys that are used to sign
+   * The JWK Set document containing private keys that are used to sign verifiable credentials.
    *
    * @remarks
-   * verifiable credentials.
    */
-  credentialJwks?: string | undefined;
+  credentialJwks?: string | null | undefined;
   /**
    * FAPI modes for this service.
    *
    * @remarks
    *
-   * When the value of this property is not `null`, Authlete always processes requests to this service based
-   * on the specified FAPI modes if the FAPI feature is enabled in Authlete and the FAPI profile is supported
-   * by this service.
+   * When the value of this property is not `null`, Authlete always processes requests to this service based on the specified FAPI modes if the FAPI feature is enabled in Authlete and the FAPI profile is supported by this service.
    *
-   * For instance, when this property is set to an array containing `FAPI1_ADVANCED` only, Authlete always
-   * processes requests to this service based on "Financial-grade API Security Profile 1.0 - Part 2:
-   * Advanced" if the FAPI feature is enabled in Authlete and the FAPI profile is supported by this service.
+   * For instance, when this property is set to an array containing `FAPI1_ADVANCED` only, Authlete always processes requests to this service based on "Financial-grade API Security Profile 1.0 - Part 2: Advanced" if the FAPI feature is enabled in Authlete and the FAPI profile is supported by this service.
    */
-  fapiModes?: Array<FapiMode> | undefined;
+  fapiModes?: Array<FapiMode> | null | undefined;
   /**
    * The default duration of verifiable credentials in seconds.
    *
    * @remarks
    */
   credentialDuration?: number | undefined;
-  credentialIssuerMetadata?: CredentialIssuerMetadata | undefined;
+  credentialIssuerMetadata?: CredentialIssuerMetadata | null | undefined;
   /**
    * The type of the `aud` claim in ID tokens.
    *
    * @remarks
    */
-  idTokenAudType?: string | undefined;
+  idTokenAudType?: string | null | undefined;
   /**
-   * Flag that enables the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
+   * Flag that enables the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) specification (“Native SSO”). When this property is **not** `true`, Native SSO specific parameters are ignored or treated as errors. For example:
    *
    * @remarks
-   * specification (“Native SSO”). When this property is **not** `true`, Native SSO specific parameters are ignored or treated as errors.
-   * For example:
    *
    * * The `device_sso` scope has no special meaning (Authlete does not embed the `sid` claim in ID tokens).
    * * The `urn:openid:params:token-type:device-secret` token type is treated as unknown and results in an error.
    *
-   * When set to `true`, the server metadata advertises `"native_sso_supported": true`. See [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
-   * and [RFC 8414 §2](https://www.rfc-editor.org/rfc/rfc8414.html#section-2) for background. Native SSO is available in Authlete 3.0 and later.
+   * When set to `true`, the server metadata advertises `"native_sso_supported": true`. See [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata) and [RFC 8414 §2](https://www.rfc-editor.org/rfc/rfc8414.html#section-2) for background. Native SSO is available in Authlete 3.0 and later.
    */
   nativeSsoSupported?: boolean | undefined;
   /**
@@ -1486,143 +1415,128 @@ export type Service = {
    *
    * Choose the value that matches the OID4VCI behaviour your service should expose. See the OID4VCI documentation for details.
    */
-  oid4vciVersion?: string | undefined;
+  oid4vciVersion?: string | null | undefined;
   /**
-   * Flag that controls whether the CIMD metadata policy is applied to client
+   * Flag that controls whether the CIMD metadata policy is applied to client metadata obtained through the Client ID Metadata Document (CIMD) mechanism.
    *
    * @remarks
-   * metadata obtained through the Client ID Metadata Document (CIMD)
-   * mechanism.
    */
   cimdMetadataPolicyEnabled?: boolean | undefined;
   /**
-   * Indicates whether the Client ID Metadata Document (CIMD) mechanism is
+   * Indicates whether the Client ID Metadata Document (CIMD) mechanism is supported. When `true`, the service will attempt to retrieve client metadata via CIMD where applicable.
    *
    * @remarks
-   * supported. When `true`, the service will attempt to retrieve client
-   * metadata via CIMD where applicable.
    */
   clientIdMetadataDocumentSupported?: boolean | undefined;
   /**
-   * Enables the allowlist for CIMD. When `true`, only CIMD endpoints that are
+   * Enables the allowlist for CIMD. When `true`, only CIMD endpoints that are on the allowlist are used.
    *
    * @remarks
-   * on the allowlist are used.
    */
   cimdAllowlistEnabled?: boolean | undefined;
   /**
-   * The allowlist of CIMD endpoints (hosts/URIs) that may be used when
+   * The allowlist of CIMD endpoints (hosts/URIs) that may be used when retrieving client metadata via Client ID Metadata Documents.
    *
    * @remarks
-   * retrieving client metadata via Client ID Metadata Documents.
    */
-  cimdAllowlist?: Array<string> | undefined;
+  cimdAllowlist?: Array<string> | null | undefined;
   /**
-   * If `true`, CIMD retrieval is always attempted for clients, regardless of
+   * If `true`, CIMD retrieval is always attempted for clients, regardless of other conditions.
    *
    * @remarks
-   * other conditions.
    */
   cimdAlwaysRetrieved?: boolean | undefined;
   /**
-   * Allows CIMD retrieval over plain HTTP. When `false`, only HTTPS CIMD
+   * Allows CIMD retrieval over plain HTTP. When `false`, only HTTPS CIMD endpoints are allowed.
    *
    * @remarks
-   * endpoints are allowed.
    */
   cimdHttpPermitted?: boolean | undefined;
   /**
-   * Allows the use of query parameters when retrieving CIMD metadata. When
+   * Allows the use of query parameters when retrieving CIMD metadata. When `false`, query parameters are disallowed for CIMD requests.
    *
    * @remarks
-   * `false`, query parameters are disallowed for CIMD requests.
    */
   cimdQueryPermitted?: boolean | undefined;
   /**
-   * The metadata policy applied to client metadata obtained through the CIMD
+   * The metadata policy applied to client metadata obtained through the CIMD mechanism. The value must follow the metadata policy grammar defined in [OpenID Federation 1.0 §6.1 Metadata Policy](https://openid.net/specs/openid-federation-1_0.html#name-metadata-policy).
    *
    * @remarks
-   * mechanism. The value must follow the metadata policy grammar defined in
-   * [OpenID Federation 1.0 §6.1 Metadata Policy](https://openid.net/specs/openid-federation-1_0.html#name-metadata-policy).
    */
-  cimdMetadataPolicy?: string | undefined;
+  cimdMetadataPolicy?: string | null | undefined;
   /**
-   * When `true`, client ID aliases starting with `https://` or `http://` are
+   * When `true`, client ID aliases starting with `https://` or `http://` are prohibited.
    *
    * @remarks
-   * prohibited.
    */
   httpAliasProhibited?: boolean | undefined;
   /**
-   * The time window of attestation challenges in seconds. This is used for
+   * The time window of attestation challenges in seconds. This is used for OAuth 2.0 Attestation-Based Client Authentication.
    *
    * @remarks
-   * OAuth 2.0 Attestation-Based Client Authentication.
    */
   attestationChallengeTimeWindow?: number | undefined;
   /**
-   * The flag indicating whether the attester roots for Client Attestation JWT
+   * The flag indicating whether the attester roots for Client Attestation JWT x5c chain validation are enabled.
    *
    * @remarks
-   * x5c chain validation are enabled.
    */
   clientAttesterRootsEnabled?: boolean | undefined;
   /**
-   * The flag indicating whether only client authentication validated via
+   * The flag indicating whether only client authentication validated via attester roots is accepted.
    *
    * @remarks
-   * attester roots is accepted.
    */
   clientAttesterRootsOnly?: boolean | undefined;
   /**
-   * The flag indicating whether the attester roots for Key Attestation JWT
+   * The flag indicating whether the attester roots for Key Attestation JWT x5c chain validation are enabled.
    *
    * @remarks
-   * x5c chain validation are enabled.
    */
   keyAttesterRootsEnabled?: boolean | undefined;
   /**
-   * The flag indicating whether only key attestation validated via
+   * The flag indicating whether only key attestation validated via attester roots is accepted.
    *
    * @remarks
-   * attester roots is accepted.
    */
   keyAttesterRootsOnly?: boolean | undefined;
   /**
-   * The trusted root certificates (PEM-encoded X.509) for validating the
+   * The trusted root certificates (PEM-encoded X.509) for validating the x5c chain in Client Attestation JWTs.
    *
    * @remarks
-   * x5c chain in Client Attestation JWTs.
    */
-  clientAttesterRoots?: Array<string> | undefined;
+  clientAttesterRoots?: Array<string> | null | undefined;
   /**
-   * The trusted root certificates (PEM-encoded X.509) for validating the
+   * The trusted root certificates (PEM-encoded X.509) for validating the x5c chain in Key Attestation JWTs.
    *
    * @remarks
-   * x5c chain in Key Attestation JWTs.
    */
-  keyAttesterRoots?: Array<string> | undefined;
+  keyAttesterRoots?: Array<string> | null | undefined;
   /**
-   * The flag indicating whether this service supports OpenID Connect
+   * The flag indicating whether this service supports OpenID Connect Back-Channel Logout 1.0.
    *
    * @remarks
-   * Back-Channel Logout 1.0.
    */
   backchannelLogoutSupported?: boolean | undefined;
   /**
-   * The flag indicating whether this service includes a `sid` (session ID)
+   * The flag indicating whether this service includes a `sid` (session ID) claim in ID tokens, supporting per-session backchannel logout.
    *
    * @remarks
-   * claim in ID tokens, supporting per-session backchannel logout.
    */
   backchannelLogoutSessionSupported?: boolean | undefined;
+  /**
+   * The HAIP version to comply with. Valid values for this property are as follows: `"1.0"`. If this property is set, requests to this service undergo additional validation based on the specified version of the [HAIP](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html) specification.
+   *
+   * @remarks
+   */
+  haipVersion?: string | null | undefined;
 };
 
 export type ServiceInput = {
   /**
    * The name of this service.
    */
-  serviceName?: string | undefined;
+  serviceName?: string | null | undefined;
   /**
    * The issuer identifier of the service.
    *
@@ -1630,26 +1544,17 @@ export type ServiceInput = {
    *
    * A URL that starts with  https:// and has no query or fragment component.
    *
-   * The value of this property is used as `iss` claim in an [ID token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)
-   * and `issuer` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `iss` claim in an [ID token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) and `issuer` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  issuer?: string | undefined;
+  issuer?: string | null | undefined;
   /**
    * The description about the service.
    */
-  description?: string | undefined;
+  description?: string | null | undefined;
   /**
-   * The endpoint for batch token notifications. This endpoint is called when
+   * The flag indicating whether the audience of client assertion JWTs must match the issuer identifier of this service.
    *
    * @remarks
-   * multiple tokens are issued or revoked in a batch operation.
-   */
-  tokenBatchNotificationEndpoint?: string | undefined;
-  /**
-   * The flag indicating whether the audience of client assertion JWTs must
-   *
-   * @remarks
-   * match the issuer identifier of this service.
    */
   clientAssertionAudRestrictedToIssuer?: boolean | undefined;
   /**
@@ -1659,121 +1564,91 @@ export type ServiceInput = {
    */
   clientsPerDeveloper?: number | undefined;
   /**
-   * The endpoint for developer authentication callbacks. This is used when
+   * The credentials for social login services (SNS) that are used for end-user authentication.
    *
    * @remarks
-   * developers log into the developer portal.
    */
-  developerAuthenticationCallbackEndpoint?: string | undefined;
+  snsCredentials?: Array<SnsCredentials> | null | undefined;
   /**
-   * The API key for basic authentication at the developer authentication
+   * Social login services (SNS) that this service supports for developer authentication.
    *
    * @remarks
-   * callback endpoint.
    */
-  developerAuthenticationCallbackApiKey?: string | undefined;
+  supportedDeveloperSnses?: Array<SupportedDeveloperSnse> | null | undefined;
   /**
-   * The API secret for basic authentication at the developer authentication
+   * The credentials for social login services (SNS) that are used for developer authentication.
    *
    * @remarks
-   * callback endpoint.
    */
-  developerAuthenticationCallbackApiSecret?: string | undefined;
+  developerSnsCredentials?: Array<SnsCredentials> | null | undefined;
   /**
-   * Social login services (SNS) that this service supports for end-user
+   * The `metadata` of the service. The content of the returned array depends on contexts. The predefined service metadata is listed in the following table.
    *
    * @remarks
-   * authentication.
-   */
-  supportedSnses?: Array<SupportedSnse> | undefined;
-  /**
-   * The credentials for social login services (SNS) that are used for
-   *
-   * @remarks
-   * end-user authentication.
-   */
-  snsCredentials?: Array<SnsCredentials> | undefined;
-  /**
-   * Deprecated. Always `true`.
-   */
-  clientIdAliasEnabled?: boolean | undefined;
-  /**
-   * The `metadata` of the service. The content of the returned array depends on contexts.
-   *
-   * @remarks
-   * The predefined service metadata is listed in the following table.
    *
    *   | Key | Description |
    *   | --- | --- |
    *   | `clientCount` | The number of client applications which belong to this service.  |
    */
-  metadata?: Array<Pair> | undefined;
+  metadata?: Array<Pair> | null | undefined;
   /**
    * A Web API endpoint for user authentication which is to be prepared on the service side.
    *
    * @remarks
    *
-   * The endpoint must be implemented if you do not implement the UI at the authorization endpoint
-   * but use the one provided by Authlete.
+   * The endpoint must be implemented if you do not implement the UI at the authorization endpoint but use the one provided by Authlete.
    *
-   * The user authentication at the authorization endpoint provided by Authlete is performed by making
-   * a `POST` request to this endpoint.
+   * The user authentication at the authorization endpoint provided by Authlete is performed by making a `POST` request to this endpoint.
    */
-  authenticationCallbackEndpoint?: string | undefined;
+  authenticationCallbackEndpoint?: string | null | undefined;
   /**
    * API key for basic authentication at the authentication callback endpoint.
    *
    * @remarks
    *
-   * If the value is not empty, Authlete generates Authorization header for Basic authentication when
-   * making a request to the authentication callback endpoint.
+   * If the value is not empty, Authlete generates Authorization header for Basic authentication when making a request to the authentication callback endpoint.
    */
-  authenticationCallbackApiKey?: string | undefined;
+  authenticationCallbackApiKey?: string | null | undefined;
   /**
    * API secret for `basic` authentication at the authentication callback endpoint.
    */
-  authenticationCallbackApiSecret?: string | undefined;
+  authenticationCallbackApiSecret?: string | null | undefined;
   /**
    * Values of `grant_type` request parameter that the service supports.
    *
    * @remarks
    *
-   * The value of this property is used as `grant_types_supported property` in the
-   * [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `grant_types_supported property` in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedGrantTypes?: Array<GrantType> | undefined;
+  supportedGrantTypes?: Array<GrantType> | null | undefined;
   /**
-   * Values of `response_type` request parameter that
+   * Values of `response_type` request parameter that the service supports. Valid values are listed in Response Type.
    *
    * @remarks
-   * the service supports. Valid values are listed in Response Type.
    *
-   * The value of this property is used as `response_types_supported` property in the
-   * [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `response_types_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedResponseTypes?: Array<ResponseType> | undefined;
+  supportedResponseTypes?: Array<ResponseType> | null | undefined;
   /**
    * The supported data types that can be used as values of the type field in `authorization_details`.
    *
    * @remarks
    *
-   * This property corresponds to the `authorization_details_types_supported` metadata. See "OAuth 2.0
-   * Rich Authorization Requests" (RAR) for details.
+   * This property corresponds to the `authorization_details_types_supported` metadata. See "OAuth 2.0 Rich Authorization Requests" (RAR) for details.
    */
-  supportedAuthorizationDetailsTypes?: Array<string> | undefined;
+  supportedAuthorizationDetailsTypes?: Array<string> | null | undefined;
   /**
    * The profiles that this service supports.
    *
    * @remarks
    */
-  supportedServiceProfiles?: Array<ServiceProfile> | undefined;
+  supportedServiceProfiles?: Array<ServiceProfile> | null | undefined;
   /**
    * The flag to indicate whether the `error_description` response parameter is omitted.
    *
    * @remarks
    *
-   * According to [RFC 6749](https://tools.ietf.org/html/rfc6749), an authorization server may include
-   * the `error_description` response parameter in error responses.
+   * According to [RFC 6749](https://tools.ietf.org/html/rfc6749), an authorization server may include the `error_description` response parameter in error responses.
    *
    * If `true`, Authlete does not embed the `error_description` response parameter in error responses.
    */
@@ -1785,8 +1660,7 @@ export type ServiceInput = {
    *
    * According to [RFC 6749](https://tools.ietf.org/html/rfc6749), an authorization server may include the `error_uri` response parameter in error responses.
    *
-   * If `true`, Authlete does not embed the
-   * `error_uri` response parameter in error responses.
+   * If `true`, Authlete does not embed the `error_uri` response parameter in error responses.
    */
   errorUriOmitted?: boolean | undefined;
   /**
@@ -1796,18 +1670,9 @@ export type ServiceInput = {
    *
    * A URL that starts with `https://` and has no fragment component. For example, `https://example.com/auth/authorization`.
    *
-   * The value of this property is used as `authorization_endpoint` property in the [OpenID Provider
-   * Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `authorization_endpoint` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  authorizationEndpoint?: string | undefined;
-  /**
-   * The flag to indicate whether the direct authorization endpoint is enabled or not.
-   *
-   * @remarks
-   *
-   * The path of the endpoint is `/api/auth/authorization/direct/service-api-key`.
-   */
-  directAuthorizationEndpointEnabled?: boolean | undefined;
+  authorizationEndpoint?: string | null | undefined;
   /**
    * UI locales that the service supports.
    *
@@ -1817,7 +1682,7 @@ export type ServiceInput = {
    *
    * The value of this property is used as `ui_locales_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedUiLocales?: Array<string> | undefined;
+  supportedUiLocales?: Array<string> | null | undefined;
   /**
    * Values of `display` request parameter that service supports.
    *
@@ -1825,7 +1690,7 @@ export type ServiceInput = {
    *
    * The value of this property is used as `display_values_supported` property in the Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedDisplays?: Array<Display> | undefined;
+  supportedDisplays?: Array<Display> | null | undefined;
   /**
    * The flag to indicate whether the use of Proof Key for Code Exchange (PKCE) is always required for authorization requests by Authorization Code Flow.
    *
@@ -1841,9 +1706,7 @@ export type ServiceInput = {
    *
    * @remarks
    *
-   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request
-   * whenever it includes the `code_challenge` request parameter.
-   * Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
+   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request whenever it includes the `code_challenge` request parameter. Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
    */
   pkceS256Required?: boolean | undefined;
   /**
@@ -1851,11 +1714,7 @@ export type ServiceInput = {
    *
    * @remarks
    *
-   * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html)
-   * defines new values for the `response_mode` request parameter. They are `query.jwt`, `fragment.jwt`,
-   * `form_post.jwt` and `jwt`. If one of them is specified as the response mode, response parameters
-   * from the authorization endpoint will be packed into a JWT. This property is used to compute the
-   * value of the `exp` claim of the JWT.
+   * [Financial-grade API: JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)](https://openid.net/specs/openid-financial-api-jarm.html) defines new values for the `response_mode` request parameter. They are `query.jwt`, `fragment.jwt`, `form_post.jwt` and `jwt`. If one of them is specified as the response mode, response parameters from the authorization endpoint will be packed into a JWT. This property is used to compute the value of the `exp` claim of the JWT.
    */
   authorizationResponseDuration?: number | undefined;
   /**
@@ -1871,26 +1730,17 @@ export type ServiceInput = {
    *
    * A URL that starts with `https://` and has not fragment component. For example, `https://example.com/auth/token`.
    *
-   * The value of this property is used as `token_endpoint` property in the
-   * [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `token_endpoint` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  tokenEndpoint?: string | undefined;
-  /**
-   * The flag to indicate whether the direct token endpoint is enabled or not. The path of the endpoint
-   *
-   * @remarks
-   * is `/api/auth/token/direct/service-api-key`.
-   */
-  directTokenEndpointEnabled?: boolean | undefined;
+  tokenEndpoint?: string | null | undefined;
   /**
    * Client authentication methods supported by the token endpoint of the service.
    *
    * @remarks
    *
-   * The value of this property is used as `token_endpoint_auth_methods_supports` property in the
-   * [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `token_endpoint_auth_methods_supports` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedTokenAuthMethods?: Array<ClientAuthMethod> | undefined;
+  supportedTokenAuthMethods?: Array<ClientAuthMethod> | null | undefined;
   /**
    * The flag to indicate token requests from public clients without the `client_id` request parameter are allowed when the client can be guessed from `authorization_code` or `refresh_token`.
    *
@@ -1906,31 +1756,26 @@ export type ServiceInput = {
    *
    * A URL that starts with `https://`. For example, `https://example.com/auth/revocation`.
    */
-  revocationEndpoint?: string | undefined;
-  /**
-   * The flag to indicate whether the direct revocation endpoint is enabled or not. The URL of the endpoint is `/api/auth/revocation/direct/service-api-key`.
-   */
-  directRevocationEndpointEnabled?: boolean | undefined;
+  revocationEndpoint?: string | null | undefined;
   /**
    * Client authentication methods supported at the revocation endpoint.
    *
    * @remarks
    */
-  supportedRevocationAuthMethods?: Array<ClientAuthMethod> | undefined;
+  supportedRevocationAuthMethods?: Array<ClientAuthMethod> | null | undefined;
   /**
    * The URI of the introspection endpoint.
    */
-  introspectionEndpoint?: string | undefined;
-  /**
-   * The flag to indicate whether the direct userinfo endpoint is enabled or not. The path of the endpoint is `/api/auth/userinfo/direct/{serviceApiKey}`.
-   */
-  directIntrospectionEndpointEnabled?: boolean | undefined;
+  introspectionEndpoint?: string | null | undefined;
   /**
    * Client authentication methods supported at the introspection endpoint.
    *
    * @remarks
    */
-  supportedIntrospectionAuthMethods?: Array<ClientAuthMethod> | undefined;
+  supportedIntrospectionAuthMethods?:
+    | Array<ClientAuthMethod>
+    | null
+    | undefined;
   /**
    * The URI of the pushed authorization request endpoint.
    *
@@ -1938,7 +1783,7 @@ export type ServiceInput = {
    *
    * This property corresponds to the `pushed_authorization_request_endpoint` metadata defined in "[5. Authorization Server Metadata](https://tools.ietf.org/html/draft-lodderstedt-oauth-par#section-5)" of OAuth 2.0 Pushed Authorization Requests.
    */
-  pushedAuthReqEndpoint?: string | undefined;
+  pushedAuthReqEndpoint?: string | null | undefined;
   /**
    * The duration of pushed authorization requests in seconds.
    *
@@ -1946,34 +1791,25 @@ export type ServiceInput = {
    */
   pushedAuthReqDuration?: number | undefined;
   /**
-   * The flag to indicate whether this service requires that clients use the pushed authorization
+   * The flag to indicate whether this service requires that clients use the pushed authorization request endpoint.
    *
    * @remarks
-   * request endpoint.
    *
-   * This property corresponds to the `require_pushed_authorization_requests` server metadata defined
-   * in [OAuth 2.0 Pushed Authorization Requests](https://tools.ietf.org/html/draft-lodderstedt-oauth-par).
+   * This property corresponds to the `require_pushed_authorization_requests` server metadata defined in [OAuth 2.0 Pushed Authorization Requests](https://tools.ietf.org/html/draft-lodderstedt-oauth-par).
    */
   parRequired?: boolean | undefined;
   /**
-   * The flag to indicate whether this service requires that authorization requests always utilize
+   * The flag to indicate whether this service requires that authorization requests always utilize a request object by using either request or `request_uri` request parameter.
    *
    * @remarks
-   * a request object by using either request or `request_uri` request parameter.
    *
-   * If this flag is set to `true` and the value of `traditionalRequestObjectProcessingApplied` is
-   * `false`, the value of `require_signed_request_object` server metadata of this service is reported
-   * as `true` in the discovery document. The metadata is defined in JAR (JWT Secured Authorization Request).
-   * That `require_signed_request_object` is `true` means that authorization requests which don't
-   * conform to the JAR specification are rejected.
+   * If this flag is set to `true` and the value of `traditionalRequestObjectProcessingApplied` is `false`, the value of `require_signed_request_object` server metadata of this service is reported as `true` in the discovery document. The metadata is defined in JAR (JWT Secured Authorization Request). That `require_signed_request_object` is `true` means that authorization requests which don't conform to the JAR specification are rejected.
    */
   requestObjectRequired?: boolean | undefined;
   /**
-   * The flag to indicate whether a request object is processed based on rules defined in
+   * The flag to indicate whether a request object is processed based on rules defined in [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) or JAR (JWT Secured Authorization Request).
    *
    * @remarks
-   * [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) or JAR (JWT
-   * Secured Authorization Request).
    */
   traditionalRequestObjectProcessingApplied?: boolean | undefined;
   /**
@@ -1987,25 +1823,23 @@ export type ServiceInput = {
    *
    * @remarks
    */
-  trustedRootCertificates?: Array<string> | undefined;
+  trustedRootCertificates?: Array<string> | null | undefined;
   /**
    * The MTLS endpoint aliases.
    *
    * @remarks
    */
-  mtlsEndpointAliases?: Array<NamedUri> | undefined;
+  mtlsEndpointAliases?: Array<NamedUri> | null | undefined;
   /**
    * The access token type.
    *
    * @remarks
    *
-   * This value is used as the value of `token_type` property in access token responses. If this service
-   * complies with [RFC 6750](https://tools.ietf.org/html/rfc6750), the value of this property should
-   * be `Bearer`.
+   * This value is used as the value of `token_type` property in access token responses. If this service complies with [RFC 6750](https://tools.ietf.org/html/rfc6750), the value of this property should be `Bearer`.
    *
    * See [RFC 6749 (OAuth 2.0), 7.1. Access Token Types](https://tools.ietf.org/html/rfc6749#section-7.1) for details.
    */
-  accessTokenType?: string | undefined;
+  accessTokenType?: string | null | undefined;
   /**
    * The flag to indicate whether this service supports issuing TLS client certificate bound access tokens.
    *
@@ -2013,10 +1847,9 @@ export type ServiceInput = {
    */
   tlsClientCertificateBoundAccessTokens?: boolean | undefined;
   /**
-   * The duration of access tokens in seconds. This value is used as the value of `expires_in` property
+   * The duration of access tokens in seconds. This value is used as the value of `expires_in` property in access token responses. `expires_in` is defined [RFC 6749, 5.1. Successful Response](https://tools.ietf.org/html/rfc6749#section-5.1).
    *
    * @remarks
-   * in access token responses. `expires_in` is defined [RFC 6749, 5.1. Successful Response](https://tools.ietf.org/html/rfc6749#section-5.1).
    */
   accessTokenDuration?: number | undefined;
   /**
@@ -2030,10 +1863,9 @@ export type ServiceInput = {
    */
   singleAccessTokenPerSubject?: boolean | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -2046,36 +1878,25 @@ export type ServiceInput = {
    *
    * @remarks
    *
-   * A JWK Set can be registered as a property of a service. A JWK Set can contain 0 or more JWKs.
-   * Authlete Server has to pick up one JWK for signing from the JWK Set when it generates a JWT-based
-   * access token. Authlete Server searches the registered JWK Set for a JWK which satisfies conditions
-   * for access token signature. If the number of JWK candidates which satisfy the conditions is 1,
-   * there is no problem. On the other hand, if there exist multiple candidates, a Key ID is needed
-   * to be specified so that Authlete Server can pick up one JWK from among the JWK candidates.
+   * A JWK Set can be registered as a property of a service. A JWK Set can contain 0 or more JWKs. Authlete Server has to pick up one JWK for signing from the JWK Set when it generates a JWT-based access token. Authlete Server searches the registered JWK Set for a JWK which satisfies conditions for access token signature. If the number of JWK candidates which satisfy the conditions is 1, there is no problem. On the other hand, if there exist multiple candidates, a Key ID is needed to be specified so that Authlete Server can pick up one JWK from among the JWK candidates.
    */
-  accessTokenSignatureKeyId?: string | undefined;
+  accessTokenSignatureKeyId?: string | null | undefined;
   /**
    * The duration of refresh tokens in seconds. The related specifications have no requirements on refresh token duration, but Authlete sets expiration for refresh tokens.
    */
   refreshTokenDuration?: number | undefined;
   /**
-   * The flag to indicate whether the remaining duration of the used refresh token is taken over to
+   * The flag to indicate whether the remaining duration of the used refresh token is taken over to the newly issued refresh token.
    *
    * @remarks
-   * the newly issued refresh token.
    */
   refreshTokenDurationKept?: boolean | undefined;
   /**
-   * The flag which indicates whether duration of refresh tokens are reset when they are used even
+   * The flag which indicates whether duration of refresh tokens are reset when they are used even if the `refreshTokenKept` property of this service set to is `true` (= even if "Refresh Token Continuous Use" is "Kept").
    *
    * @remarks
-   * if the `refreshTokenKept` property of this service set to is `true` (= even if "Refresh Token
-   * Continuous Use" is "Kept").
    *
-   * This flag has no effect when the `refreshTokenKept` property is set to `false`. In other words,
-   * if this service issues a new refresh token on every refresh token request, the refresh token
-   * will have fresh duration (unless `refreshTokenDurationKept` is set to `true`) and this
-   * `refreshTokenDurationReset` property is not referenced.
+   * This flag has no effect when the `refreshTokenKept` property is set to `false`. In other words, if this service issues a new refresh token on every refresh token request, the refresh token will have fresh duration (unless `refreshTokenDurationKept` is set to `true`) and this `refreshTokenDurationReset` property is not referenced.
    */
   refreshTokenDurationReset?: boolean | undefined;
   /**
@@ -2093,7 +1914,7 @@ export type ServiceInput = {
    *
    * @remarks
    */
-  supportedScopes?: Array<Scope> | undefined;
+  supportedScopes?: Array<Scope> | null | undefined;
   /**
    * The flag to indicate whether requests that request no scope are rejected or not.
    *
@@ -2101,10 +1922,9 @@ export type ServiceInput = {
    */
   scopeRequired?: boolean | undefined;
   /**
-   * 'The duration of [ID token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)s
+   * 'The duration of [ID token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)s in seconds. This value is used to calculate the value of `exp` claim in an ID token.'
    *
    * @remarks
-   * in seconds. This value is used to calculate the value of `exp` claim in an ID token.'
    */
   idTokenDuration?: number | undefined;
   /**
@@ -2116,133 +1936,97 @@ export type ServiceInput = {
    */
   allowableClockSkew?: number | undefined;
   /**
-   * Claim types supported by the service. Valid values are listed in Claim Type. Note that Authlete
+   * Claim types supported by the service. Valid values are listed in Claim Type. Note that Authlete currently doesn't provide any API to help implementations for `AGGREGATED` and `DISTRIBUTED`.
    *
    * @remarks
-   * currently doesn't provide any API to help implementations for `AGGREGATED` and `DISTRIBUTED`.
    *
-   * The value of this property is used as `claim_types_supported` property in the [OpenID Provider
-   * Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `claim_types_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedClaimTypes?: Array<ClaimType> | undefined;
+  supportedClaimTypes?: Array<ClaimType> | null | undefined;
   /**
-   * Claim locales that the service supports. Each element is a language tag defined in [RFC 5646](https://tools.ietf.org/html/rfc5646).
+   * Claim locales that the service supports. Each element is a language tag defined in [RFC 5646](https://tools.ietf.org/html/rfc5646). For example, `en-US` and `ja-JP`. See [OpenID Connect Core 1.0, 5.2. Languages and Scripts](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsLanguagesAndScripts) for details.
    *
    * @remarks
-   * For example, `en-US` and `ja-JP`. See [OpenID Connect Core 1.0, 5.2. Languages and Scripts](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsLanguagesAndScripts)
-   * for details.
    *
-   * The value of this property is used as `claims_locales_supported` property in the
-   * [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `claims_locales_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  supportedClaimLocales?: Array<string> | undefined;
+  supportedClaimLocales?: Array<string> | null | undefined;
   /**
-   * Claim names that the service supports. The standard claim names listed in [OpenID Connect Core 1.0,
+   * Claim names that the service supports. The standard claim names listed in [OpenID Connect Core 1.0, 5.1. Standard Claim](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) should be supported. The following is the list of standard claims.
    *
    * @remarks
-   * 5.1. Standard Claim](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) should
-   * be supported. The following is the list of standard claims.
    */
-  supportedClaims?: Array<string> | undefined;
+  supportedClaims?: Array<string> | null | undefined;
   /**
-   * The flag indicating whether claims specified by shortcut scopes (e.g. `profile`) are included
+   * The flag indicating whether claims specified by shortcut scopes (e.g. `profile`) are included in the issued ID token only when no access token is issued.
    *
    * @remarks
-   * in the issued ID token only when no access token is issued.
    */
   claimShortcutRestrictive?: boolean | undefined;
   /**
-   * The URL of the service's [JSON Web Key Set](https://tools.ietf.org/html/rfc7517) document. For
+   * The URL of the service's [JSON Web Key Set](https://tools.ietf.org/html/rfc7517) document. For example, `http://example.com/auth/jwks`.
    *
    * @remarks
-   * example, `http://example.com/auth/jwks`.
    *
-   * Client applications accesses this URL (1) to get the public key of the service to validate the
-   * signature of an ID token issued by the service and (2) to get the public key of the service to
-   * encrypt an request object of the client application. See [OpenID Connect Core 1.0, 10. Signatures
-   * and Encryption](https://openid.net/specs/openid-connect-core-1_0.html#SigEnc) for details.
+   * Client applications accesses this URL (1) to get the public key of the service to validate the signature of an ID token issued by the service and (2) to get the public key of the service to encrypt an request object of the client application. See [OpenID Connect Core 1.0, 10. Signatures and Encryption](https://openid.net/specs/openid-connect-core-1_0.html#SigEnc) for details.
    *
    * The value of this property is used as `jwks_uri` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  jwksUri?: string | undefined;
-  /**
-   * 'The flag to indicate whether the direct jwks endpoint is enabled or not. The path of the endpoint
-   *
-   * @remarks
-   * is `/api/service/jwks/get/direct/service-api-key`. '
-   */
-  directJwksEndpointEnabled?: boolean | undefined;
+  jwksUri?: string | null | undefined;
   /**
    * The content of the service's [JSON Web Key Set](https://tools.ietf.org/html/rfc7517) document.
    *
    * @remarks
    *
-   * If this property is not `null` in a `/service/create` request or a `/service/update` request,
-   * Authlete hosts the content in the database. This property must not be `null` and must contain
-   * pairs of public/private keys if the service wants to support asymmetric signatures for ID tokens
-   * and asymmetric encryption for request objects. See [OpenID Connect Core 1.0, 10. Signatures and
-   * Encryption](https://openid.net/specs/openid-connect-core-1_0.html#SigEnc) for details.
+   * If this property is not `null` in a `/service/create` request or a `/service/update` request, Authlete hosts the content in the database. This property must not be `null` and must contain pairs of public/private keys if the service wants to support asymmetric signatures for ID tokens and asymmetric encryption for request objects. See [OpenID Connect Core 1.0, 10. Signatures and Encryption](https://openid.net/specs/openid-connect-core-1_0.html#SigEnc) for details.
    */
-  jwks?: string | undefined;
+  jwks?: string | null | undefined;
   /**
    * The key ID to identify a JWK used for ID token signature using an asymmetric key.
    *
    * @remarks
    */
-  idTokenSignatureKeyId?: string | undefined;
+  idTokenSignatureKeyId?: string | null | undefined;
   /**
    * The key ID to identify a JWK used for user info signature using an asymmetric key.
    *
    * @remarks
    */
-  userInfoSignatureKeyId?: string | undefined;
+  userInfoSignatureKeyId?: string | null | undefined;
   /**
    * The key ID to identify a JWK used for signing authorization responses using an asymmetric key.
    *
    * @remarks
    */
-  authorizationSignatureKeyId?: string | undefined;
+  authorizationSignatureKeyId?: string | null | undefined;
   /**
-   * The [user info endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo) of the
+   * The [user info endpoint](http://openid.net/specs/openid-connect-core-1_0.html#UserInfo) of the service. A URL that starts with `https://`. For example, `https://example.com/auth/userinfo`.
    *
    * @remarks
-   * service. A URL that starts with `https://`. For example, `https://example.com/auth/userinfo`.
    *
    * The value of this property is used as `userinfo_endpoint` property in the [OpenID Provider Metadata](http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  userInfoEndpoint?: string | undefined;
+  userInfoEndpoint?: string | null | undefined;
   /**
-   * The flag to indicate whether the direct userinfo endpoint is enabled or not. The path
+   * The boolean flag which indicates whether the [OAuth 2.0 Dynamic Client Registration Protocol](https://tools.ietf.org/html/rfc7591) is supported.
    *
    * @remarks
-   * of the endpoint is `/api/auth/userinfo/direct/service-api-key`.
-   */
-  directUserInfoEndpointEnabled?: boolean | undefined;
-  /**
-   * The boolean flag which indicates whether the [OAuth 2.0 Dynamic Client Registration Protocol](https://tools.ietf.org/html/rfc7591)
-   *
-   * @remarks
-   * is supported.
    */
   dynamicRegistrationSupported?: boolean | undefined;
   /**
-   * The [registration endpoint](http://openid.net/specs/openid-connect-registration-1_0.html#ClientRegistration)
+   * The [registration endpoint](http://openid.net/specs/openid-connect-registration-1_0.html#ClientRegistration) of the service. A URL that starts with `https://`. For example, `https://example.com/auth/registration`.
    *
    * @remarks
-   * of the service. A URL that starts with `https://`. For example, `https://example.com/auth/registration`.
    *
    * The value of this property is used as `registration_endpoint` property in the [OpenID Provider Metadata](http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  registrationEndpoint?: string | undefined;
+  registrationEndpoint?: string | null | undefined;
   /**
-   * The URI of the registration management endpoint. If dynamic client registration is supported,
+   * The URI of the registration management endpoint. If dynamic client registration is supported, and this is set, this URI will be used as the basis of the client's management endpoint by appending `/clientid&#125;/` to it as a path element. If this is unset, the value of `registrationEndpoint` will be used as the URI base instead.
    *
    * @remarks
-   * and this is set, this URI will be used as the basis of the client's management endpoint by appending
-   * `/clientid&#125;/` to it as a path element. If this is unset, the value of `registrationEndpoint` will
-   * be used as the URI base instead.
    */
-  registrationManagementEndpoint?: string | undefined;
+  registrationManagementEndpoint?: string | null | undefined;
   /**
    * The URL of the "Policy" of the service.
    *
@@ -2250,7 +2034,7 @@ export type ServiceInput = {
    *
    * The value of this property is used as `op_policy_uri` property in the [OpenID Provider Metadata](http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  policyUri?: string | undefined;
+  policyUri?: string | null | undefined;
   /**
    * The URL of the "Terms Of Service" of the service.
    *
@@ -2258,7 +2042,7 @@ export type ServiceInput = {
    *
    * The value of this property is used as `op_tos_uri` property in the [OpenID Provider Metadata](http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  tosUri?: string | undefined;
+  tosUri?: string | null | undefined;
   /**
    * The URL of a page where documents for developers can be found.
    *
@@ -2266,53 +2050,46 @@ export type ServiceInput = {
    *
    * The value of this property is used as `service_documentation` property in the [OpenID Provider Metadata](http://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  serviceDocumentation?: string | undefined;
+  serviceDocumentation?: string | null | undefined;
   /**
-   * The URI of backchannel authentication endpoint, which is defined in the specification of [CIBA
+   * The URI of backchannel authentication endpoint, which is defined in the specification of [CIBA (Client Initiated Backchannel Authentication)](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html).
    *
    * @remarks
-   * (Client Initiated Backchannel Authentication)](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html).
    */
-  backchannelAuthenticationEndpoint?: string | undefined;
+  backchannelAuthenticationEndpoint?: string | null | undefined;
   /**
-   * The supported backchannel token delivery modes. This property corresponds to the `backchannel_token_delivery_modes_supported`
+   * The supported backchannel token delivery modes. This property corresponds to the `backchannel_token_delivery_modes_supported` metadata.
    *
    * @remarks
-   * metadata.
    *
-   * Backchannel token delivery modes are defined in the specification of [CIBA (Client Initiated
-   * Backchannel Authentication)](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html).
+   * Backchannel token delivery modes are defined in the specification of [CIBA (Client Initiated Backchannel Authentication)](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html).
    */
-  supportedBackchannelTokenDeliveryModes?: Array<DeliveryMode> | undefined;
+  supportedBackchannelTokenDeliveryModes?:
+    | Array<DeliveryMode>
+    | null
+    | undefined;
   /**
-   * The duration of backchannel authentication request IDs issued from the backchannel authentication
+   * The duration of backchannel authentication request IDs issued from the backchannel authentication endpoint in seconds. This is used as the value of the `expires_in` property in responses from the backchannel authentication endpoint.
    *
    * @remarks
-   * endpoint in seconds. This is used as the value of the `expires_in` property in responses from
-   * the backchannel authentication endpoint.
    */
   backchannelAuthReqIdDuration?: number | undefined;
   /**
-   * The minimum interval between polling requests to the token endpoint from client applications in
+   * The minimum interval between polling requests to the token endpoint from client applications in seconds. This is used as the value of the `interval` property in responses from the backchannel authentication endpoint.
    *
    * @remarks
-   * seconds. This is used as the value of the `interval` property in responses from the backchannel
-   * authentication endpoint.
    */
   backchannelPollingInterval?: number | undefined;
   /**
-   * The boolean flag which indicates whether the `user_code` request parameter is supported at the
+   * The boolean flag which indicates whether the `user_code` request parameter is supported at the backchannel authentication endpoint. This property corresponds to the `backchannel_user_code_parameter_supported` metadata.
    *
    * @remarks
-   * backchannel authentication endpoint. This property corresponds to the `backchannel_user_code_parameter_supported`
-   * metadata.
    */
   backchannelUserCodeParameterSupported?: boolean | undefined;
   /**
-   * The flag to indicate whether the `binding_message` request parameter is always required whenever
+   * The flag to indicate whether the `binding_message` request parameter is always required whenever a backchannel authentication request is judged as a request for Financial-grade API.
    *
    * @remarks
-   * a backchannel authentication request is judged as a request for Financial-grade API.
    */
   backchannelBindingMessageRequiredInFapi?: boolean | undefined;
   /**
@@ -2322,44 +2099,32 @@ export type ServiceInput = {
    *
    * Device authorization endpoint is defined in the specification of OAuth 2.0 Device Authorization Grant.
    */
-  deviceAuthorizationEndpoint?: string | undefined;
+  deviceAuthorizationEndpoint?: string | null | undefined;
   /**
-   * The verification URI for the device flow. This URI is used as the value of the `verification_uri`
+   * The verification URI for the device flow. This URI is used as the value of the `verification_uri` parameter in responses from the device authorization endpoint.
    *
    * @remarks
-   * parameter in responses from the device authorization endpoint.
    */
-  deviceVerificationUri?: string | undefined;
+  deviceVerificationUri?: string | null | undefined;
   /**
-   * The verification URI for the device flow with a placeholder for a user code. This URI is used
+   * The verification URI for the device flow with a placeholder for a user code. This URI is used to build the value of the `verification_uri_complete` parameter in responses from the device authorization endpoint.
    *
    * @remarks
-   * to build the value of the `verification_uri_complete` parameter in responses from the device
-   * authorization endpoint.
    */
-  deviceVerificationUriComplete?: string | undefined;
+  deviceVerificationUriComplete?: string | null | undefined;
   /**
-   * The duration of device verification codes and end-user verification codes issued from the device
+   * The duration of device verification codes and end-user verification codes issued from the device authorization endpoint in seconds. This is used as the value of the `expires_in` property in responses from the device authorization endpoint.
    *
    * @remarks
-   * authorization endpoint in seconds. This is used as the value of the `expires_in` property in responses
-   * from the device authorization endpoint.
    */
   deviceFlowCodeDuration?: number | undefined;
   /**
-   * The minimum interval between polling requests to the token endpoint from client applications in
+   * The minimum interval between polling requests to the token endpoint from client applications in seconds in device flow. This is used as the value of the `interval` property in responses from the device authorization endpoint.
    *
    * @remarks
-   * seconds in device flow. This is used as the value of the `interval` property in responses from
-   * the device authorization endpoint.
    */
   deviceFlowPollingInterval?: number | undefined;
-  /**
-   * The character set for end-user verification codes (`user_code`) for Device Flow.
-   *
-   * @remarks
-   */
-  userCodeCharset?: UserCodeCharset | undefined;
+  userCodeCharset?: UserCodeCharset | null | undefined;
   /**
    * The length of end-user verification codes (`user_code`) for Device Flow.
    *
@@ -2367,39 +2132,35 @@ export type ServiceInput = {
    */
   userCodeLength?: number | undefined;
   /**
-   * Trust frameworks supported by this service. This corresponds to the `trust_frameworks_supported`
+   * Trust frameworks supported by this service. This corresponds to the `trust_frameworks_supported` [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    *
    * @remarks
-   * [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    */
-  supportedTrustFrameworks?: Array<string> | undefined;
+  supportedTrustFrameworks?: Array<string> | null | undefined;
   /**
    * Evidence supported by this service. This corresponds to the `evidence_supported` [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    *
    * @remarks
    */
-  supportedEvidence?: Array<string> | undefined;
+  supportedEvidence?: Array<string> | null | undefined;
   /**
-   * Identity documents supported by this service. This corresponds to the `id_documents_supported`
+   * Identity documents supported by this service. This corresponds to the `id_documents_supported` [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    *
    * @remarks
-   * [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    */
-  supportedIdentityDocuments?: Array<string> | undefined;
+  supportedIdentityDocuments?: Array<string> | null | undefined;
   /**
-   * Verification methods supported by this service. This corresponds to the `id_documents_verification_methods_supported`
+   * Verification methods supported by this service. This corresponds to the `id_documents_verification_methods_supported` [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    *
    * @remarks
-   * [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    */
-  supportedVerificationMethods?: Array<string> | undefined;
+  supportedVerificationMethods?: Array<string> | null | undefined;
   /**
-   * Verified claims supported by this service. This corresponds to the `claims_in_verified_claims_supported`
+   * Verified claims supported by this service. This corresponds to the `claims_in_verified_claims_supported` [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    *
    * @remarks
-   * [metadata](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#rfc.section.7).
    */
-  supportedVerifiedClaims?: Array<string> | undefined;
+  supportedVerifiedClaims?: Array<string> | null | undefined;
   /**
    * The verified claims validation schema set.
    *
@@ -2413,12 +2174,11 @@ export type ServiceInput = {
    *
    * @remarks
    */
-  attributes?: Array<Pair> | undefined;
+  attributes?: Array<Pair> | null | undefined;
   /**
-   * The flag indicating whether the nbf claim in the request object is optional even when the authorization
+   * The flag indicating whether the nbf claim in the request object is optional even when the authorization request is regarded as a FAPI-Part2 request.
    *
    * @remarks
-   * request is regarded as a FAPI-Part2 request.
    */
   nbfOptional?: boolean | undefined;
   /**
@@ -2432,33 +2192,29 @@ export type ServiceInput = {
    *
    * @remarks
    */
-  supportedCustomClientMetadata?: Array<string> | undefined;
+  supportedCustomClientMetadata?: Array<string> | null | undefined;
   /**
-   * The flag indicating whether the expiration date of an access token never exceeds that of the
+   * The flag indicating whether the expiration date of an access token never exceeds that of the corresponding refresh token.
    *
    * @remarks
-   * corresponding refresh token.
    */
   tokenExpirationLinked?: boolean | undefined;
   /**
-   * The flag indicating whether encryption of request object is required when the request object
+   * The flag indicating whether encryption of request object is required when the request object is passed through the front channel.
    *
    * @remarks
-   * is passed through the front channel.
    */
   frontChannelRequestObjectEncryptionRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg`
+   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg` client metadata of the client that has sent the request object.
    *
    * @remarks
-   * client metadata of the client that has sent the request object.
    */
   requestObjectEncryptionAlgMatchRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the JWE `enc` of encrypted request object must match the `request_object_encryption_enc`
+   * The flag indicating whether the JWE `enc` of encrypted request object must match the `request_object_encryption_enc` client metadata of the client that has sent the request object.
    *
    * @remarks
-   * client metadata of the client that has sent the request object.
    */
   requestObjectEncryptionEncMatchRequired?: boolean | undefined;
   /**
@@ -2466,11 +2222,9 @@ export type ServiceInput = {
    *
    * @remarks
    *
-   * When this flag is `false`, keys managed in HSMs are not used even if they exist. In addition,
-   * `/api/hsk/*` APIs reject all requests.
+   * When this flag is `false`, keys managed in HSMs are not used even if they exist. In addition, `/api/hsk/*` APIs reject all requests.
    *
-   * Even if this flag is `true`, HSM-related features do not work if the configuration of the Authlete
-   * server you are using does not support HSM.
+   * Even if this flag is `true`, HSM-related features do not work if the configuration of the Authlete server you are using does not support HSM.
    */
   hsmEnabled?: boolean | undefined;
   /**
@@ -2478,41 +2232,33 @@ export type ServiceInput = {
    *
    * @remarks
    *
-   * This `hsks` property is output only, meaning that `hsks` in requests to `/api/service/create`
-   * API and `/api/service/update` API do not have any effect. The contents of this property is controlled
-   * only by `/api/hsk/*` APIs.
+   * This `hsks` property is output only, meaning that `hsks` in requests to `/api/service/create` API and `/api/service/update` API do not have any effect. The contents of this property is controlled only by `/api/hsk/*` APIs.
    */
-  hsks?: Array<Hsk> | undefined;
+  hsks?: Array<Hsk> | null | undefined;
   /**
    * The URL of the grant management endpoint.
    *
    * @remarks
    */
-  grantManagementEndpoint?: string | undefined;
+  grantManagementEndpoint?: string | null | undefined;
   /**
-   * The flag indicating whether every authorization request (and any request serving as an authorization
+   * The flag indicating whether every authorization request (and any request serving as an authorization request such as CIBA backchannel authentication request and device authorization request) must include the `grant_management_action` request parameter.
    *
    * @remarks
-   * request such as CIBA backchannel authentication request and device authorization request) must
-   * include the `grant_management_action` request parameter.
    */
   grantManagementActionRequired?: boolean | undefined;
   /**
-   * The flag indicating whether Authlete's `/api/client/registration` API uses `UNAUTHORIZED` as
+   * The flag indicating whether Authlete's `/api/client/registration` API uses `UNAUTHORIZED` as a value of the `action` response parameter when appropriate.
    *
    * @remarks
-   * a value of the `action` response parameter when appropriate.
    */
   unauthorizedOnClientConfigSupported?: boolean | undefined;
   /**
-   * The flag indicating whether the `scope` request parameter in dynamic client registration and
+   * The flag indicating whether the `scope` request parameter in dynamic client registration and update requests (RFC 7591 and RFC 7592) is used as scopes that the client can request.
    *
    * @remarks
-   * update requests (RFC 7591 and RFC 7592) is used as scopes that the client can request.
    *
-   * Limiting the range of scopes that a client can request is achieved by listing scopes in the
-   * `client.extension.requestableScopes` property and setting the `client.extension.requestableScopesEnabled`
-   * property to `true`. This feature is called "requestable scopes".
+   * Limiting the range of scopes that a client can request is achieved by listing scopes in the `client.extension.requestableScopes` property and setting the `client.extension.requestableScopesEnabled` property to `true`. This feature is called "requestable scopes".
    *
    * This property affects behaviors of `/api/client/registration` and other family APIs.
    */
@@ -2524,41 +2270,39 @@ export type ServiceInput = {
    *
    * A URL that starts with `https://` and has no fragment component. For example, `https://example.com/auth/endSession`.
    *
-   * The value of this property is used as `end_session_endpoint` property in the [OpenID Provider
-   * Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   * The value of this property is used as `end_session_endpoint` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
    */
-  endSessionEndpoint?: string | undefined;
+  endSessionEndpoint?: string | null | undefined;
   /**
-   * The flag indicating whether the port number component of redirection URIs can be variable when
+   * The URL of the challenge endpoint, which is defined in OAuth 2.0 Attestation-Based Client Authentication.
    *
    * @remarks
-   * the host component indicates loopback.
+   */
+  challengeEndpoint?: string | null | undefined;
+  /**
+   * The flag indicating whether the port number component of redirection URIs can be variable when the host component indicates loopback.
+   *
+   * @remarks
    */
   loopbackRedirectionUriVariable?: boolean | undefined;
   /**
-   * The flag indicating whether Authlete checks whether the `aud` claim of request objects matches
+   * The flag indicating whether Authlete checks whether the `aud` claim of request objects matches the issuer identifier of this service.
    *
    * @remarks
-   * the issuer identifier of this service.
    */
   requestObjectAudienceChecked?: boolean | undefined;
   /**
-   * The flag indicating whether Authlete generates access tokens for
+   * The flag indicating whether Authlete generates access tokens for external attachments and embeds them in ID tokens and userinfo responses.
    *
    * @remarks
-   * external attachments and embeds them in ID tokens and userinfo
-   * responses.
    */
   accessTokenForExternalAttachmentEmbedded?: boolean | undefined;
   /**
-   * Identifiers of entities that can issue entity statements for this
+   * Identifiers of entities that can issue entity statements for this service. This property corresponds to the `authority_hints` property that appears in a self-signed entity statement that is defined in OpenID Connect Federation 1.0.
    *
    * @remarks
-   * service. This property corresponds to the `authority_hints`
-   * property that appears in a self-signed entity statement that is
-   * defined in OpenID Connect Federation 1.0.
    */
-  authorityHints?: Array<string> | undefined;
+  authorityHints?: Array<string> | null | undefined;
   /**
    * flag indicating whether this service supports OpenID Connect Federation 1
    *
@@ -2566,20 +2310,17 @@ export type ServiceInput = {
    */
   federationEnabled?: boolean | undefined;
   /**
-   * JWK Set document containing keys that are used to sign (1) self-signed
+   * JWK Set document containing keys that are used to sign (1) self-signed entity statement of this service and (2) the response from `signed_jwks_uri`.
    *
    * @remarks
-   * entity statement of this service and (2) the response from
-   * `signed_jwks_uri`.
    */
-  federationJwks?: string | undefined;
+  federationJwks?: string | null | undefined;
   /**
-   * A key ID to identify a JWK used to sign the entity configuration and
+   * A key ID to identify a JWK used to sign the entity configuration and the signed JWK Set.
    *
    * @remarks
-   * the signed JWK Set.
    */
-  federationSignatureKeyId?: string | undefined;
+  federationSignatureKeyId?: string | null | undefined;
   /**
    * The duration of the entity configuration in seconds.
    *
@@ -2587,203 +2328,165 @@ export type ServiceInput = {
    */
   federationConfigurationDuration?: number | undefined;
   /**
-   * The URI of the federation registration endpoint. This property corresponds
+   * The URI of the federation registration endpoint. This property corresponds to the `federation_registration_endpoint` server metadata that is defined in OpenID Connect Federation 1.0.
    *
    * @remarks
-   * to the `federation_registration_endpoint` server metadata that is
-   * defined in OpenID Connect Federation 1.0.
    */
-  federationRegistrationEndpoint?: string | undefined;
+  federationRegistrationEndpoint?: string | null | undefined;
   /**
-   * The human-readable name representing the organization that operates
+   * The human-readable name representing the organization that operates this service. This property corresponds to the `organization_name` server metadata that is defined in OpenID Connect Federation 1.0.
    *
    * @remarks
-   * this service. This property corresponds to the `organization_name`
-   * server metadata that is defined in OpenID Connect Federation 1.0.
    */
-  organizationName?: string | undefined;
+  organizationName?: string | null | undefined;
   /**
-   * The transformed claims predefined by this service in JSON format.
+   * The transformed claims predefined by this service in JSON format. This property corresponds to the `transformed_claims_predefined` server metadata.
    *
    * @remarks
-   * This property corresponds to the `transformed_claims_predefined`
-   * server metadata.
    */
-  predefinedTransformedClaims?: string | undefined;
+  predefinedTransformedClaims?: string | null | undefined;
   /**
-   * flag indicating whether refresh token requests with the same
+   * flag indicating whether refresh token requests with the same refresh token can be made multiple times in quick succession and they can obtain the same renewed refresh token within the short period.
    *
    * @remarks
-   * refresh token can be made multiple times in quick succession and
-   * they can obtain the same renewed refresh token within the short
-   * period.
    */
   refreshTokenIdempotent?: boolean | undefined;
   /**
-   * The URI of the endpoint that returns this service's JWK Set document in
+   * The URI of the endpoint that returns this service's JWK Set document in the JWT format. This property corresponds to the `signed_jwks_uri` server metadata defined in OpenID Connect Federation 1.0.
    *
    * @remarks
-   * the JWT format. This property corresponds to the `signed_jwks_uri`
-   * server metadata defined in OpenID Connect Federation 1.0.
    */
-  signedJwksUri?: string | undefined;
+  signedJwksUri?: string | null | undefined;
   /**
-   * Supported attachment types. This property corresponds to the &#123;@code
+   * Supported attachment types. This property corresponds to the &#123;@code attachments_supported&#125; server metadata which was added by the third implementer's draft of OpenID Connect for Identity Assurance 1.0.
    *
    * @remarks
-   * attachments_supported&#125; server metadata which was added by the third
-   * implementer's draft of OpenID Connect for Identity Assurance 1.0.
    */
-  supportedAttachments?: Array<AttachmentType> | undefined;
+  supportedAttachments?: Array<AttachmentType> | null | undefined;
   /**
-   * Supported algorithms used to compute digest values of external
+   * Supported algorithms used to compute digest values of external attachments. This property corresponds to the `digest_algorithms_supported` server metadata which was added by the third implementer's draft of OpenID Connect for Identity Assurance 1.0.
    *
    * @remarks
-   * attachments. This property corresponds to the
-   * `digest_algorithms_supported` server metadata which was added
-   * by the third implementer's draft of OpenID Connect for Identity
-   * Assurance 1.0.
    */
-  supportedDigestAlgorithms?: Array<string> | undefined;
+  supportedDigestAlgorithms?: Array<string> | null | undefined;
   /**
-   * Document types supported by this service. This property corresponds
+   * Document types supported by this service. This property corresponds to the `documents_supported` server metadata.
    *
    * @remarks
-   * to the `documents_supported` server metadata.
    */
-  supportedDocuments?: Array<string> | undefined;
+  supportedDocuments?: Array<string> | null | undefined;
   /**
-   * validation and verification processes supported by this service.
+   * validation and verification processes supported by this service. This property corresponds to the `documents_methods_supported` server metadata.
    *
    * @remarks
-   * This property corresponds to the `documents_methods_supported`
-   * server metadata.
    *
-   * The third implementer's draft of [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html)
-   * renamed the
-   * `id_documents_verification_methods_supported` server metadata to
-   * `documents_methods_supported`.
+   * The third implementer's draft of [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html) renamed the `id_documents_verification_methods_supported` server metadata to `documents_methods_supported`.
    */
-  supportedDocumentsMethods?: Array<string> | undefined;
+  supportedDocumentsMethods?: Array<string> | null | undefined;
   /**
-   * Document validation methods supported by this service. This property
+   * Document validation methods supported by this service. This property corresponds to the `documents_validation_methods_supported` server metadata which was added by the third implementer's draft of
    *
    * @remarks
-   * corresponds to the `documents_validation_methods_supported` server
-   * metadata which was added by the third implementer's draft of
    */
-  supportedDocumentsValidationMethods?: Array<string> | undefined;
+  supportedDocumentsValidationMethods?: Array<string> | null | undefined;
   /**
-   * Document verification methods supported by this service. This property
+   * Document verification methods supported by this service. This property corresponds to the `documents_verification_methods_supported` server metadata which was added by the third implementer's draft of [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html)
    *
    * @remarks
-   * corresponds to the `documents_verification_methods_supported` server
-   * metadata which was added by the third implementer's draft of
-   * [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html)
    */
-  supportedDocumentsVerificationMethods?: Array<string> | undefined;
+  supportedDocumentsVerificationMethods?: Array<string> | null | undefined;
   /**
-   * Electronic record types supported by this service. This property
+   * Electronic record types supported by this service. This property corresponds to the `electronic_records_supported` server metadata which was added by the third implementer's draft of [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html)
    *
    * @remarks
-   * corresponds to the `electronic_records_supported` server metadata
-   * which was added by the third implementer's draft of
-   * [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html)
    */
-  supportedElectronicRecords?: Array<string> | undefined;
-  supportedClientRegistrationTypes?: Array<ClientRegistrationType> | undefined;
+  supportedElectronicRecords?: Array<string> | null | undefined;
+  supportedClientRegistrationTypes?:
+    | Array<ClientRegistrationType>
+    | null
+    | undefined;
   /**
-   * The flag indicating whether to prohibit unidentifiable clients from
+   * The flag indicating whether to prohibit unidentifiable clients from making token exchange requests.
    *
    * @remarks
-   * making token exchange requests.
    */
   tokenExchangeByIdentifiableClientsOnly?: boolean | undefined;
   /**
-   * The flag indicating whether to prohibit public clients from making
+   * The flag indicating whether to prohibit public clients from making token exchange requests.
    *
    * @remarks
-   * token exchange requests.
    */
   tokenExchangeByConfidentialClientsOnly?: boolean | undefined;
   /**
-   * The flag indicating whether to prohibit clients that have no explicit
+   * The flag indicating whether to prohibit clients that have no explicit permission from making token exchange requests.
    *
    * @remarks
-   * permission from making token exchange requests.
    */
   tokenExchangeByPermittedClientsOnly?: boolean | undefined;
   /**
-   * The flag indicating whether to reject token exchange requests which
+   * The flag indicating whether to reject token exchange requests which use encrypted JWTs as input tokens.
    *
    * @remarks
-   * use encrypted JWTs as input tokens.
    */
   tokenExchangeEncryptedJwtRejected?: boolean | undefined;
   /**
-   * The flag indicating whether to reject token exchange requests which
+   * The flag indicating whether to reject token exchange requests which use unsigned JWTs as input tokens.
    *
    * @remarks
-   * use unsigned JWTs as input tokens.
    */
   tokenExchangeUnsignedJwtRejected?: boolean | undefined;
   /**
-   * The flag indicating whether to prohibit unidentifiable clients from
+   * The flag indicating whether to prohibit unidentifiable clients from using the grant type "urn:ietf:params:oauth:grant-type:jwt-bearer".
    *
    * @remarks
-   * using the grant type "urn:ietf:params:oauth:grant-type:jwt-bearer".
    */
   jwtGrantByIdentifiableClientsOnly?: boolean | undefined;
   /**
-   * The flag indicating whether to reject token requests that use an
+   * The flag indicating whether to reject token requests that use an encrypted JWT as an authorization grant with the grant type "urn:ietf:params:oauth:grant-type:jwt-bearer".
    *
    * @remarks
-   * encrypted JWT as an authorization grant with the grant type
-   * "urn:ietf:params:oauth:grant-type:jwt-bearer".
    */
   jwtGrantEncryptedJwtRejected?: boolean | undefined;
   /**
-   * The flag indicating whether to reject token requests that use an
+   * The flag indicating whether to reject token requests that use an unsigned JWT as an authorization grant with the grant type "urn:ietf:params:oauth:grant-type:jwt-bearer".
    *
    * @remarks
-   * unsigned JWT as an authorization grant with the grant type
-   * "urn:ietf:params:oauth:grant-type:jwt-bearer".
    */
   jwtGrantUnsignedJwtRejected?: boolean | undefined;
   /**
-   * The flag indicating whether to block DCR (Dynamic Client Registration)
+   * The flag indicating whether to block DCR (Dynamic Client Registration) requests whose "software_id" has already been used previously.
    *
    * @remarks
-   * requests whose "software_id" has already been used previously.
    */
   dcrDuplicateSoftwareIdBlocked?: boolean | undefined;
   /**
-   * The trust anchors that are referenced when this service resolves
+   * The trust anchors that are referenced when this service resolves trust chains of relying parties.
    *
    * @remarks
-   * trust chains of relying parties.
    *
-   * If this property is empty, client registration fails regardless of
-   * whether its type is `automatic` or `explicit`. It means
-   * that OpenID Connect Federation 1.0 does not work.
+   * If this property is empty, client registration fails regardless of whether its type is `automatic` or `explicit`. It means that OpenID Connect Federation 1.0 does not work.
    */
-  trustAnchors?: Array<TrustAnchor> | undefined;
+  trustAnchors?: Array<TrustAnchor> | null | undefined;
   /**
-   * The flag indicating whether the openid scope should be dropped from
+   * The flag indicating whether the openid scope should be dropped from scopes list assigned to access token issued when a refresh token grant is used.
    *
    * @remarks
-   * scopes list assigned to access token issued when a refresh token grant
-   * is used.
    */
   openidDroppedOnRefreshWithoutOfflineAccess?: boolean | undefined;
   /**
-   * Supported document check methods. This property corresponds to the `documents_check_methods_supported`
+   * The flag indicating whether to refrain from issuing an ID token when the `openid` scope has been removed from the scopes to be granted by the `scopes` request parameter of the `/auth/authorization/issue` API.
    *
    * @remarks
-   * server metadata which was added by the fourth implementer's draft of OpenID Connect for Identity
-   * Assurance 1.0.
+   *
+   * Flows whose `response_type` contains `id_token`, and flows that requested Native SSO, are not affected, because both require an ID token.
    */
-  supportedDocumentsCheckMethods?: Array<string> | undefined;
+  idTokenDroppedOnIssueWithoutOpenid?: boolean | undefined;
+  /**
+   * Supported document check methods. This property corresponds to the `documents_check_methods_supported` server metadata which was added by the fourth implementer's draft of OpenID Connect for Identity Assurance 1.0.
+   *
+   * @remarks
+   */
+  supportedDocumentsCheckMethods?: Array<string> | null | undefined;
   /**
    * The flag indicating whether this service signs responses from the resource server.
    *
@@ -2797,26 +2500,23 @@ export type ServiceInput = {
    */
   cnonceDuration?: number | undefined;
   /**
-   * Whether to require DPoP proof JWTs to include the `nonce` claim
+   * Whether to require DPoP proof JWTs to include the `nonce` claim whenever they are presented.
    *
    * @remarks
-   * whenever they are presented.
    */
   dpopNonceRequired?: boolean | undefined;
   /**
-   * Get the flag indicating whether the feature of Verifiable Credentials
+   * Get the flag indicating whether the feature of Verifiable Credentials for this service is enabled or not.
    *
    * @remarks
-   * for this service is enabled or not.
    */
   verifiableCredentialsEnabled?: boolean | undefined;
   /**
-   * The URL at which the JWK Set document of the credential issuer is
+   * The URL at which the JWK Set document of the credential issuer is exposed.
    *
    * @remarks
-   * exposed.
    */
-  credentialJwksUri?: string | undefined;
+  credentialJwksUri?: string | null | undefined;
   /**
    * The default duration of credential offers in seconds.
    *
@@ -2830,17 +2530,15 @@ export type ServiceInput = {
    */
   dpopNonceDuration?: number | undefined;
   /**
-   * The flag indicating whether token requests using the pre-authorized
+   * The flag indicating whether token requests using the pre-authorized code grant flow by unidentifiable clients are allowed.
    *
    * @remarks
-   * code grant flow by unidentifiable clients are allowed.
    */
   preAuthorizedGrantAnonymousAccessSupported?: boolean | undefined;
   /**
-   * The duration of transaction ID in seconds that may be issued as a
+   * The duration of transaction ID in seconds that may be issued as a result of a credential request or a batch credential request.
    *
    * @remarks
-   * result of a credential request or a batch credential request.
    */
   credentialTransactionDuration?: number | undefined;
   /**
@@ -2848,13 +2546,13 @@ export type ServiceInput = {
    *
    * @remarks
    */
-  introspectionSignatureKeyId?: string | undefined;
+  introspectionSignatureKeyId?: string | null | undefined;
   /**
    * The key ID of the key for signing introspection responses.
    *
    * @remarks
    */
-  resourceSignatureKeyId?: string | undefined;
+  resourceSignatureKeyId?: string | null | undefined;
   /**
    * The default length of user PINs.
    *
@@ -2866,60 +2564,51 @@ export type ServiceInput = {
    *
    * @remarks
    */
-  supportedPromptValues?: Array<Prompt> | undefined;
+  supportedPromptValues?: Array<Prompt> | null | undefined;
   /**
-   * The flag indicating whether to enable the feature of ID token
+   * The flag indicating whether to enable the feature of ID token reissuance in the refresh token flow.
    *
    * @remarks
-   * reissuance in the refresh token flow.
    */
   idTokenReissuable?: boolean | undefined;
   /**
-   * The JWK Set document containing private keys that are used to sign
+   * The JWK Set document containing private keys that are used to sign verifiable credentials.
    *
    * @remarks
-   * verifiable credentials.
    */
-  credentialJwks?: string | undefined;
+  credentialJwks?: string | null | undefined;
   /**
    * FAPI modes for this service.
    *
    * @remarks
    *
-   * When the value of this property is not `null`, Authlete always processes requests to this service based
-   * on the specified FAPI modes if the FAPI feature is enabled in Authlete and the FAPI profile is supported
-   * by this service.
+   * When the value of this property is not `null`, Authlete always processes requests to this service based on the specified FAPI modes if the FAPI feature is enabled in Authlete and the FAPI profile is supported by this service.
    *
-   * For instance, when this property is set to an array containing `FAPI1_ADVANCED` only, Authlete always
-   * processes requests to this service based on "Financial-grade API Security Profile 1.0 - Part 2:
-   * Advanced" if the FAPI feature is enabled in Authlete and the FAPI profile is supported by this service.
+   * For instance, when this property is set to an array containing `FAPI1_ADVANCED` only, Authlete always processes requests to this service based on "Financial-grade API Security Profile 1.0 - Part 2: Advanced" if the FAPI feature is enabled in Authlete and the FAPI profile is supported by this service.
    */
-  fapiModes?: Array<FapiMode> | undefined;
+  fapiModes?: Array<FapiMode> | null | undefined;
   /**
    * The default duration of verifiable credentials in seconds.
    *
    * @remarks
    */
   credentialDuration?: number | undefined;
-  credentialIssuerMetadata?: CredentialIssuerMetadata | undefined;
+  credentialIssuerMetadata?: CredentialIssuerMetadata | null | undefined;
   /**
    * The type of the `aud` claim in ID tokens.
    *
    * @remarks
    */
-  idTokenAudType?: string | undefined;
+  idTokenAudType?: string | null | undefined;
   /**
-   * Flag that enables the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
+   * Flag that enables the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) specification (“Native SSO”). When this property is **not** `true`, Native SSO specific parameters are ignored or treated as errors. For example:
    *
    * @remarks
-   * specification (“Native SSO”). When this property is **not** `true`, Native SSO specific parameters are ignored or treated as errors.
-   * For example:
    *
    * * The `device_sso` scope has no special meaning (Authlete does not embed the `sid` claim in ID tokens).
    * * The `urn:openid:params:token-type:device-secret` token type is treated as unknown and results in an error.
    *
-   * When set to `true`, the server metadata advertises `"native_sso_supported": true`. See [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)
-   * and [RFC 8414 §2](https://www.rfc-editor.org/rfc/rfc8414.html#section-2) for background. Native SSO is available in Authlete 3.0 and later.
+   * When set to `true`, the server metadata advertises `"native_sso_supported": true`. See [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata) and [RFC 8414 §2](https://www.rfc-editor.org/rfc/rfc8414.html#section-2) for background. Native SSO is available in Authlete 3.0 and later.
    */
   nativeSsoSupported?: boolean | undefined;
   /**
@@ -2934,298 +2623,394 @@ export type ServiceInput = {
    *
    * Choose the value that matches the OID4VCI behaviour your service should expose. See the OID4VCI documentation for details.
    */
-  oid4vciVersion?: string | undefined;
+  oid4vciVersion?: string | null | undefined;
   /**
-   * Flag that controls whether the CIMD metadata policy is applied to client
+   * Flag that controls whether the CIMD metadata policy is applied to client metadata obtained through the Client ID Metadata Document (CIMD) mechanism.
    *
    * @remarks
-   * metadata obtained through the Client ID Metadata Document (CIMD)
-   * mechanism.
    */
   cimdMetadataPolicyEnabled?: boolean | undefined;
   /**
-   * Indicates whether the Client ID Metadata Document (CIMD) mechanism is
+   * Indicates whether the Client ID Metadata Document (CIMD) mechanism is supported. When `true`, the service will attempt to retrieve client metadata via CIMD where applicable.
    *
    * @remarks
-   * supported. When `true`, the service will attempt to retrieve client
-   * metadata via CIMD where applicable.
    */
   clientIdMetadataDocumentSupported?: boolean | undefined;
   /**
-   * Enables the allowlist for CIMD. When `true`, only CIMD endpoints that are
+   * Enables the allowlist for CIMD. When `true`, only CIMD endpoints that are on the allowlist are used.
    *
    * @remarks
-   * on the allowlist are used.
    */
   cimdAllowlistEnabled?: boolean | undefined;
   /**
-   * The allowlist of CIMD endpoints (hosts/URIs) that may be used when
+   * The allowlist of CIMD endpoints (hosts/URIs) that may be used when retrieving client metadata via Client ID Metadata Documents.
    *
    * @remarks
-   * retrieving client metadata via Client ID Metadata Documents.
    */
-  cimdAllowlist?: Array<string> | undefined;
+  cimdAllowlist?: Array<string> | null | undefined;
   /**
-   * If `true`, CIMD retrieval is always attempted for clients, regardless of
+   * If `true`, CIMD retrieval is always attempted for clients, regardless of other conditions.
    *
    * @remarks
-   * other conditions.
    */
   cimdAlwaysRetrieved?: boolean | undefined;
   /**
-   * Allows CIMD retrieval over plain HTTP. When `false`, only HTTPS CIMD
+   * Allows CIMD retrieval over plain HTTP. When `false`, only HTTPS CIMD endpoints are allowed.
    *
    * @remarks
-   * endpoints are allowed.
    */
   cimdHttpPermitted?: boolean | undefined;
   /**
-   * Allows the use of query parameters when retrieving CIMD metadata. When
+   * Allows the use of query parameters when retrieving CIMD metadata. When `false`, query parameters are disallowed for CIMD requests.
    *
    * @remarks
-   * `false`, query parameters are disallowed for CIMD requests.
    */
   cimdQueryPermitted?: boolean | undefined;
   /**
-   * The metadata policy applied to client metadata obtained through the CIMD
+   * The metadata policy applied to client metadata obtained through the CIMD mechanism. The value must follow the metadata policy grammar defined in [OpenID Federation 1.0 §6.1 Metadata Policy](https://openid.net/specs/openid-federation-1_0.html#name-metadata-policy).
    *
    * @remarks
-   * mechanism. The value must follow the metadata policy grammar defined in
-   * [OpenID Federation 1.0 §6.1 Metadata Policy](https://openid.net/specs/openid-federation-1_0.html#name-metadata-policy).
    */
-  cimdMetadataPolicy?: string | undefined;
+  cimdMetadataPolicy?: string | null | undefined;
   /**
-   * When `true`, client ID aliases starting with `https://` or `http://` are
+   * When `true`, client ID aliases starting with `https://` or `http://` are prohibited.
    *
    * @remarks
-   * prohibited.
    */
   httpAliasProhibited?: boolean | undefined;
   /**
-   * The time window of attestation challenges in seconds. This is used for
+   * The time window of attestation challenges in seconds. This is used for OAuth 2.0 Attestation-Based Client Authentication.
    *
    * @remarks
-   * OAuth 2.0 Attestation-Based Client Authentication.
    */
   attestationChallengeTimeWindow?: number | undefined;
   /**
-   * The flag indicating whether the attester roots for Client Attestation JWT
+   * The flag indicating whether the attester roots for Client Attestation JWT x5c chain validation are enabled.
    *
    * @remarks
-   * x5c chain validation are enabled.
    */
   clientAttesterRootsEnabled?: boolean | undefined;
   /**
-   * The flag indicating whether only client authentication validated via
+   * The flag indicating whether only client authentication validated via attester roots is accepted.
    *
    * @remarks
-   * attester roots is accepted.
    */
   clientAttesterRootsOnly?: boolean | undefined;
   /**
-   * The flag indicating whether the attester roots for Key Attestation JWT
+   * The flag indicating whether the attester roots for Key Attestation JWT x5c chain validation are enabled.
    *
    * @remarks
-   * x5c chain validation are enabled.
    */
   keyAttesterRootsEnabled?: boolean | undefined;
   /**
-   * The flag indicating whether only key attestation validated via
+   * The flag indicating whether only key attestation validated via attester roots is accepted.
    *
    * @remarks
-   * attester roots is accepted.
    */
   keyAttesterRootsOnly?: boolean | undefined;
   /**
-   * The trusted root certificates (PEM-encoded X.509) for validating the
+   * The trusted root certificates (PEM-encoded X.509) for validating the x5c chain in Client Attestation JWTs.
    *
    * @remarks
-   * x5c chain in Client Attestation JWTs.
    */
-  clientAttesterRoots?: Array<string> | undefined;
+  clientAttesterRoots?: Array<string> | null | undefined;
   /**
-   * The trusted root certificates (PEM-encoded X.509) for validating the
+   * The trusted root certificates (PEM-encoded X.509) for validating the x5c chain in Key Attestation JWTs.
    *
    * @remarks
-   * x5c chain in Key Attestation JWTs.
    */
-  keyAttesterRoots?: Array<string> | undefined;
+  keyAttesterRoots?: Array<string> | null | undefined;
   /**
-   * The flag indicating whether this service supports OpenID Connect
+   * The flag indicating whether this service supports OpenID Connect Back-Channel Logout 1.0.
    *
    * @remarks
-   * Back-Channel Logout 1.0.
    */
   backchannelLogoutSupported?: boolean | undefined;
   /**
-   * The flag indicating whether this service includes a `sid` (session ID)
+   * The flag indicating whether this service includes a `sid` (session ID) claim in ID tokens, supporting per-session backchannel logout.
    *
    * @remarks
-   * claim in ID tokens, supporting per-session backchannel logout.
    */
   backchannelLogoutSessionSupported?: boolean | undefined;
+  /**
+   * The HAIP version to comply with. Valid values for this property are as follows: `"1.0"`. If this property is set, requests to this service undergo additional validation based on the specified version of the [HAIP](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html) specification.
+   *
+   * @remarks
+   */
+  haipVersion?: string | null | undefined;
 };
 
 /** @internal */
 export const SupportedSnse$inboundSchema: z.ZodNativeEnum<
   typeof SupportedSnse
 > = z.nativeEnum(SupportedSnse);
+
 /** @internal */
-export const SupportedSnse$outboundSchema: z.ZodNativeEnum<
-  typeof SupportedSnse
-> = SupportedSnse$inboundSchema;
+export const SupportedDeveloperSnse$inboundSchema: z.ZodNativeEnum<
+  typeof SupportedDeveloperSnse
+> = z.nativeEnum(SupportedDeveloperSnse);
+/** @internal */
+export const SupportedDeveloperSnse$outboundSchema: z.ZodNativeEnum<
+  typeof SupportedDeveloperSnse
+> = SupportedDeveloperSnse$inboundSchema;
+
+/** @internal */
+export const UserCodeCharset$inboundSchema: z.ZodNativeEnum<
+  typeof UserCodeCharset
+> = z.nativeEnum(UserCodeCharset);
+/** @internal */
+export const UserCodeCharset$outboundSchema: z.ZodNativeEnum<
+  typeof UserCodeCharset
+> = UserCodeCharset$inboundSchema;
+
+/** @internal */
+export const CredentialIssuerMetadata$inboundSchema: z.ZodType<
+  CredentialIssuerMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authorizationServers: z.array(z.string()).optional(),
+  credentialIssuer: z.string().optional(),
+  credentialEndpoint: z.string().optional(),
+  batchCredentialEndpoint: z.string().optional(),
+  deferredCredentialEndpoint: z.string().optional(),
+  credentialsSupported: z.string().optional(),
+  credentialResponseEncryptionAlgValuesSupported: z.array(z.string())
+    .optional(),
+  credentialResponseEncryptionEncValuesSupported: z.array(z.string())
+    .optional(),
+  requireCredentialResponseEncryption: z.boolean().optional(),
+  requireCredentialRequestEncryption: z.boolean().optional(),
+  credentialResponseEncryptionZipValuesSupported: z.array(z.string())
+    .optional(),
+  batchSize: z.number().int().optional(),
+});
+/** @internal */
+export type CredentialIssuerMetadata$Outbound = {
+  authorizationServers?: Array<string> | undefined;
+  credentialIssuer?: string | undefined;
+  credentialEndpoint?: string | undefined;
+  batchCredentialEndpoint?: string | undefined;
+  deferredCredentialEndpoint?: string | undefined;
+  credentialsSupported?: string | undefined;
+  credentialResponseEncryptionAlgValuesSupported?: Array<string> | undefined;
+  credentialResponseEncryptionEncValuesSupported?: Array<string> | undefined;
+  requireCredentialResponseEncryption?: boolean | undefined;
+  requireCredentialRequestEncryption?: boolean | undefined;
+  credentialResponseEncryptionZipValuesSupported?: Array<string> | undefined;
+  batchSize?: number | undefined;
+};
+
+/** @internal */
+export const CredentialIssuerMetadata$outboundSchema: z.ZodType<
+  CredentialIssuerMetadata$Outbound,
+  z.ZodTypeDef,
+  CredentialIssuerMetadata
+> = z.object({
+  authorizationServers: z.array(z.string()).optional(),
+  credentialIssuer: z.string().optional(),
+  credentialEndpoint: z.string().optional(),
+  batchCredentialEndpoint: z.string().optional(),
+  deferredCredentialEndpoint: z.string().optional(),
+  credentialsSupported: z.string().optional(),
+  credentialResponseEncryptionAlgValuesSupported: z.array(z.string())
+    .optional(),
+  credentialResponseEncryptionEncValuesSupported: z.array(z.string())
+    .optional(),
+  requireCredentialResponseEncryption: z.boolean().optional(),
+  requireCredentialRequestEncryption: z.boolean().optional(),
+  credentialResponseEncryptionZipValuesSupported: z.array(z.string())
+    .optional(),
+  batchSize: z.number().int().optional(),
+});
+
+export function credentialIssuerMetadataToJSON(
+  credentialIssuerMetadata: CredentialIssuerMetadata,
+): string {
+  return JSON.stringify(
+    CredentialIssuerMetadata$outboundSchema.parse(credentialIssuerMetadata),
+  );
+}
+export function credentialIssuerMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<CredentialIssuerMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CredentialIssuerMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CredentialIssuerMetadata' from JSON`,
+  );
+}
 
 /** @internal */
 export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
   z.object({
     number: z.number().int().optional(),
-    serviceName: z.string().optional(),
-    issuer: z.string().optional(),
-    description: z.string().optional(),
+    serviceName: z.nullable(z.string()).optional(),
+    issuer: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
     apiKey: z.number().int().optional(),
-    apiSecret: z.string().optional(),
-    tokenBatchNotificationEndpoint: z.string().optional(),
+    apiSecret: z.nullable(z.string()).optional(),
+    tokenBatchNotificationEndpoint: z.nullable(z.string()).optional(),
     clientAssertionAudRestrictedToIssuer: z.boolean().optional(),
     serviceOwnerNumber: z.number().int().optional(),
     clientsPerDeveloper: z.number().int().optional(),
-    developerAuthenticationCallbackEndpoint: z.string().optional(),
-    developerAuthenticationCallbackApiKey: z.string().optional(),
-    developerAuthenticationCallbackApiSecret: z.string().optional(),
-    supportedSnses: z.array(SupportedSnse$inboundSchema).optional(),
-    snsCredentials: z.array(SnsCredentials$inboundSchema).optional(),
+    developerAuthenticationCallbackEndpoint: z.nullable(z.string()).optional(),
+    developerAuthenticationCallbackApiKey: z.nullable(z.string()).optional(),
+    developerAuthenticationCallbackApiSecret: z.nullable(z.string()).optional(),
+    supportedSnses: z.nullable(z.array(SupportedSnse$inboundSchema)).optional(),
+    snsCredentials: z.nullable(z.array(SnsCredentials$inboundSchema))
+      .optional(),
+    supportedDeveloperSnses: z.nullable(
+      z.array(SupportedDeveloperSnse$inboundSchema),
+    ).optional(),
+    developerSnsCredentials: z.nullable(z.array(SnsCredentials$inboundSchema))
+      .optional(),
     clientIdAliasEnabled: z.boolean().optional(),
-    metadata: z.array(Pair$inboundSchema).optional(),
+    metadata: z.nullable(z.array(Pair$inboundSchema)).optional(),
     createdAt: z.number().int().optional(),
     modifiedAt: z.number().int().optional(),
-    authenticationCallbackEndpoint: z.string().optional(),
-    authenticationCallbackApiKey: z.string().optional(),
-    authenticationCallbackApiSecret: z.string().optional(),
-    supportedAcrs: z.array(z.string()).optional(),
-    supportedGrantTypes: z.array(GrantType$inboundSchema).optional(),
-    supportedResponseTypes: z.array(ResponseType$inboundSchema).optional(),
-    supportedAuthorizationDetailsTypes: z.array(z.string()).optional(),
-    supportedServiceProfiles: z.array(ServiceProfile$inboundSchema).optional(),
+    authenticationCallbackEndpoint: z.nullable(z.string()).optional(),
+    authenticationCallbackApiKey: z.nullable(z.string()).optional(),
+    authenticationCallbackApiSecret: z.nullable(z.string()).optional(),
+    supportedAcrs: z.nullable(z.array(z.string())).optional(),
+    supportedGrantTypes: z.nullable(z.array(GrantType$inboundSchema))
+      .optional(),
+    supportedResponseTypes: z.nullable(z.array(ResponseType$inboundSchema))
+      .optional(),
+    supportedAuthorizationDetailsTypes: z.nullable(z.array(z.string()))
+      .optional(),
+    supportedServiceProfiles: z.nullable(z.array(ServiceProfile$inboundSchema))
+      .optional(),
     errorDescriptionOmitted: z.boolean().optional(),
     errorUriOmitted: z.boolean().optional(),
-    authorizationEndpoint: z.string().optional(),
+    authorizationEndpoint: z.nullable(z.string()).optional(),
     directAuthorizationEndpointEnabled: z.boolean().optional(),
-    supportedUiLocales: z.array(z.string()).optional(),
-    supportedDisplays: z.array(Display$inboundSchema).optional(),
+    supportedUiLocales: z.nullable(z.array(z.string())).optional(),
+    supportedDisplays: z.nullable(z.array(Display$inboundSchema)).optional(),
     pkceRequired: z.boolean().optional(),
     pkceS256Required: z.boolean().optional(),
     authorizationResponseDuration: z.number().int().optional(),
     authorizationCodeDuration: z.number().int().optional(),
-    tokenEndpoint: z.string().optional(),
+    tokenEndpoint: z.nullable(z.string()).optional(),
     directTokenEndpointEnabled: z.boolean().optional(),
-    supportedTokenAuthMethods: z.array(ClientAuthMethod$inboundSchema)
-      .optional(),
+    supportedTokenAuthMethods: z.nullable(
+      z.array(ClientAuthMethod$inboundSchema),
+    ).optional(),
     missingClientIdAllowed: z.boolean().optional(),
-    revocationEndpoint: z.string().optional(),
+    revocationEndpoint: z.nullable(z.string()).optional(),
     directRevocationEndpointEnabled: z.boolean().optional(),
-    supportedRevocationAuthMethods: z.array(ClientAuthMethod$inboundSchema)
-      .optional(),
-    introspectionEndpoint: z.string().optional(),
+    supportedRevocationAuthMethods: z.nullable(
+      z.array(ClientAuthMethod$inboundSchema),
+    ).optional(),
+    introspectionEndpoint: z.nullable(z.string()).optional(),
     directIntrospectionEndpointEnabled: z.boolean().optional(),
-    supportedIntrospectionAuthMethods: z.array(ClientAuthMethod$inboundSchema)
-      .optional(),
-    pushedAuthReqEndpoint: z.string().optional(),
+    supportedIntrospectionAuthMethods: z.nullable(
+      z.array(ClientAuthMethod$inboundSchema),
+    ).optional(),
+    pushedAuthReqEndpoint: z.nullable(z.string()).optional(),
     pushedAuthReqDuration: z.number().int().optional(),
     parRequired: z.boolean().optional(),
     requestObjectRequired: z.boolean().optional(),
     traditionalRequestObjectProcessingApplied: z.boolean().optional(),
     mutualTlsValidatePkiCertChain: z.boolean().optional(),
-    trustedRootCertificates: z.array(z.string()).optional(),
-    mtlsEndpointAliases: z.array(NamedUri$inboundSchema).optional(),
-    accessTokenType: z.string().optional(),
+    trustedRootCertificates: z.nullable(z.array(z.string())).optional(),
+    mtlsEndpointAliases: z.nullable(z.array(NamedUri$inboundSchema)).optional(),
+    accessTokenType: z.nullable(z.string()).optional(),
     tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
     accessTokenDuration: z.number().int().optional(),
     singleAccessTokenPerSubject: z.boolean().optional(),
     accessTokenSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
-    accessTokenSignatureKeyId: z.string().optional(),
+    accessTokenSignatureKeyId: z.nullable(z.string()).optional(),
     refreshTokenDuration: z.number().int().optional(),
     refreshTokenDurationKept: z.boolean().optional(),
     refreshTokenDurationReset: z.boolean().optional(),
     refreshTokenKept: z.boolean().optional(),
-    supportedScopes: z.array(Scope$inboundSchema).optional(),
+    supportedScopes: z.nullable(z.array(Scope$inboundSchema)).optional(),
     scopeRequired: z.boolean().optional(),
     idTokenDuration: z.number().int().optional(),
     allowableClockSkew: z.number().int().optional(),
-    supportedClaimTypes: z.array(ClaimType$inboundSchema).optional(),
-    supportedClaimLocales: z.array(z.string()).optional(),
-    supportedClaims: z.array(z.string()).optional(),
+    supportedClaimTypes: z.nullable(z.array(ClaimType$inboundSchema))
+      .optional(),
+    supportedClaimLocales: z.nullable(z.array(z.string())).optional(),
+    supportedClaims: z.nullable(z.array(z.string())).optional(),
     claimShortcutRestrictive: z.boolean().optional(),
-    jwksUri: z.string().optional(),
+    jwksUri: z.nullable(z.string()).optional(),
     directJwksEndpointEnabled: z.boolean().optional(),
-    jwks: z.string().optional(),
-    idTokenSignatureKeyId: z.string().optional(),
-    userInfoSignatureKeyId: z.string().optional(),
-    authorizationSignatureKeyId: z.string().optional(),
-    userInfoEndpoint: z.string().optional(),
+    jwks: z.nullable(z.string()).optional(),
+    idTokenSignatureKeyId: z.nullable(z.string()).optional(),
+    userInfoSignatureKeyId: z.nullable(z.string()).optional(),
+    authorizationSignatureKeyId: z.nullable(z.string()).optional(),
+    userInfoEndpoint: z.nullable(z.string()).optional(),
     directUserInfoEndpointEnabled: z.boolean().optional(),
     dynamicRegistrationSupported: z.boolean().optional(),
-    registrationEndpoint: z.string().optional(),
-    registrationManagementEndpoint: z.string().optional(),
-    policyUri: z.string().optional(),
-    tosUri: z.string().optional(),
-    serviceDocumentation: z.string().optional(),
-    backchannelAuthenticationEndpoint: z.string().optional(),
-    supportedBackchannelTokenDeliveryModes: z.array(DeliveryMode$inboundSchema)
-      .optional(),
+    registrationEndpoint: z.nullable(z.string()).optional(),
+    registrationManagementEndpoint: z.nullable(z.string()).optional(),
+    policyUri: z.nullable(z.string()).optional(),
+    tosUri: z.nullable(z.string()).optional(),
+    serviceDocumentation: z.nullable(z.string()).optional(),
+    backchannelAuthenticationEndpoint: z.nullable(z.string()).optional(),
+    supportedBackchannelTokenDeliveryModes: z.nullable(
+      z.array(DeliveryMode$inboundSchema),
+    ).optional(),
     backchannelAuthReqIdDuration: z.number().int().optional(),
     backchannelPollingInterval: z.number().int().optional(),
     backchannelUserCodeParameterSupported: z.boolean().optional(),
     backchannelBindingMessageRequiredInFapi: z.boolean().optional(),
-    deviceAuthorizationEndpoint: z.string().optional(),
-    deviceVerificationUri: z.string().optional(),
-    deviceVerificationUriComplete: z.string().optional(),
+    deviceAuthorizationEndpoint: z.nullable(z.string()).optional(),
+    deviceVerificationUri: z.nullable(z.string()).optional(),
+    deviceVerificationUriComplete: z.nullable(z.string()).optional(),
     deviceFlowCodeDuration: z.number().int().optional(),
     deviceFlowPollingInterval: z.number().int().optional(),
-    userCodeCharset: UserCodeCharset$inboundSchema.optional(),
+    userCodeCharset: z.nullable(UserCodeCharset$inboundSchema).optional(),
     userCodeLength: z.number().int().optional(),
-    supportedTrustFrameworks: z.array(z.string()).optional(),
-    supportedEvidence: z.array(z.string()).optional(),
-    supportedIdentityDocuments: z.array(z.string()).optional(),
-    supportedVerificationMethods: z.array(z.string()).optional(),
-    supportedVerifiedClaims: z.array(z.string()).optional(),
+    supportedTrustFrameworks: z.nullable(z.array(z.string())).optional(),
+    supportedEvidence: z.nullable(z.array(z.string())).optional(),
+    supportedIdentityDocuments: z.nullable(z.array(z.string())).optional(),
+    supportedVerificationMethods: z.nullable(z.array(z.string())).optional(),
+    supportedVerifiedClaims: z.nullable(z.array(z.string())).optional(),
     verifiedClaimsValidationSchemaSet:
       VerifiedClaimsValidationSchema$inboundSchema.optional(),
-    attributes: z.array(Pair$inboundSchema).optional(),
+    attributes: z.nullable(z.array(Pair$inboundSchema)).optional(),
     nbfOptional: z.boolean().optional(),
     issSuppressed: z.boolean().optional(),
-    supportedCustomClientMetadata: z.array(z.string()).optional(),
+    supportedCustomClientMetadata: z.nullable(z.array(z.string())).optional(),
     tokenExpirationLinked: z.boolean().optional(),
     frontChannelRequestObjectEncryptionRequired: z.boolean().optional(),
     requestObjectEncryptionAlgMatchRequired: z.boolean().optional(),
     requestObjectEncryptionEncMatchRequired: z.boolean().optional(),
     hsmEnabled: z.boolean().optional(),
-    hsks: z.array(Hsk$inboundSchema).optional(),
-    grantManagementEndpoint: z.string().optional(),
+    hsks: z.nullable(z.array(Hsk$inboundSchema)).optional(),
+    grantManagementEndpoint: z.nullable(z.string()).optional(),
     grantManagementActionRequired: z.boolean().optional(),
     unauthorizedOnClientConfigSupported: z.boolean().optional(),
     dcrScopeUsedAsRequestable: z.boolean().optional(),
-    endSessionEndpoint: z.string().optional(),
+    endSessionEndpoint: z.nullable(z.string()).optional(),
+    challengeEndpoint: z.nullable(z.string()).optional(),
     loopbackRedirectionUriVariable: z.boolean().optional(),
     requestObjectAudienceChecked: z.boolean().optional(),
     accessTokenForExternalAttachmentEmbedded: z.boolean().optional(),
-    authorityHints: z.array(z.string()).optional(),
+    authorityHints: z.nullable(z.array(z.string())).optional(),
     federationEnabled: z.boolean().optional(),
-    federationJwks: z.string().optional(),
-    federationSignatureKeyId: z.string().optional(),
+    federationJwks: z.nullable(z.string()).optional(),
+    federationSignatureKeyId: z.nullable(z.string()).optional(),
     federationConfigurationDuration: z.number().int().optional(),
-    federationRegistrationEndpoint: z.string().optional(),
-    organizationName: z.string().optional(),
-    predefinedTransformedClaims: z.string().optional(),
+    federationRegistrationEndpoint: z.nullable(z.string()).optional(),
+    organizationName: z.nullable(z.string()).optional(),
+    predefinedTransformedClaims: z.nullable(z.string()).optional(),
     refreshTokenIdempotent: z.boolean().optional(),
-    signedJwksUri: z.string().optional(),
-    supportedAttachments: z.array(AttachmentType$inboundSchema).optional(),
-    supportedDigestAlgorithms: z.array(z.string()).optional(),
-    supportedDocuments: z.array(z.string()).optional(),
-    supportedDocumentsMethods: z.array(z.string()).optional(),
-    supportedDocumentsValidationMethods: z.array(z.string()).optional(),
-    supportedDocumentsVerificationMethods: z.array(z.string()).optional(),
-    supportedElectronicRecords: z.array(z.string()).optional(),
-    supportedClientRegistrationTypes: z.array(
-      ClientRegistrationType$inboundSchema,
+    signedJwksUri: z.nullable(z.string()).optional(),
+    supportedAttachments: z.nullable(z.array(AttachmentType$inboundSchema))
+      .optional(),
+    supportedDigestAlgorithms: z.nullable(z.array(z.string())).optional(),
+    supportedDocuments: z.nullable(z.array(z.string())).optional(),
+    supportedDocumentsMethods: z.nullable(z.array(z.string())).optional(),
+    supportedDocumentsValidationMethods: z.nullable(z.array(z.string()))
+      .optional(),
+    supportedDocumentsVerificationMethods: z.nullable(z.array(z.string()))
+      .optional(),
+    supportedElectronicRecords: z.nullable(z.array(z.string())).optional(),
+    supportedClientRegistrationTypes: z.nullable(
+      z.array(ClientRegistrationType$inboundSchema),
     ).optional(),
     tokenExchangeByIdentifiableClientsOnly: z.boolean().optional(),
     tokenExchangeByConfidentialClientsOnly: z.boolean().optional(),
@@ -3236,48 +3021,52 @@ export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
     jwtGrantEncryptedJwtRejected: z.boolean().optional(),
     jwtGrantUnsignedJwtRejected: z.boolean().optional(),
     dcrDuplicateSoftwareIdBlocked: z.boolean().optional(),
-    trustAnchors: z.array(TrustAnchor$inboundSchema).optional(),
+    trustAnchors: z.nullable(z.array(TrustAnchor$inboundSchema)).optional(),
     openidDroppedOnRefreshWithoutOfflineAccess: z.boolean().optional(),
-    supportedDocumentsCheckMethods: z.array(z.string()).optional(),
+    idTokenDroppedOnIssueWithoutOpenid: z.boolean().optional(),
+    supportedDocumentsCheckMethods: z.nullable(z.array(z.string())).optional(),
     rsResponseSigned: z.boolean().optional(),
     cnonceDuration: z.number().int().optional(),
     dpopNonceRequired: z.boolean().optional(),
     verifiableCredentialsEnabled: z.boolean().optional(),
-    credentialJwksUri: z.string().optional(),
+    credentialJwksUri: z.nullable(z.string()).optional(),
     credentialOfferDuration: z.number().int().optional(),
     dpopNonceDuration: z.number().int().optional(),
     preAuthorizedGrantAnonymousAccessSupported: z.boolean().optional(),
     credentialTransactionDuration: z.number().int().optional(),
-    introspectionSignatureKeyId: z.string().optional(),
-    resourceSignatureKeyId: z.string().optional(),
+    introspectionSignatureKeyId: z.nullable(z.string()).optional(),
+    resourceSignatureKeyId: z.nullable(z.string()).optional(),
     userPinLength: z.number().int().optional(),
-    supportedPromptValues: z.array(Prompt$inboundSchema).optional(),
+    supportedPromptValues: z.nullable(z.array(Prompt$inboundSchema)).optional(),
     idTokenReissuable: z.boolean().optional(),
-    credentialJwks: z.string().optional(),
-    fapiModes: z.array(FapiMode$inboundSchema).optional(),
+    credentialJwks: z.nullable(z.string()).optional(),
+    fapiModes: z.nullable(z.array(FapiMode$inboundSchema)).optional(),
     credentialDuration: z.number().int().optional(),
-    credentialIssuerMetadata: CredentialIssuerMetadata$inboundSchema.optional(),
-    idTokenAudType: z.string().optional(),
+    credentialIssuerMetadata: z.nullable(
+      z.lazy(() => CredentialIssuerMetadata$inboundSchema),
+    ).optional(),
+    idTokenAudType: z.nullable(z.string()).optional(),
     nativeSsoSupported: z.boolean().optional(),
-    oid4vciVersion: z.string().optional(),
+    oid4vciVersion: z.nullable(z.string()).optional(),
     cimdMetadataPolicyEnabled: z.boolean().optional(),
     clientIdMetadataDocumentSupported: z.boolean().optional(),
     cimdAllowlistEnabled: z.boolean().optional(),
-    cimdAllowlist: z.array(z.string()).optional(),
+    cimdAllowlist: z.nullable(z.array(z.string())).optional(),
     cimdAlwaysRetrieved: z.boolean().optional(),
     cimdHttpPermitted: z.boolean().optional(),
     cimdQueryPermitted: z.boolean().optional(),
-    cimdMetadataPolicy: z.string().optional(),
+    cimdMetadataPolicy: z.nullable(z.string()).optional(),
     httpAliasProhibited: z.boolean().optional(),
     attestationChallengeTimeWindow: z.number().int().optional(),
     clientAttesterRootsEnabled: z.boolean().optional(),
     clientAttesterRootsOnly: z.boolean().optional(),
     keyAttesterRootsEnabled: z.boolean().optional(),
     keyAttesterRootsOnly: z.boolean().optional(),
-    clientAttesterRoots: z.array(z.string()).optional(),
-    keyAttesterRoots: z.array(z.string()).optional(),
+    clientAttesterRoots: z.nullable(z.array(z.string())).optional(),
+    keyAttesterRoots: z.nullable(z.array(z.string())).optional(),
     backchannelLogoutSupported: z.boolean().optional(),
     backchannelLogoutSessionSupported: z.boolean().optional(),
+    haipVersion: z.nullable(z.string()).optional(),
   });
 
 export function serviceFromJSON(
@@ -3292,141 +3081,132 @@ export function serviceFromJSON(
 
 /** @internal */
 export type ServiceInput$Outbound = {
-  serviceName?: string | undefined;
-  issuer?: string | undefined;
-  description?: string | undefined;
-  tokenBatchNotificationEndpoint?: string | undefined;
+  serviceName?: string | null | undefined;
+  issuer?: string | null | undefined;
+  description?: string | null | undefined;
   clientAssertionAudRestrictedToIssuer?: boolean | undefined;
   clientsPerDeveloper?: number | undefined;
-  developerAuthenticationCallbackEndpoint?: string | undefined;
-  developerAuthenticationCallbackApiKey?: string | undefined;
-  developerAuthenticationCallbackApiSecret?: string | undefined;
-  supportedSnses?: Array<string> | undefined;
-  snsCredentials?: Array<SnsCredentials$Outbound> | undefined;
-  clientIdAliasEnabled?: boolean | undefined;
-  metadata?: Array<Pair$Outbound> | undefined;
-  authenticationCallbackEndpoint?: string | undefined;
-  authenticationCallbackApiKey?: string | undefined;
-  authenticationCallbackApiSecret?: string | undefined;
-  supportedGrantTypes?: Array<string> | undefined;
-  supportedResponseTypes?: Array<string> | undefined;
-  supportedAuthorizationDetailsTypes?: Array<string> | undefined;
-  supportedServiceProfiles?: Array<string> | undefined;
+  snsCredentials?: Array<SnsCredentials$Outbound> | null | undefined;
+  supportedDeveloperSnses?: Array<string> | null | undefined;
+  developerSnsCredentials?: Array<SnsCredentials$Outbound> | null | undefined;
+  metadata?: Array<Pair$Outbound> | null | undefined;
+  authenticationCallbackEndpoint?: string | null | undefined;
+  authenticationCallbackApiKey?: string | null | undefined;
+  authenticationCallbackApiSecret?: string | null | undefined;
+  supportedGrantTypes?: Array<string> | null | undefined;
+  supportedResponseTypes?: Array<string> | null | undefined;
+  supportedAuthorizationDetailsTypes?: Array<string> | null | undefined;
+  supportedServiceProfiles?: Array<string> | null | undefined;
   errorDescriptionOmitted?: boolean | undefined;
   errorUriOmitted?: boolean | undefined;
-  authorizationEndpoint?: string | undefined;
-  directAuthorizationEndpointEnabled?: boolean | undefined;
-  supportedUiLocales?: Array<string> | undefined;
-  supportedDisplays?: Array<string> | undefined;
+  authorizationEndpoint?: string | null | undefined;
+  supportedUiLocales?: Array<string> | null | undefined;
+  supportedDisplays?: Array<string> | null | undefined;
   pkceRequired?: boolean | undefined;
   pkceS256Required?: boolean | undefined;
   authorizationResponseDuration?: number | undefined;
   authorizationCodeDuration?: number | undefined;
-  tokenEndpoint?: string | undefined;
-  directTokenEndpointEnabled?: boolean | undefined;
-  supportedTokenAuthMethods?: Array<string> | undefined;
+  tokenEndpoint?: string | null | undefined;
+  supportedTokenAuthMethods?: Array<string> | null | undefined;
   missingClientIdAllowed?: boolean | undefined;
-  revocationEndpoint?: string | undefined;
-  directRevocationEndpointEnabled?: boolean | undefined;
-  supportedRevocationAuthMethods?: Array<string> | undefined;
-  introspectionEndpoint?: string | undefined;
-  directIntrospectionEndpointEnabled?: boolean | undefined;
-  supportedIntrospectionAuthMethods?: Array<string> | undefined;
-  pushedAuthReqEndpoint?: string | undefined;
+  revocationEndpoint?: string | null | undefined;
+  supportedRevocationAuthMethods?: Array<string> | null | undefined;
+  introspectionEndpoint?: string | null | undefined;
+  supportedIntrospectionAuthMethods?: Array<string> | null | undefined;
+  pushedAuthReqEndpoint?: string | null | undefined;
   pushedAuthReqDuration?: number | undefined;
   parRequired?: boolean | undefined;
   requestObjectRequired?: boolean | undefined;
   traditionalRequestObjectProcessingApplied?: boolean | undefined;
   mutualTlsValidatePkiCertChain?: boolean | undefined;
-  trustedRootCertificates?: Array<string> | undefined;
-  mtlsEndpointAliases?: Array<NamedUri$Outbound> | undefined;
-  accessTokenType?: string | undefined;
+  trustedRootCertificates?: Array<string> | null | undefined;
+  mtlsEndpointAliases?: Array<NamedUri$Outbound> | null | undefined;
+  accessTokenType?: string | null | undefined;
   tlsClientCertificateBoundAccessTokens?: boolean | undefined;
   accessTokenDuration?: number | undefined;
   singleAccessTokenPerSubject?: boolean | undefined;
   accessTokenSignAlg?: string | null | undefined;
-  accessTokenSignatureKeyId?: string | undefined;
+  accessTokenSignatureKeyId?: string | null | undefined;
   refreshTokenDuration?: number | undefined;
   refreshTokenDurationKept?: boolean | undefined;
   refreshTokenDurationReset?: boolean | undefined;
   refreshTokenKept?: boolean | undefined;
-  supportedScopes?: Array<Scope$Outbound> | undefined;
+  supportedScopes?: Array<Scope$Outbound> | null | undefined;
   scopeRequired?: boolean | undefined;
   idTokenDuration?: number | undefined;
   allowableClockSkew?: number | undefined;
-  supportedClaimTypes?: Array<string> | undefined;
-  supportedClaimLocales?: Array<string> | undefined;
-  supportedClaims?: Array<string> | undefined;
+  supportedClaimTypes?: Array<string> | null | undefined;
+  supportedClaimLocales?: Array<string> | null | undefined;
+  supportedClaims?: Array<string> | null | undefined;
   claimShortcutRestrictive?: boolean | undefined;
-  jwksUri?: string | undefined;
-  directJwksEndpointEnabled?: boolean | undefined;
-  jwks?: string | undefined;
-  idTokenSignatureKeyId?: string | undefined;
-  userInfoSignatureKeyId?: string | undefined;
-  authorizationSignatureKeyId?: string | undefined;
-  userInfoEndpoint?: string | undefined;
-  directUserInfoEndpointEnabled?: boolean | undefined;
+  jwksUri?: string | null | undefined;
+  jwks?: string | null | undefined;
+  idTokenSignatureKeyId?: string | null | undefined;
+  userInfoSignatureKeyId?: string | null | undefined;
+  authorizationSignatureKeyId?: string | null | undefined;
+  userInfoEndpoint?: string | null | undefined;
   dynamicRegistrationSupported?: boolean | undefined;
-  registrationEndpoint?: string | undefined;
-  registrationManagementEndpoint?: string | undefined;
-  policyUri?: string | undefined;
-  tosUri?: string | undefined;
-  serviceDocumentation?: string | undefined;
-  backchannelAuthenticationEndpoint?: string | undefined;
-  supportedBackchannelTokenDeliveryModes?: Array<string> | undefined;
+  registrationEndpoint?: string | null | undefined;
+  registrationManagementEndpoint?: string | null | undefined;
+  policyUri?: string | null | undefined;
+  tosUri?: string | null | undefined;
+  serviceDocumentation?: string | null | undefined;
+  backchannelAuthenticationEndpoint?: string | null | undefined;
+  supportedBackchannelTokenDeliveryModes?: Array<string> | null | undefined;
   backchannelAuthReqIdDuration?: number | undefined;
   backchannelPollingInterval?: number | undefined;
   backchannelUserCodeParameterSupported?: boolean | undefined;
   backchannelBindingMessageRequiredInFapi?: boolean | undefined;
-  deviceAuthorizationEndpoint?: string | undefined;
-  deviceVerificationUri?: string | undefined;
-  deviceVerificationUriComplete?: string | undefined;
+  deviceAuthorizationEndpoint?: string | null | undefined;
+  deviceVerificationUri?: string | null | undefined;
+  deviceVerificationUriComplete?: string | null | undefined;
   deviceFlowCodeDuration?: number | undefined;
   deviceFlowPollingInterval?: number | undefined;
-  userCodeCharset?: string | undefined;
+  userCodeCharset?: string | null | undefined;
   userCodeLength?: number | undefined;
-  supportedTrustFrameworks?: Array<string> | undefined;
-  supportedEvidence?: Array<string> | undefined;
-  supportedIdentityDocuments?: Array<string> | undefined;
-  supportedVerificationMethods?: Array<string> | undefined;
-  supportedVerifiedClaims?: Array<string> | undefined;
+  supportedTrustFrameworks?: Array<string> | null | undefined;
+  supportedEvidence?: Array<string> | null | undefined;
+  supportedIdentityDocuments?: Array<string> | null | undefined;
+  supportedVerificationMethods?: Array<string> | null | undefined;
+  supportedVerifiedClaims?: Array<string> | null | undefined;
   verifiedClaimsValidationSchemaSet?: string | undefined;
-  attributes?: Array<Pair$Outbound> | undefined;
+  attributes?: Array<Pair$Outbound> | null | undefined;
   nbfOptional?: boolean | undefined;
   issSuppressed?: boolean | undefined;
-  supportedCustomClientMetadata?: Array<string> | undefined;
+  supportedCustomClientMetadata?: Array<string> | null | undefined;
   tokenExpirationLinked?: boolean | undefined;
   frontChannelRequestObjectEncryptionRequired?: boolean | undefined;
   requestObjectEncryptionAlgMatchRequired?: boolean | undefined;
   requestObjectEncryptionEncMatchRequired?: boolean | undefined;
   hsmEnabled?: boolean | undefined;
-  hsks?: Array<Hsk$Outbound> | undefined;
-  grantManagementEndpoint?: string | undefined;
+  hsks?: Array<Hsk$Outbound> | null | undefined;
+  grantManagementEndpoint?: string | null | undefined;
   grantManagementActionRequired?: boolean | undefined;
   unauthorizedOnClientConfigSupported?: boolean | undefined;
   dcrScopeUsedAsRequestable?: boolean | undefined;
-  endSessionEndpoint?: string | undefined;
+  endSessionEndpoint?: string | null | undefined;
+  challengeEndpoint?: string | null | undefined;
   loopbackRedirectionUriVariable?: boolean | undefined;
   requestObjectAudienceChecked?: boolean | undefined;
   accessTokenForExternalAttachmentEmbedded?: boolean | undefined;
-  authorityHints?: Array<string> | undefined;
+  authorityHints?: Array<string> | null | undefined;
   federationEnabled?: boolean | undefined;
-  federationJwks?: string | undefined;
-  federationSignatureKeyId?: string | undefined;
+  federationJwks?: string | null | undefined;
+  federationSignatureKeyId?: string | null | undefined;
   federationConfigurationDuration?: number | undefined;
-  federationRegistrationEndpoint?: string | undefined;
-  organizationName?: string | undefined;
-  predefinedTransformedClaims?: string | undefined;
+  federationRegistrationEndpoint?: string | null | undefined;
+  organizationName?: string | null | undefined;
+  predefinedTransformedClaims?: string | null | undefined;
   refreshTokenIdempotent?: boolean | undefined;
-  signedJwksUri?: string | undefined;
-  supportedAttachments?: Array<string> | undefined;
-  supportedDigestAlgorithms?: Array<string> | undefined;
-  supportedDocuments?: Array<string> | undefined;
-  supportedDocumentsMethods?: Array<string> | undefined;
-  supportedDocumentsValidationMethods?: Array<string> | undefined;
-  supportedDocumentsVerificationMethods?: Array<string> | undefined;
-  supportedElectronicRecords?: Array<string> | undefined;
-  supportedClientRegistrationTypes?: Array<string> | undefined;
+  signedJwksUri?: string | null | undefined;
+  supportedAttachments?: Array<string> | null | undefined;
+  supportedDigestAlgorithms?: Array<string> | null | undefined;
+  supportedDocuments?: Array<string> | null | undefined;
+  supportedDocumentsMethods?: Array<string> | null | undefined;
+  supportedDocumentsValidationMethods?: Array<string> | null | undefined;
+  supportedDocumentsVerificationMethods?: Array<string> | null | undefined;
+  supportedElectronicRecords?: Array<string> | null | undefined;
+  supportedClientRegistrationTypes?: Array<string> | null | undefined;
   tokenExchangeByIdentifiableClientsOnly?: boolean | undefined;
   tokenExchangeByConfidentialClientsOnly?: boolean | undefined;
   tokenExchangeByPermittedClientsOnly?: boolean | undefined;
@@ -3436,48 +3216,53 @@ export type ServiceInput$Outbound = {
   jwtGrantEncryptedJwtRejected?: boolean | undefined;
   jwtGrantUnsignedJwtRejected?: boolean | undefined;
   dcrDuplicateSoftwareIdBlocked?: boolean | undefined;
-  trustAnchors?: Array<TrustAnchor$Outbound> | undefined;
+  trustAnchors?: Array<TrustAnchor$Outbound> | null | undefined;
   openidDroppedOnRefreshWithoutOfflineAccess?: boolean | undefined;
-  supportedDocumentsCheckMethods?: Array<string> | undefined;
+  idTokenDroppedOnIssueWithoutOpenid?: boolean | undefined;
+  supportedDocumentsCheckMethods?: Array<string> | null | undefined;
   rsResponseSigned?: boolean | undefined;
   cnonceDuration?: number | undefined;
   dpopNonceRequired?: boolean | undefined;
   verifiableCredentialsEnabled?: boolean | undefined;
-  credentialJwksUri?: string | undefined;
+  credentialJwksUri?: string | null | undefined;
   credentialOfferDuration?: number | undefined;
   dpopNonceDuration?: number | undefined;
   preAuthorizedGrantAnonymousAccessSupported?: boolean | undefined;
   credentialTransactionDuration?: number | undefined;
-  introspectionSignatureKeyId?: string | undefined;
-  resourceSignatureKeyId?: string | undefined;
+  introspectionSignatureKeyId?: string | null | undefined;
+  resourceSignatureKeyId?: string | null | undefined;
   userPinLength?: number | undefined;
-  supportedPromptValues?: Array<string> | undefined;
+  supportedPromptValues?: Array<string> | null | undefined;
   idTokenReissuable?: boolean | undefined;
-  credentialJwks?: string | undefined;
-  fapiModes?: Array<string> | undefined;
+  credentialJwks?: string | null | undefined;
+  fapiModes?: Array<string> | null | undefined;
   credentialDuration?: number | undefined;
-  credentialIssuerMetadata?: CredentialIssuerMetadata$Outbound | undefined;
-  idTokenAudType?: string | undefined;
+  credentialIssuerMetadata?:
+    | CredentialIssuerMetadata$Outbound
+    | null
+    | undefined;
+  idTokenAudType?: string | null | undefined;
   nativeSsoSupported?: boolean | undefined;
-  oid4vciVersion?: string | undefined;
+  oid4vciVersion?: string | null | undefined;
   cimdMetadataPolicyEnabled?: boolean | undefined;
   clientIdMetadataDocumentSupported?: boolean | undefined;
   cimdAllowlistEnabled?: boolean | undefined;
-  cimdAllowlist?: Array<string> | undefined;
+  cimdAllowlist?: Array<string> | null | undefined;
   cimdAlwaysRetrieved?: boolean | undefined;
   cimdHttpPermitted?: boolean | undefined;
   cimdQueryPermitted?: boolean | undefined;
-  cimdMetadataPolicy?: string | undefined;
+  cimdMetadataPolicy?: string | null | undefined;
   httpAliasProhibited?: boolean | undefined;
   attestationChallengeTimeWindow?: number | undefined;
   clientAttesterRootsEnabled?: boolean | undefined;
   clientAttesterRootsOnly?: boolean | undefined;
   keyAttesterRootsEnabled?: boolean | undefined;
   keyAttesterRootsOnly?: boolean | undefined;
-  clientAttesterRoots?: Array<string> | undefined;
-  keyAttesterRoots?: Array<string> | undefined;
+  clientAttesterRoots?: Array<string> | null | undefined;
+  keyAttesterRoots?: Array<string> | null | undefined;
   backchannelLogoutSupported?: boolean | undefined;
   backchannelLogoutSessionSupported?: boolean | undefined;
+  haipVersion?: string | null | undefined;
 };
 
 /** @internal */
@@ -3486,147 +3271,151 @@ export const ServiceInput$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ServiceInput
 > = z.object({
-  serviceName: z.string().optional(),
-  issuer: z.string().optional(),
-  description: z.string().optional(),
-  tokenBatchNotificationEndpoint: z.string().optional(),
+  serviceName: z.nullable(z.string()).optional(),
+  issuer: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
   clientAssertionAudRestrictedToIssuer: z.boolean().optional(),
   clientsPerDeveloper: z.number().int().optional(),
-  developerAuthenticationCallbackEndpoint: z.string().optional(),
-  developerAuthenticationCallbackApiKey: z.string().optional(),
-  developerAuthenticationCallbackApiSecret: z.string().optional(),
-  supportedSnses: z.array(SupportedSnse$outboundSchema).optional(),
-  snsCredentials: z.array(SnsCredentials$outboundSchema).optional(),
-  clientIdAliasEnabled: z.boolean().optional(),
-  metadata: z.array(Pair$outboundSchema).optional(),
-  authenticationCallbackEndpoint: z.string().optional(),
-  authenticationCallbackApiKey: z.string().optional(),
-  authenticationCallbackApiSecret: z.string().optional(),
-  supportedGrantTypes: z.array(GrantType$outboundSchema).optional(),
-  supportedResponseTypes: z.array(ResponseType$outboundSchema).optional(),
-  supportedAuthorizationDetailsTypes: z.array(z.string()).optional(),
-  supportedServiceProfiles: z.array(ServiceProfile$outboundSchema).optional(),
+  snsCredentials: z.nullable(z.array(SnsCredentials$outboundSchema)).optional(),
+  supportedDeveloperSnses: z.nullable(
+    z.array(SupportedDeveloperSnse$outboundSchema),
+  ).optional(),
+  developerSnsCredentials: z.nullable(z.array(SnsCredentials$outboundSchema))
+    .optional(),
+  metadata: z.nullable(z.array(Pair$outboundSchema)).optional(),
+  authenticationCallbackEndpoint: z.nullable(z.string()).optional(),
+  authenticationCallbackApiKey: z.nullable(z.string()).optional(),
+  authenticationCallbackApiSecret: z.nullable(z.string()).optional(),
+  supportedGrantTypes: z.nullable(z.array(GrantType$outboundSchema)).optional(),
+  supportedResponseTypes: z.nullable(z.array(ResponseType$outboundSchema))
+    .optional(),
+  supportedAuthorizationDetailsTypes: z.nullable(z.array(z.string()))
+    .optional(),
+  supportedServiceProfiles: z.nullable(z.array(ServiceProfile$outboundSchema))
+    .optional(),
   errorDescriptionOmitted: z.boolean().optional(),
   errorUriOmitted: z.boolean().optional(),
-  authorizationEndpoint: z.string().optional(),
-  directAuthorizationEndpointEnabled: z.boolean().optional(),
-  supportedUiLocales: z.array(z.string()).optional(),
-  supportedDisplays: z.array(Display$outboundSchema).optional(),
+  authorizationEndpoint: z.nullable(z.string()).optional(),
+  supportedUiLocales: z.nullable(z.array(z.string())).optional(),
+  supportedDisplays: z.nullable(z.array(Display$outboundSchema)).optional(),
   pkceRequired: z.boolean().optional(),
   pkceS256Required: z.boolean().optional(),
   authorizationResponseDuration: z.number().int().optional(),
   authorizationCodeDuration: z.number().int().optional(),
-  tokenEndpoint: z.string().optional(),
-  directTokenEndpointEnabled: z.boolean().optional(),
-  supportedTokenAuthMethods: z.array(ClientAuthMethod$outboundSchema)
-    .optional(),
+  tokenEndpoint: z.nullable(z.string()).optional(),
+  supportedTokenAuthMethods: z.nullable(
+    z.array(ClientAuthMethod$outboundSchema),
+  ).optional(),
   missingClientIdAllowed: z.boolean().optional(),
-  revocationEndpoint: z.string().optional(),
-  directRevocationEndpointEnabled: z.boolean().optional(),
-  supportedRevocationAuthMethods: z.array(ClientAuthMethod$outboundSchema)
-    .optional(),
-  introspectionEndpoint: z.string().optional(),
-  directIntrospectionEndpointEnabled: z.boolean().optional(),
-  supportedIntrospectionAuthMethods: z.array(ClientAuthMethod$outboundSchema)
-    .optional(),
-  pushedAuthReqEndpoint: z.string().optional(),
+  revocationEndpoint: z.nullable(z.string()).optional(),
+  supportedRevocationAuthMethods: z.nullable(
+    z.array(ClientAuthMethod$outboundSchema),
+  ).optional(),
+  introspectionEndpoint: z.nullable(z.string()).optional(),
+  supportedIntrospectionAuthMethods: z.nullable(
+    z.array(ClientAuthMethod$outboundSchema),
+  ).optional(),
+  pushedAuthReqEndpoint: z.nullable(z.string()).optional(),
   pushedAuthReqDuration: z.number().int().optional(),
   parRequired: z.boolean().optional(),
   requestObjectRequired: z.boolean().optional(),
   traditionalRequestObjectProcessingApplied: z.boolean().optional(),
   mutualTlsValidatePkiCertChain: z.boolean().optional(),
-  trustedRootCertificates: z.array(z.string()).optional(),
-  mtlsEndpointAliases: z.array(NamedUri$outboundSchema).optional(),
-  accessTokenType: z.string().optional(),
+  trustedRootCertificates: z.nullable(z.array(z.string())).optional(),
+  mtlsEndpointAliases: z.nullable(z.array(NamedUri$outboundSchema)).optional(),
+  accessTokenType: z.nullable(z.string()).optional(),
   tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
   accessTokenDuration: z.number().int().optional(),
   singleAccessTokenPerSubject: z.boolean().optional(),
   accessTokenSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
-  accessTokenSignatureKeyId: z.string().optional(),
+  accessTokenSignatureKeyId: z.nullable(z.string()).optional(),
   refreshTokenDuration: z.number().int().optional(),
   refreshTokenDurationKept: z.boolean().optional(),
   refreshTokenDurationReset: z.boolean().optional(),
   refreshTokenKept: z.boolean().optional(),
-  supportedScopes: z.array(Scope$outboundSchema).optional(),
+  supportedScopes: z.nullable(z.array(Scope$outboundSchema)).optional(),
   scopeRequired: z.boolean().optional(),
   idTokenDuration: z.number().int().optional(),
   allowableClockSkew: z.number().int().optional(),
-  supportedClaimTypes: z.array(ClaimType$outboundSchema).optional(),
-  supportedClaimLocales: z.array(z.string()).optional(),
-  supportedClaims: z.array(z.string()).optional(),
+  supportedClaimTypes: z.nullable(z.array(ClaimType$outboundSchema)).optional(),
+  supportedClaimLocales: z.nullable(z.array(z.string())).optional(),
+  supportedClaims: z.nullable(z.array(z.string())).optional(),
   claimShortcutRestrictive: z.boolean().optional(),
-  jwksUri: z.string().optional(),
-  directJwksEndpointEnabled: z.boolean().optional(),
-  jwks: z.string().optional(),
-  idTokenSignatureKeyId: z.string().optional(),
-  userInfoSignatureKeyId: z.string().optional(),
-  authorizationSignatureKeyId: z.string().optional(),
-  userInfoEndpoint: z.string().optional(),
-  directUserInfoEndpointEnabled: z.boolean().optional(),
+  jwksUri: z.nullable(z.string()).optional(),
+  jwks: z.nullable(z.string()).optional(),
+  idTokenSignatureKeyId: z.nullable(z.string()).optional(),
+  userInfoSignatureKeyId: z.nullable(z.string()).optional(),
+  authorizationSignatureKeyId: z.nullable(z.string()).optional(),
+  userInfoEndpoint: z.nullable(z.string()).optional(),
   dynamicRegistrationSupported: z.boolean().optional(),
-  registrationEndpoint: z.string().optional(),
-  registrationManagementEndpoint: z.string().optional(),
-  policyUri: z.string().optional(),
-  tosUri: z.string().optional(),
-  serviceDocumentation: z.string().optional(),
-  backchannelAuthenticationEndpoint: z.string().optional(),
-  supportedBackchannelTokenDeliveryModes: z.array(DeliveryMode$outboundSchema)
-    .optional(),
+  registrationEndpoint: z.nullable(z.string()).optional(),
+  registrationManagementEndpoint: z.nullable(z.string()).optional(),
+  policyUri: z.nullable(z.string()).optional(),
+  tosUri: z.nullable(z.string()).optional(),
+  serviceDocumentation: z.nullable(z.string()).optional(),
+  backchannelAuthenticationEndpoint: z.nullable(z.string()).optional(),
+  supportedBackchannelTokenDeliveryModes: z.nullable(
+    z.array(DeliveryMode$outboundSchema),
+  ).optional(),
   backchannelAuthReqIdDuration: z.number().int().optional(),
   backchannelPollingInterval: z.number().int().optional(),
   backchannelUserCodeParameterSupported: z.boolean().optional(),
   backchannelBindingMessageRequiredInFapi: z.boolean().optional(),
-  deviceAuthorizationEndpoint: z.string().optional(),
-  deviceVerificationUri: z.string().optional(),
-  deviceVerificationUriComplete: z.string().optional(),
+  deviceAuthorizationEndpoint: z.nullable(z.string()).optional(),
+  deviceVerificationUri: z.nullable(z.string()).optional(),
+  deviceVerificationUriComplete: z.nullable(z.string()).optional(),
   deviceFlowCodeDuration: z.number().int().optional(),
   deviceFlowPollingInterval: z.number().int().optional(),
-  userCodeCharset: UserCodeCharset$outboundSchema.optional(),
+  userCodeCharset: z.nullable(UserCodeCharset$outboundSchema).optional(),
   userCodeLength: z.number().int().optional(),
-  supportedTrustFrameworks: z.array(z.string()).optional(),
-  supportedEvidence: z.array(z.string()).optional(),
-  supportedIdentityDocuments: z.array(z.string()).optional(),
-  supportedVerificationMethods: z.array(z.string()).optional(),
-  supportedVerifiedClaims: z.array(z.string()).optional(),
+  supportedTrustFrameworks: z.nullable(z.array(z.string())).optional(),
+  supportedEvidence: z.nullable(z.array(z.string())).optional(),
+  supportedIdentityDocuments: z.nullable(z.array(z.string())).optional(),
+  supportedVerificationMethods: z.nullable(z.array(z.string())).optional(),
+  supportedVerifiedClaims: z.nullable(z.array(z.string())).optional(),
   verifiedClaimsValidationSchemaSet:
     VerifiedClaimsValidationSchema$outboundSchema.optional(),
-  attributes: z.array(Pair$outboundSchema).optional(),
+  attributes: z.nullable(z.array(Pair$outboundSchema)).optional(),
   nbfOptional: z.boolean().optional(),
   issSuppressed: z.boolean().optional(),
-  supportedCustomClientMetadata: z.array(z.string()).optional(),
+  supportedCustomClientMetadata: z.nullable(z.array(z.string())).optional(),
   tokenExpirationLinked: z.boolean().optional(),
   frontChannelRequestObjectEncryptionRequired: z.boolean().optional(),
   requestObjectEncryptionAlgMatchRequired: z.boolean().optional(),
   requestObjectEncryptionEncMatchRequired: z.boolean().optional(),
   hsmEnabled: z.boolean().optional(),
-  hsks: z.array(Hsk$outboundSchema).optional(),
-  grantManagementEndpoint: z.string().optional(),
+  hsks: z.nullable(z.array(Hsk$outboundSchema)).optional(),
+  grantManagementEndpoint: z.nullable(z.string()).optional(),
   grantManagementActionRequired: z.boolean().optional(),
   unauthorizedOnClientConfigSupported: z.boolean().optional(),
   dcrScopeUsedAsRequestable: z.boolean().optional(),
-  endSessionEndpoint: z.string().optional(),
+  endSessionEndpoint: z.nullable(z.string()).optional(),
+  challengeEndpoint: z.nullable(z.string()).optional(),
   loopbackRedirectionUriVariable: z.boolean().optional(),
   requestObjectAudienceChecked: z.boolean().optional(),
   accessTokenForExternalAttachmentEmbedded: z.boolean().optional(),
-  authorityHints: z.array(z.string()).optional(),
+  authorityHints: z.nullable(z.array(z.string())).optional(),
   federationEnabled: z.boolean().optional(),
-  federationJwks: z.string().optional(),
-  federationSignatureKeyId: z.string().optional(),
+  federationJwks: z.nullable(z.string()).optional(),
+  federationSignatureKeyId: z.nullable(z.string()).optional(),
   federationConfigurationDuration: z.number().int().optional(),
-  federationRegistrationEndpoint: z.string().optional(),
-  organizationName: z.string().optional(),
-  predefinedTransformedClaims: z.string().optional(),
+  federationRegistrationEndpoint: z.nullable(z.string()).optional(),
+  organizationName: z.nullable(z.string()).optional(),
+  predefinedTransformedClaims: z.nullable(z.string()).optional(),
   refreshTokenIdempotent: z.boolean().optional(),
-  signedJwksUri: z.string().optional(),
-  supportedAttachments: z.array(AttachmentType$outboundSchema).optional(),
-  supportedDigestAlgorithms: z.array(z.string()).optional(),
-  supportedDocuments: z.array(z.string()).optional(),
-  supportedDocumentsMethods: z.array(z.string()).optional(),
-  supportedDocumentsValidationMethods: z.array(z.string()).optional(),
-  supportedDocumentsVerificationMethods: z.array(z.string()).optional(),
-  supportedElectronicRecords: z.array(z.string()).optional(),
-  supportedClientRegistrationTypes: z.array(
-    ClientRegistrationType$outboundSchema,
+  signedJwksUri: z.nullable(z.string()).optional(),
+  supportedAttachments: z.nullable(z.array(AttachmentType$outboundSchema))
+    .optional(),
+  supportedDigestAlgorithms: z.nullable(z.array(z.string())).optional(),
+  supportedDocuments: z.nullable(z.array(z.string())).optional(),
+  supportedDocumentsMethods: z.nullable(z.array(z.string())).optional(),
+  supportedDocumentsValidationMethods: z.nullable(z.array(z.string()))
+    .optional(),
+  supportedDocumentsVerificationMethods: z.nullable(z.array(z.string()))
+    .optional(),
+  supportedElectronicRecords: z.nullable(z.array(z.string())).optional(),
+  supportedClientRegistrationTypes: z.nullable(
+    z.array(ClientRegistrationType$outboundSchema),
   ).optional(),
   tokenExchangeByIdentifiableClientsOnly: z.boolean().optional(),
   tokenExchangeByConfidentialClientsOnly: z.boolean().optional(),
@@ -3637,48 +3426,52 @@ export const ServiceInput$outboundSchema: z.ZodType<
   jwtGrantEncryptedJwtRejected: z.boolean().optional(),
   jwtGrantUnsignedJwtRejected: z.boolean().optional(),
   dcrDuplicateSoftwareIdBlocked: z.boolean().optional(),
-  trustAnchors: z.array(TrustAnchor$outboundSchema).optional(),
+  trustAnchors: z.nullable(z.array(TrustAnchor$outboundSchema)).optional(),
   openidDroppedOnRefreshWithoutOfflineAccess: z.boolean().optional(),
-  supportedDocumentsCheckMethods: z.array(z.string()).optional(),
+  idTokenDroppedOnIssueWithoutOpenid: z.boolean().optional(),
+  supportedDocumentsCheckMethods: z.nullable(z.array(z.string())).optional(),
   rsResponseSigned: z.boolean().optional(),
   cnonceDuration: z.number().int().optional(),
   dpopNonceRequired: z.boolean().optional(),
   verifiableCredentialsEnabled: z.boolean().optional(),
-  credentialJwksUri: z.string().optional(),
+  credentialJwksUri: z.nullable(z.string()).optional(),
   credentialOfferDuration: z.number().int().optional(),
   dpopNonceDuration: z.number().int().optional(),
   preAuthorizedGrantAnonymousAccessSupported: z.boolean().optional(),
   credentialTransactionDuration: z.number().int().optional(),
-  introspectionSignatureKeyId: z.string().optional(),
-  resourceSignatureKeyId: z.string().optional(),
+  introspectionSignatureKeyId: z.nullable(z.string()).optional(),
+  resourceSignatureKeyId: z.nullable(z.string()).optional(),
   userPinLength: z.number().int().optional(),
-  supportedPromptValues: z.array(Prompt$outboundSchema).optional(),
+  supportedPromptValues: z.nullable(z.array(Prompt$outboundSchema)).optional(),
   idTokenReissuable: z.boolean().optional(),
-  credentialJwks: z.string().optional(),
-  fapiModes: z.array(FapiMode$outboundSchema).optional(),
+  credentialJwks: z.nullable(z.string()).optional(),
+  fapiModes: z.nullable(z.array(FapiMode$outboundSchema)).optional(),
   credentialDuration: z.number().int().optional(),
-  credentialIssuerMetadata: CredentialIssuerMetadata$outboundSchema.optional(),
-  idTokenAudType: z.string().optional(),
+  credentialIssuerMetadata: z.nullable(
+    z.lazy(() => CredentialIssuerMetadata$outboundSchema),
+  ).optional(),
+  idTokenAudType: z.nullable(z.string()).optional(),
   nativeSsoSupported: z.boolean().optional(),
-  oid4vciVersion: z.string().optional(),
+  oid4vciVersion: z.nullable(z.string()).optional(),
   cimdMetadataPolicyEnabled: z.boolean().optional(),
   clientIdMetadataDocumentSupported: z.boolean().optional(),
   cimdAllowlistEnabled: z.boolean().optional(),
-  cimdAllowlist: z.array(z.string()).optional(),
+  cimdAllowlist: z.nullable(z.array(z.string())).optional(),
   cimdAlwaysRetrieved: z.boolean().optional(),
   cimdHttpPermitted: z.boolean().optional(),
   cimdQueryPermitted: z.boolean().optional(),
-  cimdMetadataPolicy: z.string().optional(),
+  cimdMetadataPolicy: z.nullable(z.string()).optional(),
   httpAliasProhibited: z.boolean().optional(),
   attestationChallengeTimeWindow: z.number().int().optional(),
   clientAttesterRootsEnabled: z.boolean().optional(),
   clientAttesterRootsOnly: z.boolean().optional(),
   keyAttesterRootsEnabled: z.boolean().optional(),
   keyAttesterRootsOnly: z.boolean().optional(),
-  clientAttesterRoots: z.array(z.string()).optional(),
-  keyAttesterRoots: z.array(z.string()).optional(),
+  clientAttesterRoots: z.nullable(z.array(z.string())).optional(),
+  keyAttesterRoots: z.nullable(z.array(z.string())).optional(),
   backchannelLogoutSupported: z.boolean().optional(),
   backchannelLogoutSessionSupported: z.boolean().optional(),
+  haipVersion: z.nullable(z.string()).optional(),
 });
 
 export function serviceInputToJSON(serviceInput: ServiceInput): string {

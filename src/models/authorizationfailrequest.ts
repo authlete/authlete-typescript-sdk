@@ -6,10 +6,9 @@ import * as z from "zod/v3";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * The reason of the failure of the authorization request.
+ * The reason of the failure of the authorization request. For more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.
  *
  * @remarks
- * For more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.
  */
 export const AuthorizationFailRequestReason = {
   Unknown: "UNKNOWN",
@@ -25,12 +24,14 @@ export const AuthorizationFailRequestReason = {
   ConsentRequired: "CONSENT_REQUIRED",
   InteractionRequired: "INTERACTION_REQUIRED",
   InvalidTarget: "INVALID_TARGET",
+  TemporarilyUnavailable: "TEMPORARILY_UNAVAILABLE",
+  InvalidScope: "INVALID_SCOPE",
+  UnauthorizedClient: "UNAUTHORIZED_CLIENT",
 } as const;
 /**
- * The reason of the failure of the authorization request.
+ * The reason of the failure of the authorization request. For more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.
  *
  * @remarks
- * For more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.
  */
 export type AuthorizationFailRequestReason = ClosedEnum<
   typeof AuthorizationFailRequestReason
@@ -44,10 +45,9 @@ export type AuthorizationFailRequest = {
    */
   ticket: string;
   /**
-   * The reason of the failure of the authorization request.
+   * The reason of the failure of the authorization request. For more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.
    *
    * @remarks
-   * For more details, see [NO_INTERACTION] in the description of `/auth/authorization` API.
    */
   reason: AuthorizationFailRequestReason;
   /**

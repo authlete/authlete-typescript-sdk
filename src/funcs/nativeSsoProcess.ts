@@ -30,12 +30,7 @@ import { Result } from "../types/fp.js";
  * Native SSO Processing
  *
  * @remarks
- * This API should be called by the implementation of a token endpoint to generate the ID token and
- * token response that comply with [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
- * (Native SSO) when Authlete’s `/auth/token` response indicates `action = NATIVE_SSO` (after you validate
- * the session id and verify or generate the device secret as required by the flow). The token endpoint
- * implementation should retrieve the value of `action` from the response and take the following steps
- * according to the value.
+ * This API should be called by the implementation of a token endpoint to generate the ID token and token response that comply with [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) (Native SSO) when Authlete’s `/auth/token` response indicates `action = NATIVE_SSO` (after you validate the session id and verify or generate the device secret as required by the flow). The token endpoint implementation should retrieve the value of `action` from the response and take the following steps according to the value.
  */
 export function nativeSsoProcess(
   client: AuthleteCore,
@@ -97,10 +92,11 @@ async function $do(
   });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/nativesso")(pathParams);
 

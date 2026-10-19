@@ -30,8 +30,7 @@ import { Result } from "../types/fp.js";
  * Issue Token Response
  *
  * @remarks
- * This API generates a content of a successful token response that the authorization server implementation
- * returns to the client application.
+ * This API generates a content of a successful token response that the authorization server implementation returns to the client application.
  */
 export function tokenIssue(
   client: AuthleteCore,
@@ -93,10 +92,11 @@ async function $do(
   });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/auth/token/issue")(pathParams);
 

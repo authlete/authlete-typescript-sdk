@@ -30,9 +30,7 @@ import { Result } from "../types/fp.js";
  * Process Device Authorization Request
  *
  * @remarks
- * This API parses request parameters of a [device authorization request](https://datatracker.ietf.org/doc/html/rfc8628#section-3.1)
- * and returns necessary data for the authorization server implementation to process the device authorization
- * request further.
+ * This API parses request parameters of a [device authorization request](https://datatracker.ietf.org/doc/html/rfc8628#section-3.1) and returns necessary data for the authorization server implementation to process the device authorization request further.
  */
 export function deviceFlowAuthorization(
   client: AuthleteCore,
@@ -95,10 +93,11 @@ async function $do(
   });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/device/authorization")(pathParams);
 

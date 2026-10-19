@@ -1,7 +1,6 @@
 # JweAlg
 
-this is the 'alg' header value for encrypted JWT tokens.
-Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
+this is the 'alg' header value for encrypted JWT tokens. Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
 - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
 - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
 - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens

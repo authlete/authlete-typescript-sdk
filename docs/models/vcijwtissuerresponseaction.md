@@ -1,8 +1,6 @@
 # VciJwtissuerResponseAction
 
-The next action that the implementation of the JWT issuer metadata
-endpoint (`/.well-known/jwt-issuer`) should take after getting
-a response from Authlete's `/vci/jwtissuer` API.
+The next action that the implementation of the JWT issuer metadata endpoint (`/.well-known/jwt-issuer`) should take after getting a response from Authlete's `/vci/jwtissuer` API.
 
 
 ## Example Usage

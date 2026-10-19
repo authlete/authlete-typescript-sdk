@@ -19,12 +19,12 @@ This API gathers information about a user.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.userinfo.process({
-    serviceId: "<id>",
     userinfoRequest: {
       token: "Ntm9MDb8WXQAevqrBkd84KTTHbYHVQrTjgUZCOWqEUI",
     },
@@ -47,12 +47,12 @@ import { userinfoProcess } from "@authlete/typescript-sdk/funcs/userinfoProcess.
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await userinfoProcess(authlete, {
-    serviceId: "<id>",
     userinfoRequest: {
       token: "Ntm9MDb8WXQAevqrBkd84KTTHbYHVQrTjgUZCOWqEUI",
     },
@@ -102,12 +102,12 @@ This API generates an ID token.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.userinfo.issue({
-    serviceId: "<id>",
     userinfoIssueRequest: {
       token: "Ntm9MDb8WXQAevqrBkd84KTTHbYHVQrTjgUZCOWqEUI",
     },
@@ -130,12 +130,12 @@ import { userinfoIssue } from "@authlete/typescript-sdk/funcs/userinfoIssue.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await userinfoIssue(authlete, {
-    serviceId: "<id>",
     userinfoIssueRequest: {
       token: "Ntm9MDb8WXQAevqrBkd84KTTHbYHVQrTjgUZCOWqEUI",
     },

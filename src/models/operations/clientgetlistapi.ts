@@ -9,17 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientGetListApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientGetListApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
-   * The developer of client applications. The default value is null. If this parameter is not set
+   * The developer of client applications. The default value is null. If this parameter is not set to `null`, client application of the specified developer are returned. Otherwise, all client applications that belong to the service are returned.
    *
    * @remarks
-   * to `null`, client application of the specified developer are returned. Otherwise, all client
-   * applications that belong to the service are returned.
    */
   developer?: string | undefined;
   /**
@@ -39,7 +41,7 @@ export type ClientGetListApiResponse = {
 
 /** @internal */
 export type ClientGetListApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   developer?: string | undefined;
   start?: number | undefined;
   end?: number | undefined;
@@ -51,7 +53,7 @@ export const ClientGetListApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientGetListApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   developer: z.string().optional(),
   start: z.number().int().optional(),
   end: z.number().int().optional(),

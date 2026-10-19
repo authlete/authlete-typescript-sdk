@@ -9,8 +9,7 @@
 
 ## get
 
-Retrieve audit logs as a cursor-paginated list. Results can be filtered by time range, event type,
-and organization.
+Retrieve audit logs as a cursor-paginated list. Results can be filtered by time range, event type, and organization.
 
 
 ### Example Usage
@@ -97,12 +96,9 @@ run();
 
 Returns the list of available audit log event types for this environment.
 
-Accessible with a user access token or an organization token that has the
-`view_audit_log` permission (e.g. a token created with the `admin` or
-`audit_reader` preset).
+Accessible with a user access token or an organization token that has the `view_audit_log` permission (e.g. a token created with the `admin` or `audit_reader` preset).
 
-This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
-not on the regional API clusters.
+This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`), not on the regional API clusters.
 
 
 ### Example Usage

@@ -18,12 +18,12 @@ This API revokes access tokens and refresh tokens.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.revocation.process({
-    serviceId: "<id>",
     revocationRequest: {
       parameters: "VFGsNK-5sXiqterdaR7b5QbRX9VTwVCQB87jbr2_xAI&token_type_hint=access_token",
       clientId: "26478243745571",
@@ -48,12 +48,12 @@ import { revocationProcess } from "@authlete/typescript-sdk/funcs/revocationProc
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await revocationProcess(authlete, {
-    serviceId: "<id>",
     revocationRequest: {
       parameters: "VFGsNK-5sXiqterdaR7b5QbRX9VTwVCQB87jbr2_xAI&token_type_hint=access_token",
       clientId: "26478243745571",

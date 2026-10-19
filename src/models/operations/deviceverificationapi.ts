@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type DeviceVerificationApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type DeviceVerificationApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   deviceVerificationRequest: models.DeviceVerificationRequest;
 };
 
@@ -24,7 +28,7 @@ export type DeviceVerificationApiResponse = {
 
 /** @internal */
 export type DeviceVerificationApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   device_verification_request: models.DeviceVerificationRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const DeviceVerificationApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DeviceVerificationApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   deviceVerificationRequest: models.DeviceVerificationRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

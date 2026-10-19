@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientSecretRefreshApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientSecretRefreshApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * The client ID or the client ID alias of a client.
    *
@@ -29,7 +33,7 @@ export type ClientSecretRefreshApiResponse = {
 
 /** @internal */
 export type ClientSecretRefreshApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   clientIdentifier: string;
 };
 
@@ -39,7 +43,7 @@ export const ClientSecretRefreshApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientSecretRefreshApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   clientIdentifier: z.string(),
 });
 

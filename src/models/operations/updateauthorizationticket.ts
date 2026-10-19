@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type UpdateAuthorizationTicketGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type UpdateAuthorizationTicketRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   authorizationTicketUpdateRequest: models.AuthorizationTicketUpdateRequest;
 };
 
@@ -24,7 +28,7 @@ export type UpdateAuthorizationTicketResponse = {
 
 /** @internal */
 export type UpdateAuthorizationTicketRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   authorization_ticket_update_request:
     models.AuthorizationTicketUpdateRequest$Outbound;
 };
@@ -35,7 +39,7 @@ export const UpdateAuthorizationTicketRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UpdateAuthorizationTicketRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   authorizationTicketUpdateRequest:
     models.AuthorizationTicketUpdateRequest$outboundSchema,
 }).transform((v) => {

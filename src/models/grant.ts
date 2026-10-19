@@ -18,11 +18,9 @@ export type Grant = {
    */
   claims?: Array<string> | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
 };

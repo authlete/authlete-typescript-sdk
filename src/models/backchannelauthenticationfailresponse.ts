@@ -37,10 +37,9 @@ export type BackchannelAuthenticationFailResponse = {
    */
   action?: BackchannelAuthenticationFailResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client
+   * The content that the authorization server implementation is to return to the client application. Its format varies depending on the value of `action` parameter.
    *
    * @remarks
-   * application. Its format varies depending on the value of `action` parameter.
    */
   responseContent?: string | undefined;
 };

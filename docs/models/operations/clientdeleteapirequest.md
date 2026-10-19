@@ -6,7 +6,6 @@
 import { ClientDeleteApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: ClientDeleteApiRequest = {
-  serviceId: "<id>",
   clientId: "<id>",
 };
 ```
@@ -15,5 +14,5 @@ let value: ClientDeleteApiRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `serviceId`        | *string*           | :heavy_check_mark: | A service ID.      |
+| `serviceId`        | *string*           | :heavy_minus_sign: | A service ID.      |
 | `clientId`         | *string*           | :heavy_check_mark: | The client ID.     |

@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type NativeSsoLogoutApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type NativeSsoLogoutApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   nativeSsoLogoutRequest: models.NativeSsoLogoutRequest;
 };
 
@@ -24,7 +28,7 @@ export type NativeSsoLogoutApiResponse = {
 
 /** @internal */
 export type NativeSsoLogoutApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   native_sso_logout_request: models.NativeSsoLogoutRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const NativeSsoLogoutApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NativeSsoLogoutApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   nativeSsoLogoutRequest: models.NativeSsoLogoutRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

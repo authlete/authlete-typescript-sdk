@@ -102,10 +102,11 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc(
     "/api/{serviceId}/client/extension/requestable_scopes/update/{clientId}",

@@ -15,12 +15,24 @@ export type VciSingleIssueRequest = {
    */
   accessToken?: string | undefined;
   order?: CredentialIssuanceOrder | undefined;
+  /**
+   * Set to `true` to signal that the credential issuer is declining to issue the requested credential. When set, the response will contain `"error":"credential_request_denied"` and the action in the response will be `BAD_REQUEST`.
+   *
+   * @remarks
+   */
+  denied?: boolean | undefined;
+  /**
+   * The minimum polling interval in seconds for deferred credential issuance.
+   */
+  interval?: number | undefined;
 };
 
 /** @internal */
 export type VciSingleIssueRequest$Outbound = {
   accessToken?: string | undefined;
   order?: CredentialIssuanceOrder$Outbound | undefined;
+  denied?: boolean | undefined;
+  interval?: number | undefined;
 };
 
 /** @internal */
@@ -31,6 +43,8 @@ export const VciSingleIssueRequest$outboundSchema: z.ZodType<
 > = z.object({
   accessToken: z.string().optional(),
   order: CredentialIssuanceOrder$outboundSchema.optional(),
+  denied: z.boolean().optional(),
+  interval: z.number().int().optional(),
 });
 
 export function vciSingleIssueRequestToJSON(

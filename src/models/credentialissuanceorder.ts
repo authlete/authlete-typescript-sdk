@@ -22,10 +22,9 @@ export type CredentialIssuanceOrder = {
    */
   credentialDuration?: number | undefined;
   /**
-   * The key ID of a private key that should be used for signing a credential
+   * The key ID of a private key that should be used for signing a credential to be issued.
    *
    * @remarks
-   * to be issued.
    */
   signingKeyId?: string | undefined;
 };

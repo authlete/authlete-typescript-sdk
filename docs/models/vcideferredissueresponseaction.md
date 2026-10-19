@@ -1,7 +1,6 @@
 # VciDeferredIssueResponseAction
 
-The next action that the implementation of the deferred credential
-endpoint should take.
+The next action that the implementation of the deferred credential endpoint should take.
 
 
 ## Example Usage

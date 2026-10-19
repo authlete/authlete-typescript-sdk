@@ -6,7 +6,6 @@
 import { VciOfferCreateApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: VciOfferCreateApiRequest = {
-  serviceId: "<id>",
   vciOfferCreateRequest: {},
 };
 ```
@@ -15,5 +14,5 @@ let value: VciOfferCreateApiRequest = {
 
 | Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `serviceId`                                                           | *string*                                                              | :heavy_check_mark:                                                    | A service ID.                                                         |
+| `serviceId`                                                           | *string*                                                              | :heavy_minus_sign:                                                    | A service ID.                                                         |
 | `vciOfferCreateRequest`                                               | [models.VciOfferCreateRequest](../../models/vcioffercreaterequest.md) | :heavy_check_mark:                                                    | N/A                                                                   |

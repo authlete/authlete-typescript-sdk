@@ -16,13 +16,11 @@ import {
 
 export type TokenRequest = {
   /**
-   * OAuth 2.0 token request parameters which are the request parameters that the OAuth 2.0 token endpoint of the authorization server
+   * OAuth 2.0 token request parameters which are the request parameters that the OAuth 2.0 token endpoint of the authorization server implementation received from the client application.
    *
    * @remarks
-   * implementation received from the client application.
    *
-   * The value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from
-   * the client application.
+   * The value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from the client application.
    */
   parameters: string;
   /**
@@ -30,9 +28,7 @@ export type TokenRequest = {
    *
    * @remarks
    *
-   * If the token endpoint of the authorization server implementation supports basic authentication as
-   * a means of client authentication, and the request from the client application contained its client ID
-   * in `Authorization` header, the value should be extracted and set to this parameter.
+   * If the token endpoint of the authorization server implementation supports basic authentication as a means of client authentication, and the request from the client application contained its client ID in `Authorization` header, the value should be extracted and set to this parameter.
    */
   clientId?: string | undefined;
   /**
@@ -40,9 +36,7 @@ export type TokenRequest = {
    *
    * @remarks
    *
-   * If the token endpoint of the authorization server implementation supports basic authentication as a means of
-   * client authentication, and the request from the client application contained its client secret in `Authorization` header,
-   * the value should be extracted and set to this parameter.
+   * If the token endpoint of the authorization server implementation supports basic authentication as a means of client authentication, and the request from the client application contained its client secret in `Authorization` header, the value should be extracted and set to this parameter.
    */
   clientSecret?: string | undefined;
   /**
@@ -56,10 +50,9 @@ export type TokenRequest = {
    */
   clientCertificatePath?: Array<string> | undefined;
   /**
-   * Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/)
+   * Extra properties to associate with an access token. See [Extra Properties](https://www.authlete.com/developers/definitive_guide/extra_properties/) for details.
    *
    * @remarks
-   * for details.
    */
   properties?: Array<Property> | undefined;
   /**
@@ -67,9 +60,7 @@ export type TokenRequest = {
    *
    * @remarks
    *
-   * The header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.
-   * See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
-   * for details.
+   * The header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.
    */
   dpop?: string | undefined;
   /**
@@ -77,9 +68,7 @@ export type TokenRequest = {
    *
    * @remarks
    *
-   * In normal cases, the value is `POST`. When this parameter is omitted, `POST` is used as the default value.
-   * See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
-   * for details.
+   * In normal cases, the value is `POST`. When this parameter is omitted, `POST` is used as the default value. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.
    */
   htm?: string | undefined;
   /**
@@ -87,9 +76,7 @@ export type TokenRequest = {
    *
    * @remarks
    *
-   * If this parameter is omitted, the `tokenEndpoint` property of the Service is used as the default value.
-   * See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
-   * for details.
+   * If this parameter is omitted, the `tokenEndpoint` property of the Service is used as the default value. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.
    */
   htu?: string | undefined;
   /**
@@ -107,46 +94,37 @@ export type TokenRequest = {
    */
   jwtAtClaims?: string | undefined;
   /**
-   * The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification
+   * The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    *
    * @remarks
-   * of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    */
   oauthClientAttestation?: string | undefined;
   /**
-   * The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification
+   * The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    *
    * @remarks
-   * of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    */
   oauthClientAttestationPop?: string | undefined;
   /**
-   * The duration (in seconds) of the access token that may be issued as a result of the Authlete
+   * The duration (in seconds) of the access token that may be issued as a result of the Authlete API call.
    *
    * @remarks
-   * API call.
    *
-   * When this request parameter holds a positive integer, it is used as the duration of the access
-   * token in. In other cases, this request parameter is ignored.
+   * When this request parameter holds a positive integer, it is used as the duration of the access token in. In other cases, this request parameter is ignored.
    */
   accessTokenDuration?: number | undefined;
   /**
-   * The duration (in seconds) of the refresh token that may be issued as a result of the Authlete
+   * The duration (in seconds) of the refresh token that may be issued as a result of the Authlete API call.
    *
    * @remarks
-   * API call.
    *
-   * When this request parameter holds a positive integer, it is used as the duration of the refresh
-   * token in. In other cases, this request parameter is ignored.
+   * When this request parameter holds a positive integer, it is used as the duration of the refresh token in. In other cases, this request parameter is ignored.
    */
   refreshTokenDuration?: number | undefined;
   /**
-   * The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if
+   * The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if the service's `dpopNonceRequired` property is `false`, calling the `/auth/token` API with this `dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP proof JWT includes the expected `nonce` value.
    *
    * @remarks
-   * the service's `dpopNonceRequired` property is `false`, calling the `/auth/token` API with this
-   * `dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP proof
-   * JWT includes the expected `nonce` value.
    */
   dpopNonceRequired?: boolean | undefined;
   /**

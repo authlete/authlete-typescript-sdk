@@ -6,7 +6,6 @@
 import { ClientFlagUpdateApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: ClientFlagUpdateApiRequest = {
-  serviceId: "<id>",
   clientIdentifier: "<value>",
 };
 ```
@@ -15,6 +14,6 @@ let value: ClientFlagUpdateApiRequest = {
 
 | Field                                                                     | Type                                                                      | Required                                                                  | Description                                                               |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `serviceId`                                                               | *string*                                                                  | :heavy_check_mark:                                                        | A service ID.                                                             |
+| `serviceId`                                                               | *string*                                                                  | :heavy_minus_sign:                                                        | A service ID.                                                             |
 | `clientIdentifier`                                                        | *string*                                                                  | :heavy_check_mark:                                                        | A client ID.                                                              |
 | `clientFlagUpdateRequest`                                                 | [models.ClientFlagUpdateRequest](../../models/clientflagupdaterequest.md) | :heavy_minus_sign:                                                        | N/A                                                                       |

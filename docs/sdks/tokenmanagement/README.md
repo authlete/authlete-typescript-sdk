@@ -13,11 +13,7 @@
 
 ## reissueIdToken
 
-The API is expected to be called only when the value of the `action`
-parameter in a response from the `/auth/token` API is [ID_TOKEN_REISSUABLE](https://authlete.github.io/authlete-java-common/com/authlete/common/dto/TokenResponse.Action.html#ID_TOKEN_REISSUABLE). The purpose
-of the `/idtoken/reissue` API is to generate a token response that
-includes a new ID token together with a new access token and a refresh
-token.
+The API is expected to be called only when the value of the `action` parameter in a response from the `/auth/token` API is [ID_TOKEN_REISSUABLE](https://authlete.github.io/authlete-java-common/com/authlete/common/dto/TokenResponse.Action.html#ID_TOKEN_REISSUABLE). The purpose of the `/idtoken/reissue` API is to generate a token response that includes a new ID token together with a new access token and a refresh token.
 
 
 ### Example Usage
@@ -27,13 +23,12 @@ token.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.token.management.reissueIdToken({
-    serviceId: "<id>",
-  });
+  const result = await authlete.token.management.reissueIdToken({});
 
   console.log(result);
 }
@@ -52,13 +47,12 @@ import { tokenManagementReissueIdToken } from "@authlete/typescript-sdk/funcs/to
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await tokenManagementReissueIdToken(authlete, {
-    serviceId: "<id>",
-  });
+  const res = await tokenManagementReissueIdToken(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -104,13 +98,12 @@ Get the list of access tokens that are associated with the service.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.token.management.list({
-    serviceId: "<id>",
-  });
+  const result = await authlete.token.management.list({});
 
   console.log(result);
 }
@@ -129,13 +122,12 @@ import { tokenManagementList } from "@authlete/typescript-sdk/funcs/tokenManagem
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await tokenManagementList(authlete, {
-    serviceId: "<id>",
-  });
+  const res = await tokenManagementList(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -181,12 +173,12 @@ Create an access token.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.token.management.create({
-    serviceId: "<id>",
     tokenCreateRequest: {
       grantType: "AUTHORIZATION_CODE",
       clientId: 26888344961664,
@@ -215,12 +207,12 @@ import { tokenManagementCreate } from "@authlete/typescript-sdk/funcs/tokenManag
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await tokenManagementCreate(authlete, {
-    serviceId: "<id>",
     tokenCreateRequest: {
       grantType: "AUTHORIZATION_CODE",
       clientId: 26888344961664,
@@ -276,12 +268,12 @@ Update an access token.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.token.management.update({
-    serviceId: "<id>",
     tokenUpdateRequest: {
       accessToken: "Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q",
       scopes: [
@@ -307,12 +299,12 @@ import { tokenManagementUpdate } from "@authlete/typescript-sdk/funcs/tokenManag
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await tokenManagementUpdate(authlete, {
-    serviceId: "<id>",
     tokenUpdateRequest: {
       accessToken: "Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q",
       scopes: [
@@ -365,12 +357,12 @@ Delete an access token.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.token.management.delete({
-    serviceId: "<id>",
     accessTokenIdentifier: "<value>",
   });
 
@@ -391,12 +383,12 @@ import { tokenManagementDelete } from "@authlete/typescript-sdk/funcs/tokenManag
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await tokenManagementDelete(authlete, {
-    serviceId: "<id>",
     accessTokenIdentifier: "<value>",
   });
   if (res.ok) {
@@ -444,12 +436,12 @@ Revoke an access token.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.token.management.revoke({
-    serviceId: "<id>",
     tokenRevokeRequest: {
       accessTokenIdentifier: "Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q",
     },
@@ -472,12 +464,12 @@ import { tokenManagementRevoke } from "@authlete/typescript-sdk/funcs/tokenManag
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await tokenManagementRevoke(authlete, {
-    serviceId: "<id>",
     tokenRevokeRequest: {
       accessTokenIdentifier: "Z5a40U6dWvw2gMoCOAFbZcM85q4HC0Z--0YKD9-Nf6Q",
     },

@@ -27,11 +27,9 @@ export type PushedAuthorizationResponseAction = ClosedEnum<
 >;
 
 /**
- * The client authentication method that the client application declares that it uses at the token
+ * The client authentication method that the client application declares that it uses at the token endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
  *
  * @remarks
- * endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
- * Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
  */
 export const PushedAuthorizationResponseClientAuthMethod = {
   None: "NONE",
@@ -45,11 +43,9 @@ export const PushedAuthorizationResponseClientAuthMethod = {
   SpiffeJwt: "SPIFFE_JWT",
 } as const;
 /**
- * The client authentication method that the client application declares that it uses at the token
+ * The client authentication method that the client application declares that it uses at the token endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
  *
  * @remarks
- * endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
- * Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
  */
 export type PushedAuthorizationResponseClientAuthMethod = ClosedEnum<
   typeof PushedAuthorizationResponseClientAuthMethod
@@ -75,25 +71,21 @@ export type PushedAuthorizationResponse = {
    */
   requestUri?: string | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client
+   * The content that the authorization server implementation is to return to the client application.
    *
    * @remarks
-   * application.
    */
   responseContent?: string | undefined;
   /**
-   * The client authentication method that the client application declares that it uses at the token
+   * The client authentication method that the client application declares that it uses at the token endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   * endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
-   * Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   clientAuthMethod?: PushedAuthorizationResponseClientAuthMethod | undefined;
   /**
-   * Get the expected nonce value for DPoP proof JWT, which should be used
+   * Get the expected nonce value for DPoP proof JWT, which should be used as the value of the `DPoP-Nonce` HTTP header.
    *
    * @remarks
-   * as the value of the `DPoP-Nonce` HTTP header.
    */
   dpopNonce?: string | undefined;
 };

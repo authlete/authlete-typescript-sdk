@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function clientCreate(
   client: AuthleteCore,
-  request: operations.ClientCreateApiRequest,
+  request?: operations.ClientCreateApiRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function clientCreate(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.ClientCreateApiRequest,
+  request?: operations.ClientCreateApiRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,20 +80,22 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.ClientCreateApiRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.ClientCreateApiRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.client, { explode: true });
+  const body = encodeJSON("body", payload?.client, { explode: true });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload?.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/client/create")(pathParams);
 

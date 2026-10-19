@@ -9,12 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientRegistrationGetApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientRegistrationGetApiRequestBody = {
   /**
-   * Client metadata in JSON format that complies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591)
+   * Client metadata in JSON format that complies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591) (OAuth 2.0 Dynamic Client Registration Protocol).
    *
    * @remarks
-   * (OAuth 2.0 Dynamic Client Registration Protocol).
    */
   json?: string | undefined;
   /**
@@ -35,7 +38,7 @@ export type ClientRegistrationGetApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   requestBody: ClientRegistrationGetApiRequestBody;
 };
 
@@ -74,7 +77,7 @@ export function clientRegistrationGetApiRequestBodyToJSON(
 
 /** @internal */
 export type ClientRegistrationGetApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   RequestBody: ClientRegistrationGetApiRequestBody$Outbound;
 };
 
@@ -84,7 +87,7 @@ export const ClientRegistrationGetApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientRegistrationGetApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   requestBody: z.lazy(() => ClientRegistrationGetApiRequestBody$outboundSchema),
 }).transform((v) => {
   return remap$(v, {

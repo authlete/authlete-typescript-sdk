@@ -8,8 +8,7 @@
 
 ## backchannelLogoutTokenApi
 
-The `/backchannel/logout/token` API issues a logout token for a client application
-in the context of [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html).
+The `/backchannel/logout/token` API issues a logout token for a client application in the context of [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html).
 
 
 ### Example Usage
@@ -19,12 +18,12 @@ in the context of [OpenID Connect Back-Channel Logout 1.0](https://openid.net/sp
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.backChannelLogout.backchannelLogoutTokenApi({
-    serviceId: "<id>",
     backchannelLogoutTokenRequest: {
       clientIdentifier: "1140735077",
       subject: "user123",
@@ -49,12 +48,12 @@ import { backChannelLogoutBackchannelLogoutTokenApi } from "@authlete/typescript
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await backChannelLogoutBackchannelLogoutTokenApi(authlete, {
-    serviceId: "<id>",
     backchannelLogoutTokenRequest: {
       clientIdentifier: "1140735077",
       subject: "user123",

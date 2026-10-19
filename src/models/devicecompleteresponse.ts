@@ -45,10 +45,9 @@ export type DeviceCompleteResponse = {
    */
   action?: DeviceCompleteResponseAction | undefined;
   /**
-   * the claims that the user has consented for the client application
+   * the claims that the user has consented for the client application to know.
    *
    * @remarks
-   * to know.
    */
   consentedClaims?: Array<string> | undefined;
 };

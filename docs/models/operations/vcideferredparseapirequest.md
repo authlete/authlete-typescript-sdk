@@ -6,7 +6,6 @@
 import { VciDeferredParseApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: VciDeferredParseApiRequest = {
-  serviceId: "<id>",
   vciDeferredParseRequest: {},
 };
 ```
@@ -15,5 +14,5 @@ let value: VciDeferredParseApiRequest = {
 
 | Field                                                                     | Type                                                                      | Required                                                                  | Description                                                               |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `serviceId`                                                               | *string*                                                                  | :heavy_check_mark:                                                        | A service ID.                                                             |
+| `serviceId`                                                               | *string*                                                                  | :heavy_minus_sign:                                                        | A service ID.                                                             |
 | `vciDeferredParseRequest`                                                 | [models.VciDeferredParseRequest](../../models/vcideferredparserequest.md) | :heavy_check_mark:                                                        | N/A                                                                       |

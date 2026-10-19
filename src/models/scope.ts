@@ -39,7 +39,7 @@ export type Scope = {
   /**
    * The attributes of the scope.
    */
-  attributes?: Array<Pair> | undefined;
+  attributes?: Array<Pair> | null | undefined;
 };
 
 /** @internal */
@@ -49,7 +49,7 @@ export const Scope$inboundSchema: z.ZodType<Scope, z.ZodTypeDef, unknown> = z
     defaultEntry: z.boolean().optional(),
     description: z.string().optional(),
     descriptions: z.array(TaggedValue$inboundSchema).optional(),
-    attributes: z.array(Pair$inboundSchema).optional(),
+    attributes: z.nullable(z.array(Pair$inboundSchema)).optional(),
   });
 /** @internal */
 export type Scope$Outbound = {
@@ -57,7 +57,7 @@ export type Scope$Outbound = {
   defaultEntry?: boolean | undefined;
   description?: string | undefined;
   descriptions?: Array<TaggedValue$Outbound> | undefined;
-  attributes?: Array<Pair$Outbound> | undefined;
+  attributes?: Array<Pair$Outbound> | null | undefined;
 };
 
 /** @internal */
@@ -70,7 +70,7 @@ export const Scope$outboundSchema: z.ZodType<
   defaultEntry: z.boolean().optional(),
   description: z.string().optional(),
   descriptions: z.array(TaggedValue$outboundSchema).optional(),
-  attributes: z.array(Pair$outboundSchema).optional(),
+  attributes: z.nullable(z.array(Pair$outboundSchema)).optional(),
 });
 
 export function scopeToJSON(scope: Scope): string {

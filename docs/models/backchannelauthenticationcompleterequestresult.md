@@ -1,7 +1,6 @@
 # BackchannelAuthenticationCompleteRequestResult
 
-The result of the end-user authentication and authorization. One of the following. Details are
-described in the description.
+The result of the end-user authentication and authorization. One of the following. Details are described in the description.
 
 
 ## Example Usage

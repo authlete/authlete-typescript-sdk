@@ -17,9 +17,7 @@ export type UserinfoRequest = {
    *
    * @remarks
    *
-   * The value of this request parameter is referred to when the access token given to the userinfo endpoint was bound to
-   * a client certificate when it was issued. See [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens]
-   * (https://datatracker.ietf.org/doc/rfc8705/) for details about the specification of certificate-bound access tokens.
+   * The value of this request parameter is referred to when the access token given to the userinfo endpoint was bound to a client certificate when it was issued. See [OAuth 2.0 Mutual TLS Client Authentication and Certificate-Bound Access Tokens] (https://datatracker.ietf.org/doc/rfc8705/) for details about the specification of certificate-bound access tokens.
    */
   clientCertificate?: string | undefined;
   /**
@@ -27,16 +25,13 @@ export type UserinfoRequest = {
    *
    * @remarks
    *
-   * The header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT.
-   * See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
-   * for details.
+   * The header contains a signed JWT which includes the public key that is paired with the private key used to sign the JWT. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.
    */
   dpop?: string | undefined;
   /**
-   * HTTP method of the user info request. This field is used to validate the DPoP header.
+   * HTTP method of the user info request. This field is used to validate the DPoP header. In normal cases, the value is either `GET` or `POST`.
    *
    * @remarks
-   * In normal cases, the value is either `GET` or `POST`.
    */
   htm?: string | undefined;
   /**
@@ -44,9 +39,7 @@ export type UserinfoRequest = {
    *
    * @remarks
    *
-   * If this parameter is omitted, the `userInfoEndpoint` property of the service is used as the default value.
-   * See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop)
-   * for details.
+   * If this parameter is omitted, the `userInfoEndpoint` property of the service is used as the default value. See [OAuth 2.0 Demonstration of Proof-of-Possession at the Application Layer (DPoP)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop) for details.
    */
   htu?: string | undefined;
   /**
@@ -62,10 +55,9 @@ export type UserinfoRequest = {
    */
   message?: string | undefined;
   /**
-   * HTTP headers to be included in processing the signature. If this is a signed request, this must include the
+   * HTTP headers to be included in processing the signature. If this is a signed request, this must include the Signature and Signature-Input headers, as well as any additional headers covered by the signature.
    *
    * @remarks
-   * Signature and Signature-Input headers, as well as any additional headers covered by the signature.
    */
   headers?: Array<Pair> | undefined;
   /**
@@ -79,10 +71,7 @@ export type UserinfoRequest = {
    *
    * @remarks
    *
-   * If this request parameter is set to `true` or if the service's `dpopNonceRequired` property is
-   * set to `true`, the `/auth/userinfo` API checks if the DPoP proof JWT includes the expected `nonce`
-   * value. In this case, the response from the `/auth/userinfo` API will include the `dpopNonce` response
-   * parameter, which should be used as the value of the DPoP-Nonce HTTP header.
+   * If this request parameter is set to `true` or if the service's `dpopNonceRequired` property is set to `true`, the `/auth/userinfo` API checks if the DPoP proof JWT includes the expected `nonce` value. In this case, the response from the `/auth/userinfo` API will include the `dpopNonce` response parameter, which should be used as the value of the DPoP-Nonce HTTP header.
    */
   dpopNonceRequired?: boolean | undefined;
   /**

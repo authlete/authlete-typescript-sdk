@@ -1,6 +1,6 @@
 {
   "name": "@authlete/typescript-sdk",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Speakeasy",
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
@@ -29,10 +29,10 @@
   },
   "scripts": {
     "lint": "eslint --cache --max-warnings=0 src",
-    "prebuild": "node scripts/patch-root-export.mjs",
     "build": "tshy",
-    "test": "node --test test/",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "prebuild": "node scripts/patch-root-export.mjs",
+    "test": "node --test test/"
   },
   "peerDependencies": {},
   "devDependencies": {

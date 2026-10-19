@@ -6,10 +6,9 @@ import * as z from "zod/v3";
 
 export type VciMetadataRequest = {
   /**
-   * The flag indicating whether the metadata is written in the pretty
+   * The flag indicating whether the metadata is written in the pretty format or not.
    *
    * @remarks
-   * format or not.
    */
   pretty: boolean;
 };

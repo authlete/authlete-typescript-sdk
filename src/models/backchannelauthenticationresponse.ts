@@ -48,32 +48,27 @@ export type BackchannelAuthenticationResponse = {
    */
   action?: BackchannelAuthenticationResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client
+   * The content that the authorization server implementation is to return to the client application. Its format varies depending on the value of `action` parameter.
    *
    * @remarks
-   * application. Its format varies depending on the value of `action` parameter.
    */
   responseContent?: string | undefined;
   /**
-   * The client ID of the client application that has made the backchannel authentication
+   * The client ID of the client application that has made the backchannel authentication request.
    *
    * @remarks
-   * request.
    */
   clientId?: number | undefined;
   /**
-   * The client ID alias of the client application that has made the backchannel authentication
+   * The client ID alias of the client application that has made the backchannel authentication request.
    *
    * @remarks
-   * request.
    */
   clientIdAlias?: string | undefined;
   /**
-   * `true` if the value of the client_id request parameter included in the backchannel
+   * `true` if the value of the client_id request parameter included in the backchannel authentication request is the client ID alias. `false` if the value is the original numeric client ID.
    *
    * @remarks
-   * authentication request is the client ID alias. `false` if the value is the original
-   * numeric client ID.
    */
   clientIdAliasUsed?: boolean | undefined;
   /**
@@ -89,11 +84,9 @@ export type BackchannelAuthenticationResponse = {
    */
   scopes?: Array<Scope> | undefined;
   /**
-   * The names of the claims which were requested indirectly via some special scopes.
+   * The names of the claims which were requested indirectly via some special scopes. See [5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) in OpenID Connect Core 1.0 for details.
    *
    * @remarks
-   * See [5.4. Requesting Claims using Scope Values](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims)
-   * in OpenID Connect Core 1.0 for details.
    */
   claimNames?: Array<string> | undefined;
   /**
@@ -107,11 +100,7 @@ export type BackchannelAuthenticationResponse = {
    *
    * @remarks
    *
-   * Basically, this property holds the value of the `acr_values` request parameter in the
-   * backchannel authentication request. However, because unsupported ACR values are dropped
-   * on Authlete side, if the `acr_values` request parameter contains unrecognized ACR values,
-   * the list returned by this property becomes different from the value of the `acr_values`
-   * request parameter.
+   * Basically, this property holds the value of the `acr_values` request parameter in the backchannel authentication request. However, because unsupported ACR values are dropped on Authlete side, if the `acr_values` request parameter contains unrecognized ACR values, the list returned by this property becomes different from the value of the `acr_values` request parameter.
    */
   acrs?: Array<string> | undefined;
   /**
@@ -149,10 +138,7 @@ export type BackchannelAuthenticationResponse = {
    *
    * @remarks
    *
-   * `true` when both the `backchannel_user_code_parameter` metadata of the client (= Client's
-   * `bcUserCodeRequired` property) and the `backchannel_user_code_parameter_supported`
-   * metadata of the service (= Service's `backchannelUserCodeParameterSupported` property)
-   * are `true`.
+   * `true` when both the `backchannel_user_code_parameter` metadata of the client (= Client's `bcUserCodeRequired` property) and the `backchannel_user_code_parameter_supported` metadata of the service (= Service's `backchannelUserCodeParameterSupported` property) are `true`.
    */
   userCodeRequired?: boolean | undefined;
   /**
@@ -166,8 +152,7 @@ export type BackchannelAuthenticationResponse = {
    *
    * @remarks
    *
-   * It is the value of the request_context claim in the signed authentication request and
-   * its format is JSON. request_context is a new claim added by the FAPI-CIBA profile.
+   * It is the value of the request_context claim in the signed authentication request and its format is JSON. request_context is a new claim added by the FAPI-CIBA profile.
    */
   requestContext?: string | undefined;
   /**
@@ -185,19 +170,15 @@ export type BackchannelAuthenticationResponse = {
    */
   ticket?: string | undefined;
   /**
-   * The resources specified by the `resource` request parameters or by the `resource` property
+   * The resources specified by the `resource` request parameters or by the `resource` property in the request object. If both are given, the values in the request object should be set. See "Resource Indicators for OAuth 2.0" for details.
    *
    * @remarks
-   * in the request object. If both are given, the values in the request object should be
-   * set. See "Resource Indicators for OAuth 2.0" for details.
    */
   resources?: Array<string> | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
   /**
@@ -230,8 +211,7 @@ export type BackchannelAuthenticationResponse = {
    *
    * @remarks
    *
-   * The `grant_management_action` request parameter is defined in
-   * [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
+   * The `grant_management_action` request parameter is defined in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html).
    */
   gmAction?: GrantManagementAction | undefined;
   /**
@@ -239,32 +219,14 @@ export type BackchannelAuthenticationResponse = {
    *
    * @remarks
    *
-   * The `grant_id` request parameter is defined in
-   * [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)
-   * , which is supported by Authlete 2.3 and newer versions.
+   * The `grant_id` request parameter is defined in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html) , which is supported by Authlete 2.3 and newer versions.
    */
   grantId?: string | undefined;
   grant?: Grant | undefined;
   /**
-   * The subject identifying the user who has given the grant identified
+   * The subject identifying the user who has given the grant identified by the `grant_id` request parameter of the device authorization request. Authlete 2.3 and newer versions support [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html). An authorization request may contain a `grant_id` request parameter which is defined in the specification. If the value of the request parameter is valid, &#123;@link #getGrantSubject()&#125; will return the subject of the user who has given the grant to the client application. Authorization server implementations may use the value returned from &#123;@link #getGrantSubject()&#125; in order to determine the user to authenticate. The user your system will authenticate during the authorization process (or has already authenticated) may be different from the user of the grant. The first implementer's draft of "Grant Management for OAuth 2.0" does not mention anything about the case, so the behavior in the case is left to implementations. Authlete will not perform the grant management action when the `subject` passed to Authlete does not match the user of the grant.
    *
    * @remarks
-   * by the `grant_id` request parameter of the device authorization
-   * request.
-   * Authlete 2.3 and newer versions support [Grant Management
-   * for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html). An authorization request may contain a `grant_id`
-   * request parameter which is defined in the specification. If the value of
-   * the request parameter is valid, &#123;@link #getGrantSubject()&#125; will return
-   * the subject of the user who has given the grant to the client application.
-   * Authorization server implementations may use the value returned from
-   * &#123;@link #getGrantSubject()&#125; in order to determine the user to authenticate.
-   * The user your system will authenticate during the authorization process
-   * (or has already authenticated) may be different from the user of the
-   * grant. The first implementer's draft of "Grant Management for OAuth 2.0"
-   * does not mention anything about the case, so the behavior in the case is
-   * left to implementations. Authlete will not perform the grant management
-   * action when the `subject` passed to Authlete does not match the
-   * user of the grant.
    */
   grantSubject?: string | undefined;
   /**

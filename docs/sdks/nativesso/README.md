@@ -9,12 +9,7 @@
 
 ## process
 
-This API should be called by the implementation of a token endpoint to generate the ID token and
-token response that comply with [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
-(Native SSO) when Authlete’s `/auth/token` response indicates `action = NATIVE_SSO` (after you validate
-the session id and verify or generate the device secret as required by the flow). The token endpoint
-implementation should retrieve the value of `action` from the response and take the following steps
-according to the value.
+This API should be called by the implementation of a token endpoint to generate the ID token and token response that comply with [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) (Native SSO) when Authlete’s `/auth/token` response indicates `action = NATIVE_SSO` (after you validate the session id and verify or generate the device secret as required by the flow). The token endpoint implementation should retrieve the value of `action` from the response and take the following steps according to the value.
 
 
 ### Example Usage
@@ -24,12 +19,12 @@ according to the value.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "715948317",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.nativeSso.process({
-    serviceId: "715948317",
     nativeSsoRequest: {
       accessToken: "_kh1aygxZ5NKLYKCJRM8M_AYvDg2wCWoprQDjfO87ZWq",
       refreshToken: "kHUGSt_d3LSgiCQzH7wa5TpwIHWgjAZGw14zZV7hRqw",
@@ -55,12 +50,12 @@ import { nativeSsoProcess } from "@authlete/typescript-sdk/funcs/nativeSsoProces
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "715948317",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await nativeSsoProcess(authlete, {
-    serviceId: "715948317",
     nativeSsoRequest: {
       accessToken: "_kh1aygxZ5NKLYKCJRM8M_AYvDg2wCWoprQDjfO87ZWq",
       refreshToken: "kHUGSt_d3LSgiCQzH7wa5TpwIHWgjAZGw14zZV7hRqw",
@@ -103,11 +98,7 @@ run();
 
 ## logout
 
-The `/nativesso/logout` API is supposed to be used to support the concept of "logout from all applications"
-in the context of [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
-(Native SSO). This is accomplished by deleting access/refresh token records associated with the
-specified session ID. In Authlete's implementation, access/refresh token records can be associated
-with a session ID only through the mechanism introduced by Native SSO.
+The `/nativesso/logout` API is supposed to be used to support the concept of "logout from all applications" in the context of [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) (Native SSO). This is accomplished by deleting access/refresh token records associated with the specified session ID. In Authlete's implementation, access/refresh token records can be associated with a session ID only through the mechanism introduced by Native SSO.
 
 
 ### Example Usage
@@ -117,12 +108,12 @@ with a session ID only through the mechanism introduced by Native SSO.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.nativeSso.logout({
-    serviceId: "<id>",
     nativeSsoLogoutRequest: {
       sessionId: "my-sid",
     },
@@ -145,12 +136,12 @@ import { nativeSsoLogout } from "@authlete/typescript-sdk/funcs/nativeSsoLogout.
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await nativeSsoLogout(authlete, {
-    serviceId: "<id>",
     nativeSsoLogoutRequest: {
       sessionId: "my-sid",
     },

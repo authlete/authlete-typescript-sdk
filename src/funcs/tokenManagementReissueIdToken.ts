@@ -30,15 +30,11 @@ import { Result } from "../types/fp.js";
  * Reissue ID Token
  *
  * @remarks
- * The API is expected to be called only when the value of the `action`
- * parameter in a response from the `/auth/token` API is [ID_TOKEN_REISSUABLE](https://authlete.github.io/authlete-java-common/com/authlete/common/dto/TokenResponse.Action.html#ID_TOKEN_REISSUABLE). The purpose
- * of the `/idtoken/reissue` API is to generate a token response that
- * includes a new ID token together with a new access token and a refresh
- * token.
+ * The API is expected to be called only when the value of the `action` parameter in a response from the `/auth/token` API is [ID_TOKEN_REISSUABLE](https://authlete.github.io/authlete-java-common/com/authlete/common/dto/TokenResponse.Action.html#ID_TOKEN_REISSUABLE). The purpose of the `/idtoken/reissue` API is to generate a token response that includes a new ID token together with a new access token and a refresh token.
  */
 export function tokenManagementReissueIdToken(
   client: AuthleteCore,
-  request: operations.IdtokenReissueApiRequest,
+  request?: operations.IdtokenReissueApiRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -63,7 +59,7 @@ export function tokenManagementReissueIdToken(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.IdtokenReissueApiRequest,
+  request?: operations.IdtokenReissueApiRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -84,22 +80,26 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.IdtokenReissueApiRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.IdtokenReissueApiRequest$outboundSchema.optional().parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.idtoken_reissue_request, {
+  const body = encodeJSON("body", payload?.idtoken_reissue_request, {
     explode: true,
   });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload?.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/idtoken/reissue")(pathParams);
 

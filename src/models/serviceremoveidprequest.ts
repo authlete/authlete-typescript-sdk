@@ -6,11 +6,9 @@ import * as z from "zod/v3";
 
 export type ServiceRemoveIdpRequest = {
   /**
-   * The numeric ID of the API server the service belongs to. Official SDKs inject
+   * The numeric ID of the API server the service belongs to. Official SDKs inject this automatically for known Authlete clusters, so it can be omitted there; all other callers must provide it.
    *
    * @remarks
-   * this automatically for known Authlete clusters, so it can be omitted there;
-   * all other callers must provide it.
    */
   apiServerId?: number | undefined;
   /**

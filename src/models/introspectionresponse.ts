@@ -55,31 +55,27 @@ export type IntrospectionResponse = {
    */
   clientId?: number | undefined;
   /**
-   * The client ID alias when the token request was made. If the client did not have an alias, this parameter is `null`.
+   * The client ID alias when the token request was made. If the client did not have an alias, this parameter is `null`. Also, if the token request was invalid and it failed to identify a client, this parameter is `null`.
    *
    * @remarks
-   * Also, if the token request was invalid and it failed to identify a client, this parameter is `null`.
    */
   clientIdAlias?: string | undefined;
   /**
-   * The flag which indicates whether the client ID alias was used when the token request was made.
+   * The flag which indicates whether the client ID alias was used when the token request was made. `true` if the client ID alias was used when the token request was made.
    *
    * @remarks
-   * `true` if the client ID alias was used when the token request was made.
    */
   clientIdAliasUsed?: boolean | undefined;
   /**
-   * The time at which the access token expires.
+   * The time at which the access token expires. The value is represented in milliseconds since the Unix epoch (1970-01-01).
    *
    * @remarks
-   * The value is represented in milliseconds since the Unix epoch (1970-01-01).
    */
   expiresAt?: number | undefined;
   /**
-   * The subject who is associated with the access token.
+   * The subject who is associated with the access token. The value of this property is `null` if the access token was issued using the flow of [Client Credentials Grant](tools.ietf.org/html/rfc6749#section-4.4).
    *
    * @remarks
-   * The value of this property is `null` if the access token was issued using the flow of [Client Credentials Grant](tools.ietf.org/html/rfc6749#section-4.4).
    */
   subject?: string | undefined;
   /**
@@ -107,11 +103,9 @@ export type IntrospectionResponse = {
    */
   sufficient?: boolean | undefined;
   /**
-   * `true` if the access token can be refreshed using the associated refresh token which had been issued
+   * `true` if the access token can be refreshed using the associated refresh token which had been issued along with the access token. `false` if the refresh token for the access token has expired or the access token has no associated refresh token.
    *
    * @remarks
-   * along with the access token. `false` if the refresh token for the access token has expired or the access
-   * token has no associated refresh token.
    */
   refreshable?: boolean | undefined;
   /**
@@ -125,10 +119,9 @@ export type IntrospectionResponse = {
    */
   certificateThumbprint?: string | undefined;
   /**
-   * The target resources. This represents the resources specified by the `resource` request parameters
+   * The target resources. This represents the resources specified by the `resource` request parameters or by the `resource` property in the request object.
    *
    * @remarks
-   * or by the `resource` property in the request object.
    *
    * See "Resource Indicators for OAuth 2.0" for details.
    */
@@ -140,11 +133,9 @@ export type IntrospectionResponse = {
    */
   accessTokenResources?: Array<string> | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
   /**
@@ -160,11 +151,9 @@ export type IntrospectionResponse = {
    */
   clientAttributes?: Array<Pair> | undefined;
   /**
-   * The scopes property of this class is a list of scope names. The property does not hold information
+   * The scopes property of this class is a list of scope names. The property does not hold information about scope attributes. This scopeDetails property was newly created to convey information about scope attributes.
    *
    * @remarks
-   * about scope attributes. This scopeDetails property was newly created to convey information about
-   * scope attributes.
    */
   scopeDetails?: Array<Scope> | undefined;
   /**
@@ -172,24 +161,20 @@ export type IntrospectionResponse = {
    *
    * @remarks
    *
-   * The `grant_id` request parameter is defined in
-   * [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)
-   * , which is supported by Authlete 2.3 and newer versions.
+   * The `grant_id` request parameter is defined in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html) , which is supported by Authlete 2.3 and newer versions.
    */
   grantId?: string | undefined;
   grant?: Grant | undefined;
   /**
-   * the flag which indicates whether the access token is for an external
+   * the flag which indicates whether the access token is for an external attachment.
    *
    * @remarks
-   * attachment.
    */
   forExternalAttachment?: boolean | undefined;
   /**
-   * the claims that the user has consented for the client application
+   * the claims that the user has consented for the client application to know.
    *
    * @remarks
-   * to know.
    */
   consentedClaims?: Array<string> | undefined;
   /**
@@ -199,10 +184,9 @@ export type IntrospectionResponse = {
    */
   grantType?: GrantType | undefined;
   /**
-   * The Authentication Context Class Reference of the user authentication that the authorization server performed
+   * The Authentication Context Class Reference of the user authentication that the authorization server performed during the course of issuing the access token.
    *
    * @remarks
-   * during the course of issuing the access token.
    */
   acr?: string | undefined;
   /**
@@ -240,21 +224,17 @@ export type IntrospectionResponse = {
    */
   issuableCredentials?: string | undefined;
   /**
-   * The expected nonce value for DPoP proof JWT, which should be used
+   * The expected nonce value for DPoP proof JWT, which should be used as the value of the `DPoP-Nonce` HTTP header.
    *
    * @remarks
-   * as the value of the `DPoP-Nonce` HTTP header.
    */
   dpopNonce?: string | undefined;
   /**
-   * The flag indicating whether the HTTP response from the protected resource endpoint must include
+   * The flag indicating whether the HTTP response from the protected resource endpoint must include an HTTP message signature ([RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html)) in compliance with [FAPI 2.0 Message Signing](https://openid.bitbucket.io/fapi/fapi-2_0-message-signing.html).
    *
    * @remarks
-   * an HTTP message signature ([RFC 9421 HTTP Message Signatures](https://www.rfc-editor.org/rfc/rfc9421.html))
-   * in compliance with [FAPI 2.0 Message Signing](https://openid.bitbucket.io/fapi/fapi-2_0-message-signing.html).
    *
-   * When this response parameter is `true`, the HTTP response from the protected resource endpoint
-   * must include the `Signature` and `Signature-Input` HTTP fields.
+   * When this response parameter is `true`, the HTTP response from the protected resource endpoint must include the `Signature` and `Signature-Input` HTTP fields.
    */
   responseSigningRequired?: boolean | undefined;
   /**

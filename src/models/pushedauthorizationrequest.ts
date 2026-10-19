@@ -10,8 +10,7 @@ export type PushedAuthorizationRequest = {
    *
    * @remarks
    *
-   * The value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from
-   * the client application.
+   * The value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from the client application.
    */
   parameters: string;
   /**
@@ -55,26 +54,21 @@ export type PushedAuthorizationRequest = {
    */
   htu?: string | undefined;
   /**
-   * The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification
+   * The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    *
    * @remarks
-   * of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    */
   oauthClientAttestation?: string | undefined;
   /**
-   * The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification
+   * The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    *
    * @remarks
-   * of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    */
   oauthClientAttestationPop?: string | undefined;
   /**
-   * The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if
+   * The flag indicating whether to require the DPoP proof JWT to include the `nonce` claim. Even if the service's `dpopNonceRequired` property is `false`, calling the `/pushed_auth_req` API with this `dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP proof JWT includes the expected `nonce` value.
    *
    * @remarks
-   * the service's `dpopNonceRequired` property is `false`, calling the `/pushed_auth_req` API with
-   * this `dpopNonceRequired` parameter `true` will force the Authlete API to check whether the DPoP
-   * proof JWT includes the expected `nonce` value.
    */
   dpopNonceRequired?: boolean | undefined;
 };

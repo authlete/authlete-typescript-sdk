@@ -6,14 +6,11 @@ import * as z from "zod/v3";
 
 export type RevocationRequest = {
   /**
-   * OAuth 2.0 token revocation request parameters which are the request parameters that the OAuth 2.0 token revocation endpoint
+   * OAuth 2.0 token revocation request parameters which are the request parameters that the OAuth 2.0 token revocation endpoint ([RFC 7009](https://datatracker.ietf.org/doc/html/rfc7009)) of the authorization server implementation received from the client application.
    *
    * @remarks
-   * ([RFC 7009](https://datatracker.ietf.org/doc/html/rfc7009)) of the authorization server implementation received from the
-   * client application.
    *
-   * The value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request
-   * from the client application.
+   * The value of parameters is the entire entity body (which is formatted in `application/x-www-form-urlencoded`) of the request from the client application.
    */
   parameters: string;
   /**
@@ -21,9 +18,7 @@ export type RevocationRequest = {
    *
    * @remarks
    *
-   * If the revocation endpoint of the authorization server implementation supports Basic Authentication
-   * as a means of client authentication, and the request from the client application contains its client ID in
-   * `Authorization` header, the value should be extracted and set to this parameter.
+   * If the revocation endpoint of the authorization server implementation supports Basic Authentication as a means of client authentication, and the request from the client application contains its client ID in `Authorization` header, the value should be extracted and set to this parameter.
    */
   clientId?: string | undefined;
   /**
@@ -31,9 +26,7 @@ export type RevocationRequest = {
    *
    * @remarks
    *
-   * If the revocation endpoint of the authorization server implementation supports basic authentication as a means of
-   * client authentication, and the request from the client application contained its client secret in `Authorization` header,
-   * the value should be extracted and set to this parameter.
+   * If the revocation endpoint of the authorization server implementation supports basic authentication as a means of client authentication, and the request from the client application contained its client secret in `Authorization` header, the value should be extracted and set to this parameter.
    */
   clientSecret?: string | undefined;
   /**
@@ -49,17 +42,15 @@ export type RevocationRequest = {
    */
   clientCertificatePath?: Array<string> | undefined;
   /**
-   * The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification
+   * The value of the `OAuth-Client-Attestation` HTTP header, which is defined in the specification of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    *
    * @remarks
-   * of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    */
   oauthClientAttestation?: string | undefined;
   /**
-   * The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification
+   * The value of the `OAuth-Client-Attestation-PoP` HTTP header, which is defined in the specification of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    *
    * @remarks
-   * of [OAuth 2.0 Attestation-Based Client Authentication](https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/).
    */
   oauthClientAttestationPop?: string | undefined;
 };

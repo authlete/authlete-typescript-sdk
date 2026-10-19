@@ -17,10 +17,9 @@ export type Property = {
    */
   value?: string | undefined;
   /**
-   * The flag to indicate whether this property hidden from or visible to client applications.
+   * The flag to indicate whether this property hidden from or visible to client applications. If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
    *
    * @remarks
-   * If `true`, this property is hidden from client applications. Otherwise, this property is visible to client applications.
    */
   hidden?: boolean | undefined;
 };

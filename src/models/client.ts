@@ -29,7 +29,6 @@ import {
 import {
   ClientRegistrationType,
   ClientRegistrationType$inboundSchema,
-  ClientRegistrationType$outboundSchema,
 } from "./clientregistrationtype.js";
 import {
   ClientType,
@@ -123,24 +122,21 @@ export type Client = {
    */
   number?: number | undefined;
   /**
-   * The sequential number of the service of the client application. The value of this property is
+   * The sequential number of the service of the client application. The value of this property is assigned by Authlete.
    *
    * @remarks
-   * assigned by Authlete.
    */
   serviceNumber?: number | undefined;
   /**
-   * The name of the client application. This property corresponds to `client_name` in
+   * The name of the client application. This property corresponds to `client_name` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   clientName?: string | undefined;
   /**
-   * Client names with language tags. If the client application has different names for different
+   * Client names with language tags. If the client application has different names for different languages, this property can be used to register the names.
    *
    * @remarks
-   * languages, this property can be used to register the names.
    */
   clientNames?: Array<TaggedValue> | undefined;
   /**
@@ -148,10 +144,9 @@ export type Client = {
    */
   description?: string | undefined;
   /**
-   * Descriptions about the client application with language tags. If the client application has different
+   * Descriptions about the client application with language tags. If the client application has different descriptions for different languages, this property can be used to register the descriptions.
    *
    * @remarks
-   * descriptions for different languages, this property can be used to register the descriptions.
    */
   descriptions?: Array<TaggedValue> | undefined;
   /**
@@ -159,17 +154,15 @@ export type Client = {
    */
   clientId?: number | undefined;
   /**
-   * The client secret. A random 512-bit value encoded by base64url (86 letters). The value of this
+   * The client secret. A random 512-bit value encoded by base64url (86 letters). The value of this property is assigned by Authlete.
    *
    * @remarks
-   * property is assigned by Authlete.
    */
   clientSecret?: string | undefined;
   /**
-   * The value of the client's `client_id` property used in OAuth and OpenID Connect calls. By
+   * The value of the client's `client_id` property used in OAuth and OpenID Connect calls. By default, this is a string version of the `clientId` property.
    *
    * @remarks
-   * default, this is a string version of the `clientId` property.
    */
   clientIdAlias?: string | undefined;
   /**
@@ -177,17 +170,15 @@ export type Client = {
    */
   clientIdAliasEnabled?: boolean | undefined;
   /**
-   * The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
+   * The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1) for details.
    *
    * @remarks
-   * for details.
    */
   clientType?: ClientType | undefined;
   /**
-   * The application type. The value of this property affects the validation steps for a redirect URI.
+   * The application type. The value of this property affects the validation steps for a redirect URI. See the description about `redirectUris` property for more details.
    *
    * @remarks
-   * See the description about `redirectUris` property for more details.
    */
   applicationType?: ApplicationType | undefined;
   /**
@@ -195,15 +186,13 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to `logo_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2.
-   * Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `logo_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   logoUri?: string | undefined;
   /**
-   * Logo image URLs with language tags. If the client application has different logo images for
+   * Logo image URLs with language tags. If the client application has different logo images for different languages, this property can be used to register URLs of the images.
    *
    * @remarks
-   * different languages, this property can be used to register URLs of the images.
    */
   logoUris?: Array<TaggedValue> | undefined;
   /**
@@ -211,8 +200,7 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to contacts in [OpenID Connect Dynamic Client Registration 1.0, 2. Client
-   * Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to contacts in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   contacts?: Array<string> | undefined;
   /**
@@ -222,20 +210,17 @@ export type Client = {
    */
   tlsClientCertificateBoundAccessTokens?: boolean | undefined;
   /**
-   * The flag to indicate whether this client has been registered dynamically.
+   * The flag to indicate whether this client has been registered dynamically. For more details, see [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
    *
    * @remarks
-   * For more details, see [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
    */
   dynamicallyRegistered?: boolean | undefined;
   /**
-   * The unique identifier string assigned by the client developer or software publisher used by
+   * The unique identifier string assigned by the client developer or software publisher used by registration endpoints to identify the client software to be dynamically registered.
    *
    * @remarks
-   * registration endpoints to identify the client software to be dynamically registered.
    *
-   * This property corresponds to the `software_id metadata` defined in [2. Client Metadata](https://datatracker.ietf.org/doc/html/rfc7591#section-2)
-   * of [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
+   * This property corresponds to the `software_id metadata` defined in [2. Client Metadata](https://datatracker.ietf.org/doc/html/rfc7591#section-2) of [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
    */
   softwareId?: string | undefined;
   /**
@@ -249,8 +234,7 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to the software_version metadata defined in [2. Client Metadata](https://datatracker.ietf.org/doc/html/rfc7591#section-2)
-   * of [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
+   * This property corresponds to the software_version metadata defined in [2. Client Metadata](https://datatracker.ietf.org/doc/html/rfc7591#section-2) of [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
    */
   softwareVersion?: string | undefined;
   /**
@@ -268,33 +252,27 @@ export type Client = {
    */
   modifiedAt?: number | undefined;
   /**
-   * A string array of grant types which the client application declares that it will restrict itself to using.
+   * A string array of grant types which the client application declares that it will restrict itself to using. This property corresponds to `grant_types` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   * This property corresponds to `grant_types` in [OpenID Connect Dynamic Client Registration 1.0,
-   * 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   grantTypes?: Array<GrantType> | undefined;
   /**
-   * A string array of response types which the client application declares that it will restrict itself to using.
+   * A string array of response types which the client application declares that it will restrict itself to using. This property corresponds to `response_types` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   * This property corresponds to `response_types` in [OpenID Connect Dynamic Client Registration 1.0,
-   * 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   responseTypes?: Array<ResponseType> | undefined;
   /**
-   * Redirect URIs that the client application uses to receive a response from the authorization endpoint.
+   * Redirect URIs that the client application uses to receive a response from the authorization endpoint. Requirements for a redirect URI are as follows.
    *
    * @remarks
-   * Requirements for a redirect URI are as follows.
    */
   redirectUris?: Array<string> | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -303,10 +281,9 @@ export type Client = {
    */
   authorizationSignAlg?: JwsAlg | null | undefined;
   /**
-   * this is the 'alg' header value for encrypted JWT tokens.
+   * this is the 'alg' header value for encrypted JWT tokens. Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    * - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
    * - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
    * - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
@@ -315,28 +292,24 @@ export type Client = {
    */
   authorizationEncryptionAlg?: JweAlg | null | undefined;
   /**
-   * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
+   * This is the encryption algorithm to be used when encrypting a JWT on client or server side. Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *   - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
    */
   authorizationEncryptionEnc?: JweEnc | null | undefined;
   /**
-   * The client authentication method that the client application declares that it uses at the token
+   * The client authentication method that the client application declares that it uses at the token endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   * endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
-   * Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   tokenAuthMethod?: ClientAuthMethod | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -351,79 +324,63 @@ export type Client = {
    */
   selfSignedCertificateKeyId?: string | undefined;
   /**
-   * The string representation of the expected subject distinguished name of the certificate this
+   * The string representation of the expected subject distinguished name of the certificate this client will use in mutual TLS authentication.
    *
    * @remarks
-   * client will use in mutual TLS authentication.
    *
-   * See `tls_client_auth_subject_dn` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client
-   * Registration" for details.
+   * See `tls_client_auth_subject_dn` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client Registration" for details.
    */
   tlsClientAuthSubjectDn?: string | undefined;
   /**
-   * The string representation of the expected DNS subject alternative name of the certificate this
+   * The string representation of the expected DNS subject alternative name of the certificate this client will use in mutual TLS authentication.
    *
    * @remarks
-   * client will use in mutual TLS authentication.
    *
-   * See `tls_client_auth_san_dns` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client
-   * Registration" for details.
+   * See `tls_client_auth_san_dns` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client Registration" for details.
    */
   tlsClientAuthSanDns?: string | undefined;
   /**
-   * The string representation of the expected URI subject alternative name of the certificate this
+   * The string representation of the expected URI subject alternative name of the certificate this client will use in mutual TLS authentication.
    *
    * @remarks
-   * client will use in mutual TLS authentication.
    *
-   * See `tls_client_auth_san_uri` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client
-   * Registration" for details.
+   * See `tls_client_auth_san_uri` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client Registration" for details.
    */
   tlsClientAuthSanUri?: string | undefined;
   /**
-   * The string representation of the expected IP address subject alternative name of the certificate
+   * The string representation of the expected IP address subject alternative name of the certificate this client will use in mutual TLS authentication.
    *
    * @remarks
-   * this client will use in mutual TLS authentication.
    *
-   * See `tls_client_auth_san_ip` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client
-   * Registration" for details.
+   * See `tls_client_auth_san_ip` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client Registration" for details.
    */
   tlsClientAuthSanIp?: string | undefined;
   /**
-   * The string representation of the expected email address subject alternative name of the certificate
+   * The string representation of the expected email address subject alternative name of the certificate this client will use in mutual TLS authentication.
    *
    * @remarks
-   * this client will use in mutual TLS authentication.
    *
-   * See `tls_client_auth_san_email` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client
-   * Registration" for details.
+   * See `tls_client_auth_san_email` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client Registration" for details.
    */
   tlsClientAuthSanEmail?: string | undefined;
   /**
-   * The flag to indicate whether this client is required to use the pushed authorization request endpoint.
+   * The flag to indicate whether this client is required to use the pushed authorization request endpoint. This property corresponds to the `require_pushed_authorization_requests` client metadata defined in "OAuth 2.0 Pushed Authorization Requests".
    *
    * @remarks
-   * This property corresponds to the `require_pushed_authorization_requests` client metadata defined
-   * in "OAuth 2.0 Pushed Authorization Requests".
    */
   parRequired?: boolean | undefined;
   /**
-   * The flag to indicate whether authorization requests from this client are always required to
+   * The flag to indicate whether authorization requests from this client are always required to utilize a request object by using either `request` or `request_uri` request parameter.
    *
    * @remarks
-   * utilize a request object by using either `request` or `request_uri` request parameter.
    *
-   * If this flag is set to `true` and the service's `traditionalRequestObjectProcessingApplied` is
-   * set to `false`, authorization requests from this client are processed as if `require_signed_request_object`
-   * client metadata of this client is `true`. The metadata is defined in "JAR (JWT Secured Authorization Request)".
+   * If this flag is set to `true` and the service's `traditionalRequestObjectProcessingApplied` is set to `false`, authorization requests from this client are processed as if `require_signed_request_object` client metadata of this client is `true`. The metadata is defined in "JAR (JWT Secured Authorization Request)".
    */
   requestObjectRequired?: boolean | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -432,10 +389,9 @@ export type Client = {
    */
   requestSignAlg?: JwsAlg | null | undefined;
   /**
-   * this is the 'alg' header value for encrypted JWT tokens.
+   * this is the 'alg' header value for encrypted JWT tokens. Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    * - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
    * - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
    * - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
@@ -444,10 +400,9 @@ export type Client = {
    */
   requestEncryptionAlg?: JweAlg | null | undefined;
   /**
-   * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
+   * This is the encryption algorithm to be used when encrypting a JWT on client or server side. Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *   - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
@@ -458,9 +413,7 @@ export type Client = {
    *
    * @remarks
    *
-   * Authlete requires that URLs used as values for `request_uri` request parameter be pre-registered.
-   * This property is used for the pre-registration.
-   * See [OpenID Connect Core 1.0, 6.2. Passing a Request Object by Reference](https://openid.net/specs/openid-connect-core-1_0.html#RequestUriParameter) for details.
+   * Authlete requires that URLs used as values for `request_uri` request parameter be pre-registered. This property is used for the pre-registration. See [OpenID Connect Core 1.0, 6.2. Passing a Request Object by Reference](https://openid.net/specs/openid-connect-core-1_0.html#RequestUriParameter) for details.
    */
   requestUris?: Array<string> | undefined;
   /**
@@ -468,23 +421,19 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to `default_max_age` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `default_max_age` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   defaultMaxAge?: number | undefined;
   /**
-   * The default ACRs (Authentication Context Class References). This value is used when an authorization
+   * The default ACRs (Authentication Context Class References). This value is used when an authorization request from the client application has neither `acr_values` request parameter nor `acr` claim in claims request parameter.
    *
    * @remarks
-   * request from the client application has neither `acr_values` request parameter nor `acr` claim
-   * in claims request parameter.
    */
   defaultAcrs?: Array<string> | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -493,10 +442,9 @@ export type Client = {
    */
   idTokenSignAlg?: JwsAlg | null | undefined;
   /**
-   * this is the 'alg' header value for encrypted JWT tokens.
+   * this is the 'alg' header value for encrypted JWT tokens. Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    * - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
    * - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
    * - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
@@ -505,10 +453,9 @@ export type Client = {
    */
   idTokenEncryptionAlg?: JweAlg | null | undefined;
   /**
-   * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
+   * This is the encryption algorithm to be used when encrypting a JWT on client or server side. Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *   - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
@@ -519,59 +466,45 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to `require_auth_time` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `require_auth_time` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   authTimeRequired?: boolean | undefined;
   /**
-   * The subject type that the client application requests. Details about the subject type are described in
+   * The subject type that the client application requests. Details about the subject type are described in [OpenID Connect Core 1.0, 8. Subjct Identifier Types](https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
    *
    * @remarks
-   * [OpenID Connect Core 1.0, 8. Subjct Identifier Types](https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
    *
-   * This property corresponds to `subject_type` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `subject_type` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   subjectType?: SubjectType | undefined;
   /**
-   * The value of the sector identifier URI.
+   * The value of the sector identifier URI. This represents the `sector_identifier_uri` client metadata which is defined in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata)
    *
    * @remarks
-   * This represents the `sector_identifier_uri` client metadata which is defined in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata)
    */
   sectorIdentifierUri?: string | undefined;
   /**
-   * The sector identifier host component as derived from either the `sector_identifier_uri` or the
+   * The sector identifier host component as derived from either the `sector_identifier_uri` or the registered redirect URI. If no `sector_identifier_uri` is registered and multiple redirect URIs are also registered, the value of this property is `null`.
    *
    * @remarks
-   * registered redirect URI. If no `sector_identifier_uri` is registered and multiple redirect URIs
-   * are also registered, the value of this property is `null`.
    */
   derivedSectorIdentifier?: string | undefined;
   /**
-   * The URL pointing to the JWK Set of the client application.
+   * The URL pointing to the JWK Set of the client application. The content pointed to by the URL is JSON which complies with the format described in [JSON Web Key (JWK), 5. JWK Set Format](https://datatracker.ietf.org/doc/html/rfc7517#section-5). The JWK Set must not include private keys of the client application.
    *
    * @remarks
-   * The content pointed to by the URL is JSON which complies with the format described in
-   * [JSON Web Key (JWK), 5. JWK Set Format](https://datatracker.ietf.org/doc/html/rfc7517#section-5).
-   * The JWK Set must not include private keys of the client application.
    */
   jwksUri?: string | undefined;
   /**
-   * The content of the JWK Set of the client application.
+   * The content of the JWK Set of the client application. The format is described in [JSON Web Key (JWK), 5. JWK Set Format](https://datatracker.ietf.org/doc/html/rfc7517#section-5). The JWK Set must not include private keys of the client application.
    *
    * @remarks
-   * The format is described in
-   * [JSON Web Key (JWK), 5. JWK Set Format](https://datatracker.ietf.org/doc/html/rfc7517#section-5).
-   * The JWK Set must not include private keys of the client application.
    */
   jwks?: string | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -580,10 +513,9 @@ export type Client = {
    */
   userInfoSignAlg?: JwsAlg | null | undefined;
   /**
-   * this is the 'alg' header value for encrypted JWT tokens.
+   * this is the 'alg' header value for encrypted JWT tokens. Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    * - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
    * - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
    * - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
@@ -592,10 +524,9 @@ export type Client = {
    */
   userInfoEncryptionAlg?: JweAlg | null | undefined;
   /**
-   * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
+   * This is the encryption algorithm to be used when encrypting a JWT on client or server side. Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *   - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
@@ -606,8 +537,7 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to `initiate_login_uri` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `initiate_login_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   loginUri?: string | undefined;
   /**
@@ -615,8 +545,7 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to `tos_uri` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `tos_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   tosUri?: string | undefined;
   /**
@@ -624,8 +553,7 @@ export type Client = {
    *
    * @remarks
    *
-   * If the client application has different "Terms Of Service" pages for different languages,
-   * this property can be used to register the URLs.
+   * If the client application has different "Terms Of Service" pages for different languages, this property can be used to register the URLs.
    */
   tosUris?: Array<TaggedValue> | undefined;
   /**
@@ -633,15 +561,13 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to `policy_uri` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `policy_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   policyUri?: string | undefined;
   /**
-   * URLs of policy pages with language tags.
+   * URLs of policy pages with language tags. If the client application has different policy pages for different languages, this property can be used to register the URLs.
    *
    * @remarks
-   * If the client application has different policy pages for different languages, this property can be used to register the URLs.
    */
   policyUris?: Array<TaggedValue> | undefined;
   /**
@@ -649,16 +575,13 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to `client_uri` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `client_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   clientUri?: string | undefined;
   /**
-   * Home page URLs with language tags.
+   * Home page URLs with language tags. If the client application has different home pages for different languages, this property can be used to register the URLs.
    *
    * @remarks
-   * If the client application has different home pages for different languages, this property can
-   * be used to register the URLs.
    */
   clientUris?: Array<TaggedValue> | undefined;
   /**
@@ -666,9 +589,7 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to the `backchannel_token_delivery_mode` metadata.
-   * The backchannel token delivery mode is defined in the specification of "CIBA (Client Initiated
-   * Backchannel Authentication)".
+   * This property corresponds to the `backchannel_token_delivery_mode` metadata. The backchannel token delivery mode is defined in the specification of "CIBA (Client Initiated Backchannel Authentication)".
    */
   bcDeliveryMode?: string | undefined;
   /**
@@ -676,16 +597,13 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to the `backchannel_client_notification_endpoint` metadata.
-   * The backchannel token delivery mode is defined in the specification of "CIBA (Client Initiated
-   * Backchannel Authentication)".
+   * This property corresponds to the `backchannel_client_notification_endpoint` metadata. The backchannel token delivery mode is defined in the specification of "CIBA (Client Initiated Backchannel Authentication)".
    */
   bcNotificationEndpoint?: string | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -694,27 +612,23 @@ export type Client = {
    */
   bcRequestSignAlg?: JwsAlg | null | undefined;
   /**
-   * The boolean flag to indicate whether a user code is required when this client makes a backchannel
+   * The boolean flag to indicate whether a user code is required when this client makes a backchannel authentication request.
    *
    * @remarks
-   * authentication request.
    *
    * This property corresponds to the `backchannel_user_code_parameter` metadata.
    */
   bcUserCodeRequired?: boolean | undefined;
   /**
-   * The backchannel logout URI for this client. Used by the service to
+   * The backchannel logout URI for this client. Used by the service to deliver logout tokens when OpenID Connect Back-Channel Logout 1.0 is triggered.
    *
    * @remarks
-   * deliver logout tokens when OpenID Connect Back-Channel Logout 1.0 is
-   * triggered.
    */
   backchannelLogoutUri?: string | undefined;
   /**
-   * The flag indicating whether the client requires that a `sid` (session ID)
+   * The flag indicating whether the client requires that a `sid` (session ID) claim be included in the logout token sent to `backchannelLogoutUri`.
    *
    * @remarks
-   * claim be included in the logout token sent to `backchannelLogoutUri`.
    */
   backchannelLogoutSessionRequired?: boolean | undefined;
   /**
@@ -725,16 +639,13 @@ export type Client = {
   attributes?: Array<Pair> | undefined;
   extension?: ClientExtension | undefined;
   /**
-   * The authorization details types that this client may use as values of the `type` field in
+   * The authorization details types that this client may use as values of the `type` field in `authorization_details`.
    *
    * @remarks
-   * `authorization_details`.
    *
-   * This property corresponds to the `authorization_details_types` metadata. See [OAuth 2.0 Rich
-   * Authorization Requests (RAR)](https://datatracker.ietf.org/doc/draft-ietf-oauth-rar/) for details.
+   * This property corresponds to the `authorization_details_types` metadata. See [OAuth 2.0 Rich Authorization Requests (RAR)](https://datatracker.ietf.org/doc/draft-ietf-oauth-rar/) for details.
    *
-   * Note that the property name was renamed from authorizationDataTypes to authorizationDetailsTypes
-   * to align with the change made by the 5th draft of the RAR specification.
+   * Note that the property name was renamed from authorizationDataTypes to authorizationDetailsTypes to align with the change made by the 5th draft of the RAR specification.
    */
   authorizationDetailsTypes?: Array<string> | undefined;
   /**
@@ -744,38 +655,27 @@ export type Client = {
    */
   customMetadata?: string | undefined;
   /**
-   * The flag indicating whether encryption of request object is required when the request object
+   * The flag indicating whether encryption of request object is required when the request object is passed through the front channel.
    *
    * @remarks
-   * is passed through the front channel.
    */
   frontChannelRequestObjectEncryptionRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg`
+   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg` client metadata.
    *
    * @remarks
-   * client metadata.
    */
   requestObjectEncryptionAlgMatchRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the JWE enc of encrypted request object must match the `request_object_encryption_enc`
+   * The flag indicating whether the JWE enc of encrypted request object must match the `request_object_encryption_enc` client metadata.
    *
    * @remarks
-   * client metadata.
    */
   requestObjectEncryptionEncMatchRequired?: boolean | undefined;
   /**
-   * The digest algorithm that this client requests the server to use
+   * The digest algorithm that this client requests the server to use when it computes digest values of [external attachments](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-external-attachments), which may be referenced from within ID tokens or userinfo responses (or any place that can have the `verified_claims` claim). Possible values are listed in the [Hash Algorithm Registry](https://www.iana.org/assignments/named-information/named-information.xhtml#hash-alg) of IANA (Internet Assigned Numbers Authority), but the server does not necessarily support all the values there. When this property is omitted, `sha-256` is used as the default algorithm. This property corresponds to the `digest_algorithm` client metadata which was defined by the third implementer's draft of [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html).
    *
    * @remarks
-   * when it computes digest values of [external attachments](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-external-attachments), which may be referenced from within ID tokens
-   * or userinfo responses (or any place that can have the `verified_claims` claim).
-   * Possible values are listed in the [Hash Algorithm Registry](https://www.iana.org/assignments/named-information/named-information.xhtml#hash-alg) of IANA (Internet Assigned Numbers Authority),
-   * but the server does not necessarily support all the values there. When
-   * this property is omitted, `sha-256` is used as the default algorithm.
-   * This property corresponds to the `digest_algorithm` client metadata
-   * which was defined by the third implementer's draft of
-   * [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html).
    */
   digestAlgorithm?: string | undefined;
   /**
@@ -803,9 +703,7 @@ export type Client = {
    *
    * @remarks
    *
-   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request
-   * whenever it includes the `code_challenge` request parameter.
-   * Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
+   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request whenever it includes the `code_challenge` request parameter. Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
    */
   pkceS256Required?: boolean | undefined;
   /**
@@ -815,17 +713,15 @@ export type Client = {
    */
   dpopRequired?: boolean | undefined;
   /**
-   * The flag indicating whether this client was registered by the
+   * The flag indicating whether this client was registered by the "automatic" client registration of OIDC Federation.
    *
    * @remarks
-   * "automatic" client registration of OIDC Federation.
    */
   automaticallyRegistered?: boolean | undefined;
   /**
-   * The flag indicating whether this client was registered by the
+   * The flag indicating whether this client was registered by the "explicit" client registration of OIDC Federation.
    *
    * @remarks
-   * "explicit" client registration of OIDC Federation.
    */
   explicitlyRegistered?: boolean | undefined;
   /**
@@ -847,17 +743,15 @@ export type Client = {
    */
   clientRegistrationTypes?: Array<ClientRegistrationType> | undefined;
   /**
-   * The human-readable name representing the organization that manages this client. This property corresponds
+   * The human-readable name representing the organization that manages this client. This property corresponds to the organization_name client metadata that is defined in OpenID Connect Federation 1.0.
    *
    * @remarks
-   * to the organization_name client metadata that is defined in OpenID Connect Federation 1.0.
    */
   organizationName?: string | undefined;
   /**
-   * The URI of the endpoint that returns this client's JWK Set document in the JWT format. This property
+   * The URI of the endpoint that returns this client's JWK Set document in the JWT format. This property corresponds to the `signed_jwks_uri` client metadata defined in OpenID Connect Federation 1.0.
    *
    * @remarks
-   * corresponds to the `signed_jwks_uri` client metadata defined in OpenID Connect Federation 1.0.
    */
   signedJwksUri?: string | undefined;
   /**
@@ -867,24 +761,21 @@ export type Client = {
    */
   entityId?: string | undefined;
   /**
-   * The entity ID of the trust anchor of the trust chain that was used when this client was registered or updated by
+   * The entity ID of the trust anchor of the trust chain that was used when this client was registered or updated by the mechanism defined in OpenID Connect Federation 1.0
    *
    * @remarks
-   * the mechanism defined in OpenID Connect Federation 1.0
    */
   trustAnchorId?: string | undefined;
   /**
-   * The trust chain that was used when this client was registered or updated by the mechanism defined in
+   * The trust chain that was used when this client was registered or updated by the mechanism defined in OpenID Connect Federation 1.0
    *
    * @remarks
-   * OpenID Connect Federation 1.0
    */
   trustChain?: Array<string> | undefined;
   /**
-   * the expiration time of the trust chain that was used when this client was registered or updated by the mechanism
+   * the expiration time of the trust chain that was used when this client was registered or updated by the mechanism defined in OpenID Connect Federation 1.0. The value is represented as milliseconds elapsed since the Unix epoch (1970-01-01).
    *
    * @remarks
-   * defined in OpenID Connect Federation 1.0. The value is represented as milliseconds elapsed since the Unix epoch (1970-01-01).
    */
   trustChainExpiresAt?: number | undefined;
   /**
@@ -900,10 +791,9 @@ export type Client = {
    */
   locked?: boolean | undefined;
   /**
-   * The URL of the credential offer endpoint at which this client
+   * The URL of the credential offer endpoint at which this client (wallet) receives a credential offer from the credential issuer.
    *
    * @remarks
-   * (wallet) receives a credential offer from the credential issuer.
    */
   credentialOfferEndpoint?: string | undefined;
   /**
@@ -925,15 +815,13 @@ export type Client = {
    *
    * @remarks
    *
-   * This property corresponds to the `use_mtls_endpoint_aliases` client metadata that is defined in
-   * [FAPI 2.0 Security Profile, 8.1.1. use_mtls_endpoint_aliases](https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html#section-8.1.1).
+   * This property corresponds to the `use_mtls_endpoint_aliases` client metadata that is defined in [FAPI 2.0 Security Profile, 8.1.1. use_mtls_endpoint_aliases](https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html#section-8.1.1).
    */
   mtlsEndpointAliasesUsed?: boolean | undefined;
   /**
-   * The flag indicating whether this client is in scope for token migration
+   * The flag indicating whether this client is in scope for token migration operations.
    *
    * @remarks
-   * operations.
    */
   inScopeForTokenMigration?: boolean | undefined;
   /**
@@ -967,18 +855,15 @@ export type Client = {
    */
   clientSource?: ClientClientSource | undefined;
   /**
-   * The SPIFFE ID of the client. Used for SPIFFE-based client authentication
+   * The SPIFFE ID of the client. Used for SPIFFE-based client authentication (`SPIFFE_JWT`). Corresponds to the `spiffe_id` client metadata parameter.
    *
    * @remarks
-   * (`SPIFFE_JWT`). Corresponds to the `spiffe_id` client metadata parameter.
    */
   spiffeId?: string | undefined;
   /**
-   * The endpoint URL of the SPIFFE bundle for this client. Used to fetch
+   * The endpoint URL of the SPIFFE bundle for this client. Used to fetch the SPIFFE trust bundle for validating JWT-SVIDs. Corresponds to the `spiffe_bundle_endpoint` client metadata parameter.
    *
    * @remarks
-   * the SPIFFE trust bundle for validating JWT-SVIDs. Corresponds to the
-   * `spiffe_bundle_endpoint` client metadata parameter.
    */
   spiffeBundleEndpoint?: string | undefined;
   additionalProperties?: { [k: string]: any } | undefined;
@@ -986,17 +871,15 @@ export type Client = {
 
 export type ClientInput = {
   /**
-   * The name of the client application. This property corresponds to `client_name` in
+   * The name of the client application. This property corresponds to `client_name` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   clientName?: string | undefined;
   /**
-   * Client names with language tags. If the client application has different names for different
+   * Client names with language tags. If the client application has different names for different languages, this property can be used to register the names.
    *
    * @remarks
-   * languages, this property can be used to register the names.
    */
   clientNames?: Array<TaggedValue> | undefined;
   /**
@@ -1004,35 +887,27 @@ export type ClientInput = {
    */
   description?: string | undefined;
   /**
-   * Descriptions about the client application with language tags. If the client application has different
+   * Descriptions about the client application with language tags. If the client application has different descriptions for different languages, this property can be used to register the descriptions.
    *
    * @remarks
-   * descriptions for different languages, this property can be used to register the descriptions.
    */
   descriptions?: Array<TaggedValue> | undefined;
   /**
-   * The value of the client's `client_id` property used in OAuth and OpenID Connect calls. By
+   * The value of the client's `client_id` property used in OAuth and OpenID Connect calls. By default, this is a string version of the `clientId` property.
    *
    * @remarks
-   * default, this is a string version of the `clientId` property.
    */
   clientIdAlias?: string | undefined;
   /**
-   * Deprecated. Always set to `true`.
-   */
-  clientIdAliasEnabled?: boolean | undefined;
-  /**
-   * The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
+   * The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1) for details.
    *
    * @remarks
-   * for details.
    */
   clientType?: ClientType | undefined;
   /**
-   * The application type. The value of this property affects the validation steps for a redirect URI.
+   * The application type. The value of this property affects the validation steps for a redirect URI. See the description about `redirectUris` property for more details.
    *
    * @remarks
-   * See the description about `redirectUris` property for more details.
    */
   applicationType?: ApplicationType | undefined;
   /**
@@ -1040,15 +915,13 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to `logo_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2.
-   * Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `logo_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   logoUri?: string | undefined;
   /**
-   * Logo image URLs with language tags. If the client application has different logo images for
+   * Logo image URLs with language tags. If the client application has different logo images for different languages, this property can be used to register URLs of the images.
    *
    * @remarks
-   * different languages, this property can be used to register URLs of the images.
    */
   logoUris?: Array<TaggedValue> | undefined;
   /**
@@ -1056,8 +929,7 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to contacts in [OpenID Connect Dynamic Client Registration 1.0, 2. Client
-   * Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to contacts in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   contacts?: Array<string> | undefined;
   /**
@@ -1067,64 +939,43 @@ export type ClientInput = {
    */
   tlsClientCertificateBoundAccessTokens?: boolean | undefined;
   /**
-   * The unique identifier string assigned by the client developer or software publisher used by
+   * The unique identifier string assigned by the client developer or software publisher used by registration endpoints to identify the client software to be dynamically registered.
    *
    * @remarks
-   * registration endpoints to identify the client software to be dynamically registered.
    *
-   * This property corresponds to the `software_id metadata` defined in [2. Client Metadata](https://datatracker.ietf.org/doc/html/rfc7591#section-2)
-   * of [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
+   * This property corresponds to the `software_id metadata` defined in [2. Client Metadata](https://datatracker.ietf.org/doc/html/rfc7591#section-2) of [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
    */
   softwareId?: string | undefined;
-  /**
-   * The unique identifier of the developer who created this client application.
-   *
-   * @remarks
-   */
-  developer?: string | undefined;
   /**
    * The version identifier string for the client software identified by the software ID.
    *
    * @remarks
    *
-   * This property corresponds to the software_version metadata defined in [2. Client Metadata](https://datatracker.ietf.org/doc/html/rfc7591#section-2)
-   * of [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
+   * This property corresponds to the software_version metadata defined in [2. Client Metadata](https://datatracker.ietf.org/doc/html/rfc7591#section-2) of [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
    */
   softwareVersion?: string | undefined;
   /**
-   * The hash of the registration access token for this client.
+   * A string array of grant types which the client application declares that it will restrict itself to using. This property corresponds to `grant_types` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   */
-  registrationAccessTokenHash?: string | undefined;
-  /**
-   * A string array of grant types which the client application declares that it will restrict itself to using.
-   *
-   * @remarks
-   * This property corresponds to `grant_types` in [OpenID Connect Dynamic Client Registration 1.0,
-   * 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   grantTypes?: Array<GrantType> | undefined;
   /**
-   * A string array of response types which the client application declares that it will restrict itself to using.
+   * A string array of response types which the client application declares that it will restrict itself to using. This property corresponds to `response_types` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   * This property corresponds to `response_types` in [OpenID Connect Dynamic Client Registration 1.0,
-   * 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   responseTypes?: Array<ResponseType> | undefined;
   /**
-   * Redirect URIs that the client application uses to receive a response from the authorization endpoint.
+   * Redirect URIs that the client application uses to receive a response from the authorization endpoint. Requirements for a redirect URI are as follows.
    *
    * @remarks
-   * Requirements for a redirect URI are as follows.
    */
   redirectUris?: Array<string> | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -1133,10 +984,9 @@ export type ClientInput = {
    */
   authorizationSignAlg?: JwsAlg | null | undefined;
   /**
-   * this is the 'alg' header value for encrypted JWT tokens.
+   * this is the 'alg' header value for encrypted JWT tokens. Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    * - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
    * - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
    * - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
@@ -1145,28 +995,24 @@ export type ClientInput = {
    */
   authorizationEncryptionAlg?: JweAlg | null | undefined;
   /**
-   * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
+   * This is the encryption algorithm to be used when encrypting a JWT on client or server side. Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *   - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
    */
   authorizationEncryptionEnc?: JweEnc | null | undefined;
   /**
-   * The client authentication method that the client application declares that it uses at the token
+   * The client authentication method that the client application declares that it uses at the token endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   * endpoint. This property corresponds to `token_endpoint_auth_method` in [OpenID Connect Dynamic
-   * Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   tokenAuthMethod?: ClientAuthMethod | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -1181,79 +1027,63 @@ export type ClientInput = {
    */
   selfSignedCertificateKeyId?: string | undefined;
   /**
-   * The string representation of the expected subject distinguished name of the certificate this
+   * The string representation of the expected subject distinguished name of the certificate this client will use in mutual TLS authentication.
    *
    * @remarks
-   * client will use in mutual TLS authentication.
    *
-   * See `tls_client_auth_subject_dn` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client
-   * Registration" for details.
+   * See `tls_client_auth_subject_dn` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client Registration" for details.
    */
   tlsClientAuthSubjectDn?: string | undefined;
   /**
-   * The string representation of the expected DNS subject alternative name of the certificate this
+   * The string representation of the expected DNS subject alternative name of the certificate this client will use in mutual TLS authentication.
    *
    * @remarks
-   * client will use in mutual TLS authentication.
    *
-   * See `tls_client_auth_san_dns` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client
-   * Registration" for details.
+   * See `tls_client_auth_san_dns` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client Registration" for details.
    */
   tlsClientAuthSanDns?: string | undefined;
   /**
-   * The string representation of the expected URI subject alternative name of the certificate this
+   * The string representation of the expected URI subject alternative name of the certificate this client will use in mutual TLS authentication.
    *
    * @remarks
-   * client will use in mutual TLS authentication.
    *
-   * See `tls_client_auth_san_uri` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client
-   * Registration" for details.
+   * See `tls_client_auth_san_uri` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client Registration" for details.
    */
   tlsClientAuthSanUri?: string | undefined;
   /**
-   * The string representation of the expected IP address subject alternative name of the certificate
+   * The string representation of the expected IP address subject alternative name of the certificate this client will use in mutual TLS authentication.
    *
    * @remarks
-   * this client will use in mutual TLS authentication.
    *
-   * See `tls_client_auth_san_ip` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client
-   * Registration" for details.
+   * See `tls_client_auth_san_ip` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client Registration" for details.
    */
   tlsClientAuthSanIp?: string | undefined;
   /**
-   * The string representation of the expected email address subject alternative name of the certificate
+   * The string representation of the expected email address subject alternative name of the certificate this client will use in mutual TLS authentication.
    *
    * @remarks
-   * this client will use in mutual TLS authentication.
    *
-   * See `tls_client_auth_san_email` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client
-   * Registration" for details.
+   * See `tls_client_auth_san_email` in "Mutual TLS Profiles for OAuth Clients, 2.3. Dynamic Client Registration" for details.
    */
   tlsClientAuthSanEmail?: string | undefined;
   /**
-   * The flag to indicate whether this client is required to use the pushed authorization request endpoint.
+   * The flag to indicate whether this client is required to use the pushed authorization request endpoint. This property corresponds to the `require_pushed_authorization_requests` client metadata defined in "OAuth 2.0 Pushed Authorization Requests".
    *
    * @remarks
-   * This property corresponds to the `require_pushed_authorization_requests` client metadata defined
-   * in "OAuth 2.0 Pushed Authorization Requests".
    */
   parRequired?: boolean | undefined;
   /**
-   * The flag to indicate whether authorization requests from this client are always required to
+   * The flag to indicate whether authorization requests from this client are always required to utilize a request object by using either `request` or `request_uri` request parameter.
    *
    * @remarks
-   * utilize a request object by using either `request` or `request_uri` request parameter.
    *
-   * If this flag is set to `true` and the service's `traditionalRequestObjectProcessingApplied` is
-   * set to `false`, authorization requests from this client are processed as if `require_signed_request_object`
-   * client metadata of this client is `true`. The metadata is defined in "JAR (JWT Secured Authorization Request)".
+   * If this flag is set to `true` and the service's `traditionalRequestObjectProcessingApplied` is set to `false`, authorization requests from this client are processed as if `require_signed_request_object` client metadata of this client is `true`. The metadata is defined in "JAR (JWT Secured Authorization Request)".
    */
   requestObjectRequired?: boolean | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -1262,10 +1092,9 @@ export type ClientInput = {
    */
   requestSignAlg?: JwsAlg | null | undefined;
   /**
-   * this is the 'alg' header value for encrypted JWT tokens.
+   * this is the 'alg' header value for encrypted JWT tokens. Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    * - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
    * - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
    * - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
@@ -1274,10 +1103,9 @@ export type ClientInput = {
    */
   requestEncryptionAlg?: JweAlg | null | undefined;
   /**
-   * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
+   * This is the encryption algorithm to be used when encrypting a JWT on client or server side. Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *   - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
@@ -1288,9 +1116,7 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * Authlete requires that URLs used as values for `request_uri` request parameter be pre-registered.
-   * This property is used for the pre-registration.
-   * See [OpenID Connect Core 1.0, 6.2. Passing a Request Object by Reference](https://openid.net/specs/openid-connect-core-1_0.html#RequestUriParameter) for details.
+   * Authlete requires that URLs used as values for `request_uri` request parameter be pre-registered. This property is used for the pre-registration. See [OpenID Connect Core 1.0, 6.2. Passing a Request Object by Reference](https://openid.net/specs/openid-connect-core-1_0.html#RequestUriParameter) for details.
    */
   requestUris?: Array<string> | undefined;
   /**
@@ -1298,23 +1124,19 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to `default_max_age` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `default_max_age` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   defaultMaxAge?: number | undefined;
   /**
-   * The default ACRs (Authentication Context Class References). This value is used when an authorization
+   * The default ACRs (Authentication Context Class References). This value is used when an authorization request from the client application has neither `acr_values` request parameter nor `acr` claim in claims request parameter.
    *
    * @remarks
-   * request from the client application has neither `acr_values` request parameter nor `acr` claim
-   * in claims request parameter.
    */
   defaultAcrs?: Array<string> | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -1323,10 +1145,9 @@ export type ClientInput = {
    */
   idTokenSignAlg?: JwsAlg | null | undefined;
   /**
-   * this is the 'alg' header value for encrypted JWT tokens.
+   * this is the 'alg' header value for encrypted JWT tokens. Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    * - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
    * - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
    * - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
@@ -1335,10 +1156,9 @@ export type ClientInput = {
    */
   idTokenEncryptionAlg?: JweAlg | null | undefined;
   /**
-   * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
+   * This is the encryption algorithm to be used when encrypting a JWT on client or server side. Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *   - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
@@ -1349,51 +1169,39 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to `require_auth_time` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `require_auth_time` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   authTimeRequired?: boolean | undefined;
   /**
-   * The subject type that the client application requests. Details about the subject type are described in
+   * The subject type that the client application requests. Details about the subject type are described in [OpenID Connect Core 1.0, 8. Subjct Identifier Types](https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
    *
    * @remarks
-   * [OpenID Connect Core 1.0, 8. Subjct Identifier Types](https://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
    *
-   * This property corresponds to `subject_type` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `subject_type` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   subjectType?: SubjectType | undefined;
   /**
-   * The value of the sector identifier URI.
+   * The value of the sector identifier URI. This represents the `sector_identifier_uri` client metadata which is defined in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata)
    *
    * @remarks
-   * This represents the `sector_identifier_uri` client metadata which is defined in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata)
    */
   sectorIdentifierUri?: string | undefined;
   /**
-   * The URL pointing to the JWK Set of the client application.
+   * The URL pointing to the JWK Set of the client application. The content pointed to by the URL is JSON which complies with the format described in [JSON Web Key (JWK), 5. JWK Set Format](https://datatracker.ietf.org/doc/html/rfc7517#section-5). The JWK Set must not include private keys of the client application.
    *
    * @remarks
-   * The content pointed to by the URL is JSON which complies with the format described in
-   * [JSON Web Key (JWK), 5. JWK Set Format](https://datatracker.ietf.org/doc/html/rfc7517#section-5).
-   * The JWK Set must not include private keys of the client application.
    */
   jwksUri?: string | undefined;
   /**
-   * The content of the JWK Set of the client application.
+   * The content of the JWK Set of the client application. The format is described in [JSON Web Key (JWK), 5. JWK Set Format](https://datatracker.ietf.org/doc/html/rfc7517#section-5). The JWK Set must not include private keys of the client application.
    *
    * @remarks
-   * The format is described in
-   * [JSON Web Key (JWK), 5. JWK Set Format](https://datatracker.ietf.org/doc/html/rfc7517#section-5).
-   * The JWK Set must not include private keys of the client application.
    */
   jwks?: string | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -1402,10 +1210,9 @@ export type ClientInput = {
    */
   userInfoSignAlg?: JwsAlg | null | undefined;
   /**
-   * this is the 'alg' header value for encrypted JWT tokens.
+   * this is the 'alg' header value for encrypted JWT tokens. Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to key transport scheme to be used by the client and by the server. For instance:
    * - as `authorizationEncryptionAlg` value, it refers to the encoding algorithm used by server for transporting they keys on JARM objects
    * - as `requestEncryptionAlg` value, it refers to the expected key transport encoding algorithm that server expect from client when encrypting a Request Object
    * - as `idTokenEncryptionAlg` value, it refers to the algorithm used by the server to key transport of id_tokens
@@ -1414,10 +1221,9 @@ export type ClientInput = {
    */
   userInfoEncryptionAlg?: JweAlg | null | undefined;
   /**
-   * This is the encryption algorithm to be used when encrypting a JWT on client or server side.
+   * This is the encryption algorithm to be used when encrypting a JWT on client or server side. Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *
    * @remarks
-   * Depending upon the context, this refers to encryption done by the client or by the server. For instance:
    *   - as `authorizationEncryptionEnc` value, it refers to the encryption algorithm used by server when creating a JARM response
    *   - as `requestEncryptionEnc` value, it refers to the expected encryption algorithm used by the client when encrypting a Request Object
    *   - as `idTokenEncryptionEnc` value, it refers to the algorithm used by the server to encrypt id_tokens
@@ -1428,8 +1234,7 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to `initiate_login_uri` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `initiate_login_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   loginUri?: string | undefined;
   /**
@@ -1437,8 +1242,7 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to `tos_uri` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `tos_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   tosUri?: string | undefined;
   /**
@@ -1446,8 +1250,7 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * If the client application has different "Terms Of Service" pages for different languages,
-   * this property can be used to register the URLs.
+   * If the client application has different "Terms Of Service" pages for different languages, this property can be used to register the URLs.
    */
   tosUris?: Array<TaggedValue> | undefined;
   /**
@@ -1455,15 +1258,13 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to `policy_uri` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `policy_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   policyUri?: string | undefined;
   /**
-   * URLs of policy pages with language tags.
+   * URLs of policy pages with language tags. If the client application has different policy pages for different languages, this property can be used to register the URLs.
    *
    * @remarks
-   * If the client application has different policy pages for different languages, this property can be used to register the URLs.
    */
   policyUris?: Array<TaggedValue> | undefined;
   /**
@@ -1471,16 +1272,13 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to `client_uri` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `client_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   clientUri?: string | undefined;
   /**
-   * Home page URLs with language tags.
+   * Home page URLs with language tags. If the client application has different home pages for different languages, this property can be used to register the URLs.
    *
    * @remarks
-   * If the client application has different home pages for different languages, this property can
-   * be used to register the URLs.
    */
   clientUris?: Array<TaggedValue> | undefined;
   /**
@@ -1488,9 +1286,7 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to the `backchannel_token_delivery_mode` metadata.
-   * The backchannel token delivery mode is defined in the specification of "CIBA (Client Initiated
-   * Backchannel Authentication)".
+   * This property corresponds to the `backchannel_token_delivery_mode` metadata. The backchannel token delivery mode is defined in the specification of "CIBA (Client Initiated Backchannel Authentication)".
    */
   bcDeliveryMode?: string | undefined;
   /**
@@ -1498,16 +1294,13 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to the `backchannel_client_notification_endpoint` metadata.
-   * The backchannel token delivery mode is defined in the specification of "CIBA (Client Initiated
-   * Backchannel Authentication)".
+   * This property corresponds to the `backchannel_client_notification_endpoint` metadata. The backchannel token delivery mode is defined in the specification of "CIBA (Client Initiated Backchannel Authentication)".
    */
   bcNotificationEndpoint?: string | undefined;
   /**
-   * The signature algorithm for JWT. This value is represented on 'alg' attribute
+   * The signature algorithm for JWT. This value is represented on 'alg' attribute of the header of JWT.
    *
    * @remarks
-   * of the header of JWT.
    *
    * it's semantics depends upon where is this defined, for instance:
    *   - as service accessTokenSignAlg value, it defines that access token are JWT and the algorithm used to sign it. Check your [KB article](https://kb.authlete.com/en/s/oauth-and-openid-connect/a/jwt-based-access-token).
@@ -1516,27 +1309,23 @@ export type ClientInput = {
    */
   bcRequestSignAlg?: JwsAlg | null | undefined;
   /**
-   * The boolean flag to indicate whether a user code is required when this client makes a backchannel
+   * The boolean flag to indicate whether a user code is required when this client makes a backchannel authentication request.
    *
    * @remarks
-   * authentication request.
    *
    * This property corresponds to the `backchannel_user_code_parameter` metadata.
    */
   bcUserCodeRequired?: boolean | undefined;
   /**
-   * The backchannel logout URI for this client. Used by the service to
+   * The backchannel logout URI for this client. Used by the service to deliver logout tokens when OpenID Connect Back-Channel Logout 1.0 is triggered.
    *
    * @remarks
-   * deliver logout tokens when OpenID Connect Back-Channel Logout 1.0 is
-   * triggered.
    */
   backchannelLogoutUri?: string | undefined;
   /**
-   * The flag indicating whether the client requires that a `sid` (session ID)
+   * The flag indicating whether the client requires that a `sid` (session ID) claim be included in the logout token sent to `backchannelLogoutUri`.
    *
    * @remarks
-   * claim be included in the logout token sent to `backchannelLogoutUri`.
    */
   backchannelLogoutSessionRequired?: boolean | undefined;
   /**
@@ -1547,16 +1336,13 @@ export type ClientInput = {
   attributes?: Array<Pair> | undefined;
   extension?: ClientExtension | undefined;
   /**
-   * The authorization details types that this client may use as values of the `type` field in
+   * The authorization details types that this client may use as values of the `type` field in `authorization_details`.
    *
    * @remarks
-   * `authorization_details`.
    *
-   * This property corresponds to the `authorization_details_types` metadata. See [OAuth 2.0 Rich
-   * Authorization Requests (RAR)](https://datatracker.ietf.org/doc/draft-ietf-oauth-rar/) for details.
+   * This property corresponds to the `authorization_details_types` metadata. See [OAuth 2.0 Rich Authorization Requests (RAR)](https://datatracker.ietf.org/doc/draft-ietf-oauth-rar/) for details.
    *
-   * Note that the property name was renamed from authorizationDataTypes to authorizationDetailsTypes
-   * to align with the change made by the 5th draft of the RAR specification.
+   * Note that the property name was renamed from authorizationDataTypes to authorizationDetailsTypes to align with the change made by the 5th draft of the RAR specification.
    */
   authorizationDetailsTypes?: Array<string> | undefined;
   /**
@@ -1566,38 +1352,27 @@ export type ClientInput = {
    */
   customMetadata?: string | undefined;
   /**
-   * The flag indicating whether encryption of request object is required when the request object
+   * The flag indicating whether encryption of request object is required when the request object is passed through the front channel.
    *
    * @remarks
-   * is passed through the front channel.
    */
   frontChannelRequestObjectEncryptionRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg`
+   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg` client metadata.
    *
    * @remarks
-   * client metadata.
    */
   requestObjectEncryptionAlgMatchRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the JWE enc of encrypted request object must match the `request_object_encryption_enc`
+   * The flag indicating whether the JWE enc of encrypted request object must match the `request_object_encryption_enc` client metadata.
    *
    * @remarks
-   * client metadata.
    */
   requestObjectEncryptionEncMatchRequired?: boolean | undefined;
   /**
-   * The digest algorithm that this client requests the server to use
+   * The digest algorithm that this client requests the server to use when it computes digest values of [external attachments](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-external-attachments), which may be referenced from within ID tokens or userinfo responses (or any place that can have the `verified_claims` claim). Possible values are listed in the [Hash Algorithm Registry](https://www.iana.org/assignments/named-information/named-information.xhtml#hash-alg) of IANA (Internet Assigned Numbers Authority), but the server does not necessarily support all the values there. When this property is omitted, `sha-256` is used as the default algorithm. This property corresponds to the `digest_algorithm` client metadata which was defined by the third implementer's draft of [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html).
    *
    * @remarks
-   * when it computes digest values of [external attachments](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html#name-external-attachments), which may be referenced from within ID tokens
-   * or userinfo responses (or any place that can have the `verified_claims` claim).
-   * Possible values are listed in the [Hash Algorithm Registry](https://www.iana.org/assignments/named-information/named-information.xhtml#hash-alg) of IANA (Internet Assigned Numbers Authority),
-   * but the server does not necessarily support all the values there. When
-   * this property is omitted, `sha-256` is used as the default algorithm.
-   * This property corresponds to the `digest_algorithm` client metadata
-   * which was defined by the third implementer's draft of
-   * [OpenID Connect for Identity Assurance 1.0](https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html).
    */
   digestAlgorithm?: string | undefined;
   /**
@@ -1625,9 +1400,7 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request
-   * whenever it includes the `code_challenge` request parameter.
-   * Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
+   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request whenever it includes the `code_challenge` request parameter. Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
    */
   pkceS256Required?: boolean | undefined;
   /**
@@ -1636,20 +1409,6 @@ export type ClientInput = {
    * @remarks
    */
   dpopRequired?: boolean | undefined;
-  /**
-   * The flag indicating whether this client was registered by the
-   *
-   * @remarks
-   * "automatic" client registration of OIDC Federation.
-   */
-  automaticallyRegistered?: boolean | undefined;
-  /**
-   * The flag indicating whether this client was registered by the
-   *
-   * @remarks
-   * "explicit" client registration of OIDC Federation.
-   */
-  explicitlyRegistered?: boolean | undefined;
   /**
    * The flag indicating whether this service signs responses from the resource server.
    *
@@ -1663,69 +1422,9 @@ export type ClientInput = {
    */
   rsSignedRequestKeyId?: string | undefined;
   /**
-   * The client registration types that the client has declared it may use.
+   * The URL of the credential offer endpoint at which this client (wallet) receives a credential offer from the credential issuer.
    *
    * @remarks
-   */
-  clientRegistrationTypes?: Array<ClientRegistrationType> | undefined;
-  /**
-   * The human-readable name representing the organization that manages this client. This property corresponds
-   *
-   * @remarks
-   * to the organization_name client metadata that is defined in OpenID Connect Federation 1.0.
-   */
-  organizationName?: string | undefined;
-  /**
-   * The URI of the endpoint that returns this client's JWK Set document in the JWT format. This property
-   *
-   * @remarks
-   * corresponds to the `signed_jwks_uri` client metadata defined in OpenID Connect Federation 1.0.
-   */
-  signedJwksUri?: string | undefined;
-  /**
-   * the entity ID of this client.
-   *
-   * @remarks
-   */
-  entityId?: string | undefined;
-  /**
-   * The entity ID of the trust anchor of the trust chain that was used when this client was registered or updated by
-   *
-   * @remarks
-   * the mechanism defined in OpenID Connect Federation 1.0
-   */
-  trustAnchorId?: string | undefined;
-  /**
-   * The trust chain that was used when this client was registered or updated by the mechanism defined in
-   *
-   * @remarks
-   * OpenID Connect Federation 1.0
-   */
-  trustChain?: Array<string> | undefined;
-  /**
-   * the expiration time of the trust chain that was used when this client was registered or updated by the mechanism
-   *
-   * @remarks
-   * defined in OpenID Connect Federation 1.0. The value is represented as milliseconds elapsed since the Unix epoch (1970-01-01).
-   */
-  trustChainExpiresAt?: number | undefined;
-  /**
-   * the time at which the trust chain was updated by the mechanism defined in OpenID Connect Federation 1.0
-   *
-   * @remarks
-   */
-  trustChainUpdatedAt?: number | undefined;
-  /**
-   * The flag which indicates whether this client is locked.
-   *
-   * @remarks
-   */
-  locked?: boolean | undefined;
-  /**
-   * The URL of the credential offer endpoint at which this client
-   *
-   * @remarks
-   * (wallet) receives a credential offer from the credential issuer.
    */
   credentialOfferEndpoint?: string | undefined;
   /**
@@ -1747,60 +1446,25 @@ export type ClientInput = {
    *
    * @remarks
    *
-   * This property corresponds to the `use_mtls_endpoint_aliases` client metadata that is defined in
-   * [FAPI 2.0 Security Profile, 8.1.1. use_mtls_endpoint_aliases](https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html#section-8.1.1).
+   * This property corresponds to the `use_mtls_endpoint_aliases` client metadata that is defined in [FAPI 2.0 Security Profile, 8.1.1. use_mtls_endpoint_aliases](https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html#section-8.1.1).
    */
   mtlsEndpointAliasesUsed?: boolean | undefined;
   /**
-   * The flag indicating whether this client is in scope for token migration
+   * The flag indicating whether this client is in scope for token migration operations.
    *
    * @remarks
-   * operations.
    */
   inScopeForTokenMigration?: boolean | undefined;
   /**
-   * Location of the Client ID Metadata Document that was used for this client.
+   * The SPIFFE ID of the client. Used for SPIFFE-based client authentication (`SPIFFE_JWT`). Corresponds to the `spiffe_id` client metadata parameter.
    *
    * @remarks
-   */
-  metadataDocumentLocation?: string | undefined;
-  /**
-   * Expiration time of the metadata document (UNIX time in milliseconds).
-   *
-   * @remarks
-   */
-  metadataDocumentExpiresAt?: number | undefined;
-  /**
-   * Last-updated time of the metadata document (UNIX time in milliseconds).
-   *
-   * @remarks
-   */
-  metadataDocumentUpdatedAt?: number | undefined;
-  /**
-   * Indicates whether this client was discovered via a Client ID Metadata Document.
-   *
-   * @remarks
-   */
-  discoveredByMetadataDocument?: boolean | undefined;
-  /**
-   * Source of this client record.
-   *
-   * @remarks
-   */
-  clientSource?: ClientClientSource | undefined;
-  /**
-   * The SPIFFE ID of the client. Used for SPIFFE-based client authentication
-   *
-   * @remarks
-   * (`SPIFFE_JWT`). Corresponds to the `spiffe_id` client metadata parameter.
    */
   spiffeId?: string | undefined;
   /**
-   * The endpoint URL of the SPIFFE bundle for this client. Used to fetch
+   * The endpoint URL of the SPIFFE bundle for this client. Used to fetch the SPIFFE trust bundle for validating JWT-SVIDs. Corresponds to the `spiffe_bundle_endpoint` client metadata parameter.
    *
    * @remarks
-   * the SPIFFE trust bundle for validating JWT-SVIDs. Corresponds to the
-   * `spiffe_bundle_endpoint` client metadata parameter.
    */
   spiffeBundleEndpoint?: string | undefined;
   additionalProperties?: { [k: string]: any } | undefined;
@@ -1817,10 +1481,6 @@ export const ResponseMode$outboundSchema: z.ZodNativeEnum<typeof ResponseMode> =
 export const ClientClientSource$inboundSchema: z.ZodNativeEnum<
   typeof ClientClientSource
 > = z.nativeEnum(ClientClientSource);
-/** @internal */
-export const ClientClientSource$outboundSchema: z.ZodNativeEnum<
-  typeof ClientClientSource
-> = ClientClientSource$inboundSchema;
 
 /** @internal */
 export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> =
@@ -1957,7 +1617,6 @@ export type ClientInput$Outbound = {
   description?: string | undefined;
   descriptions?: Array<TaggedValue$Outbound> | undefined;
   clientIdAlias?: string | undefined;
-  clientIdAliasEnabled?: boolean | undefined;
   clientType?: string | undefined;
   applicationType?: string | undefined;
   logoUri?: string | undefined;
@@ -1965,9 +1624,7 @@ export type ClientInput$Outbound = {
   contacts?: Array<string> | undefined;
   tlsClientCertificateBoundAccessTokens?: boolean | undefined;
   softwareId?: string | undefined;
-  developer?: string | undefined;
   softwareVersion?: string | undefined;
-  registrationAccessTokenHash?: string | undefined;
   grantTypes?: Array<string> | undefined;
   responseTypes?: Array<string> | undefined;
   redirectUris?: Array<string> | undefined;
@@ -2026,30 +1683,14 @@ export type ClientInput$Outbound = {
   pkceRequired?: boolean | undefined;
   pkceS256Required?: boolean | undefined;
   dpopRequired?: boolean | undefined;
-  automaticallyRegistered?: boolean | undefined;
-  explicitlyRegistered?: boolean | undefined;
   rsRequestSigned?: boolean | undefined;
   rsSignedRequestKeyId?: string | undefined;
-  clientRegistrationTypes?: Array<string> | undefined;
-  organizationName?: string | undefined;
-  signedJwksUri?: string | undefined;
-  entityId?: string | undefined;
-  trustAnchorId?: string | undefined;
-  trustChain?: Array<string> | undefined;
-  trustChainExpiresAt?: number | undefined;
-  trustChainUpdatedAt?: number | undefined;
-  locked?: boolean | undefined;
   credentialOfferEndpoint?: string | undefined;
   fapiModes?: Array<string> | undefined;
   responseModes?: Array<string> | undefined;
   credentialResponseEncryptionRequired?: boolean | undefined;
   mtlsEndpointAliasesUsed?: boolean | undefined;
   inScopeForTokenMigration?: boolean | undefined;
-  metadataDocumentLocation?: string | undefined;
-  metadataDocumentExpiresAt?: number | undefined;
-  metadataDocumentUpdatedAt?: number | undefined;
-  discoveredByMetadataDocument?: boolean | undefined;
-  clientSource?: string | undefined;
   spiffeId?: string | undefined;
   spiffeBundleEndpoint?: string | undefined;
   [additionalProperties: string]: unknown;
@@ -2066,7 +1707,6 @@ export const ClientInput$outboundSchema: z.ZodType<
   description: z.string().optional(),
   descriptions: z.array(TaggedValue$outboundSchema).optional(),
   clientIdAlias: z.string().optional(),
-  clientIdAliasEnabled: z.boolean().optional(),
   clientType: ClientType$outboundSchema.optional(),
   applicationType: ApplicationType$outboundSchema.optional(),
   logoUri: z.string().optional(),
@@ -2074,9 +1714,7 @@ export const ClientInput$outboundSchema: z.ZodType<
   contacts: z.array(z.string()).optional(),
   tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
   softwareId: z.string().optional(),
-  developer: z.string().optional(),
   softwareVersion: z.string().optional(),
-  registrationAccessTokenHash: z.string().optional(),
   grantTypes: z.array(GrantType$outboundSchema).optional(),
   responseTypes: z.array(ResponseType$outboundSchema).optional(),
   redirectUris: z.array(z.string()).optional(),
@@ -2135,31 +1773,14 @@ export const ClientInput$outboundSchema: z.ZodType<
   pkceRequired: z.boolean().optional(),
   pkceS256Required: z.boolean().optional(),
   dpopRequired: z.boolean().optional(),
-  automaticallyRegistered: z.boolean().optional(),
-  explicitlyRegistered: z.boolean().optional(),
   rsRequestSigned: z.boolean().optional(),
   rsSignedRequestKeyId: z.string().optional(),
-  clientRegistrationTypes: z.array(ClientRegistrationType$outboundSchema)
-    .optional(),
-  organizationName: z.string().optional(),
-  signedJwksUri: z.string().optional(),
-  entityId: z.string().optional(),
-  trustAnchorId: z.string().optional(),
-  trustChain: z.array(z.string()).optional(),
-  trustChainExpiresAt: z.number().int().optional(),
-  trustChainUpdatedAt: z.number().int().optional(),
-  locked: z.boolean().optional(),
   credentialOfferEndpoint: z.string().optional(),
   fapiModes: z.array(FapiMode$outboundSchema).optional(),
   responseModes: z.array(ResponseMode$outboundSchema).optional(),
   credentialResponseEncryptionRequired: z.boolean().optional(),
   mtlsEndpointAliasesUsed: z.boolean().optional(),
   inScopeForTokenMigration: z.boolean().optional(),
-  metadataDocumentLocation: z.string().optional(),
-  metadataDocumentExpiresAt: z.number().int().optional(),
-  metadataDocumentUpdatedAt: z.number().int().optional(),
-  discoveredByMetadataDocument: z.boolean().optional(),
-  clientSource: ClientClientSource$outboundSchema.optional(),
   spiffeId: z.string().optional(),
   spiffeBundleEndpoint: z.string().optional(),
   additionalProperties: z.record(z.any()).optional(),

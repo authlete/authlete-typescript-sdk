@@ -17,17 +17,15 @@ export type ClientLimited = {
    */
   number?: number | undefined;
   /**
-   * The name of the client application. This property corresponds to `client_name` in
+   * The name of the client application. This property corresponds to `client_name` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   clientName?: string | undefined;
   /**
-   * Client names with language tags. If the client application has different names for different
+   * Client names with language tags. If the client application has different names for different languages, this property can be used to register the names.
    *
    * @remarks
-   * languages, this property can be used to register the names.
    */
   clientNames?: Array<TaggedValue> | undefined;
   /**
@@ -35,10 +33,9 @@ export type ClientLimited = {
    */
   description?: string | undefined;
   /**
-   * Descriptions about the client application with language tags. If the client application has different
+   * Descriptions about the client application with language tags. If the client application has different descriptions for different languages, this property can be used to register the descriptions.
    *
    * @remarks
-   * descriptions for different languages, this property can be used to register the descriptions.
    */
   descriptions?: Array<TaggedValue> | undefined;
   /**
@@ -46,10 +43,9 @@ export type ClientLimited = {
    */
   clientId?: number | undefined;
   /**
-   * The value of the client's `client_id` property used in OAuth and OpenID Connect calls. By
+   * The value of the client's `client_id` property used in OAuth and OpenID Connect calls. By default, this is a string version of the `clientId` property.
    *
    * @remarks
-   * default, this is a string version of the `clientId` property.
    */
   clientIdAlias?: string | undefined;
   /**
@@ -57,10 +53,9 @@ export type ClientLimited = {
    */
   clientIdAliasEnabled?: boolean | undefined;
   /**
-   * The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
+   * The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1) for details.
    *
    * @remarks
-   * for details.
    */
   clientType?: ClientType | undefined;
 };

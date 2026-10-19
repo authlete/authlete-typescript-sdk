@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type BackchannelAuthenticationApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type BackchannelAuthenticationApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   backchannelAuthenticationRequest: models.BackchannelAuthenticationRequest;
 };
 
@@ -24,7 +28,7 @@ export type BackchannelAuthenticationApiResponse = {
 
 /** @internal */
 export type BackchannelAuthenticationApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   backchannel_authentication_request:
     models.BackchannelAuthenticationRequest$Outbound;
 };
@@ -35,7 +39,7 @@ export const BackchannelAuthenticationApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BackchannelAuthenticationApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   backchannelAuthenticationRequest:
     models.BackchannelAuthenticationRequest$outboundSchema,
 }).transform((v) => {

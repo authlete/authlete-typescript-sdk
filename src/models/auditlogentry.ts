@@ -30,10 +30,9 @@ export type AuditLogEntry = {
    */
   status?: Status | undefined;
   /**
-   * When the event occurred (ISO 8601). May be null for entries without a recorded
+   * When the event occurred (ISO 8601). May be null for entries without a recorded timestamp; such entries are only returned on the first page of results.
    *
    * @remarks
-   * timestamp; such entries are only returned on the first page of results.
    */
   timestamp?: Date | null | undefined;
   /**

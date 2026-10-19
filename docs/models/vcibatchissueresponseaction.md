@@ -1,7 +1,6 @@
 # VciBatchIssueResponseAction
 
-The next action that the implementation of the batch credential
-endpoint should take.
+The next action that the implementation of the batch credential endpoint should take.
 
 
 ## Example Usage

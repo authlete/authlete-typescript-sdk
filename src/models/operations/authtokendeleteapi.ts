@@ -8,16 +8,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type AuthTokenDeleteApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type AuthTokenDeleteApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
-   * The identifier of an existing access token. The identifier is the value of the access token
+   * The identifier of an existing access token. The identifier is the value of the access token or the value of the hash of the access token.
    *
    * @remarks
-   * or the value of the hash of the access token.
    */
   accessTokenIdentifier: string;
 };
@@ -28,7 +31,7 @@ export type AuthTokenDeleteApiResponse = {
 
 /** @internal */
 export type AuthTokenDeleteApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   accessTokenIdentifier: string;
 };
 
@@ -38,7 +41,7 @@ export const AuthTokenDeleteApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthTokenDeleteApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   accessTokenIdentifier: z.string(),
 });
 

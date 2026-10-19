@@ -6,10 +6,9 @@ import * as z from "zod/v3";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693).
+ * The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693). The API returns short codes (enum constant names) in response fields.
  *
  * @remarks
- * The API returns short codes (enum constant names) in response fields.
  */
 export const TokenType = {
   Jwt: "JWT",
@@ -24,10 +23,9 @@ export const TokenType = {
   JwtBearer: "JWT_BEARER",
 } as const;
 /**
- * The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693).
+ * The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693). The API returns short codes (enum constant names) in response fields.
  *
  * @remarks
- * The API returns short codes (enum constant names) in response fields.
  */
 export type TokenType = ClosedEnum<typeof TokenType>;
 

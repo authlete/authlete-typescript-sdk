@@ -9,6 +9,10 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientAuthorizationDeleteApiPostGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientAuthorizationDeleteApiPostRequestBody = {
   /**
    * Unique user ID of an end-user.
@@ -20,7 +24,7 @@ export type ClientAuthorizationDeleteApiPostRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * A client ID.
    *
@@ -63,7 +67,7 @@ export function clientAuthorizationDeleteApiPostRequestBodyToJSON(
 
 /** @internal */
 export type ClientAuthorizationDeleteApiPostRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   clientId: string;
   RequestBody: ClientAuthorizationDeleteApiPostRequestBody$Outbound;
 };
@@ -74,7 +78,7 @@ export const ClientAuthorizationDeleteApiPostRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientAuthorizationDeleteApiPostRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   clientId: z.string(),
   requestBody: z.lazy(() =>
     ClientAuthorizationDeleteApiPostRequestBody$outboundSchema

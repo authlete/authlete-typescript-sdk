@@ -11,11 +11,9 @@ import {
 
 export type ServiceCreateIdpRequest = {
   /**
-   * The numeric ID of the API server to create the service on. Official SDKs inject
+   * The numeric ID of the API server to create the service on. Official SDKs inject this automatically for known Authlete clusters, so it can be omitted there; all other callers must provide it.
    *
    * @remarks
-   * this automatically for known Authlete clusters, so it can be omitted there;
-   * all other callers must provide it.
    */
   apiServerId?: number | undefined;
   /**

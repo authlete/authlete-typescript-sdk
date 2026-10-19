@@ -6,7 +6,6 @@
 import { FederationConfigurationApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: FederationConfigurationApiRequest = {
-  serviceId: "<id>",
   requestBody: {},
 };
 ```
@@ -15,5 +14,5 @@ let value: FederationConfigurationApiRequest = {
 
 | Field                                                                                                                | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
 | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `serviceId`                                                                                                          | *string*                                                                                                             | :heavy_check_mark:                                                                                                   | A service ID.                                                                                                        |
+| `serviceId`                                                                                                          | *string*                                                                                                             | :heavy_minus_sign:                                                                                                   | A service ID.                                                                                                        |
 | `requestBody`                                                                                                        | [operations.FederationConfigurationApiRequestBody](../../models/operations/federationconfigurationapirequestbody.md) | :heavy_check_mark:                                                                                                   | N/A                                                                                                                  |

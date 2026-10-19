@@ -37,10 +37,9 @@ export type BackchannelAuthenticationIssueResponse = {
    */
   action?: BackchannelAuthenticationIssueResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client
+   * The content that the authorization server implementation is to return to the client application. Its format varies depending on the value of `action` parameter.
    *
    * @remarks
-   * application. Its format varies depending on the value of `action` parameter.
    */
   responseContent?: string | undefined;
   /**
@@ -56,10 +55,9 @@ export type BackchannelAuthenticationIssueResponse = {
    */
   expiresIn?: number | undefined;
   /**
-   * The minimum amount of time in seconds that the client must wait for between polling
+   * The minimum amount of time in seconds that the client must wait for between polling requests to the token endpoint.
    *
    * @remarks
-   * requests to the token endpoint.
    */
   interval?: number | undefined;
 };

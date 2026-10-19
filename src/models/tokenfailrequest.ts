@@ -14,6 +14,9 @@ export const TokenFailRequestReason = {
   Unknown: "UNKNOWN",
   InvalidResourceOwnerCredentials: "INVALID_RESOURCE_OWNER_CREDENTIALS",
   InvalidTarget: "INVALID_TARGET",
+  InvalidClient: "INVALID_CLIENT",
+  UnauthorizedClient: "UNAUTHORIZED_CLIENT",
+  InvalidScope: "INVALID_SCOPE",
 } as const;
 /**
  * The reason of the failure of the token request.

@@ -6,10 +6,9 @@
 import { AuthTokenFailApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: AuthTokenFailApiRequest = {
-  serviceId: "<id>",
   tokenFailRequest: {
     ticket: "<value>",
-    reason: "INVALID_RESOURCE_OWNER_CREDENTIALS",
+    reason: "INVALID_TARGET",
   },
 };
 ```
@@ -18,5 +17,5 @@ let value: AuthTokenFailApiRequest = {
 
 | Field                                                       | Type                                                        | Required                                                    | Description                                                 |
 | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `serviceId`                                                 | *string*                                                    | :heavy_check_mark:                                          | A service ID.                                               |
+| `serviceId`                                                 | *string*                                                    | :heavy_minus_sign:                                          | A service ID.                                               |
 | `tokenFailRequest`                                          | [models.TokenFailRequest](../../models/tokenfailrequest.md) | :heavy_check_mark:                                          | N/A                                                         |

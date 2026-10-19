@@ -46,28 +46,23 @@ export type TokenResponse = {
    */
   action?: TokenResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client application.
+   * The content that the authorization server implementation is to return to the client application. Its format varies depending on the value of `action` parameter.
    *
    * @remarks
-   * Its format varies depending on the value of `action` parameter.
    */
   responseContent?: string | undefined;
   /**
-   * The value of `username` request parameter in the token request.
+   * The value of `username` request parameter in the token request. The client application must specify username when it uses [Resource Owner Password Grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.3). In other words, when the value of `grant_type` request parameter is `password`, `username` request parameter must come along.
    *
    * @remarks
-   * The client application must specify username when it uses [Resource Owner Password Grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.3).
-   * In other words, when the value of `grant_type` request parameter is `password`, `username` request parameter must come along.
    *
    * This parameter has a value only if the value of `grant_type` request parameter is `password` and the token request is valid.
    */
   username?: string | undefined;
   /**
-   * The value of `password` request parameter in the token request.
+   * The value of `password` request parameter in the token request. The client application must specify password when it uses [Resource Owner Password Grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.3). In other words, when the value of `grant_type` request parameter is `password`, `password` request parameter must come along.
    *
    * @remarks
-   * The client application must specify password when it uses [Resource Owner Password Grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.3).
-   * In other words, when the value of `grant_type` request parameter is `password`, `password` request parameter must come along.
    *
    * This parameter has a value only if the value of `grant_type` request parameter is `password` and the token request is valid.
    */
@@ -85,10 +80,9 @@ export type TokenResponse = {
    */
   accessToken?: string | undefined;
   /**
-   * The datetime at which the newly issued access token will expire.
+   * The datetime at which the newly issued access token will expire. The value is represented in milliseconds since the Unix epoch (1970-01-01).
    *
    * @remarks
-   * The value is represented in milliseconds since the Unix epoch (1970-01-01).
    */
   accessTokenExpiresAt?: number | undefined;
   /**
@@ -100,10 +94,9 @@ export type TokenResponse = {
    */
   refreshToken?: string | undefined;
   /**
-   * The datetime at which the newly issued refresh token will expire.
+   * The datetime at which the newly issued refresh token will expire. The value is represented in milliseconds since the Unix epoch (1970-01-01).
    *
    * @remarks
-   * The value is represented in milliseconds since the Unix epoch (1970-01-01).
    */
   refreshTokenExpiresAt?: number | undefined;
   /**
@@ -111,10 +104,9 @@ export type TokenResponse = {
    */
   refreshTokenDuration?: number | undefined;
   /**
-   * The newly issued ID token. Note that an ID token is issued from a token endpoint only when the `response_type` request parameter
+   * The newly issued ID token. Note that an ID token is issued from a token endpoint only when the `response_type` request parameter of the authorization request to an authorization endpoint has contained `code` and the `scope` request parameter has contained `openid`.
    *
    * @remarks
-   * of the authorization request to an authorization endpoint has contained `code` and the `scope` request parameter has contained `openid`.
    */
   idToken?: string | undefined;
   /**
@@ -126,26 +118,21 @@ export type TokenResponse = {
    */
   clientId?: number | undefined;
   /**
-   * The client ID alias when the token request was made. If the client did not have an alias, this parameter is `null`.
+   * The client ID alias when the token request was made. If the client did not have an alias, this parameter is `null`. Also, if the token request was invalid and it failed to identify a client, this parameter is `null`.
    *
    * @remarks
-   * Also, if the token request was invalid and it failed to identify a client, this parameter is `null`.
    */
   clientIdAlias?: string | undefined;
   /**
-   * The flag which indicates whether the client ID alias was used when the token request was made.
+   * The flag which indicates whether the client ID alias was used when the token request was made. `true` if the client ID alias was used when the token request was made.
    *
    * @remarks
-   * `true` if the client ID alias was used when the token request was made.
    */
   clientIdAliasUsed?: boolean | undefined;
   /**
-   * The subject (= resource owner's ID) of the access token.
+   * The subject (= resource owner's ID) of the access token. Even if an access token has been issued by the call of `/api/auth/token` API, this parameter is `null` if the flow of the token request was [Client Credentials Flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4) (`grant_type=client_credentials`) because it means the access token is not associated with any specific end-user.
    *
    * @remarks
-   * Even if an access token has been issued by the call of `/api/auth/token` API, this parameter is `null` if the flow of the token request was
-   * [Client Credentials Flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4) (`grant_type=client_credentials`) because it means the access token
-   * is not associated with any specific end-user.
    */
   subject?: string | undefined;
   /**
@@ -153,26 +140,21 @@ export type TokenResponse = {
    */
   scopes?: Array<string> | undefined;
   /**
-   * The extra properties associated with the access token.
+   * The extra properties associated with the access token. This parameter is `null` when no extra property is associated with the issued access token.
    *
    * @remarks
-   * This parameter is `null` when no extra property is associated with the issued access token.
    */
   properties?: Array<Property> | undefined;
   /**
-   * The newly issued access token in JWT format. If the authorization server is configured
+   * The newly issued access token in JWT format. If the authorization server is configured to issue JWT-based access tokens (= if the service's `accessTokenSignAlg` value is a non-null value), a JWT-based access token is issued along with the original random-string one.
    *
    * @remarks
-   * to issue JWT-based access tokens (= if the service's `accessTokenSignAlg` value is a
-   * non-null value), a JWT-based access token is issued along with the original random-string
-   * one.
    */
   jwtAccessToken?: string | undefined;
   /**
-   * The resources specified by the `resource` request parameters in the token request.
+   * The resources specified by the `resource` request parameters in the token request. See "Resource Indicators for OAuth 2.0" for details.
    *
    * @remarks
-   * See "Resource Indicators for OAuth 2.0" for details.
    */
   resources?: Array<string> | undefined;
   /**
@@ -182,11 +164,9 @@ export type TokenResponse = {
    */
   accessTokenResources?: Array<string> | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
   /**
@@ -218,9 +198,7 @@ export type TokenResponse = {
    *
    * @remarks
    *
-   * The `grant_id` request parameter is defined in
-   * [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)
-   * , which is supported by Authlete 2.3 and newer versions.
+   * The `grant_id` request parameter is defined in [Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html) , which is supported by Authlete 2.3 and newer versions.
    */
   grantId?: string | undefined;
   /**
@@ -230,27 +208,24 @@ export type TokenResponse = {
    */
   audiences?: Array<string> | undefined;
   /**
-   * The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693).
+   * The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693). The API returns short codes (enum constant names) in response fields.
    *
    * @remarks
-   * The API returns short codes (enum constant names) in response fields.
    */
   requestedTokenType?: TokenType | undefined;
   subjectToken?: string | undefined;
   /**
-   * The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693).
+   * The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693). The API returns short codes (enum constant names) in response fields.
    *
    * @remarks
-   * The API returns short codes (enum constant names) in response fields.
    */
   subjectTokenType?: TokenType | undefined;
   subjectTokenInfo?: TokenInfo | undefined;
   actorToken?: string | undefined;
   /**
-   * The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693).
+   * The token type identifier used in OAuth 2.0 Token Exchange (RFC 8693). The API returns short codes (enum constant names) in response fields.
    *
    * @remarks
-   * The API returns short codes (enum constant names) in response fields.
    */
   actorTokenType?: TokenType | undefined;
   actorTokenInfo?: TokenInfo | undefined;
@@ -285,10 +260,9 @@ export type TokenResponse = {
    */
   cnonceDuration?: number | undefined;
   /**
-   * Get the expected nonce value for DPoP proof JWT, which should be used
+   * Get the expected nonce value for DPoP proof JWT, which should be used as the value of the `DPoP-Nonce` HTTP header.
    *
    * @remarks
-   * as the value of the `DPoP-Nonce` HTTP header.
    */
   dpopNonce?: string | undefined;
   /**
@@ -298,17 +272,15 @@ export type TokenResponse = {
    */
   cnonce?: string | undefined;
   /**
-   * Get the time at which the `c_nonce` expires in milliseconds since
+   * Get the time at which the `c_nonce` expires in milliseconds since the Unix epoch (1970-01-01).
    *
    * @remarks
-   * the Unix epoch (1970-01-01).
    */
   cnonceExpiresAt?: number | undefined;
   /**
-   * Get the names of the claims that the authorization request (which resulted
+   * Get the names of the claims that the authorization request (which resulted in generation of the access token) requested to be embedded in ID tokens.
    *
    * @remarks
-   * in generation of the access token) requested to be embedded in ID tokens.
    */
   requestedIdTokenClaims?: Array<string> | undefined;
   /**
@@ -318,27 +290,21 @@ export type TokenResponse = {
    */
   refreshTokenScopes?: Array<string> | undefined;
   /**
-   * The session ID, which is the ID of the user's authentication session, associated with a newly
+   * The session ID, which is the ID of the user's authentication session, associated with a newly created access token.
    *
    * @remarks
-   * created access token.
    */
   sessionId?: string | undefined;
   /**
-   * If the response from the `/auth/token` API contains the `deviceSecret` parameter, its value should
+   * If the response from the `/auth/token` API contains the `deviceSecret` parameter, its value should be used as the value of this `deviceSecret` request parameter to the `/nativesso` API. The authorization server may choose to issue a new device secret; in that case, it is free to generate a new device secret and specify the new value.
    *
    * @remarks
-   * be used as the value of this `deviceSecret` request parameter to the `/nativesso` API. The authorization
-   * server may choose to issue a new device secret; in that case, it is free to generate a new device
-   * secret and specify the new value.
    */
   deviceSecret?: string | undefined;
   /**
-   * The authorization server should compute the hash value of the device secret based on its own logic
+   * The authorization server should compute the hash value of the device secret based on its own logic and specify the computed hash as the value of this `deviceSecretHash` request parameter to the `/nativesso` API.
    *
    * @remarks
-   * and specify the computed hash as the value of this `deviceSecretHash` request parameter to the
-   * `/nativesso` API.
    */
   deviceSecretHash?: string | undefined;
   /**

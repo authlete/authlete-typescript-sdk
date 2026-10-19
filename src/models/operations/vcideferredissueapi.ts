@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type VciDeferredIssueApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type VciDeferredIssueApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   vciDeferredIssueRequest: models.VciDeferredIssueRequest;
 };
 
@@ -24,7 +28,7 @@ export type VciDeferredIssueApiResponse = {
 
 /** @internal */
 export type VciDeferredIssueApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   vci_deferred_issue_request: models.VciDeferredIssueRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const VciDeferredIssueApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   VciDeferredIssueApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   vciDeferredIssueRequest: models.VciDeferredIssueRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

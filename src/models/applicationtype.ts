@@ -6,20 +6,18 @@ import * as z from "zod/v3";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * The application type. The value of this property affects the validation steps for a redirect URI.
+ * The application type. The value of this property affects the validation steps for a redirect URI. See the description about `redirectUris` property for more details.
  *
  * @remarks
- * See the description about `redirectUris` property for more details.
  */
 export const ApplicationType = {
   Web: "WEB",
   Native: "NATIVE",
 } as const;
 /**
- * The application type. The value of this property affects the validation steps for a redirect URI.
+ * The application type. The value of this property affects the validation steps for a redirect URI. See the description about `redirectUris` property for more details.
  *
  * @remarks
- * See the description about `redirectUris` property for more details.
  */
 export type ApplicationType = ClosedEnum<typeof ApplicationType>;
 

@@ -30,8 +30,7 @@ import { Result } from "../types/fp.js";
  * Process OAuth 2.0 Introspection Request
  *
  * @remarks
- * This API exists to help your authorization server provide its own introspection API which complies
- * with [RFC 7662](https://tools.ietf.org/html/rfc7662) (OAuth 2.0 Token Introspection).
+ * This API exists to help your authorization server provide its own introspection API which complies with [RFC 7662](https://tools.ietf.org/html/rfc7662) (OAuth 2.0 Token Introspection).
  */
 export function introspectionStandardProcess(
   client: AuthleteCore,
@@ -96,10 +95,11 @@ async function $do(
   });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/auth/introspection/standard")(
     pathParams,

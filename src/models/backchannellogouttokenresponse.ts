@@ -43,17 +43,15 @@ export type BackchannelLogoutTokenResponse = {
    */
   action?: BackchannelLogoutTokenResponseAction | undefined;
   /**
-   * The logout token issued for the client. The caller should deliver this
+   * The logout token issued for the client. The caller should deliver this token to the client's `backchannelLogoutUri`.
    *
    * @remarks
-   * token to the client's `backchannelLogoutUri`.
    */
   logoutToken?: string | undefined;
   /**
-   * The backchannel logout URI of the client. The caller should POST the
+   * The backchannel logout URI of the client. The caller should POST the `logoutToken` to this URI.
    *
    * @remarks
-   * `logoutToken` to this URI.
    */
   backchannelLogoutUri?: string | undefined;
 };

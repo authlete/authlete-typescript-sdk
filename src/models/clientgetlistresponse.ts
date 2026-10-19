@@ -22,10 +22,9 @@ export type ClientGetListResponse = {
    */
   end?: number | undefined;
   /**
-   * Total number of clients that belong to the service. This doesn't mean the number of clients
+   * Total number of clients that belong to the service. This doesn't mean the number of clients contained in the response.
    *
    * @remarks
-   * contained in the response.
    */
   totalCount?: number | undefined;
   /**

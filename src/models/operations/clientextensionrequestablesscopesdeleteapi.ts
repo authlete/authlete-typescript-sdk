@@ -8,11 +8,15 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type ClientExtensionRequestablesScopesDeleteApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientExtensionRequestablesScopesDeleteApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * A client ID.
    *
@@ -27,7 +31,7 @@ export type ClientExtensionRequestablesScopesDeleteApiResponse = {
 
 /** @internal */
 export type ClientExtensionRequestablesScopesDeleteApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   clientId: string;
 };
 
@@ -38,7 +42,7 @@ export const ClientExtensionRequestablesScopesDeleteApiRequest$outboundSchema:
     z.ZodTypeDef,
     ClientExtensionRequestablesScopesDeleteApiRequest
   > = z.object({
-    serviceId: z.string(),
+    serviceId: z.string().optional(),
     clientId: z.string(),
   });
 

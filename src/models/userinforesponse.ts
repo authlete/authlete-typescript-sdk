@@ -57,17 +57,15 @@ export type UserinfoResponse = {
    */
   clientIdAlias?: string | undefined;
   /**
-   * The flag which indicates whether the client ID alias was used when the authorization
+   * The flag which indicates whether the client ID alias was used when the authorization request for the access token was made.
    *
    * @remarks
-   * request for the access token was made.
    */
   clientIdAliasUsed?: boolean | undefined;
   /**
-   * The content that the authorization server implementation can use as the value of `WWW-Authenticate`
+   * The content that the authorization server implementation can use as the value of `WWW-Authenticate` header on errors.
    *
    * @remarks
-   * header on errors.
    */
   responseContent?: string | undefined;
   /**
@@ -113,23 +111,15 @@ export type UserinfoResponse = {
    */
   clientAttributes?: Array<Pair> | undefined;
   /**
-   * the claims that the user has consented for the client application
+   * the claims that the user has consented for the client application to know.
    *
    * @remarks
-   * to know.
    */
   consentedClaims?: Array<string> | undefined;
   /**
-   * Get names of claims that are requested indirectly by *"transformed
+   * Get names of claims that are requested indirectly by *"transformed claims"*. A client application can request *"transformed claims"* by adding names of transformed claims in the `claims` request parameter. The following is an example of the `claims` request parameter that requests a predefined transformed claim named `18_or_over` and a transformed claim named `nationality_usa` to be embedded in the response from the userinfo endpoint.
    *
    * @remarks
-   * claims"*.
-   * A client application can request *"transformed claims"* by adding
-   * names of transformed claims in the `claims` request parameter.
-   * The following is an example of the `claims` request parameter
-   * that requests a predefined transformed claim named `18_or_over`
-   * and a transformed claim named `nationality_usa` to be embedded
-   * in the response from the userinfo endpoint.
    * ```json
    * &#123;
    * "transformed_claims": &#123;
@@ -147,8 +137,7 @@ export type UserinfoResponse = {
    * &#125;
    * &#125;
    * ```
-   * The example above assumes that a transformed claim named `18_or_over`
-   * is predefined by the authorization server like below.
+   * The example above assumes that a transformed claim named `18_or_over` is predefined by the authorization server like below.
    * ```json
    * &#123;
    * "18_or_over": &#123;
@@ -160,20 +149,11 @@ export type UserinfoResponse = {
    * &#125;
    * &#125;
    * ```
-   * In the example, the `nationalities` claim is requested indirectly
-   * by the `nationality_usa` transformed claim. Likewise, the
-   * `birthdate` claim is requested indirectly by the `18_or_over`
-   * transformed claim.
-   * When the `claims` request parameter of an authorization request is
-   * like the example above, this `requestedClaimsForTx` property will
-   * hold the following value.
+   * In the example, the `nationalities` claim is requested indirectly by the `nationality_usa` transformed claim. Likewise, the `birthdate` claim is requested indirectly by the `18_or_over` transformed claim. When the `claims` request parameter of an authorization request is like the example above, this `requestedClaimsForTx` property will hold the following value.
    * ```json
    * [ "birthdate", "nationalities" ]
    * ```
-   * It is expected that the authorization server implementation prepares values
-   * of the listed claims and passes them as the value of the `claimsForTx`
-   * request parameter when it calls the `/api/auth/userinfo/issue` API. The following
-   * is an example of the value of the `claimsForTx` request parameter.
+   * It is expected that the authorization server implementation prepares values of the listed claims and passes them as the value of the `claimsForTx` request parameter when it calls the `/api/auth/userinfo/issue` API. The following is an example of the value of the `claimsForTx` request parameter.
    * ```json
    * &#123;
    * "birthdate": "1970-01-23",
@@ -189,11 +169,9 @@ export type UserinfoResponse = {
    */
   requestedVerifiedClaimsForTx?: Array<Array<string>> | undefined;
   /**
-   * the value of the `transformed_claims` property in the `claims` request
+   * the value of the `transformed_claims` property in the `claims` request parameter of an authorization request or in the `claims` property in a request object.
    *
    * @remarks
-   * parameter of an authorization request or in the `claims` property in a
-   * request object.
    */
   transformedClaims?: string | undefined;
   /**
@@ -209,10 +187,9 @@ export type UserinfoResponse = {
    */
   clientEntityIdUsed?: boolean | undefined;
   /**
-   * The expected nonce value for DPoP proof JWT, which should be used
+   * The expected nonce value for DPoP proof JWT, which should be used as the value of the `DPoP-Nonce` HTTP header.
    *
    * @remarks
-   * as the value of the `DPoP-Nonce` HTTP header.
    */
   dpopNonce?: string | undefined;
   /**

@@ -20,12 +20,12 @@ Create Security Key
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.hardwareSecurityKeys.create({
-    serviceId: "<id>",
     hskCreateRequest: {},
   });
 
@@ -46,12 +46,12 @@ import { hardwareSecurityKeysCreate } from "@authlete/typescript-sdk/funcs/hardw
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await hardwareSecurityKeysCreate(authlete, {
-    serviceId: "<id>",
     hskCreateRequest: {},
   });
   if (res.ok) {
@@ -98,12 +98,12 @@ Delete Security Key
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.hardwareSecurityKeys.delete({
-    serviceId: "<id>",
     handle: "<value>",
   });
 
@@ -124,12 +124,12 @@ import { hardwareSecurityKeysDelete } from "@authlete/typescript-sdk/funcs/hardw
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await hardwareSecurityKeysDelete(authlete, {
-    serviceId: "<id>",
     handle: "<value>",
   });
   if (res.ok) {
@@ -176,12 +176,12 @@ Get Security Key
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.hardwareSecurityKeys.get({
-    serviceId: "<id>",
     handle: "<value>",
   });
 
@@ -202,12 +202,12 @@ import { hardwareSecurityKeysGet } from "@authlete/typescript-sdk/funcs/hardware
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await hardwareSecurityKeysGet(authlete, {
-    serviceId: "<id>",
     handle: "<value>",
   });
   if (res.ok) {
@@ -254,13 +254,12 @@ List Security Keys
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.hardwareSecurityKeys.list({
-    serviceId: "<id>",
-  });
+  const result = await authlete.hardwareSecurityKeys.list({});
 
   console.log(result);
 }
@@ -279,13 +278,12 @@ import { hardwareSecurityKeysList } from "@authlete/typescript-sdk/funcs/hardwar
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await hardwareSecurityKeysList(authlete, {
-    serviceId: "<id>",
-  });
+  const res = await hardwareSecurityKeysList(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

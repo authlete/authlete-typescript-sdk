@@ -30,8 +30,7 @@ import { Result } from "../types/fp.js";
  * Process Grant Management Request
  *
  * @remarks
- * The API is for the implementation of the grant management endpoint which is
- * defined in "[Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)".
+ * The API is for the implementation of the grant management endpoint which is defined in "[Grant Management for OAuth 2.0](https://openid.net/specs/fapi-grant-management.html)".
  */
 export function grantManagementProcessRequest(
   client: AuthleteCore,
@@ -91,10 +90,11 @@ async function $do(
   const body = encodeJSON("body", payload.g_m_request, { explode: true });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/gm")(pathParams);
 

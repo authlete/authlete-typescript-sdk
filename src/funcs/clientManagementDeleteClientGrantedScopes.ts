@@ -32,9 +32,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Delete the set of scopes that an end-user has granted to a client application.
  *
- * Even if records about granted scopes are deleted by calling this API, existing access tokens are
- * not deleted and scopes of existing access tokens are not changed.
- * The subject parameter is required and must be provided as a query parameter.
+ * Even if records about granted scopes are deleted by calling this API, existing access tokens are not deleted and scopes of existing access tokens are not changed. The subject parameter is required and must be provided as a query parameter.
  */
 export function clientManagementDeleteClientGrantedScopes(
   client: AuthleteCore,
@@ -101,10 +99,11 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc(
     "/api/{serviceId}/client/granted_scopes/delete/{clientId}",

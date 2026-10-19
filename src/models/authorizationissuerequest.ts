@@ -38,10 +38,9 @@ export type AuthorizationIssueRequest = {
    */
   acr?: string | undefined;
   /**
-   * The claims of the end-user (= pieces of information about the end-user) in JSON format.
+   * The claims of the end-user (= pieces of information about the end-user) in JSON format. See [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for details about the format.
    *
    * @remarks
-   * See [OpenID Connect Core 1.0, 5.1. Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) for details about the format.
    */
   claims?: string | undefined;
   /**
@@ -49,24 +48,21 @@ export type AuthorizationIssueRequest = {
    */
   properties?: Array<Property> | undefined;
   /**
-   * Scopes to associate with an access token and/or an authorization code.
+   * Scopes to associate with an access token and/or an authorization code. If a non-empty string array is given, it replaces the scopes specified by the original authorization request.
    *
    * @remarks
-   * If a non-empty string array is given, it replaces the scopes specified by the original authorization request.
    */
   scopes?: Array<string> | undefined;
   /**
-   * The value of the `sub` claim to embed in an ID token. If this request parameter is `null` or empty,
+   * The value of the `sub` claim to embed in an ID token. If this request parameter is `null` or empty, the value of the `subject` request parameter is used as the value of the `sub` claim.
    *
    * @remarks
-   * the value of the `subject` request parameter is used as the value of the `sub` claim.
    */
   sub?: string | undefined;
   /**
-   * JSON that represents additional JWS header parameters for ID tokens that may be issued based on
+   * JSON that represents additional JWS header parameters for ID tokens that may be issued based on the authorization request.
    *
    * @remarks
-   * the authorization request.
    */
   idtHeaderParams?: string | undefined;
   /**
@@ -76,18 +72,15 @@ export type AuthorizationIssueRequest = {
    */
   claimsForTx?: string | undefined;
   /**
-   * the claims that the user has consented for the client application
+   * the claims that the user has consented for the client application to know.
    *
    * @remarks
-   * to know.
    */
   consentedClaims?: Array<string> | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
   /**
@@ -103,23 +96,17 @@ export type AuthorizationIssueRequest = {
    */
   accessToken?: string | undefined;
   /**
-   * The duration (in seconds) of the access token that may be issued as a result of the Authlete
+   * The duration (in seconds) of the access token that may be issued as a result of the Authlete API call.
    *
    * @remarks
-   * API call.
    *
-   * When this request parameter holds a positive integer, it is used as the duration of the access
-   * token in. In other cases, this request parameter is ignored.
+   * When this request parameter holds a positive integer, it is used as the duration of the access token in. In other cases, this request parameter is ignored.
    */
   accessTokenDuration?: number | undefined;
   /**
-   * The session ID of the user's authentication session. The specified value will be embedded in the
+   * The session ID of the user's authentication session. The specified value will be embedded in the ID token as the value of the `sid` claim. This parameter needs to be provided only if you want to support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html) specification (a.k.a. "Native SSO"). To enable support for the Native SSO specification, the `nativeSsoSupported` property of your service must be set to `true`.
    *
    * @remarks
-   * ID token as the value of the `sid` claim. This parameter needs to be provided only if you want
-   * to support the [OpenID Connect Native SSO for Mobile Apps 1.0](https://openid.net/specs/openid-connect-native-sso-1_0.html)
-   * specification (a.k.a. "Native SSO"). To enable support for the Native SSO specification, the
-   * `nativeSsoSupported` property of your service must be set to `true`.
    */
   sessionId?: string | undefined;
   /**

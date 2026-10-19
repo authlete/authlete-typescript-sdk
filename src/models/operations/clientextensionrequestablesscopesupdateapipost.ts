@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientExtensionRequestablesScopesUpdateApiPostGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientExtensionRequestablesScopesUpdateApiPostRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   /**
    * A client ID.
    *
@@ -31,7 +35,7 @@ export type ClientExtensionRequestablesScopesUpdateApiPostResponse = {
 
 /** @internal */
 export type ClientExtensionRequestablesScopesUpdateApiPostRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   clientId: string;
   client_extension_requestable_scopes_update_request:
     models.ClientExtensionRequestableScopesUpdateRequest$Outbound;
@@ -44,7 +48,7 @@ export const ClientExtensionRequestablesScopesUpdateApiPostRequest$outboundSchem
     z.ZodTypeDef,
     ClientExtensionRequestablesScopesUpdateApiPostRequest
   > = z.object({
-    serviceId: z.string(),
+    serviceId: z.string().optional(),
     clientId: z.string(),
     clientExtensionRequestableScopesUpdateRequest:
       models.ClientExtensionRequestableScopesUpdateRequest$outboundSchema,

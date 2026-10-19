@@ -36,7 +36,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 1.0.0
+  version: 2.0.0
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -89,6 +89,7 @@ typescript:
   modelPropertyCasing: camel
   moduleFormat: dual
   multipartArrayFormat: legacy
+  numericEnumMemberNames: legacy
   omitDescriptionIfSummaryPresent: true
   outputModelSuffix: output
   packageName: '@authlete/typescript-sdk'

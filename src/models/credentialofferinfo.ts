@@ -22,41 +22,33 @@ export type CredentialOfferInfo = {
    */
   credentialIssuer?: string | undefined;
   /**
-   * The flag indicating whether the `authorization_code` object is
+   * The flag indicating whether the `authorization_code` object is included in the `grants` object.
    *
    * @remarks
-   * included in the `grants` object.
    */
   authorizationCodeGrantIncluded?: boolean | undefined;
   /**
-   * The flag indicating whether the `issuer_state` property is
+   * The flag indicating whether the `issuer_state` property is included in the `authorization_code` object in the `grants` object.
    *
    * @remarks
-   * included in the `authorization_code` object in the `grants`
-   * object.
    */
   issuerStateIncluded?: boolean | undefined;
   /**
-   * The value of the `issuer_state` property in the
+   * The value of the `issuer_state` property in the `authorization_code` object in the `grants` object.
    *
    * @remarks
-   * `authorization_code` object in the `grants` object.
    */
   issuerState?: string | undefined;
   /**
-   * The flag indicating whether the
+   * The flag indicating whether the `urn:ietf:params:oauth:grant-type:pre-authorized_code` object is included in the `grants` object.
    *
    * @remarks
-   * `urn:ietf:params:oauth:grant-type:pre-authorized_code` object is
-   * included in the `grants` object.
    */
   preAuthorizedCodeGrantIncluded?: boolean | undefined;
   /**
-   * The value of the `pre-authorized_code` property in the
+   * The value of the `pre-authorized_code` property in the `urn:ietf:params:oauth:grant-type:pre-authorized_code` object in the `grants` object.
    *
    * @remarks
-   * `urn:ietf:params:oauth:grant-type:pre-authorized_code` object in
-   * the `grants` object.
    */
   preAuthorizedCode?: string | undefined;
   /**
@@ -76,24 +68,21 @@ export type CredentialOfferInfo = {
    */
   properties?: Array<Property> | undefined;
   /**
-   * Additional claims that are added to the payload part of the JWT
+   * Additional claims that are added to the payload part of the JWT access token.
    *
    * @remarks
-   * access token.
    */
   jwtAtClaims?: string | undefined;
   /**
-   * The time at which the user authentication was performed during
+   * The time at which the user authentication was performed during the course of issuing the credential offer.
    *
    * @remarks
-   * the course of issuing the credential offer.
    */
   authTime?: number | undefined;
   /**
-   * The Authentication Context Class Reference of the user authentication
+   * The Authentication Context Class Reference of the user authentication performed during the course of issuing the credential offer.
    *
    * @remarks
-   * performed during the course of issuing the credential offer.
    */
   acr?: string | undefined;
   /**

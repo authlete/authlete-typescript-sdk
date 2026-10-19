@@ -32,12 +32,11 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Get a service.
  *
- * If the access token can only view or modify clients underneath this service, but does not
- * have access to view this service directly, a limited view of the service will be returned.
+ * If the access token can only view or modify clients underneath this service, but does not have access to view this service directly, a limited view of the service will be returned.
  */
 export function serviceGet(
   client: AuthleteCore,
-  request: operations.ServiceGetApiRequest,
+  request?: operations.ServiceGetApiRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -62,7 +61,7 @@ export function serviceGet(
 
 async function $do(
   client: AuthleteCore,
-  request: operations.ServiceGetApiRequest,
+  request?: operations.ServiceGetApiRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -83,7 +82,8 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.ServiceGetApiRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.ServiceGetApiRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -93,10 +93,11 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload?.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/service/get")(pathParams);
 

@@ -35,11 +35,9 @@ import { Result } from "../types/fp.js";
  * Remove Service (IDP) ⚡
  *
  * @remarks
- * Delete a service from the API server.
- * A service can be deleted with an organization token or by a user with the MODIFY_SERVICE role.
+ * Delete a service from the API server. A service can be deleted with an organization token or by a user with the MODIFY_SERVICE role.
  *
- * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
- * not on the regional API clusters.
+ * This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`), not on the regional API clusters.
  */
 export function serviceRemove(
   client: AuthleteCore,

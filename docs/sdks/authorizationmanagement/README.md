@@ -18,12 +18,12 @@ Get Ticket Information
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.authorization.management.getTicketInfo({
-    serviceId: "<id>",
     authorizationTicketInfoRequest: {
       ticket: "<value>",
     },
@@ -46,12 +46,12 @@ import { authorizationManagementGetTicketInfo } from "@authlete/typescript-sdk/f
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await authorizationManagementGetTicketInfo(authlete, {
-    serviceId: "<id>",
     authorizationTicketInfoRequest: {
       ticket: "<value>",
     },
@@ -100,12 +100,12 @@ Update Ticket Information
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.authorization.management.updateTicket({
-    serviceId: "<id>",
     authorizationTicketUpdateRequest: {
       ticket: "<value>",
       info: {},
@@ -129,12 +129,12 @@ import { authorizationManagementUpdateTicket } from "@authlete/typescript-sdk/fu
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await authorizationManagementUpdateTicket(authlete, {
-    serviceId: "<id>",
     authorizationTicketUpdateRequest: {
       ticket: "<value>",
       info: {},

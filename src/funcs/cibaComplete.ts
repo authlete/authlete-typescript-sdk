@@ -30,9 +30,7 @@ import { Result } from "../types/fp.js";
  * Complete Backchannel Authentication
  *
  * @remarks
- * This API returns information about what action the authorization server should take after it receives
- * the result of end-user's decision about whether the end-user has approved or rejected a client application's
- * request on the authentication device.
+ * This API returns information about what action the authorization server should take after it receives the result of end-user's decision about whether the end-user has approved or rejected a client application's request on the authentication device.
  */
 export function cibaComplete(
   client: AuthleteCore,
@@ -98,10 +96,11 @@ async function $do(
   );
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc(
     "/api/{serviceId}/backchannel/authentication/complete",

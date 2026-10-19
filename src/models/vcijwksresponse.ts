@@ -9,11 +9,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * The next action that the implementation of the JWK Set document
+ * The next action that the implementation of the JWK Set document endpoint of the credential issuer should take after getting a response from Authlete's `/vci/jwks` API.
  *
  * @remarks
- * endpoint of the credential issuer should take after getting a
- * response from Authlete's `/vci/jwks` API.
  */
 export const VciJwksResponseAction = {
   Ok: "OK",
@@ -21,11 +19,9 @@ export const VciJwksResponseAction = {
   InternalServerError: "INTERNAL_SERVER_ERROR",
 } as const;
 /**
- * The next action that the implementation of the JWK Set document
+ * The next action that the implementation of the JWK Set document endpoint of the credential issuer should take after getting a response from Authlete's `/vci/jwks` API.
  *
  * @remarks
- * endpoint of the credential issuer should take after getting a
- * response from Authlete's `/vci/jwks` API.
  */
 export type VciJwksResponseAction = ClosedEnum<typeof VciJwksResponseAction>;
 
@@ -39,18 +35,15 @@ export type VciJwksResponse = {
    */
   resultMessage?: string | undefined;
   /**
-   * The next action that the implementation of the JWK Set document
+   * The next action that the implementation of the JWK Set document endpoint of the credential issuer should take after getting a response from Authlete's `/vci/jwks` API.
    *
    * @remarks
-   * endpoint of the credential issuer should take after getting a
-   * response from Authlete's `/vci/jwks` API.
    */
   action?: VciJwksResponseAction | undefined;
   /**
-   * Get the content that the implementation of the credential issuer
+   * Get the content that the implementation of the credential issuer metadata endpoint should use when it constructs a response.
    *
    * @remarks
-   * metadata endpoint should use when it constructs a response.
    */
   responseContent?: string | undefined;
 };

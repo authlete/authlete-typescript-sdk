@@ -47,10 +47,9 @@ export type VciBatchParseResponse = {
    */
   responseContent?: string | undefined;
   /**
-   * Information about the credential requests in the batch credential
+   * Information about the credential requests in the batch credential request.
    *
    * @remarks
-   * request.
    */
   info?: Array<CredentialRequestInfo> | undefined;
 };

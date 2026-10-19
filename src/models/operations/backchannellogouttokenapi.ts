@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type BackchannelLogoutTokenApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type BackchannelLogoutTokenApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   backchannelLogoutTokenRequest: models.BackchannelLogoutTokenRequest;
 };
 
@@ -24,7 +28,7 @@ export type BackchannelLogoutTokenApiResponse = {
 
 /** @internal */
 export type BackchannelLogoutTokenApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   backchannel_logout_token_request:
     models.BackchannelLogoutTokenRequest$Outbound;
 };
@@ -35,7 +39,7 @@ export const BackchannelLogoutTokenApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BackchannelLogoutTokenApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   backchannelLogoutTokenRequest:
     models.BackchannelLogoutTokenRequest$outboundSchema,
 }).transform((v) => {

@@ -10,6 +10,8 @@
 * [update](#update) - Update Client
 * [updateForm](#updateform) - Update Client
 * [delete](#delete) - Delete Client ⚡
+* [listByCursor](#listbycursor) - List Clients (Cursor Pagination)
+* [search](#search) - Search Clients
 
 ## get
 
@@ -23,12 +25,12 @@ Get a client.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.client.get({
-    serviceId: "<id>",
     clientId: "<id>",
   });
 
@@ -49,12 +51,12 @@ import { clientGet } from "@authlete/typescript-sdk/funcs/clientGet.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await clientGet(authlete, {
-    serviceId: "<id>",
     clientId: "<id>",
   });
   if (res.ok) {
@@ -94,9 +96,7 @@ run();
 
 Get a list of clients on a service.
 
-If the access token can view a full service (including an admin), all clients within the
-service are returned. Otherwise, only clients that the access token can view within the
-service are returned.
+If the access token can view a full service (including an admin), all clients within the service are returned. Otherwise, only clients that the access token can view within the service are returned.
 - ViewClient: []
 
 
@@ -107,13 +107,12 @@ service are returned.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.client.list({
-    serviceId: "<id>",
-  });
+  const result = await authlete.client.list({});
 
   console.log(result);
 }
@@ -132,13 +131,12 @@ import { clientList } from "@authlete/typescript-sdk/funcs/clientList.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await clientList(authlete, {
-    serviceId: "<id>",
-  });
+  const res = await clientList(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -156,13 +154,12 @@ run();
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.client.list({
-    serviceId: "<id>",
-  });
+  const result = await authlete.client.list({});
 
   console.log(result);
 }
@@ -181,13 +178,12 @@ import { clientList } from "@authlete/typescript-sdk/funcs/clientList.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await clientList(authlete, {
-    serviceId: "<id>",
-  });
+  const res = await clientList(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -233,19 +229,17 @@ Create a new client.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.client.create({
-    serviceId: "<id>",
     client: {
       clientName: "My Client",
       clientIdAlias: "my-client",
-      clientIdAliasEnabled: true,
       clientType: "CONFIDENTIAL",
       applicationType: "WEB",
-      developer: "john",
       grantTypes: [
         "AUTHORIZATION_CODE",
         "REFRESH_TOKEN",
@@ -289,19 +283,17 @@ import { clientCreate } from "@authlete/typescript-sdk/funcs/clientCreate.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await clientCreate(authlete, {
-    serviceId: "<id>",
     client: {
       clientName: "My Client",
       clientIdAlias: "my-client",
-      clientIdAliasEnabled: true,
       clientType: "CONFIDENTIAL",
       applicationType: "WEB",
-      developer: "john",
       grantTypes: [
         "AUTHORIZATION_CODE",
         "REFRESH_TOKEN",
@@ -372,21 +364,19 @@ Update a client.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.client.update({
-    serviceId: "<id>",
     clientId: "<id>",
     client: {
       clientName: "My updated client",
       clientIdAlias: "my-client",
-      clientIdAliasEnabled: true,
       clientType: "CONFIDENTIAL",
       applicationType: "WEB",
       tlsClientCertificateBoundAccessTokens: false,
-      developer: "john",
       grantTypes: [
         "AUTHORIZATION_CODE",
         "REFRESH_TOKEN",
@@ -444,21 +434,19 @@ import { clientUpdate } from "@authlete/typescript-sdk/funcs/clientUpdate.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await clientUpdate(authlete, {
-    serviceId: "<id>",
     clientId: "<id>",
     client: {
       clientName: "My updated client",
       clientIdAlias: "my-client",
-      clientIdAliasEnabled: true,
       clientType: "CONFIDENTIAL",
       applicationType: "WEB",
       tlsClientCertificateBoundAccessTokens: false,
-      developer: "john",
       grantTypes: [
         "AUTHORIZATION_CODE",
         "REFRESH_TOKEN",
@@ -543,12 +531,12 @@ Update a client.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.client.updateForm({
-    serviceId: "<id>",
     clientId: "<id>",
     requestBody: {
       "clientName": "My Test Client",
@@ -586,12 +574,12 @@ import { clientUpdateForm } from "@authlete/typescript-sdk/funcs/clientUpdateFor
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await clientUpdateForm(authlete, {
-    serviceId: "<id>",
     clientId: "<id>",
     requestBody: {
       "clientName": "My Test Client",
@@ -656,12 +644,12 @@ Delete a client.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.client.delete({
-    serviceId: "<id>",
     clientId: "<id>",
   });
 
@@ -682,12 +670,12 @@ import { clientDelete } from "@authlete/typescript-sdk/funcs/clientDelete.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await clientDelete(authlete, {
-    serviceId: "<id>",
     clientId: "<id>",
   });
   if (res.ok) {
@@ -713,6 +701,167 @@ run();
 ### Response
 
 **Promise\<[operations.ClientDeleteApiResponse](../../models/operations/clientdeleteapiresponse.md)\>**
+
+### Errors
+
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 429                         | application/json            |
+| errors.ResultError          | 500                         | application/json            |
+| errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
+
+## listByCursor
+
+Retrieve the clients in the requested service via cursor based iteration.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="client_cursor_list_api" method="get" path="/api/{serviceId}/client" -->
+```typescript
+import { Authlete } from "@authlete/typescript-sdk";
+
+const authlete = new Authlete({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const result = await authlete.client.listByCursor({
+    serviceId: 255950,
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AuthleteCore } from "@authlete/typescript-sdk/core.js";
+import { clientListByCursor } from "@authlete/typescript-sdk/funcs/clientListByCursor.js";
+
+// Use `AuthleteCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const authlete = new AuthleteCore({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const res = await clientListByCursor(authlete, {
+    serviceId: 255950,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("clientListByCursor failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ClientCursorListApiRequest](../../models/operations/clientcursorlistapirequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.ClientCursorListApiResponse](../../models/operations/clientcursorlistapiresponse.md)\>**
+
+### Errors
+
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| errors.ResultError          | 400, 401, 403               | application/json            |
+| errors.ResultError          | 500                         | application/json            |
+| errors.AuthleteDefaultError | 4XX, 5XX                    | \*/\*                       |
+
+## search
+
+Search the clients in the requested service that match the condition provided in the `q` query parameter. Results are returned via cursor based iteration. To iterate through all clients without a search condition, use the `/api/&#123;serviceId&#125;/client` API instead.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="client_search_api" method="get" path="/api/{serviceId}/client/search" -->
+```typescript
+import { Authlete } from "@authlete/typescript-sdk";
+
+const authlete = new Authlete({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const result = await authlete.client.search({
+    serviceId: 581816,
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { AuthleteCore } from "@authlete/typescript-sdk/core.js";
+import { clientSearch } from "@authlete/typescript-sdk/funcs/clientSearch.js";
+
+// Use `AuthleteCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const authlete = new AuthleteCore({
+  bearer: process.env["AUTHLETE_BEARER"] ?? "",
+});
+
+async function run() {
+  const res = await clientSearch(authlete, {
+    serviceId: 581816,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("clientSearch failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ClientSearchApiRequest](../../models/operations/clientsearchapirequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.ClientSearchApiResponse](../../models/operations/clientsearchapiresponse.md)\>**
 
 ### Errors
 

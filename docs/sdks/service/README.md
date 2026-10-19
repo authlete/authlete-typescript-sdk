@@ -15,8 +15,7 @@
 
 Get a service.
 
-If the access token can only view or modify clients underneath this service, but does not
-have access to view this service directly, a limited view of the service will be returned.
+If the access token can only view or modify clients underneath this service, but does not have access to view this service directly, a limited view of the service will be returned.
 
 
 ### Example Usage: full
@@ -26,13 +25,12 @@ have access to view this service directly, a limited view of the service will be
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.service.get({
-    serviceId: "<id>",
-  });
+  const result = await authlete.service.get({});
 
   console.log(result);
 }
@@ -51,13 +49,12 @@ import { serviceGet } from "@authlete/typescript-sdk/funcs/serviceGet.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await serviceGet(authlete, {
-    serviceId: "<id>",
-  });
+  const res = await serviceGet(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -75,13 +72,12 @@ run();
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.service.get({
-    serviceId: "<id>",
-  });
+  const result = await authlete.service.get({});
 
   console.log(result);
 }
@@ -100,13 +96,12 @@ import { serviceGet } from "@authlete/typescript-sdk/funcs/serviceGet.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await serviceGet(authlete, {
-    serviceId: "<id>",
-  });
+  const res = await serviceGet(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -144,12 +139,9 @@ run();
 
 Get a list of services.
 
-If the access token can only view or modify clients underneath a service, but does not
-have access to view that service directly, a limited view of the service will be returned.
-Otherwise, all properties of the service are returned.
+If the access token can only view or modify clients underneath a service, but does not have access to view that service directly, a limited view of the service will be returned. Otherwise, all properties of the service are returned.
 
-If the access token is an administrative token, this returns a list of all services on the Authlete instance.
-Otherwise, all services that the access token can view, even in a limited fashion, are returned.
+If the access token is an administrative token, this returns a list of all services on the Authlete instance. Otherwise, all services that the access token can view, even in a limited fashion, are returned.
 
 
 ### Example Usage: full
@@ -277,17 +269,16 @@ Update a service.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.service.update({
-    serviceId: "<id>",
     service: {
       serviceName: "My updated service",
       issuer: "https://my-service.example.com",
       clientsPerDeveloper: 0,
-      clientIdAliasEnabled: true,
       supportedGrantTypes: [
         "AUTHORIZATION_CODE",
         "REFRESH_TOKEN",
@@ -298,7 +289,6 @@ async function run() {
       errorDescriptionOmitted: false,
       errorUriOmitted: false,
       authorizationEndpoint: "https://my-service.example.com/authz",
-      directAuthorizationEndpointEnabled: false,
       supportedDisplays: [
         "PAGE",
       ],
@@ -307,18 +297,15 @@ async function run() {
       authorizationResponseDuration: 0,
       authorizationCodeDuration: 0,
       tokenEndpoint: "https://my-service.example.com/token",
-      directTokenEndpointEnabled: false,
       supportedTokenAuthMethods: [
         "CLIENT_SECRET_BASIC",
       ],
       missingClientIdAllowed: false,
       revocationEndpoint: "https://my-service.example.com/revocation",
-      directRevocationEndpointEnabled: false,
       supportedRevocationAuthMethods: [
         "CLIENT_SECRET_BASIC",
       ],
       introspectionEndpoint: "https://my-service.example.com/introspection",
-      directIntrospectionEndpointEnabled: false,
       supportedIntrospectionAuthMethods: [
         "CLIENT_SECRET_BASIC",
       ],
@@ -354,8 +341,6 @@ async function run() {
         "NORMAL",
       ],
       claimShortcutRestrictive: false,
-      directJwksEndpointEnabled: false,
-      directUserInfoEndpointEnabled: false,
       dynamicRegistrationSupported: false,
       backchannelAuthReqIdDuration: 0,
       backchannelPollingInterval: 0,
@@ -404,17 +389,16 @@ import { serviceUpdate } from "@authlete/typescript-sdk/funcs/serviceUpdate.js";
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await serviceUpdate(authlete, {
-    serviceId: "<id>",
     service: {
       serviceName: "My updated service",
       issuer: "https://my-service.example.com",
       clientsPerDeveloper: 0,
-      clientIdAliasEnabled: true,
       supportedGrantTypes: [
         "AUTHORIZATION_CODE",
         "REFRESH_TOKEN",
@@ -425,7 +409,6 @@ async function run() {
       errorDescriptionOmitted: false,
       errorUriOmitted: false,
       authorizationEndpoint: "https://my-service.example.com/authz",
-      directAuthorizationEndpointEnabled: false,
       supportedDisplays: [
         "PAGE",
       ],
@@ -434,18 +417,15 @@ async function run() {
       authorizationResponseDuration: 0,
       authorizationCodeDuration: 0,
       tokenEndpoint: "https://my-service.example.com/token",
-      directTokenEndpointEnabled: false,
       supportedTokenAuthMethods: [
         "CLIENT_SECRET_BASIC",
       ],
       missingClientIdAllowed: false,
       revocationEndpoint: "https://my-service.example.com/revocation",
-      directRevocationEndpointEnabled: false,
       supportedRevocationAuthMethods: [
         "CLIENT_SECRET_BASIC",
       ],
       introspectionEndpoint: "https://my-service.example.com/introspection",
-      directIntrospectionEndpointEnabled: false,
       supportedIntrospectionAuthMethods: [
         "CLIENT_SECRET_BASIC",
       ],
@@ -481,8 +461,6 @@ async function run() {
         "NORMAL",
       ],
       claimShortcutRestrictive: false,
-      directJwksEndpointEnabled: false,
-      directUserInfoEndpointEnabled: false,
       dynamicRegistrationSupported: false,
       backchannelAuthReqIdDuration: 0,
       backchannelPollingInterval: 0,
@@ -548,11 +526,9 @@ run();
 
 ## create
 
-Create a new service on the API server, belonging to the specified organization.
-A service can be created with an organization token or by a user with the CREATE_SERVICE role.
+Create a new service on the API server, belonging to the specified organization. A service can be created with an organization token or by a user with the CREATE_SERVICE role.
 
-This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
-not on the regional API clusters.
+This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`), not on the regional API clusters.
 
 
 ### Example Usage
@@ -639,11 +615,9 @@ run();
 
 ## remove
 
-Delete a service from the API server.
-A service can be deleted with an organization token or by a user with the MODIFY_SERVICE role.
+Delete a service from the API server. A service can be deleted with an organization token or by a user with the MODIFY_SERVICE role.
 
-This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`),
-not on the regional API clusters.
+This endpoint is hosted on the Authlete IdP server (`https://login.authlete.com`), not on the regional API clusters.
 
 
 ### Example Usage
@@ -726,11 +700,7 @@ run();
 
 This API gathers configuration information about a service.
 
-This API is supposed to be called from within the implementation of the configuration endpoint of
-the service where the service that supports OpenID Connect and [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html)
-must expose its configuration information in a JSON format. Details about the format are described
-in "[3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)"
-in OpenID Connect Discovery 1.0.
+This API is supposed to be called from within the implementation of the configuration endpoint of the service where the service that supports OpenID Connect and [OpenID Connect Discovery 1.0](https://openid.net/specs/openid-connect-discovery-1_0.html) must expose its configuration information in a JSON format. Details about the format are described in "[3. OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)" in OpenID Connect Discovery 1.0.
 
 
 ### Example Usage
@@ -740,13 +710,12 @@ in OpenID Connect Discovery 1.0.
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const result = await authlete.service.getConfiguration({
-    serviceId: "<id>",
-  });
+  const result = await authlete.service.getConfiguration({});
 
   console.log(result);
 }
@@ -765,13 +734,12 @@ import { serviceGetConfiguration } from "@authlete/typescript-sdk/funcs/serviceG
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
-  const res = await serviceGetConfiguration(authlete, {
-    serviceId: "<id>",
-  });
+  const res = await serviceGetConfiguration(authlete, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

@@ -9,12 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type ClientRegistrationDeleteApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type ClientRegistrationDeleteApiRequestBody = {
   /**
-   * Client metadata in JSON format that complies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591)
+   * Client metadata in JSON format that complies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591) (OAuth 2.0 Dynamic Client Registration Protocol).
    *
    * @remarks
-   * (OAuth 2.0 Dynamic Client Registration Protocol).
    */
   json?: string | undefined;
   /**
@@ -35,7 +38,7 @@ export type ClientRegistrationDeleteApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   requestBody: ClientRegistrationDeleteApiRequestBody;
 };
 
@@ -75,7 +78,7 @@ export function clientRegistrationDeleteApiRequestBodyToJSON(
 
 /** @internal */
 export type ClientRegistrationDeleteApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   RequestBody: ClientRegistrationDeleteApiRequestBody$Outbound;
 };
 
@@ -85,7 +88,7 @@ export const ClientRegistrationDeleteApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ClientRegistrationDeleteApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   requestBody: z.lazy(() =>
     ClientRegistrationDeleteApiRequestBody$outboundSchema
   ),

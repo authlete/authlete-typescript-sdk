@@ -6,7 +6,6 @@
 import { PushedAuthReqApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: PushedAuthReqApiRequest = {
-  serviceId: "<id>",
   pushedAuthorizationRequest: {
     parameters: "<value>",
   },
@@ -17,5 +16,5 @@ let value: PushedAuthReqApiRequest = {
 
 | Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
 | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `serviceId`                                                                     | *string*                                                                        | :heavy_check_mark:                                                              | A service ID.                                                                   |
+| `serviceId`                                                                     | *string*                                                                        | :heavy_minus_sign:                                                              | A service ID.                                                                   |
 | `pushedAuthorizationRequest`                                                    | [models.PushedAuthorizationRequest](../../models/pushedauthorizationrequest.md) | :heavy_check_mark:                                                              | N/A                                                                             |

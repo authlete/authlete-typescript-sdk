@@ -11,9 +11,7 @@
 
 ## register
 
-Register a client. This API is supposed to be used to implement a client registration endpoint that
-complies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591) (OAuth 2.0 Dynamic Client
-Registration Protocol).
+Register a client. This API is supposed to be used to implement a client registration endpoint that complies with [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591) (OAuth 2.0 Dynamic Client Registration Protocol).
 
 
 ### Example Usage
@@ -23,12 +21,12 @@ Registration Protocol).
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.dynamicClientRegistration.register({
-    serviceId: "<id>",
     requestBody: {
       json: "{ \"client_name\": \"My Dynamic Client\" }",
     },
@@ -51,12 +49,12 @@ import { dynamicClientRegistrationRegister } from "@authlete/typescript-sdk/func
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await dynamicClientRegistrationRegister(authlete, {
-    serviceId: "<id>",
     requestBody: {
       json: "{ \"client_name\": \"My Dynamic Client\" }",
     },
@@ -96,9 +94,7 @@ run();
 
 ## get
 
-Get a dynamically registered client. This API is supposed to be used to implement a client registration
-management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)
-(OAuth 2.0 Dynamic Registration Management).
+Get a dynamically registered client. This API is supposed to be used to implement a client registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592) (OAuth 2.0 Dynamic Registration Management).
 
 
 ### Example Usage
@@ -108,12 +104,12 @@ management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/d
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.dynamicClientRegistration.get({
-    serviceId: "<id>",
     requestBody: {
       token: "qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA",
       clientId: "26837717140341",
@@ -137,12 +133,12 @@ import { dynamicClientRegistrationGet } from "@authlete/typescript-sdk/funcs/dyn
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await dynamicClientRegistrationGet(authlete, {
-    serviceId: "<id>",
     requestBody: {
       token: "qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA",
       clientId: "26837717140341",
@@ -183,9 +179,7 @@ run();
 
 ## update
 
-Update a dynamically registered client. This API is supposed to be used to implement a client
-registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)
-(OAuth 2.0 Dynamic Registration Management).
+Update a dynamically registered client. This API is supposed to be used to implement a client registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592) (OAuth 2.0 Dynamic Registration Management).
 
 
 ### Example Usage
@@ -195,12 +189,12 @@ registration management endpoint that complies with [RFC 7592](https://datatrack
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.dynamicClientRegistration.update({
-    serviceId: "<id>",
     requestBody: {
       json: "{\"client_name\":\"My Updated Dynamic Client\",\"default_max_age\":0,\"registration_client_uri\":\"https://my-service.example.com/dcr/register/26837717140341\",\"client_id\":\"26837717140341\",\"token_endpoint_auth_method\":\"client_secret_basic\",\"require_pushed_authorization_requests\":false,\"backchannel_user_code_parameter\":false,\"client_secret\":\"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\",\"tls_client_certificate_bound_access_tokens\":false,\"id_token_signed_response_alg\":\"RS256\",\"subject_type\":\"public\",\"require_signed_request_object\":false}",
       token: "qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA",
@@ -225,12 +219,12 @@ import { dynamicClientRegistrationUpdate } from "@authlete/typescript-sdk/funcs/
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await dynamicClientRegistrationUpdate(authlete, {
-    serviceId: "<id>",
     requestBody: {
       json: "{\"client_name\":\"My Updated Dynamic Client\",\"default_max_age\":0,\"registration_client_uri\":\"https://my-service.example.com/dcr/register/26837717140341\",\"client_id\":\"26837717140341\",\"token_endpoint_auth_method\":\"client_secret_basic\",\"require_pushed_authorization_requests\":false,\"backchannel_user_code_parameter\":false,\"client_secret\":\"bMsjvZm2FE1_mqJgxhmYj_Wr8rA0Pia_A_j-V076qQm6-P1edKB055W579GBe7MSbOdxZ3dJKsKinCtdIFwxpw\",\"tls_client_certificate_bound_access_tokens\":false,\"id_token_signed_response_alg\":\"RS256\",\"subject_type\":\"public\",\"require_signed_request_object\":false}",
       token: "qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA",
@@ -272,9 +266,7 @@ run();
 
 ## delete
 
-Delete a dynamically registered client. This API is supposed to be used to implement a client
-registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592)
-(OAuth 2.0 Dynamic Registration Management).
+Delete a dynamically registered client. This API is supposed to be used to implement a client registration management endpoint that complies with [RFC 7592](https://datatracker.ietf.org/doc/html/rfc7592) (OAuth 2.0 Dynamic Registration Management).
 
 
 ### Example Usage
@@ -284,12 +276,12 @@ registration management endpoint that complies with [RFC 7592](https://datatrack
 import { Authlete } from "@authlete/typescript-sdk";
 
 const authlete = new Authlete({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const result = await authlete.dynamicClientRegistration.delete({
-    serviceId: "<id>",
     requestBody: {
       token: "qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA",
       clientId: "26837717140341",
@@ -313,12 +305,12 @@ import { dynamicClientRegistrationDelete } from "@authlete/typescript-sdk/funcs/
 // Use `AuthleteCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const authlete = new AuthleteCore({
+  serviceId: "<id>",
   bearer: process.env["AUTHLETE_BEARER"] ?? "",
 });
 
 async function run() {
   const res = await dynamicClientRegistrationDelete(authlete, {
-    serviceId: "<id>",
     requestBody: {
       token: "qs4Tu5TV7qqDYT93bFs6ISyhTByMF9o-54GY4JU5vTA",
       clientId: "26837717140341",

@@ -30,8 +30,7 @@ import { Result } from "../types/fp.js";
  * Backchannel Logout Token Issuing
  *
  * @remarks
- * The `/backchannel/logout/token` API issues a logout token for a client application
- * in the context of [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html).
+ * The `/backchannel/logout/token` API issues a logout token for a client application in the context of [OpenID Connect Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0.html).
  */
 export function backChannelLogoutBackchannelLogoutTokenApi(
   client: AuthleteCore,
@@ -94,10 +93,11 @@ async function $do(
   });
 
   const pathParams = {
-    serviceId: encodeSimple("serviceId", payload.serviceId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
+    serviceId: encodeSimple(
+      "serviceId",
+      payload.serviceId ?? client._options.serviceId,
+      { explode: false, charEncoding: "percent" },
+    ),
   };
   const path = pathToFunc("/api/{serviceId}/backchannel/logout/token")(
     pathParams,

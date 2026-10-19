@@ -9,11 +9,15 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type DeviceCompleteApiGlobals = {
+  serviceId?: string | undefined;
+};
+
 export type DeviceCompleteApiRequest = {
   /**
    * A service ID.
    */
-  serviceId: string;
+  serviceId?: string | undefined;
   deviceCompleteRequest: models.DeviceCompleteRequest;
 };
 
@@ -24,7 +28,7 @@ export type DeviceCompleteApiResponse = {
 
 /** @internal */
 export type DeviceCompleteApiRequest$Outbound = {
-  serviceId: string;
+  serviceId?: string | undefined;
   device_complete_request: models.DeviceCompleteRequest$Outbound;
 };
 
@@ -34,7 +38,7 @@ export const DeviceCompleteApiRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DeviceCompleteApiRequest
 > = z.object({
-  serviceId: z.string(),
+  serviceId: z.string().optional(),
   deviceCompleteRequest: models.DeviceCompleteRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

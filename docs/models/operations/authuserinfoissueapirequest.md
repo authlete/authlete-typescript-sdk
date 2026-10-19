@@ -6,7 +6,6 @@
 import { AuthUserinfoIssueApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: AuthUserinfoIssueApiRequest = {
-  serviceId: "<id>",
   userinfoIssueRequest: {
     token: "<value>",
   },
@@ -17,5 +16,5 @@ let value: AuthUserinfoIssueApiRequest = {
 
 | Field                                                               | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `serviceId`                                                         | *string*                                                            | :heavy_check_mark:                                                  | A service ID.                                                       |
+| `serviceId`                                                         | *string*                                                            | :heavy_minus_sign:                                                  | A service ID.                                                       |
 | `userinfoIssueRequest`                                              | [models.UserinfoIssueRequest](../../models/userinfoissuerequest.md) | :heavy_check_mark:                                                  | N/A                                                                 |

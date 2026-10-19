@@ -40,8 +40,7 @@ import {
  * Get Audit Logs
  *
  * @remarks
- * Retrieve audit logs as a cursor-paginated list. Results can be filtered by time range, event type,
- * and organization.
+ * Retrieve audit logs as a cursor-paginated list. Results can be filtered by time range, event type, and organization.
  */
 export function auditGet(
   client: AuthleteCore,

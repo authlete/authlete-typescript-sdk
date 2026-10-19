@@ -6,7 +6,6 @@
 import { BackchannelAuthenticationCompleteApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: BackchannelAuthenticationCompleteApiRequest = {
-  serviceId: "<id>",
   backchannelAuthenticationCompleteRequest: {
     ticket: "<value>",
     result: "TRANSACTION_FAILED",
@@ -19,5 +18,5 @@ let value: BackchannelAuthenticationCompleteApiRequest = {
 
 | Field                                                                                                       | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
 | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `serviceId`                                                                                                 | *string*                                                                                                    | :heavy_check_mark:                                                                                          | A service ID.                                                                                               |
+| `serviceId`                                                                                                 | *string*                                                                                                    | :heavy_minus_sign:                                                                                          | A service ID.                                                                                               |
 | `backchannelAuthenticationCompleteRequest`                                                                  | [models.BackchannelAuthenticationCompleteRequest](../../models/backchannelauthenticationcompleterequest.md) | :heavy_check_mark:                                                                                          | N/A                                                                                                         |

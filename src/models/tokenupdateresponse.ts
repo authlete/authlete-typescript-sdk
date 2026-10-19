@@ -63,11 +63,9 @@ export type TokenUpdateResponse = {
    */
   scopes?: Array<string> | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
   /**
@@ -77,10 +75,9 @@ export type TokenUpdateResponse = {
    */
   tokenType?: string | undefined;
   /**
-   * the flag which indicates whether the access token is for an external
+   * the flag which indicates whether the access token is for an external attachment.
    *
    * @remarks
-   * attachment.
    */
   forExternalAttachment?: boolean | undefined;
   /**
@@ -90,10 +87,9 @@ export type TokenUpdateResponse = {
    */
   tokenId?: string | undefined;
   /**
-   * The datetime at which the newly issued refresh token will expire.
+   * The datetime at which the newly issued refresh token will expire. The value is represented in milliseconds since the Unix epoch (1970-01-01).
    *
    * @remarks
-   * The value is represented in milliseconds since the Unix epoch (1970-01-01).
    */
   refreshTokenExpiresAt?: number | undefined;
 };

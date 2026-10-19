@@ -39,10 +39,9 @@ export type TokenIssueResponse = {
    */
   action?: TokenIssueResponseAction | undefined;
   /**
-   * The content that the authorization server implementation is to return to the client application.
+   * The content that the authorization server implementation is to return to the client application. Its format is JSON.
    *
    * @remarks
-   * Its format is JSON.
    */
   responseContent?: string | undefined;
   /**
@@ -50,10 +49,9 @@ export type TokenIssueResponse = {
    */
   accessToken?: string | undefined;
   /**
-   * The datetime at which the newly issued access token will expire.
+   * The datetime at which the newly issued access token will expire. The value is represented in milliseconds since the Unix epoch (1970-01-01).
    *
    * @remarks
-   * The value is represented in milliseconds since the Unix epoch (1970-01-01).
    */
   accessTokenExpiresAt?: number | undefined;
   /**
@@ -61,18 +59,15 @@ export type TokenIssueResponse = {
    */
   accessTokenDuration?: number | undefined;
   /**
-   * The refresh token. This parameter is a non-null value only when `action` is `OK` and the service supports the refresh token flow.
+   * The refresh token. This parameter is a non-null value only when `action` is `OK` and the service supports the refresh token flow. If `refreshTokenKept` is set to `false`, a new refresh token is issued and the old refresh token used in the refresh token flow is invalidated. On the contrary, if `refreshTokenKept` is set to `true`, the refresh token itself is not refreshed.
    *
    * @remarks
-   * If `refreshTokenKept` is set to `false`, a new refresh token is issued and the old refresh token used in the refresh token flow
-   * is invalidated. On the contrary, if `refreshTokenKept` is set to `true`, the refresh token itself is not refreshed.
    */
   refreshToken?: string | undefined;
   /**
-   * The datetime at which the newly issued refresh token will expire.
+   * The datetime at which the newly issued refresh token will expire. The value is represented in milliseconds since the Unix epoch (1970-01-01).
    *
    * @remarks
-   * The value is represented in milliseconds since the Unix epoch (1970-01-01).
    */
   refreshTokenExpiresAt?: number | undefined;
   /**
@@ -90,19 +85,15 @@ export type TokenIssueResponse = {
    */
   clientIdAlias?: string | undefined;
   /**
-   * The flag which indicates whether the client ID alias was used when the token request was made.
+   * The flag which indicates whether the client ID alias was used when the token request was made. `true` if the client ID alias was used when the token request was made.
    *
    * @remarks
-   * `true` if the client ID alias was used when the token request was made.
    */
   clientIdAliasUsed?: boolean | undefined;
   /**
-   * The subject (= resource owner's ID) of the access token.
+   * The subject (= resource owner's ID) of the access token. Even if an access token has been issued by calling `/api/auth/token` API, this parameter is `null` if the flow of the token request was [Client Credentials Flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4) (`grant_type=client_credentials`) because it means the access token is not associated with any specific end-user.
    *
    * @remarks
-   * Even if an access token has been issued by calling `/api/auth/token` API, this parameter is `null` if the flow of the token request was
-   * [Client Credentials Flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4) (`grant_type=client_credentials`) because it means
-   * the access token is not associated with any specific end-user.
    */
   subject?: string | undefined;
   /**
@@ -110,18 +101,15 @@ export type TokenIssueResponse = {
    */
   scopes?: Array<string> | undefined;
   /**
-   * The extra properties associated with the access token.
+   * The extra properties associated with the access token. This parameter is `null` when no extra property is associated with the issued access token.
    *
    * @remarks
-   * This parameter is `null` when no extra property is associated with the issued access token.
    */
   properties?: Array<Property> | undefined;
   /**
-   * The newly issued access token in JWT format. If the authorization server is configured to issue JWT-based access tokens
+   * The newly issued access token in JWT format. If the authorization server is configured to issue JWT-based access tokens (= if the service's `accessTokenSignAlg` value is a non-null value), a JWT-based access token is issued along with the original random-string one.
    *
    * @remarks
-   * (= if the service's `accessTokenSignAlg` value is a non-null value), a JWT-based access token is issued along with the
-   * original random-string one.
    */
   jwtAccessToken?: string | undefined;
   /**
@@ -131,11 +119,9 @@ export type TokenIssueResponse = {
    */
   accessTokenResources?: Array<string> | undefined;
   /**
-   * The authorization details. This represents the value of the `authorization_details`
+   * The authorization details. This represents the value of the `authorization_details` request parameter in the preceding device authorization request which is defined in "OAuth 2.0 Rich Authorization Requests".
    *
    * @remarks
-   * request parameter in the preceding device authorization request which is defined in
-   * "OAuth 2.0 Rich Authorization Requests".
    */
   authorizationDetails?: AuthzDetails | undefined;
   /**

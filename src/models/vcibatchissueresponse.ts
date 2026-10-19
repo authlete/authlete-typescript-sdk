@@ -9,10 +9,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * The next action that the implementation of the batch credential
+ * The next action that the implementation of the batch credential endpoint should take.
  *
  * @remarks
- * endpoint should take.
  */
 export const VciBatchIssueResponseAction = {
   Ok: "OK",
@@ -22,10 +21,9 @@ export const VciBatchIssueResponseAction = {
   CallerError: "CALLER_ERROR",
 } as const;
 /**
- * The next action that the implementation of the batch credential
+ * The next action that the implementation of the batch credential endpoint should take.
  *
  * @remarks
- * endpoint should take.
  */
 export type VciBatchIssueResponseAction = ClosedEnum<
   typeof VciBatchIssueResponseAction
@@ -41,17 +39,15 @@ export type VciBatchIssueResponse = {
    */
   resultMessage?: string | undefined;
   /**
-   * The next action that the implementation of the batch credential
+   * The next action that the implementation of the batch credential endpoint should take.
    *
    * @remarks
-   * endpoint should take.
    */
   action?: VciBatchIssueResponseAction | undefined;
   /**
-   * The content of the response that the implementation of the batch
+   * The content of the response that the implementation of the batch credential endpoint should return.
    *
    * @remarks
-   * credential endpoint should return.
    */
   responseContent?: string | undefined;
 };

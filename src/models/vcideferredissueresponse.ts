@@ -9,10 +9,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * The next action that the implementation of the deferred credential
+ * The next action that the implementation of the deferred credential endpoint should take.
  *
  * @remarks
- * endpoint should take.
  */
 export const VciDeferredIssueResponseAction = {
   Ok: "OK",
@@ -21,10 +20,9 @@ export const VciDeferredIssueResponseAction = {
   CallerError: "CALLER_ERROR",
 } as const;
 /**
- * The next action that the implementation of the deferred credential
+ * The next action that the implementation of the deferred credential endpoint should take.
  *
  * @remarks
- * endpoint should take.
  */
 export type VciDeferredIssueResponseAction = ClosedEnum<
   typeof VciDeferredIssueResponseAction
@@ -40,17 +38,15 @@ export type VciDeferredIssueResponse = {
    */
   resultMessage?: string | undefined;
   /**
-   * The next action that the implementation of the deferred credential
+   * The next action that the implementation of the deferred credential endpoint should take.
    *
    * @remarks
-   * endpoint should take.
    */
   action?: VciDeferredIssueResponseAction | undefined;
   /**
-   * The content of the response that the implementation of the deferred
+   * The content of the response that the implementation of the deferred credential endpoint should return.
    *
    * @remarks
-   * credential endpoint should return.
    */
   responseContent?: string | undefined;
 };

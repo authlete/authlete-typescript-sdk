@@ -11,10 +11,9 @@ import {
 } from "./property.js";
 
 /**
- * The result of the end-user authentication and authorization. One of the following. Details are
+ * The result of the end-user authentication and authorization. One of the following. Details are described in the description.
  *
  * @remarks
- * described in the description.
  */
 export const BackchannelAuthenticationCompleteRequestResult = {
   TransactionFailed: "TRANSACTION_FAILED",
@@ -22,10 +21,9 @@ export const BackchannelAuthenticationCompleteRequestResult = {
   Authorized: "AUTHORIZED",
 } as const;
 /**
- * The result of the end-user authentication and authorization. One of the following. Details are
+ * The result of the end-user authentication and authorization. One of the following. Details are described in the description.
  *
  * @remarks
- * described in the description.
  */
 export type BackchannelAuthenticationCompleteRequestResult = ClosedEnum<
   typeof BackchannelAuthenticationCompleteRequestResult
@@ -39,10 +37,9 @@ export type BackchannelAuthenticationCompleteRequest = {
    */
   ticket: string;
   /**
-   * The result of the end-user authentication and authorization. One of the following. Details are
+   * The result of the end-user authentication and authorization. One of the following. Details are described in the description.
    *
    * @remarks
-   * described in the description.
    */
   result: BackchannelAuthenticationCompleteRequestResult;
   /**
@@ -82,10 +79,9 @@ export type BackchannelAuthenticationCompleteRequest = {
    */
   properties?: Array<Property> | undefined;
   /**
-   * Scopes to replace the scopes specified in the original backchannel authentication request with.
+   * Scopes to replace the scopes specified in the original backchannel authentication request with. When nothing is specified for this parameter, replacement is not performed.
    *
    * @remarks
-   * When nothing is specified for this parameter, replacement is not performed.
    */
   scopes?: Array<string> | undefined;
   /**
@@ -95,26 +91,21 @@ export type BackchannelAuthenticationCompleteRequest = {
    */
   idtHeaderParams?: string | undefined;
   /**
-   * The description of the error. If this optional request parameter is given, its value is used as
+   * The description of the error. If this optional request parameter is given, its value is used as the value of the `error_description` property, but it is used only when the result is not `AUTHORIZED`. To comply with the specification strictly, the description must not include characters outside the set `%x20-21 / %x23-5B / %x5D-7E`.
    *
    * @remarks
-   * the value of the `error_description` property, but it is used only when the result is not `AUTHORIZED`.
-   * To comply with the specification strictly, the description must not include characters outside
-   * the set `%x20-21 / %x23-5B / %x5D-7E`.
    */
   errorDescription?: string | undefined;
   /**
-   * The URI of a document which describes the error in detail. This corresponds to the `error_uri`
+   * The URI of a document which describes the error in detail. This corresponds to the `error_uri` property in the response to the client.
    *
    * @remarks
-   * property in the response to the client.
    */
   errorUri?: string | undefined;
   /**
-   * the claims that the user has consented for the client application
+   * the claims that the user has consented for the client application to know.
    *
    * @remarks
-   * to know.
    */
   consentedClaims?: Array<string> | undefined;
   /**
@@ -130,23 +121,19 @@ export type BackchannelAuthenticationCompleteRequest = {
    */
   accessToken?: string | undefined;
   /**
-   * The duration (in seconds) of the access token that may be issued as a result of the Authlete
+   * The duration (in seconds) of the access token that may be issued as a result of the Authlete API call.
    *
    * @remarks
-   * API call.
    *
-   * When this request parameter holds a positive integer, it is used as the duration of the access
-   * token in. In other cases, this request parameter is ignored.
+   * When this request parameter holds a positive integer, it is used as the duration of the access token in. In other cases, this request parameter is ignored.
    */
   accessTokenDuration?: number | undefined;
   /**
-   * The duration (in seconds) of the refresh token that may be issued as a result of the Authlete
+   * The duration (in seconds) of the refresh token that may be issued as a result of the Authlete API call.
    *
    * @remarks
-   * API call.
    *
-   * When this request parameter holds a positive integer, it is used as the duration of the refresh
-   * token in. In other cases, this request parameter is ignored.
+   * When this request parameter holds a positive integer, it is used as the duration of the refresh token in. In other cases, this request parameter is ignored.
    */
   refreshTokenDuration?: number | undefined;
   /**

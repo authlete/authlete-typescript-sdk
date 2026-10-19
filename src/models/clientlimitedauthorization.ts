@@ -39,17 +39,15 @@ export type ClientLimitedAuthorization = {
    */
   number?: number | undefined;
   /**
-   * The name of the client application. This property corresponds to `client_name` in
+   * The name of the client application. This property corresponds to `client_name` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    *
    * @remarks
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   clientName?: string | undefined;
   /**
-   * Client names with language tags. If the client application has different names for different
+   * Client names with language tags. If the client application has different names for different languages, this property can be used to register the names.
    *
    * @remarks
-   * languages, this property can be used to register the names.
    */
   clientNames?: Array<TaggedValue> | undefined;
   /**
@@ -57,10 +55,9 @@ export type ClientLimitedAuthorization = {
    */
   description?: string | undefined;
   /**
-   * Descriptions about the client application with language tags. If the client application has different
+   * Descriptions about the client application with language tags. If the client application has different descriptions for different languages, this property can be used to register the descriptions.
    *
    * @remarks
-   * descriptions for different languages, this property can be used to register the descriptions.
    */
   descriptions?: Array<TaggedValue> | undefined;
   /**
@@ -68,10 +65,9 @@ export type ClientLimitedAuthorization = {
    */
   clientId?: number | undefined;
   /**
-   * The value of the client's `client_id` property used in OAuth and OpenID Connect calls. By
+   * The value of the client's `client_id` property used in OAuth and OpenID Connect calls. By default, this is a string version of the `clientId` property.
    *
    * @remarks
-   * default, this is a string version of the `clientId` property.
    */
   clientIdAlias?: string | undefined;
   /**
@@ -79,10 +75,9 @@ export type ClientLimitedAuthorization = {
    */
   clientIdAliasEnabled?: boolean | undefined;
   /**
-   * The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1)
+   * The client type, either `CONFIDENTIAL` or `PUBLIC`. See [RFC 6749, 2.1. Client Types](https://datatracker.ietf.org/doc/html/rfc6749#section-2.1) for details.
    *
    * @remarks
-   * for details.
    */
   clientType?: ClientType | undefined;
   /**
@@ -90,15 +85,13 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    *
-   * This property corresponds to `logo_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2.
-   * Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `logo_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   logoUri?: string | undefined;
   /**
-   * Logo image URLs with language tags. If the client application has different logo images for
+   * Logo image URLs with language tags. If the client application has different logo images for different languages, this property can be used to register URLs of the images.
    *
    * @remarks
-   * different languages, this property can be used to register URLs of the images.
    */
   logoUris?: Array<TaggedValue> | undefined;
   /**
@@ -106,8 +99,7 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    *
-   * This property corresponds to `tos_uri` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `tos_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   tosUri?: string | undefined;
   /**
@@ -115,8 +107,7 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    *
-   * If the client application has different "Terms Of Service" pages for different languages,
-   * this property can be used to register the URLs.
+   * If the client application has different "Terms Of Service" pages for different languages, this property can be used to register the URLs.
    */
   tosUris?: Array<TaggedValue> | undefined;
   /**
@@ -124,22 +115,19 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    *
-   * This property corresponds to `policy_uri` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `policy_uri` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   policyUri?: string | undefined;
   /**
-   * URLs of policy pages with language tags.
+   * URLs of policy pages with language tags. If the client application has different policy pages for different languages, this property can be used to register the URLs.
    *
    * @remarks
-   * If the client application has different policy pages for different languages, this property can be used to register the URLs.
    */
   policyUris?: Array<TaggedValue> | undefined;
   /**
-   * The sequential number of the service of the client application. The value of this property is
+   * The sequential number of the service of the client application. The value of this property is assigned by Authlete.
    *
    * @remarks
-   * assigned by Authlete.
    */
   serviceNumber?: number | undefined;
   /**
@@ -147,8 +135,7 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    *
-   * This property corresponds to `default_max_age` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `default_max_age` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   defaultMaxAge?: number | undefined;
   /**
@@ -156,8 +143,7 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    *
-   * This property corresponds to `require_auth_time` in
-   * [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
+   * This property corresponds to `require_auth_time` in [OpenID Connect Dynamic Client Registration 1.0, 2. Client Metadata](https://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata).
    */
   authTimeRequired?: boolean | undefined;
   /**
@@ -175,66 +161,55 @@ export type ClientLimitedAuthorization = {
    */
   tlsClientCertificateBoundAccessTokens?: boolean | undefined;
   /**
-   * The boolean flag to indicate whether a user code is required when this client makes a backchannel
+   * The boolean flag to indicate whether a user code is required when this client makes a backchannel authentication request.
    *
    * @remarks
-   * authentication request.
    *
    * This property corresponds to the `backchannel_user_code_parameter` metadata.
    */
   bcUserCodeRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the client requires that a `sid` (session ID)
+   * The flag indicating whether the client requires that a `sid` (session ID) claim be included in the logout token sent to `backchannelLogoutUri`.
    *
    * @remarks
-   * claim be included in the logout token sent to `backchannelLogoutUri`.
    */
   backchannelLogoutSessionRequired?: boolean | undefined;
   /**
-   * The flag to indicate whether this client has been registered dynamically.
+   * The flag to indicate whether this client has been registered dynamically. For more details, see [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
    *
    * @remarks
-   * For more details, see [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591).
    */
   dynamicallyRegistered?: boolean | undefined;
   /**
-   * The flag to indicate whether this client is required to use the pushed authorization request endpoint.
+   * The flag to indicate whether this client is required to use the pushed authorization request endpoint. This property corresponds to the `require_pushed_authorization_requests` client metadata defined in "OAuth 2.0 Pushed Authorization Requests".
    *
    * @remarks
-   * This property corresponds to the `require_pushed_authorization_requests` client metadata defined
-   * in "OAuth 2.0 Pushed Authorization Requests".
    */
   parRequired?: boolean | undefined;
   /**
-   * The flag to indicate whether authorization requests from this client are always required to
+   * The flag to indicate whether authorization requests from this client are always required to utilize a request object by using either `request` or `request_uri` request parameter.
    *
    * @remarks
-   * utilize a request object by using either `request` or `request_uri` request parameter.
    *
-   * If this flag is set to `true` and the service's `traditionalRequestObjectProcessingApplied` is
-   * set to `false`, authorization requests from this client are processed as if `require_signed_request_object`
-   * client metadata of this client is `true`. The metadata is defined in "JAR (JWT Secured Authorization Request)".
+   * If this flag is set to `true` and the service's `traditionalRequestObjectProcessingApplied` is set to `false`, authorization requests from this client are processed as if `require_signed_request_object` client metadata of this client is `true`. The metadata is defined in "JAR (JWT Secured Authorization Request)".
    */
   requestObjectRequired?: boolean | undefined;
   /**
-   * The flag indicating whether encryption of request object is required when the request object
+   * The flag indicating whether encryption of request object is required when the request object is passed through the front channel.
    *
    * @remarks
-   * is passed through the front channel.
    */
   frontChannelRequestObjectEncryptionRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg`
+   * The flag indicating whether the JWE alg of encrypted request object must match the `request_object_encryption_alg` client metadata.
    *
    * @remarks
-   * client metadata.
    */
   requestObjectEncryptionAlgMatchRequired?: boolean | undefined;
   /**
-   * The flag indicating whether the JWE enc of encrypted request object must match the `request_object_encryption_enc`
+   * The flag indicating whether the JWE enc of encrypted request object must match the `request_object_encryption_enc` client metadata.
    *
    * @remarks
-   * client metadata.
    */
   requestObjectEncryptionEncMatchRequired?: boolean | undefined;
   /**
@@ -262,9 +237,7 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    *
-   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request
-   * whenever it includes the `code_challenge` request parameter.
-   * Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
+   * If this flag is set to `true`, `code_challenge_method=S256` must be included in the authorization request whenever it includes the `code_challenge` request parameter. Neither omission of the `code_challenge_method` request parameter nor use of plain (`code_challenge_method=plain`) is allowed.
    */
   pkceS256Required?: boolean | undefined;
   /**
@@ -290,22 +263,19 @@ export type ClientLimitedAuthorization = {
    *
    * @remarks
    *
-   * This property corresponds to the `use_mtls_endpoint_aliases` client metadata that is defined in
-   * [FAPI 2.0 Security Profile, 8.1.1. use_mtls_endpoint_aliases](https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html#section-8.1.1).
+   * This property corresponds to the `use_mtls_endpoint_aliases` client metadata that is defined in [FAPI 2.0 Security Profile, 8.1.1. use_mtls_endpoint_aliases](https://openid.bitbucket.io/fapi/fapi-2_0-security-profile.html#section-8.1.1).
    */
   mtlsEndpointAliasesUsed?: boolean | undefined;
   /**
-   * The flag indicating whether this client is in scope for token migration
+   * The flag indicating whether this client is in scope for token migration operations.
    *
    * @remarks
-   * operations.
    */
   inScopeForTokenMigration?: boolean | undefined;
   /**
-   * the expiration time of the trust chain that was used when this client was registered or updated by the mechanism
+   * the expiration time of the trust chain that was used when this client was registered or updated by the mechanism defined in OpenID Connect Federation 1.0. The value is represented as milliseconds elapsed since the Unix epoch (1970-01-01).
    *
    * @remarks
-   * defined in OpenID Connect Federation 1.0. The value is represented as milliseconds elapsed since the Unix epoch (1970-01-01).
    */
   trustChainExpiresAt?: number | undefined;
   /**
@@ -315,17 +285,15 @@ export type ClientLimitedAuthorization = {
    */
   trustChainUpdatedAt?: number | undefined;
   /**
-   * The flag indicating whether this client was registered by the
+   * The flag indicating whether this client was registered by the "automatic" client registration of OIDC Federation.
    *
    * @remarks
-   * "automatic" client registration of OIDC Federation.
    */
   automaticallyRegistered?: boolean | undefined;
   /**
-   * The flag indicating whether this client was registered by the
+   * The flag indicating whether this client was registered by the "explicit" client registration of OIDC Federation.
    *
    * @remarks
-   * "explicit" client registration of OIDC Federation.
    */
   explicitlyRegistered?: boolean | undefined;
   /**
@@ -333,10 +301,9 @@ export type ClientLimitedAuthorization = {
    */
   credentialResponseEncryptionRequired?: boolean | undefined;
   /**
-   * Location of the Client ID Metadata Document that was used for this client.
+   * Location of the Client ID Metadata Document that was used for this client. This property is set when client metadata was retrieved via the OAuth Client ID Metadata Document (CIMD) mechanism.
    *
    * @remarks
-   * This property is set when client metadata was retrieved via the OAuth Client ID Metadata Document (CIMD) mechanism.
    */
   metadataDocumentLocation?: string | undefined;
   /**

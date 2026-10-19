@@ -10,24 +10,21 @@ import { Service, Service$inboundSchema } from "./service.js";
 
 export type ServiceGetListResponse = {
   /**
-   * Start index (inclusive) of the result set. The default value is 0. Must not be a negative
+   * Start index (inclusive) of the result set. The default value is 0. Must not be a negative number.
    *
    * @remarks
-   * number.
    */
   start?: number | undefined;
   /**
-   * Start index (inclusive) of the result set. The default value is 0. Must not be a negative
+   * Start index (inclusive) of the result set. The default value is 0. Must not be a negative number.
    *
    * @remarks
-   * number.
    */
   end?: number | undefined;
   /**
-   * Total number of services owned by the service owner. This doesn't mean the number of services
+   * Total number of services owned by the service owner. This doesn't mean the number of services contained in the response.
    *
    * @remarks
-   * contained in the response.
    */
   totalCount?: number | undefined;
   /**

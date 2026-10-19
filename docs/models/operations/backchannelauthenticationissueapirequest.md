@@ -6,7 +6,6 @@
 import { BackchannelAuthenticationIssueApiRequest } from "@authlete/typescript-sdk/models/operations";
 
 let value: BackchannelAuthenticationIssueApiRequest = {
-  serviceId: "<id>",
   backchannelAuthenticationIssueRequest: {
     ticket: "<value>",
   },
@@ -17,5 +16,5 @@ let value: BackchannelAuthenticationIssueApiRequest = {
 
 | Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
 | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `serviceId`                                                                                           | *string*                                                                                              | :heavy_check_mark:                                                                                    | A service ID.                                                                                         |
+| `serviceId`                                                                                           | *string*                                                                                              | :heavy_minus_sign:                                                                                    | A service ID.                                                                                         |
 | `backchannelAuthenticationIssueRequest`                                                               | [models.BackchannelAuthenticationIssueRequest](../../models/backchannelauthenticationissuerequest.md) | :heavy_check_mark:                                                                                    | N/A                                                                                                   |
