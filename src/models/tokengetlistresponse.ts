@@ -6,7 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AccessToken, AccessToken$inboundSchema } from "./accesstoken.js";
-import { ClientLimited, ClientLimited$inboundSchema } from "./clientlimited.js";
+import { Client, Client$inboundSchema } from "./client.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type TokenGetListResponse = {
@@ -28,7 +28,7 @@ export type TokenGetListResponse = {
    * @remarks
    */
   totalCount?: number | undefined;
-  client?: ClientLimited | undefined;
+  client?: Client | undefined;
   /**
    * Unique user ID of an end-user.
    *
@@ -52,7 +52,7 @@ export const TokenGetListResponse$inboundSchema: z.ZodType<
   start: z.number().int().optional(),
   end: z.number().int().optional(),
   totalCount: z.number().int().optional(),
-  client: ClientLimited$inboundSchema.optional(),
+  client: Client$inboundSchema.optional(),
   subject: z.string().optional(),
   accessTokens: z.array(AccessToken$inboundSchema).optional(),
 });

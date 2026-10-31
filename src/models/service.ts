@@ -159,6 +159,18 @@ export type CredentialIssuerMetadata = {
    */
   deferredCredentialEndpoint?: string | undefined;
   /**
+   * The URL of the notification endpoint of the credential issuer. This property corresponds to the `notification_endpoint` metadata.
+   *
+   * @remarks
+   */
+  notificationEndpoint?: string | undefined;
+  /**
+   * The URL of the nonce endpoint of the credential issuer. This property corresponds to the `nonce_endpoint` metadata.
+   *
+   * @remarks
+   */
+  nonceEndpoint?: string | undefined;
+  /**
    * A JSON object describing supported credential configurations. This property corresponds to the credential_configurations_supported metadata. Note: Due to a breaking change in December 2023, this was changed from a JSON array to a JSON object.
    *
    * @remarks
@@ -189,6 +201,24 @@ export type CredentialIssuerMetadata = {
    */
   requireCredentialRequestEncryption?: boolean | undefined;
   /**
+   * The JWK Set document containing private keys for credential request encryption. The public part of this JWK Set is used as the value of the `credential_request_encryption.jwks` metadata when `credentialRequestEncryptionEncValuesSupported` is also set.
+   *
+   * @remarks
+   */
+  credentialRequestEncryptionJwks?: string | undefined;
+  /**
+   * The supported JWE `enc` algorithms for credential request encryption. This property corresponds to the `credential_request_encryption.enc_values_supported` metadata.
+   *
+   * @remarks
+   */
+  credentialRequestEncryptionEncValuesSupported?: Array<string> | undefined;
+  /**
+   * The supported JWE `zip` (compression) algorithms for credential request encryption. This property corresponds to the `credential_request_encryption.zip_values_supported` metadata.
+   *
+   * @remarks
+   */
+  credentialRequestEncryptionZipValuesSupported?: Array<string> | undefined;
+  /**
    * The supported JWE `zip` (compression) algorithms for credential response encryption. This property corresponds to the `credential_response_encryption.zip_values_supported` metadata.
    *
    * @remarks
@@ -200,6 +230,12 @@ export type CredentialIssuerMetadata = {
    * @remarks
    */
   batchSize?: number | undefined;
+  /**
+   * The display properties of the credential issuer in JSON array format. This property corresponds to the `display` metadata.
+   *
+   * @remarks
+   */
+  display?: string | undefined;
 };
 
 export type Service = {
@@ -1274,6 +1310,12 @@ export type Service = {
    */
   idTokenDroppedOnIssueWithoutOpenid?: boolean | undefined;
   /**
+   * The flag indicating whether the `/auth/authorization`, `/auth/token/get/list` and `/client/authorization/get/list` APIs return full representations of the service and its clients.
+   *
+   * @remarks
+   */
+  returnFullPayload?: boolean | undefined;
+  /**
    * Supported document check methods. This property corresponds to the `documents_check_methods_supported` server metadata which was added by the fourth implementer's draft of OpenID Connect for Identity Assurance 1.0.
    *
    * @remarks
@@ -1613,6 +1655,14 @@ export type ServiceInput = {
    * API secret for `basic` authentication at the authentication callback endpoint.
    */
   authenticationCallbackApiSecret?: string | null | undefined;
+  /**
+   * Values of acrs (authentication context class references) that the service supports.
+   *
+   * @remarks
+   *
+   * The value of this property is used as `acr_values_supported` property in the [OpenID Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
+   */
+  supportedAcrs?: Array<string> | null | undefined;
   /**
    * Values of `grant_type` request parameter that the service supports.
    *
@@ -2482,6 +2532,12 @@ export type ServiceInput = {
    */
   idTokenDroppedOnIssueWithoutOpenid?: boolean | undefined;
   /**
+   * The flag indicating whether the `/auth/authorization`, `/auth/token/get/list` and `/client/authorization/get/list` APIs return full representations of the service and its clients.
+   *
+   * @remarks
+   */
+  returnFullPayload?: boolean | undefined;
+  /**
    * Supported document check methods. This property corresponds to the `documents_check_methods_supported` server metadata which was added by the fourth implementer's draft of OpenID Connect for Identity Assurance 1.0.
    *
    * @remarks
@@ -2774,6 +2830,8 @@ export const CredentialIssuerMetadata$inboundSchema: z.ZodType<
   credentialEndpoint: z.string().optional(),
   batchCredentialEndpoint: z.string().optional(),
   deferredCredentialEndpoint: z.string().optional(),
+  notificationEndpoint: z.string().optional(),
+  nonceEndpoint: z.string().optional(),
   credentialsSupported: z.string().optional(),
   credentialResponseEncryptionAlgValuesSupported: z.array(z.string())
     .optional(),
@@ -2781,9 +2839,13 @@ export const CredentialIssuerMetadata$inboundSchema: z.ZodType<
     .optional(),
   requireCredentialResponseEncryption: z.boolean().optional(),
   requireCredentialRequestEncryption: z.boolean().optional(),
+  credentialRequestEncryptionJwks: z.string().optional(),
+  credentialRequestEncryptionEncValuesSupported: z.array(z.string()).optional(),
+  credentialRequestEncryptionZipValuesSupported: z.array(z.string()).optional(),
   credentialResponseEncryptionZipValuesSupported: z.array(z.string())
     .optional(),
   batchSize: z.number().int().optional(),
+  display: z.string().optional(),
 });
 /** @internal */
 export type CredentialIssuerMetadata$Outbound = {
@@ -2792,13 +2854,19 @@ export type CredentialIssuerMetadata$Outbound = {
   credentialEndpoint?: string | undefined;
   batchCredentialEndpoint?: string | undefined;
   deferredCredentialEndpoint?: string | undefined;
+  notificationEndpoint?: string | undefined;
+  nonceEndpoint?: string | undefined;
   credentialsSupported?: string | undefined;
   credentialResponseEncryptionAlgValuesSupported?: Array<string> | undefined;
   credentialResponseEncryptionEncValuesSupported?: Array<string> | undefined;
   requireCredentialResponseEncryption?: boolean | undefined;
   requireCredentialRequestEncryption?: boolean | undefined;
+  credentialRequestEncryptionJwks?: string | undefined;
+  credentialRequestEncryptionEncValuesSupported?: Array<string> | undefined;
+  credentialRequestEncryptionZipValuesSupported?: Array<string> | undefined;
   credentialResponseEncryptionZipValuesSupported?: Array<string> | undefined;
   batchSize?: number | undefined;
+  display?: string | undefined;
 };
 
 /** @internal */
@@ -2812,6 +2880,8 @@ export const CredentialIssuerMetadata$outboundSchema: z.ZodType<
   credentialEndpoint: z.string().optional(),
   batchCredentialEndpoint: z.string().optional(),
   deferredCredentialEndpoint: z.string().optional(),
+  notificationEndpoint: z.string().optional(),
+  nonceEndpoint: z.string().optional(),
   credentialsSupported: z.string().optional(),
   credentialResponseEncryptionAlgValuesSupported: z.array(z.string())
     .optional(),
@@ -2819,9 +2889,13 @@ export const CredentialIssuerMetadata$outboundSchema: z.ZodType<
     .optional(),
   requireCredentialResponseEncryption: z.boolean().optional(),
   requireCredentialRequestEncryption: z.boolean().optional(),
+  credentialRequestEncryptionJwks: z.string().optional(),
+  credentialRequestEncryptionEncValuesSupported: z.array(z.string()).optional(),
+  credentialRequestEncryptionZipValuesSupported: z.array(z.string()).optional(),
   credentialResponseEncryptionZipValuesSupported: z.array(z.string())
     .optional(),
   batchSize: z.number().int().optional(),
+  display: z.string().optional(),
 });
 
 export function credentialIssuerMetadataToJSON(
@@ -3024,6 +3098,7 @@ export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
     trustAnchors: z.nullable(z.array(TrustAnchor$inboundSchema)).optional(),
     openidDroppedOnRefreshWithoutOfflineAccess: z.boolean().optional(),
     idTokenDroppedOnIssueWithoutOpenid: z.boolean().optional(),
+    returnFullPayload: z.boolean().optional(),
     supportedDocumentsCheckMethods: z.nullable(z.array(z.string())).optional(),
     rsResponseSigned: z.boolean().optional(),
     cnonceDuration: z.number().int().optional(),
@@ -3093,6 +3168,7 @@ export type ServiceInput$Outbound = {
   authenticationCallbackEndpoint?: string | null | undefined;
   authenticationCallbackApiKey?: string | null | undefined;
   authenticationCallbackApiSecret?: string | null | undefined;
+  supportedAcrs?: Array<string> | null | undefined;
   supportedGrantTypes?: Array<string> | null | undefined;
   supportedResponseTypes?: Array<string> | null | undefined;
   supportedAuthorizationDetailsTypes?: Array<string> | null | undefined;
@@ -3219,6 +3295,7 @@ export type ServiceInput$Outbound = {
   trustAnchors?: Array<TrustAnchor$Outbound> | null | undefined;
   openidDroppedOnRefreshWithoutOfflineAccess?: boolean | undefined;
   idTokenDroppedOnIssueWithoutOpenid?: boolean | undefined;
+  returnFullPayload?: boolean | undefined;
   supportedDocumentsCheckMethods?: Array<string> | null | undefined;
   rsResponseSigned?: boolean | undefined;
   cnonceDuration?: number | undefined;
@@ -3286,6 +3363,7 @@ export const ServiceInput$outboundSchema: z.ZodType<
   authenticationCallbackEndpoint: z.nullable(z.string()).optional(),
   authenticationCallbackApiKey: z.nullable(z.string()).optional(),
   authenticationCallbackApiSecret: z.nullable(z.string()).optional(),
+  supportedAcrs: z.nullable(z.array(z.string())).optional(),
   supportedGrantTypes: z.nullable(z.array(GrantType$outboundSchema)).optional(),
   supportedResponseTypes: z.nullable(z.array(ResponseType$outboundSchema))
     .optional(),
@@ -3429,6 +3507,7 @@ export const ServiceInput$outboundSchema: z.ZodType<
   trustAnchors: z.nullable(z.array(TrustAnchor$outboundSchema)).optional(),
   openidDroppedOnRefreshWithoutOfflineAccess: z.boolean().optional(),
   idTokenDroppedOnIssueWithoutOpenid: z.boolean().optional(),
+  returnFullPayload: z.boolean().optional(),
   supportedDocumentsCheckMethods: z.nullable(z.array(z.string())).optional(),
   rsResponseSigned: z.boolean().optional(),
   cnonceDuration: z.number().int().optional(),

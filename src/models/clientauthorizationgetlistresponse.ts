@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import { ClientLimited, ClientLimited$inboundSchema } from "./clientlimited.js";
+import { Client, Client$inboundSchema } from "./client.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ClientAuthorizationGetListResponse = {
@@ -44,7 +44,7 @@ export type ClientAuthorizationGetListResponse = {
    *
    * @remarks
    */
-  clients?: Array<ClientLimited> | undefined;
+  clients?: Array<Client> | undefined;
 };
 
 /** @internal */
@@ -58,7 +58,7 @@ export const ClientAuthorizationGetListResponse$inboundSchema: z.ZodType<
   developer: z.string().optional(),
   subject: z.string().optional(),
   totalCount: z.number().int().optional(),
-  clients: z.array(ClientLimited$inboundSchema).optional(),
+  clients: z.array(Client$inboundSchema).optional(),
 });
 
 export function clientAuthorizationGetListResponseFromJSON(
