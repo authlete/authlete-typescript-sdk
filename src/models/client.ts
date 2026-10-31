@@ -100,7 +100,7 @@ export type ResponseMode = ClosedEnum<typeof ResponseMode>;
  *
  * @remarks
  */
-export const ClientClientSource = {
+export const ClientSource = {
   DynamicRegistration: "DYNAMIC_REGISTRATION",
   AutomaticRegistration: "AUTOMATIC_REGISTRATION",
   ExplicitRegistration: "EXPLICIT_REGISTRATION",
@@ -112,7 +112,7 @@ export const ClientClientSource = {
  *
  * @remarks
  */
-export type ClientClientSource = ClosedEnum<typeof ClientClientSource>;
+export type ClientSource = ClosedEnum<typeof ClientSource>;
 
 export type Client = {
   /**
@@ -620,6 +620,12 @@ export type Client = {
    */
   bcUserCodeRequired?: boolean | undefined;
   /**
+   * The HAIP version to comply with. Valid values for this property are as follows: `"1.0"`. If this property is set, requests from this client undergo additional validation based on the specified version of the [HAIP](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html) specification.
+   *
+   * @remarks
+   */
+  haipVersion?: string | null | undefined;
+  /**
    * The backchannel logout URI for this client. Used by the service to deliver logout tokens when OpenID Connect Back-Channel Logout 1.0 is triggered.
    *
    * @remarks
@@ -853,7 +859,7 @@ export type Client = {
    *
    * @remarks
    */
-  clientSource?: ClientClientSource | undefined;
+  clientSource?: ClientSource | undefined;
   /**
    * The SPIFFE ID of the client. Used for SPIFFE-based client authentication (`SPIFFE_JWT`). Corresponds to the `spiffe_id` client metadata parameter.
    *
@@ -1317,6 +1323,12 @@ export type ClientInput = {
    */
   bcUserCodeRequired?: boolean | undefined;
   /**
+   * The HAIP version to comply with. Valid values for this property are as follows: `"1.0"`. If this property is set, requests from this client undergo additional validation based on the specified version of the [HAIP](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html) specification.
+   *
+   * @remarks
+   */
+  haipVersion?: string | null | undefined;
+  /**
    * The backchannel logout URI for this client. Used by the service to deliver logout tokens when OpenID Connect Back-Channel Logout 1.0 is triggered.
    *
    * @remarks
@@ -1478,9 +1490,8 @@ export const ResponseMode$outboundSchema: z.ZodNativeEnum<typeof ResponseMode> =
   ResponseMode$inboundSchema;
 
 /** @internal */
-export const ClientClientSource$inboundSchema: z.ZodNativeEnum<
-  typeof ClientClientSource
-> = z.nativeEnum(ClientClientSource);
+export const ClientSource$inboundSchema: z.ZodNativeEnum<typeof ClientSource> =
+  z.nativeEnum(ClientSource);
 
 /** @internal */
 export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> =
@@ -1554,6 +1565,7 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> =
       bcNotificationEndpoint: z.string().optional(),
       bcRequestSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
       bcUserCodeRequired: z.boolean().optional(),
+      haipVersion: z.nullable(z.string()).optional(),
       backchannelLogoutUri: z.string().optional(),
       backchannelLogoutSessionRequired: z.boolean().optional(),
       attributes: z.array(Pair$inboundSchema).optional(),
@@ -1592,7 +1604,7 @@ export const Client$inboundSchema: z.ZodType<Client, z.ZodTypeDef, unknown> =
       metadataDocumentExpiresAt: z.number().int().optional(),
       metadataDocumentUpdatedAt: z.number().int().optional(),
       discoveredByMetadataDocument: z.boolean().optional(),
-      clientSource: ClientClientSource$inboundSchema.optional(),
+      clientSource: ClientSource$inboundSchema.optional(),
       spiffeId: z.string().optional(),
       spiffeBundleEndpoint: z.string().optional(),
     }).catchall(z.any()),
@@ -1669,6 +1681,7 @@ export type ClientInput$Outbound = {
   bcNotificationEndpoint?: string | undefined;
   bcRequestSignAlg?: string | null | undefined;
   bcUserCodeRequired?: boolean | undefined;
+  haipVersion?: string | null | undefined;
   backchannelLogoutUri?: string | undefined;
   backchannelLogoutSessionRequired?: boolean | undefined;
   attributes?: Array<Pair$Outbound> | undefined;
@@ -1759,6 +1772,7 @@ export const ClientInput$outboundSchema: z.ZodType<
   bcNotificationEndpoint: z.string().optional(),
   bcRequestSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
   bcUserCodeRequired: z.boolean().optional(),
+  haipVersion: z.nullable(z.string()).optional(),
   backchannelLogoutUri: z.string().optional(),
   backchannelLogoutSessionRequired: z.boolean().optional(),
   attributes: z.array(Pair$outboundSchema).optional(),

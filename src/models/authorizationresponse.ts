@@ -7,10 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
-import {
-  ClientLimitedAuthorization,
-  ClientLimitedAuthorization$inboundSchema,
-} from "./clientlimitedauthorization.js";
+import { Client, Client$inboundSchema } from "./client.js";
 import {
   CredentialOfferInfo,
   CredentialOfferInfo$inboundSchema,
@@ -58,7 +55,7 @@ export type AuthorizationResponse = {
    * The next action that the authorization server implementation should take.
    */
   action?: AuthorizationResponseAction | undefined;
-  client?: ClientLimitedAuthorization | undefined;
+  client?: Client | undefined;
   /**
    * The display mode which the client application requests by `display` request parameter. When the authorization request does not have `display` request parameter, `PAGE` is set as the default value.
    *
@@ -346,7 +343,7 @@ export const AuthorizationResponse$inboundSchema: z.ZodType<
   resultCode: z.string().optional(),
   resultMessage: z.string().optional(),
   action: AuthorizationResponseAction$inboundSchema.optional(),
-  client: ClientLimitedAuthorization$inboundSchema.optional(),
+  client: Client$inboundSchema.optional(),
   display: Display$inboundSchema.optional(),
   maxAge: z.number().int().optional(),
   service: Service$inboundSchema.optional(),
