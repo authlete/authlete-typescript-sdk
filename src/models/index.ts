@@ -48,8 +48,6 @@ export * from "./clientflagupdaterequest.js";
 export * from "./clientflagupdateresponse.js";
 export * from "./clientgetlistresponse.js";
 export * from "./clientgrantedscopesdeleteresponse.js";
-export * from "./clientlimited.js";
-export * from "./clientlimitedauthorization.js";
 export * from "./clientregistrationresponse.js";
 export * from "./clientregistrationtype.js";
 export * from "./clientsearchresponse.js";
