@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:aee0d8ff596aef5a5b700ec9df9ff2b273c62b739abc47aaa94a43f852b293e5
         sourceBlobDigest: sha256:e8a7462629830f8ea1409312e5e49f25dafd3782a0fb1f45289d14fd3695bb80
         codeSamplesNamespace: authlete-api-explorer-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:44cd4bb20df22979a218cda67bb6960df688606992b6d4cb31a9cdeaa1463b46
+        codeSamplesRevisionDigest: sha256:557666788c50876eec36cd7027d66c800975b228f82ae64a4da23fc3ae2b700a
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

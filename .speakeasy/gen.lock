@@ -4,14 +4,14 @@ management:
   docVersion: 3.0.16
   speakeasyVersion: 1.806.0
   generationVersion: 2.956.1
-  releaseVersion: 2.0.1
+  releaseVersion: 2.1.0
   repoURL: https://github.com/authlete/authlete-typescript-sdk.git
   installationURL: https://github.com/authlete/authlete-typescript-sdk
   published: true
 persistentEdits:
-  generation_id: a7538e5b-0779-4323-a70b-42812e6c733d
-  pristine_commit_hash: cdcb271113ccb1edc935e471fefc168dcaff9869
-  pristine_tree_hash: 0b0a59b5cb3af59b512e58a188888ae640f19555
+  generation_id: 4a22d3d1-3047-46d7-b069-224dedce7b98
+  pristine_commit_hash: cc6ffc9488f3d24bcfc96f05483f3ec6c57b01a2
+  pristine_tree_hash: 427506252e848e77facb19220cb7434b9797d727
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -2108,12 +2108,12 @@ trackedFiles:
     pristine_git_object: acbba9721c284ad18d545a2dbe1337abcd1b5226
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:34e1b2c5015fb50bb7536e5fc3697735edc501b2
-    pristine_git_object: d00e61af6a8f8ac55dba657501bf80896efa277e
+    last_write_checksum: sha1:33543f4dff3c38e568accd262c9f0ad6651352c7
+    pristine_git_object: ed9a0368e8ae331fc92f2be0d5884bcecff14f86
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:19b45aec88d243bfb5ec6bd474bc6362f4c6e619
-    pristine_git_object: 84a0329c83697d07cf8cb1e422b3602c24d485b2
+    last_write_checksum: sha1:7e0249132e953817c526871cc95da32023dd267a
+    pristine_git_object: bbe2b3be93e58feab4c745ac18ef8e612ddd4fbf
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:d2e0ad6b984b5be0cd66f84e06b451806539d6d0
@@ -2492,8 +2492,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:739f17f02cdca3bcac4c23ba3abfc46602b27050
-    pristine_git_object: eec028537a81b036b903a2a15569f35962d62cae
+    last_write_checksum: sha1:b111faa2e6ddbbcebdaa8e61386d8672697303c4
+    pristine_git_object: b9bf9fe17b1c950df2cf3b271fff47c1141ac5eb
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a257d6f6108693db2197617c579400bc8f0da914
@@ -5224,7 +5224,6 @@ examples:
         "429":
           application/json: {}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `authlete.service.get()`:  `response` **Changed**\n* `authlete.service.list()`:  `response.services[]` **Changed**\n* `authlete.service.update()`: \n  *  `request.service` **Changed**\n  *  `response` **Changed**\n* `authlete.service.create()`: \n  *  `request.service` **Changed**\n  *  `response` **Changed**\n* `authlete.client.get()`:  `response.haipVersion` **Added**\n* `authlete.client.list()`:  `response.clients[].haipVersion` **Added**\n* `authlete.client.create()`: \n  *  `request.client.haipVersion` **Added**\n  *  `response.haipVersion` **Added**\n* `authlete.client.update()`: \n  *  `request.client.haipVersion` **Added**\n  *  `response.haipVersion` **Added**\n* `authlete.client.updateForm()`:  `response.haipVersion` **Added**\n* `authlete.client.listByCursor()`:  `response.union(client_cursor_list_response).entities[].haipVersion` **Added**\n* `authlete.client.search()`:  `response.union(client_search_response).entities[].haipVersion` **Added**\n* `authlete.client.management.getAuthorizedApplications()`:  `response.clients[]` **Changed**\n* `authlete.client.management.getAuthorizedApplicationsByPost()`:  `response.clients[]` **Changed**\n* `authlete.client.management.listAuthorizations()`:  `response.clients[]` **Changed**\n* `authlete.authorization.processRequest()`:  `response` **Changed**\n* `authlete.token.management.list()`:  `response.client` **Changed**\n* `authlete.dynamicClientRegistration.register()`:  `response.client.haipVersion` **Added**\n* `authlete.dynamicClientRegistration.get()`:  `response.client.haipVersion` **Added**\n* `authlete.dynamicClientRegistration.update()`:  `response.client.haipVersion` **Added**\n* `authlete.dynamicClientRegistration.delete()`:  `response.client.haipVersion` **Added**\n* `authlete.federation.registration()`:  `response.client.haipVersion` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
