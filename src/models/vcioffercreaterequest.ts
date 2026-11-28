@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   Property,
   Property$Outbound,
@@ -111,22 +112,24 @@ export const VciOfferCreateRequest$outboundSchema: z.ZodType<
   VciOfferCreateRequest$Outbound,
   z.ZodTypeDef,
   VciOfferCreateRequest
-> = z.object({
-  authorizationCodeGrantIncluded: z.boolean().optional(),
-  issuerStateIncluded: z.boolean().optional(),
-  preAuthorizedCodeGrantIncluded: z.boolean().optional(),
-  subject: z.string().optional(),
-  duration: z.number().int().optional(),
-  context: z.string().optional(),
-  properties: z.array(Property$outboundSchema).optional(),
-  jwtAtClaims: z.string().optional(),
-  authTime: z.number().int().optional(),
-  acr: z.string().optional(),
-  credentialConfigurationIds: z.array(z.string()).optional(),
-  txCode: z.string().optional(),
-  txCodeInputMode: z.string().optional(),
-  txCodeDescription: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    authorizationCodeGrantIncluded: z.boolean().optional(),
+    issuerStateIncluded: z.boolean().optional(),
+    preAuthorizedCodeGrantIncluded: z.boolean().optional(),
+    subject: z.string().optional(),
+    duration: z.number().int().optional(),
+    context: z.string().optional(),
+    properties: z.array(Property$outboundSchema).optional(),
+    jwtAtClaims: z.string().optional(),
+    authTime: z.number().int().optional(),
+    acr: z.string().optional(),
+    credentialConfigurationIds: z.array(z.string()).optional(),
+    txCode: z.string().optional(),
+    txCodeInputMode: z.string().optional(),
+    txCodeDescription: z.string().optional(),
+  })
+);
 
 export function vciOfferCreateRequestToJSON(
   vciOfferCreateRequest: VciOfferCreateRequest,

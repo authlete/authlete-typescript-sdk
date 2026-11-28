@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const DeviceVerificationApiRequest$outboundSchema: z.ZodType<
   DeviceVerificationApiRequest$Outbound,
   z.ZodTypeDef,
   DeviceVerificationApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  deviceVerificationRequest: models.DeviceVerificationRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    deviceVerificationRequest: "device_verification_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    deviceVerificationRequest: models.DeviceVerificationRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      deviceVerificationRequest: "device_verification_request",
+    });
+  })
+);
 
 export function deviceVerificationApiRequestToJSON(
   deviceVerificationApiRequest: DeviceVerificationApiRequest,
@@ -61,15 +63,17 @@ export const DeviceVerificationApiResponse$inboundSchema: z.ZodType<
   DeviceVerificationApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.DeviceVerificationResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.DeviceVerificationResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function deviceVerificationApiResponseFromJSON(
   jsonString: string,

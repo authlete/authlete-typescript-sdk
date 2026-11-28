@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -48,19 +48,23 @@ export type AuthorizationFailResponse = {
 /** @internal */
 export const AuthorizationFailResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof AuthorizationFailResponseAction
-> = z.nativeEnum(AuthorizationFailResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(AuthorizationFailResponseAction)
+);
 
 /** @internal */
 export const AuthorizationFailResponse$inboundSchema: z.ZodType<
   AuthorizationFailResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: AuthorizationFailResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: AuthorizationFailResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+  })
+);
 
 export function authorizationFailResponseFromJSON(
   jsonString: string,

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type StandardIntrospectionRequest = {
   /**
@@ -110,18 +111,20 @@ export const StandardIntrospectionRequest$outboundSchema: z.ZodType<
   StandardIntrospectionRequest$Outbound,
   z.ZodTypeDef,
   StandardIntrospectionRequest
-> = z.object({
-  parameters: z.string(),
-  withHiddenProperties: z.boolean().optional(),
-  rsUri: z.string().optional(),
-  httpAcceptHeader: z.string().optional(),
-  introspectionSignAlg: z.string().optional(),
-  introspectionEncryptionAlg: z.string().optional(),
-  introspectionEncryptionEnc: z.string().optional(),
-  sharedKeyForSign: z.string().optional(),
-  sharedKeyForEncryption: z.string().optional(),
-  publicKeyForEncryption: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameters: z.string(),
+    withHiddenProperties: z.boolean().optional(),
+    rsUri: z.string().optional(),
+    httpAcceptHeader: z.string().optional(),
+    introspectionSignAlg: z.string().optional(),
+    introspectionEncryptionAlg: z.string().optional(),
+    introspectionEncryptionEnc: z.string().optional(),
+    sharedKeyForSign: z.string().optional(),
+    sharedKeyForEncryption: z.string().optional(),
+    publicKeyForEncryption: z.string().optional(),
+  })
+);
 
 export function standardIntrospectionRequestToJSON(
   standardIntrospectionRequest: StandardIntrospectionRequest,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const VciMetadataApiRequest$outboundSchema: z.ZodType<
   VciMetadataApiRequest$Outbound,
   z.ZodTypeDef,
   VciMetadataApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  vciMetadataRequest: models.VciMetadataRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    vciMetadataRequest: "vci_metadata_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    vciMetadataRequest: models.VciMetadataRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      vciMetadataRequest: "vci_metadata_request",
+    });
+  })
+);
 
 export function vciMetadataApiRequestToJSON(
   vciMetadataApiRequest: VciMetadataApiRequest,
@@ -59,15 +61,17 @@ export const VciMetadataApiResponse$inboundSchema: z.ZodType<
   VciMetadataApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.VciMetadataResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.VciMetadataResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function vciMetadataApiResponseFromJSON(
   jsonString: string,

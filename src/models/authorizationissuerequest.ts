@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   AuthzDetails,
   AuthzDetails$Outbound,
@@ -158,26 +159,28 @@ export const AuthorizationIssueRequest$outboundSchema: z.ZodType<
   AuthorizationIssueRequest$Outbound,
   z.ZodTypeDef,
   AuthorizationIssueRequest
-> = z.object({
-  ticket: z.string(),
-  subject: z.string(),
-  authTime: z.number().int().optional(),
-  acr: z.string().optional(),
-  claims: z.string().optional(),
-  properties: z.array(Property$outboundSchema).optional(),
-  scopes: z.array(z.string()).optional(),
-  sub: z.string().optional(),
-  idtHeaderParams: z.string().optional(),
-  claimsForTx: z.string().optional(),
-  consentedClaims: z.array(z.string()).optional(),
-  authorizationDetails: AuthzDetails$outboundSchema.optional(),
-  jwtAtClaims: z.string().optional(),
-  accessToken: z.string().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  sessionId: z.string().optional(),
-  idTokenAudType: z.string().optional(),
-  verifiedClaimsForTx: z.array(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    ticket: z.string(),
+    subject: z.string(),
+    authTime: z.number().int().optional(),
+    acr: z.string().optional(),
+    claims: z.string().optional(),
+    properties: z.array(Property$outboundSchema).optional(),
+    scopes: z.array(z.string()).optional(),
+    sub: z.string().optional(),
+    idtHeaderParams: z.string().optional(),
+    claimsForTx: z.string().optional(),
+    consentedClaims: z.array(z.string()).optional(),
+    authorizationDetails: AuthzDetails$outboundSchema.optional(),
+    jwtAtClaims: z.string().optional(),
+    accessToken: z.string().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    sessionId: z.string().optional(),
+    idTokenAudType: z.string().optional(),
+    verifiedClaimsForTx: z.array(z.string()).optional(),
+  })
+);
 
 export function authorizationIssueRequestToJSON(
   authorizationIssueRequest: AuthorizationIssueRequest,

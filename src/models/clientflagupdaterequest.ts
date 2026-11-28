@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type ClientFlagUpdateRequest = {
   /**
@@ -23,9 +24,11 @@ export const ClientFlagUpdateRequest$outboundSchema: z.ZodType<
   ClientFlagUpdateRequest$Outbound,
   z.ZodTypeDef,
   ClientFlagUpdateRequest
-> = z.object({
-  clientLocked: z.boolean(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    clientLocked: z.boolean(),
+  })
+);
 
 export function clientFlagUpdateRequestToJSON(
   clientFlagUpdateRequest: ClientFlagUpdateRequest,

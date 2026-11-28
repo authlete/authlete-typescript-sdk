@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -35,9 +35,11 @@ export const HskGetListApiRequest$outboundSchema: z.ZodType<
   HskGetListApiRequest$Outbound,
   z.ZodTypeDef,
   HskGetListApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+  })
+);
 
 export function hskGetListApiRequestToJSON(
   hskGetListApiRequest: HskGetListApiRequest,
@@ -52,15 +54,17 @@ export const HskGetListApiResponse$inboundSchema: z.ZodType<
   HskGetListApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.HskGetListResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.HskGetListResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function hskGetListApiResponseFromJSON(
   jsonString: string,

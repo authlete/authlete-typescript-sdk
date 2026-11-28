@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Client, Client$inboundSchema } from "./client.js";
@@ -59,20 +59,24 @@ export type ClientRegistrationResponse = {
 /** @internal */
 export const ClientRegistrationResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof ClientRegistrationResponseAction
-> = z.nativeEnum(ClientRegistrationResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(ClientRegistrationResponseAction)
+);
 
 /** @internal */
 export const ClientRegistrationResponse$inboundSchema: z.ZodType<
   ClientRegistrationResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: ClientRegistrationResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  client: Client$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: ClientRegistrationResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    client: Client$inboundSchema.optional(),
+  })
+);
 
 export function clientRegistrationResponseFromJSON(
   jsonString: string,

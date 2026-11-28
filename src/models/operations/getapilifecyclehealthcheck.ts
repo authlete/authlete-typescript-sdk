@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 
 export type GetApiLifecycleHealthcheckRequest = {
   /**
@@ -23,9 +24,11 @@ export const GetApiLifecycleHealthcheckRequest$outboundSchema: z.ZodType<
   GetApiLifecycleHealthcheckRequest$Outbound,
   z.ZodTypeDef,
   GetApiLifecycleHealthcheckRequest
-> = z.object({
-  extended: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    extended: z.boolean().optional(),
+  })
+);
 
 export function getApiLifecycleHealthcheckRequestToJSON(
   getApiLifecycleHealthcheckRequest: GetApiLifecycleHealthcheckRequest,

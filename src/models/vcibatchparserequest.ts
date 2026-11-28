@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type VciBatchParseRequest = {
   /**
@@ -26,10 +27,12 @@ export const VciBatchParseRequest$outboundSchema: z.ZodType<
   VciBatchParseRequest$Outbound,
   z.ZodTypeDef,
   VciBatchParseRequest
-> = z.object({
-  accessToken: z.string().optional(),
-  requestContent: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accessToken: z.string().optional(),
+    requestContent: z.string().optional(),
+  })
+);
 
 export function vciBatchParseRequestToJSON(
   vciBatchParseRequest: VciBatchParseRequest,

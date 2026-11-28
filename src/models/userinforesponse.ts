@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -213,39 +213,41 @@ export type UserinfoResponse = {
 /** @internal */
 export const UserinfoResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof UserinfoResponseAction
-> = z.nativeEnum(UserinfoResponseAction);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(UserinfoResponseAction));
 
 /** @internal */
 export const UserinfoResponse$inboundSchema: z.ZodType<
   UserinfoResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: UserinfoResponseAction$inboundSchema.optional(),
-  claims: z.array(z.string()).optional(),
-  clientId: z.number().int().optional(),
-  clientIdAlias: z.string().optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  responseContent: z.string().optional(),
-  scopes: z.array(z.string()).optional(),
-  subject: z.string().optional(),
-  token: z.string().optional(),
-  properties: z.array(Property$inboundSchema).optional(),
-  userInfoClaims: z.string().optional(),
-  serviceAttributes: z.array(Pair$inboundSchema).optional(),
-  clientAttributes: z.array(Pair$inboundSchema).optional(),
-  consentedClaims: z.array(z.string()).optional(),
-  requestedClaimsForTx: z.array(z.string()).optional(),
-  requestedVerifiedClaimsForTx: z.array(z.array(z.string())).optional(),
-  transformedClaims: z.string().optional(),
-  clientEntityId: z.string().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  dpopNonce: z.string().optional(),
-  metadataDocumentLocation: z.string().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: UserinfoResponseAction$inboundSchema.optional(),
+    claims: z.array(z.string()).optional(),
+    clientId: z.number().int().optional(),
+    clientIdAlias: z.string().optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    responseContent: z.string().optional(),
+    scopes: z.array(z.string()).optional(),
+    subject: z.string().optional(),
+    token: z.string().optional(),
+    properties: z.array(Property$inboundSchema).optional(),
+    userInfoClaims: z.string().optional(),
+    serviceAttributes: z.array(Pair$inboundSchema).optional(),
+    clientAttributes: z.array(Pair$inboundSchema).optional(),
+    consentedClaims: z.array(z.string()).optional(),
+    requestedClaimsForTx: z.array(z.string()).optional(),
+    requestedVerifiedClaimsForTx: z.array(z.array(z.string())).optional(),
+    transformedClaims: z.string().optional(),
+    clientEntityId: z.string().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    dpopNonce: z.string().optional(),
+    metadataDocumentLocation: z.string().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+  })
+);
 
 export function userinfoResponseFromJSON(
   jsonString: string,

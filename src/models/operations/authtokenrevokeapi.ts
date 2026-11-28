@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const AuthTokenRevokeApiRequest$outboundSchema: z.ZodType<
   AuthTokenRevokeApiRequest$Outbound,
   z.ZodTypeDef,
   AuthTokenRevokeApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  tokenRevokeRequest: models.TokenRevokeRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    tokenRevokeRequest: "token_revoke_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    tokenRevokeRequest: models.TokenRevokeRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      tokenRevokeRequest: "token_revoke_request",
+    });
+  })
+);
 
 export function authTokenRevokeApiRequestToJSON(
   authTokenRevokeApiRequest: AuthTokenRevokeApiRequest,
@@ -59,15 +61,17 @@ export const AuthTokenRevokeApiResponse$inboundSchema: z.ZodType<
   AuthTokenRevokeApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.TokenRevokeResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.TokenRevokeResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function authTokenRevokeApiResponseFromJSON(
   jsonString: string,

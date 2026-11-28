@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   AuthorizationTicketInfo,
   AuthorizationTicketInfo$Outbound,
@@ -28,10 +29,12 @@ export const AuthorizationTicketUpdateRequest$outboundSchema: z.ZodType<
   AuthorizationTicketUpdateRequest$Outbound,
   z.ZodTypeDef,
   AuthorizationTicketUpdateRequest
-> = z.object({
-  ticket: z.string(),
-  info: AuthorizationTicketInfo$outboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    ticket: z.string(),
+    info: AuthorizationTicketInfo$outboundSchema,
+  })
+);
 
 export function authorizationTicketUpdateRequestToJSON(
   authorizationTicketUpdateRequest: AuthorizationTicketUpdateRequest,

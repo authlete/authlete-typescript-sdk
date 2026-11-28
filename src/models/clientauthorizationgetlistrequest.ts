@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type ClientAuthorizationGetListRequest = {
   /**
@@ -36,12 +37,14 @@ export const ClientAuthorizationGetListRequest$outboundSchema: z.ZodType<
   ClientAuthorizationGetListRequest$Outbound,
   z.ZodTypeDef,
   ClientAuthorizationGetListRequest
-> = z.object({
-  subject: z.string(),
-  developer: z.string().optional(),
-  start: z.number().int().optional(),
-  end: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    subject: z.string(),
+    developer: z.string().optional(),
+    start: z.number().int().optional(),
+    end: z.number().int().optional(),
+  })
+);
 
 export function clientAuthorizationGetListRequestToJSON(
   clientAuthorizationGetListRequest: ClientAuthorizationGetListRequest,

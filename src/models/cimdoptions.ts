@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 /**
  * Options for [OAuth Client ID Metadata Document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/) (CIMD).
@@ -64,11 +65,13 @@ export const CimdOptions$outboundSchema: z.ZodType<
   CimdOptions$Outbound,
   z.ZodTypeDef,
   CimdOptions
-> = z.object({
-  alwaysRetrieved: z.boolean().optional(),
-  httpPermitted: z.boolean().optional(),
-  queryPermitted: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    alwaysRetrieved: z.boolean().optional(),
+    httpPermitted: z.boolean().optional(),
+    queryPermitted: z.boolean().optional(),
+  })
+);
 
 export function cimdOptionsToJSON(cimdOptions: CimdOptions): string {
   return JSON.stringify(CimdOptions$outboundSchema.parse(cimdOptions));

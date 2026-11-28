@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -26,12 +26,14 @@ export type Grant = {
 };
 
 /** @internal */
-export const Grant$inboundSchema: z.ZodType<Grant, z.ZodTypeDef, unknown> = z
-  .object({
-    scopes: z.array(GrantScope$inboundSchema).optional(),
-    claims: z.array(z.string()).optional(),
-    authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  });
+export const Grant$inboundSchema: z.ZodType<Grant, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      scopes: z.array(GrantScope$inboundSchema).optional(),
+      claims: z.array(z.string()).optional(),
+      authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    })
+  );
 
 export function grantFromJSON(
   jsonString: string,

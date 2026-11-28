@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   CimdOptions,
   CimdOptions$Outbound,
@@ -163,25 +164,27 @@ export const TokenRequest$outboundSchema: z.ZodType<
   TokenRequest$Outbound,
   z.ZodTypeDef,
   TokenRequest
-> = z.object({
-  parameters: z.string(),
-  clientId: z.string().optional(),
-  clientSecret: z.string().optional(),
-  clientCertificate: z.string().optional(),
-  clientCertificatePath: z.array(z.string()).optional(),
-  properties: z.array(Property$outboundSchema).optional(),
-  dpop: z.string().optional(),
-  htm: z.string().optional(),
-  htu: z.string().optional(),
-  accessToken: z.string().optional(),
-  jwtAtClaims: z.string().optional(),
-  oauthClientAttestation: z.string().optional(),
-  oauthClientAttestationPop: z.string().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  refreshTokenDuration: z.number().int().optional(),
-  dpopNonceRequired: z.boolean().optional(),
-  cimdOptions: CimdOptions$outboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameters: z.string(),
+    clientId: z.string().optional(),
+    clientSecret: z.string().optional(),
+    clientCertificate: z.string().optional(),
+    clientCertificatePath: z.array(z.string()).optional(),
+    properties: z.array(Property$outboundSchema).optional(),
+    dpop: z.string().optional(),
+    htm: z.string().optional(),
+    htu: z.string().optional(),
+    accessToken: z.string().optional(),
+    jwtAtClaims: z.string().optional(),
+    oauthClientAttestation: z.string().optional(),
+    oauthClientAttestationPop: z.string().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    refreshTokenDuration: z.number().int().optional(),
+    dpopNonceRequired: z.boolean().optional(),
+    cimdOptions: CimdOptions$outboundSchema.optional(),
+  })
+);
 
 export function tokenRequestToJSON(tokenRequest: TokenRequest): string {
   return JSON.stringify(TokenRequest$outboundSchema.parse(tokenRequest));

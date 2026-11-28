@@ -14,6 +14,7 @@
     "exports": {
       ".": "./src/index.ts",
       "./package.json": "./package.json",
+      "./node": "./src/node.ts",
       "./types": "./src/types/index.ts",
       "./models/errors": "./src/models/errors/index.ts",
       "./models": "./src/models/index.ts",
@@ -31,8 +32,8 @@
     "lint": "eslint --cache --max-warnings=0 src",
     "build": "tshy",
     "prepublishOnly": "npm run build",
-    "prebuild": "node scripts/patch-root-export.mjs",
-    "test": "node --test test/"
+    "test": "node --test test/",
+    "prebuild": "node scripts/patch-root-export.mjs"
   },
   "peerDependencies": {},
   "devDependencies": {
@@ -44,7 +45,7 @@
     "typescript-eslint": "^8.26.0"
   },
   "dependencies": {
-    "zod": "^3.25.0 || ^4.0.0"
+    "zod": "^3.25.0 || ^4.6.6"
   },
   "exports": {
     ".": {
@@ -59,6 +60,17 @@
       }
     },
     "./package.json": "./package.json",
+    "./node": {
+      "import": {
+        "@authlete/typescript-sdk/source": "./src/node.ts",
+        "types": "./dist/esm/node.d.ts",
+        "default": "./dist/esm/node.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/node.d.ts",
+        "default": "./dist/commonjs/node.js"
+      }
+    },
     "./types": {
       "import": {
         "@authlete/typescript-sdk/source": "./src/types/index.ts",

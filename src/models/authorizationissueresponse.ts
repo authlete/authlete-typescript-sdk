@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
@@ -95,27 +95,31 @@ export type AuthorizationIssueResponse = {
 /** @internal */
 export const AuthorizationIssueResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof AuthorizationIssueResponseAction
-> = z.nativeEnum(AuthorizationIssueResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(AuthorizationIssueResponseAction)
+);
 
 /** @internal */
 export const AuthorizationIssueResponse$inboundSchema: z.ZodType<
   AuthorizationIssueResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: AuthorizationIssueResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  accessToken: z.string().optional(),
-  accessTokenExpiresAt: z.number().int().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  idToken: z.string().optional(),
-  authorizationCode: z.string().optional(),
-  jwtAccessToken: z.string().optional(),
-  ticketInfo: AuthorizationTicketInfo$inboundSchema.optional(),
-  consentedClaims: z.array(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: AuthorizationIssueResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    accessToken: z.string().optional(),
+    accessTokenExpiresAt: z.number().int().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    idToken: z.string().optional(),
+    authorizationCode: z.string().optional(),
+    jwtAccessToken: z.string().optional(),
+    ticketInfo: AuthorizationTicketInfo$inboundSchema.optional(),
+    consentedClaims: z.array(z.string()).optional(),
+  })
+);
 
 export function authorizationIssueResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const VciBatchParseApiRequest$outboundSchema: z.ZodType<
   VciBatchParseApiRequest$Outbound,
   z.ZodTypeDef,
   VciBatchParseApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  vciBatchParseRequest: models.VciBatchParseRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    vciBatchParseRequest: "vci_batch_parse_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    vciBatchParseRequest: models.VciBatchParseRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      vciBatchParseRequest: "vci_batch_parse_request",
+    });
+  })
+);
 
 export function vciBatchParseApiRequestToJSON(
   vciBatchParseApiRequest: VciBatchParseApiRequest,
@@ -59,15 +61,17 @@ export const VciBatchParseApiResponse$inboundSchema: z.ZodType<
   VciBatchParseApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.VciBatchParseResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.VciBatchParseResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function vciBatchParseApiResponseFromJSON(
   jsonString: string,

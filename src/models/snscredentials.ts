@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -27,11 +27,13 @@ export const SnsCredentials$inboundSchema: z.ZodType<
   SnsCredentials,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  sns: z.string().optional(),
-  apiKey: z.string().optional(),
-  apiSecret: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    sns: z.string().optional(),
+    apiKey: z.string().optional(),
+    apiSecret: z.string().optional(),
+  })
+);
 /** @internal */
 export type SnsCredentials$Outbound = {
   sns?: string | undefined;
@@ -44,11 +46,13 @@ export const SnsCredentials$outboundSchema: z.ZodType<
   SnsCredentials$Outbound,
   z.ZodTypeDef,
   SnsCredentials
-> = z.object({
-  sns: z.string().optional(),
-  apiKey: z.string().optional(),
-  apiSecret: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    sns: z.string().optional(),
+    apiKey: z.string().optional(),
+    apiSecret: z.string().optional(),
+  })
+);
 
 export function snsCredentialsToJSON(snsCredentials: SnsCredentials): string {
   return JSON.stringify(SnsCredentials$outboundSchema.parse(snsCredentials));

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
@@ -293,6 +293,8 @@ export type Service = {
    * The maximum number of client applications that a developer can have.
    *
    * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   clientsPerDeveloper?: number | undefined;
   /**
@@ -371,6 +373,8 @@ export type Service = {
    * The endpoint must be implemented if you do not implement the UI at the authorization endpoint but use the one provided by Authlete.
    *
    * The user authentication at the authorization endpoint provided by Authlete is performed by making a `POST` request to this endpoint.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   authenticationCallbackEndpoint?: string | null | undefined;
   /**
@@ -379,10 +383,14 @@ export type Service = {
    * @remarks
    *
    * If the value is not empty, Authlete generates Authorization header for Basic authentication when making a request to the authentication callback endpoint.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   authenticationCallbackApiKey?: string | null | undefined;
   /**
    * API secret for `basic` authentication at the authentication callback endpoint.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   authenticationCallbackApiSecret?: string | null | undefined;
   /**
@@ -1391,6 +1399,8 @@ export type Service = {
    * The default length of user PINs.
    *
    * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   userPinLength?: number | undefined;
   /**
@@ -1603,6 +1613,8 @@ export type ServiceInput = {
    * The maximum number of client applications that a developer can have.
    *
    * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   clientsPerDeveloper?: number | undefined;
   /**
@@ -1641,6 +1653,8 @@ export type ServiceInput = {
    * The endpoint must be implemented if you do not implement the UI at the authorization endpoint but use the one provided by Authlete.
    *
    * The user authentication at the authorization endpoint provided by Authlete is performed by making a `POST` request to this endpoint.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   authenticationCallbackEndpoint?: string | null | undefined;
   /**
@@ -1649,10 +1663,14 @@ export type ServiceInput = {
    * @remarks
    *
    * If the value is not empty, Authlete generates Authorization header for Basic authentication when making a request to the authentication callback endpoint.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   authenticationCallbackApiKey?: string | null | undefined;
   /**
    * API secret for `basic` authentication at the authentication callback endpoint.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   authenticationCallbackApiSecret?: string | null | undefined;
   /**
@@ -2613,6 +2631,8 @@ export type ServiceInput = {
    * The default length of user PINs.
    *
    * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   userPinLength?: number | undefined;
   /**
@@ -2799,12 +2819,12 @@ export type ServiceInput = {
 /** @internal */
 export const SupportedSnse$inboundSchema: z.ZodNativeEnum<
   typeof SupportedSnse
-> = z.nativeEnum(SupportedSnse);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(SupportedSnse));
 
 /** @internal */
 export const SupportedDeveloperSnse$inboundSchema: z.ZodNativeEnum<
   typeof SupportedDeveloperSnse
-> = z.nativeEnum(SupportedDeveloperSnse);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(SupportedDeveloperSnse));
 /** @internal */
 export const SupportedDeveloperSnse$outboundSchema: z.ZodNativeEnum<
   typeof SupportedDeveloperSnse
@@ -2813,7 +2833,7 @@ export const SupportedDeveloperSnse$outboundSchema: z.ZodNativeEnum<
 /** @internal */
 export const UserCodeCharset$inboundSchema: z.ZodNativeEnum<
   typeof UserCodeCharset
-> = z.nativeEnum(UserCodeCharset);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(UserCodeCharset));
 /** @internal */
 export const UserCodeCharset$outboundSchema: z.ZodNativeEnum<
   typeof UserCodeCharset
@@ -2824,29 +2844,33 @@ export const CredentialIssuerMetadata$inboundSchema: z.ZodType<
   CredentialIssuerMetadata,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  authorizationServers: z.array(z.string()).optional(),
-  credentialIssuer: z.string().optional(),
-  credentialEndpoint: z.string().optional(),
-  batchCredentialEndpoint: z.string().optional(),
-  deferredCredentialEndpoint: z.string().optional(),
-  notificationEndpoint: z.string().optional(),
-  nonceEndpoint: z.string().optional(),
-  credentialsSupported: z.string().optional(),
-  credentialResponseEncryptionAlgValuesSupported: z.array(z.string())
-    .optional(),
-  credentialResponseEncryptionEncValuesSupported: z.array(z.string())
-    .optional(),
-  requireCredentialResponseEncryption: z.boolean().optional(),
-  requireCredentialRequestEncryption: z.boolean().optional(),
-  credentialRequestEncryptionJwks: z.string().optional(),
-  credentialRequestEncryptionEncValuesSupported: z.array(z.string()).optional(),
-  credentialRequestEncryptionZipValuesSupported: z.array(z.string()).optional(),
-  credentialResponseEncryptionZipValuesSupported: z.array(z.string())
-    .optional(),
-  batchSize: z.number().int().optional(),
-  display: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    authorizationServers: z.array(z.string()).optional(),
+    credentialIssuer: z.string().optional(),
+    credentialEndpoint: z.string().optional(),
+    batchCredentialEndpoint: z.string().optional(),
+    deferredCredentialEndpoint: z.string().optional(),
+    notificationEndpoint: z.string().optional(),
+    nonceEndpoint: z.string().optional(),
+    credentialsSupported: z.string().optional(),
+    credentialResponseEncryptionAlgValuesSupported: z.array(z.string())
+      .optional(),
+    credentialResponseEncryptionEncValuesSupported: z.array(z.string())
+      .optional(),
+    requireCredentialResponseEncryption: z.boolean().optional(),
+    requireCredentialRequestEncryption: z.boolean().optional(),
+    credentialRequestEncryptionJwks: z.string().optional(),
+    credentialRequestEncryptionEncValuesSupported: z.array(z.string())
+      .optional(),
+    credentialRequestEncryptionZipValuesSupported: z.array(z.string())
+      .optional(),
+    credentialResponseEncryptionZipValuesSupported: z.array(z.string())
+      .optional(),
+    batchSize: z.number().int().optional(),
+    display: z.string().optional(),
+  })
+);
 /** @internal */
 export type CredentialIssuerMetadata$Outbound = {
   authorizationServers?: Array<string> | undefined;
@@ -2874,29 +2898,33 @@ export const CredentialIssuerMetadata$outboundSchema: z.ZodType<
   CredentialIssuerMetadata$Outbound,
   z.ZodTypeDef,
   CredentialIssuerMetadata
-> = z.object({
-  authorizationServers: z.array(z.string()).optional(),
-  credentialIssuer: z.string().optional(),
-  credentialEndpoint: z.string().optional(),
-  batchCredentialEndpoint: z.string().optional(),
-  deferredCredentialEndpoint: z.string().optional(),
-  notificationEndpoint: z.string().optional(),
-  nonceEndpoint: z.string().optional(),
-  credentialsSupported: z.string().optional(),
-  credentialResponseEncryptionAlgValuesSupported: z.array(z.string())
-    .optional(),
-  credentialResponseEncryptionEncValuesSupported: z.array(z.string())
-    .optional(),
-  requireCredentialResponseEncryption: z.boolean().optional(),
-  requireCredentialRequestEncryption: z.boolean().optional(),
-  credentialRequestEncryptionJwks: z.string().optional(),
-  credentialRequestEncryptionEncValuesSupported: z.array(z.string()).optional(),
-  credentialRequestEncryptionZipValuesSupported: z.array(z.string()).optional(),
-  credentialResponseEncryptionZipValuesSupported: z.array(z.string())
-    .optional(),
-  batchSize: z.number().int().optional(),
-  display: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    authorizationServers: z.array(z.string()).optional(),
+    credentialIssuer: z.string().optional(),
+    credentialEndpoint: z.string().optional(),
+    batchCredentialEndpoint: z.string().optional(),
+    deferredCredentialEndpoint: z.string().optional(),
+    notificationEndpoint: z.string().optional(),
+    nonceEndpoint: z.string().optional(),
+    credentialsSupported: z.string().optional(),
+    credentialResponseEncryptionAlgValuesSupported: z.array(z.string())
+      .optional(),
+    credentialResponseEncryptionEncValuesSupported: z.array(z.string())
+      .optional(),
+    requireCredentialResponseEncryption: z.boolean().optional(),
+    requireCredentialRequestEncryption: z.boolean().optional(),
+    credentialRequestEncryptionJwks: z.string().optional(),
+    credentialRequestEncryptionEncValuesSupported: z.array(z.string())
+      .optional(),
+    credentialRequestEncryptionZipValuesSupported: z.array(z.string())
+      .optional(),
+    credentialResponseEncryptionZipValuesSupported: z.array(z.string())
+      .optional(),
+    batchSize: z.number().int().optional(),
+    display: z.string().optional(),
+  })
+);
 
 export function credentialIssuerMetadataToJSON(
   credentialIssuerMetadata: CredentialIssuerMetadata,
@@ -2917,232 +2945,241 @@ export function credentialIssuerMetadataFromJSON(
 
 /** @internal */
 export const Service$inboundSchema: z.ZodType<Service, z.ZodTypeDef, unknown> =
-  z.object({
-    number: z.number().int().optional(),
-    serviceName: z.nullable(z.string()).optional(),
-    issuer: z.nullable(z.string()).optional(),
-    description: z.nullable(z.string()).optional(),
-    apiKey: z.number().int().optional(),
-    apiSecret: z.nullable(z.string()).optional(),
-    tokenBatchNotificationEndpoint: z.nullable(z.string()).optional(),
-    clientAssertionAudRestrictedToIssuer: z.boolean().optional(),
-    serviceOwnerNumber: z.number().int().optional(),
-    clientsPerDeveloper: z.number().int().optional(),
-    developerAuthenticationCallbackEndpoint: z.nullable(z.string()).optional(),
-    developerAuthenticationCallbackApiKey: z.nullable(z.string()).optional(),
-    developerAuthenticationCallbackApiSecret: z.nullable(z.string()).optional(),
-    supportedSnses: z.nullable(z.array(SupportedSnse$inboundSchema)).optional(),
-    snsCredentials: z.nullable(z.array(SnsCredentials$inboundSchema))
-      .optional(),
-    supportedDeveloperSnses: z.nullable(
-      z.array(SupportedDeveloperSnse$inboundSchema),
-    ).optional(),
-    developerSnsCredentials: z.nullable(z.array(SnsCredentials$inboundSchema))
-      .optional(),
-    clientIdAliasEnabled: z.boolean().optional(),
-    metadata: z.nullable(z.array(Pair$inboundSchema)).optional(),
-    createdAt: z.number().int().optional(),
-    modifiedAt: z.number().int().optional(),
-    authenticationCallbackEndpoint: z.nullable(z.string()).optional(),
-    authenticationCallbackApiKey: z.nullable(z.string()).optional(),
-    authenticationCallbackApiSecret: z.nullable(z.string()).optional(),
-    supportedAcrs: z.nullable(z.array(z.string())).optional(),
-    supportedGrantTypes: z.nullable(z.array(GrantType$inboundSchema))
-      .optional(),
-    supportedResponseTypes: z.nullable(z.array(ResponseType$inboundSchema))
-      .optional(),
-    supportedAuthorizationDetailsTypes: z.nullable(z.array(z.string()))
-      .optional(),
-    supportedServiceProfiles: z.nullable(z.array(ServiceProfile$inboundSchema))
-      .optional(),
-    errorDescriptionOmitted: z.boolean().optional(),
-    errorUriOmitted: z.boolean().optional(),
-    authorizationEndpoint: z.nullable(z.string()).optional(),
-    directAuthorizationEndpointEnabled: z.boolean().optional(),
-    supportedUiLocales: z.nullable(z.array(z.string())).optional(),
-    supportedDisplays: z.nullable(z.array(Display$inboundSchema)).optional(),
-    pkceRequired: z.boolean().optional(),
-    pkceS256Required: z.boolean().optional(),
-    authorizationResponseDuration: z.number().int().optional(),
-    authorizationCodeDuration: z.number().int().optional(),
-    tokenEndpoint: z.nullable(z.string()).optional(),
-    directTokenEndpointEnabled: z.boolean().optional(),
-    supportedTokenAuthMethods: z.nullable(
-      z.array(ClientAuthMethod$inboundSchema),
-    ).optional(),
-    missingClientIdAllowed: z.boolean().optional(),
-    revocationEndpoint: z.nullable(z.string()).optional(),
-    directRevocationEndpointEnabled: z.boolean().optional(),
-    supportedRevocationAuthMethods: z.nullable(
-      z.array(ClientAuthMethod$inboundSchema),
-    ).optional(),
-    introspectionEndpoint: z.nullable(z.string()).optional(),
-    directIntrospectionEndpointEnabled: z.boolean().optional(),
-    supportedIntrospectionAuthMethods: z.nullable(
-      z.array(ClientAuthMethod$inboundSchema),
-    ).optional(),
-    pushedAuthReqEndpoint: z.nullable(z.string()).optional(),
-    pushedAuthReqDuration: z.number().int().optional(),
-    parRequired: z.boolean().optional(),
-    requestObjectRequired: z.boolean().optional(),
-    traditionalRequestObjectProcessingApplied: z.boolean().optional(),
-    mutualTlsValidatePkiCertChain: z.boolean().optional(),
-    trustedRootCertificates: z.nullable(z.array(z.string())).optional(),
-    mtlsEndpointAliases: z.nullable(z.array(NamedUri$inboundSchema)).optional(),
-    accessTokenType: z.nullable(z.string()).optional(),
-    tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
-    accessTokenDuration: z.number().int().optional(),
-    singleAccessTokenPerSubject: z.boolean().optional(),
-    accessTokenSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
-    accessTokenSignatureKeyId: z.nullable(z.string()).optional(),
-    refreshTokenDuration: z.number().int().optional(),
-    refreshTokenDurationKept: z.boolean().optional(),
-    refreshTokenDurationReset: z.boolean().optional(),
-    refreshTokenKept: z.boolean().optional(),
-    supportedScopes: z.nullable(z.array(Scope$inboundSchema)).optional(),
-    scopeRequired: z.boolean().optional(),
-    idTokenDuration: z.number().int().optional(),
-    allowableClockSkew: z.number().int().optional(),
-    supportedClaimTypes: z.nullable(z.array(ClaimType$inboundSchema))
-      .optional(),
-    supportedClaimLocales: z.nullable(z.array(z.string())).optional(),
-    supportedClaims: z.nullable(z.array(z.string())).optional(),
-    claimShortcutRestrictive: z.boolean().optional(),
-    jwksUri: z.nullable(z.string()).optional(),
-    directJwksEndpointEnabled: z.boolean().optional(),
-    jwks: z.nullable(z.string()).optional(),
-    idTokenSignatureKeyId: z.nullable(z.string()).optional(),
-    userInfoSignatureKeyId: z.nullable(z.string()).optional(),
-    authorizationSignatureKeyId: z.nullable(z.string()).optional(),
-    userInfoEndpoint: z.nullable(z.string()).optional(),
-    directUserInfoEndpointEnabled: z.boolean().optional(),
-    dynamicRegistrationSupported: z.boolean().optional(),
-    registrationEndpoint: z.nullable(z.string()).optional(),
-    registrationManagementEndpoint: z.nullable(z.string()).optional(),
-    policyUri: z.nullable(z.string()).optional(),
-    tosUri: z.nullable(z.string()).optional(),
-    serviceDocumentation: z.nullable(z.string()).optional(),
-    backchannelAuthenticationEndpoint: z.nullable(z.string()).optional(),
-    supportedBackchannelTokenDeliveryModes: z.nullable(
-      z.array(DeliveryMode$inboundSchema),
-    ).optional(),
-    backchannelAuthReqIdDuration: z.number().int().optional(),
-    backchannelPollingInterval: z.number().int().optional(),
-    backchannelUserCodeParameterSupported: z.boolean().optional(),
-    backchannelBindingMessageRequiredInFapi: z.boolean().optional(),
-    deviceAuthorizationEndpoint: z.nullable(z.string()).optional(),
-    deviceVerificationUri: z.nullable(z.string()).optional(),
-    deviceVerificationUriComplete: z.nullable(z.string()).optional(),
-    deviceFlowCodeDuration: z.number().int().optional(),
-    deviceFlowPollingInterval: z.number().int().optional(),
-    userCodeCharset: z.nullable(UserCodeCharset$inboundSchema).optional(),
-    userCodeLength: z.number().int().optional(),
-    supportedTrustFrameworks: z.nullable(z.array(z.string())).optional(),
-    supportedEvidence: z.nullable(z.array(z.string())).optional(),
-    supportedIdentityDocuments: z.nullable(z.array(z.string())).optional(),
-    supportedVerificationMethods: z.nullable(z.array(z.string())).optional(),
-    supportedVerifiedClaims: z.nullable(z.array(z.string())).optional(),
-    verifiedClaimsValidationSchemaSet:
-      VerifiedClaimsValidationSchema$inboundSchema.optional(),
-    attributes: z.nullable(z.array(Pair$inboundSchema)).optional(),
-    nbfOptional: z.boolean().optional(),
-    issSuppressed: z.boolean().optional(),
-    supportedCustomClientMetadata: z.nullable(z.array(z.string())).optional(),
-    tokenExpirationLinked: z.boolean().optional(),
-    frontChannelRequestObjectEncryptionRequired: z.boolean().optional(),
-    requestObjectEncryptionAlgMatchRequired: z.boolean().optional(),
-    requestObjectEncryptionEncMatchRequired: z.boolean().optional(),
-    hsmEnabled: z.boolean().optional(),
-    hsks: z.nullable(z.array(Hsk$inboundSchema)).optional(),
-    grantManagementEndpoint: z.nullable(z.string()).optional(),
-    grantManagementActionRequired: z.boolean().optional(),
-    unauthorizedOnClientConfigSupported: z.boolean().optional(),
-    dcrScopeUsedAsRequestable: z.boolean().optional(),
-    endSessionEndpoint: z.nullable(z.string()).optional(),
-    challengeEndpoint: z.nullable(z.string()).optional(),
-    loopbackRedirectionUriVariable: z.boolean().optional(),
-    requestObjectAudienceChecked: z.boolean().optional(),
-    accessTokenForExternalAttachmentEmbedded: z.boolean().optional(),
-    authorityHints: z.nullable(z.array(z.string())).optional(),
-    federationEnabled: z.boolean().optional(),
-    federationJwks: z.nullable(z.string()).optional(),
-    federationSignatureKeyId: z.nullable(z.string()).optional(),
-    federationConfigurationDuration: z.number().int().optional(),
-    federationRegistrationEndpoint: z.nullable(z.string()).optional(),
-    organizationName: z.nullable(z.string()).optional(),
-    predefinedTransformedClaims: z.nullable(z.string()).optional(),
-    refreshTokenIdempotent: z.boolean().optional(),
-    signedJwksUri: z.nullable(z.string()).optional(),
-    supportedAttachments: z.nullable(z.array(AttachmentType$inboundSchema))
-      .optional(),
-    supportedDigestAlgorithms: z.nullable(z.array(z.string())).optional(),
-    supportedDocuments: z.nullable(z.array(z.string())).optional(),
-    supportedDocumentsMethods: z.nullable(z.array(z.string())).optional(),
-    supportedDocumentsValidationMethods: z.nullable(z.array(z.string()))
-      .optional(),
-    supportedDocumentsVerificationMethods: z.nullable(z.array(z.string()))
-      .optional(),
-    supportedElectronicRecords: z.nullable(z.array(z.string())).optional(),
-    supportedClientRegistrationTypes: z.nullable(
-      z.array(ClientRegistrationType$inboundSchema),
-    ).optional(),
-    tokenExchangeByIdentifiableClientsOnly: z.boolean().optional(),
-    tokenExchangeByConfidentialClientsOnly: z.boolean().optional(),
-    tokenExchangeByPermittedClientsOnly: z.boolean().optional(),
-    tokenExchangeEncryptedJwtRejected: z.boolean().optional(),
-    tokenExchangeUnsignedJwtRejected: z.boolean().optional(),
-    jwtGrantByIdentifiableClientsOnly: z.boolean().optional(),
-    jwtGrantEncryptedJwtRejected: z.boolean().optional(),
-    jwtGrantUnsignedJwtRejected: z.boolean().optional(),
-    dcrDuplicateSoftwareIdBlocked: z.boolean().optional(),
-    trustAnchors: z.nullable(z.array(TrustAnchor$inboundSchema)).optional(),
-    openidDroppedOnRefreshWithoutOfflineAccess: z.boolean().optional(),
-    idTokenDroppedOnIssueWithoutOpenid: z.boolean().optional(),
-    returnFullPayload: z.boolean().optional(),
-    supportedDocumentsCheckMethods: z.nullable(z.array(z.string())).optional(),
-    rsResponseSigned: z.boolean().optional(),
-    cnonceDuration: z.number().int().optional(),
-    dpopNonceRequired: z.boolean().optional(),
-    verifiableCredentialsEnabled: z.boolean().optional(),
-    credentialJwksUri: z.nullable(z.string()).optional(),
-    credentialOfferDuration: z.number().int().optional(),
-    dpopNonceDuration: z.number().int().optional(),
-    preAuthorizedGrantAnonymousAccessSupported: z.boolean().optional(),
-    credentialTransactionDuration: z.number().int().optional(),
-    introspectionSignatureKeyId: z.nullable(z.string()).optional(),
-    resourceSignatureKeyId: z.nullable(z.string()).optional(),
-    userPinLength: z.number().int().optional(),
-    supportedPromptValues: z.nullable(z.array(Prompt$inboundSchema)).optional(),
-    idTokenReissuable: z.boolean().optional(),
-    credentialJwks: z.nullable(z.string()).optional(),
-    fapiModes: z.nullable(z.array(FapiMode$inboundSchema)).optional(),
-    credentialDuration: z.number().int().optional(),
-    credentialIssuerMetadata: z.nullable(
-      z.lazy(() => CredentialIssuerMetadata$inboundSchema),
-    ).optional(),
-    idTokenAudType: z.nullable(z.string()).optional(),
-    nativeSsoSupported: z.boolean().optional(),
-    oid4vciVersion: z.nullable(z.string()).optional(),
-    cimdMetadataPolicyEnabled: z.boolean().optional(),
-    clientIdMetadataDocumentSupported: z.boolean().optional(),
-    cimdAllowlistEnabled: z.boolean().optional(),
-    cimdAllowlist: z.nullable(z.array(z.string())).optional(),
-    cimdAlwaysRetrieved: z.boolean().optional(),
-    cimdHttpPermitted: z.boolean().optional(),
-    cimdQueryPermitted: z.boolean().optional(),
-    cimdMetadataPolicy: z.nullable(z.string()).optional(),
-    httpAliasProhibited: z.boolean().optional(),
-    attestationChallengeTimeWindow: z.number().int().optional(),
-    clientAttesterRootsEnabled: z.boolean().optional(),
-    clientAttesterRootsOnly: z.boolean().optional(),
-    keyAttesterRootsEnabled: z.boolean().optional(),
-    keyAttesterRootsOnly: z.boolean().optional(),
-    clientAttesterRoots: z.nullable(z.array(z.string())).optional(),
-    keyAttesterRoots: z.nullable(z.array(z.string())).optional(),
-    backchannelLogoutSupported: z.boolean().optional(),
-    backchannelLogoutSessionSupported: z.boolean().optional(),
-    haipVersion: z.nullable(z.string()).optional(),
-  });
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      number: z.number().int().optional(),
+      serviceName: z.nullable(z.string()).optional(),
+      issuer: z.nullable(z.string()).optional(),
+      description: z.nullable(z.string()).optional(),
+      apiKey: z.number().int().optional(),
+      apiSecret: z.nullable(z.string()).optional(),
+      tokenBatchNotificationEndpoint: z.nullable(z.string()).optional(),
+      clientAssertionAudRestrictedToIssuer: z.boolean().optional(),
+      serviceOwnerNumber: z.number().int().optional(),
+      clientsPerDeveloper: z.number().int().optional(),
+      developerAuthenticationCallbackEndpoint: z.nullable(z.string())
+        .optional(),
+      developerAuthenticationCallbackApiKey: z.nullable(z.string()).optional(),
+      developerAuthenticationCallbackApiSecret: z.nullable(z.string())
+        .optional(),
+      supportedSnses: z.nullable(z.array(SupportedSnse$inboundSchema))
+        .optional(),
+      snsCredentials: z.nullable(z.array(SnsCredentials$inboundSchema))
+        .optional(),
+      supportedDeveloperSnses: z.nullable(
+        z.array(SupportedDeveloperSnse$inboundSchema),
+      ).optional(),
+      developerSnsCredentials: z.nullable(z.array(SnsCredentials$inboundSchema))
+        .optional(),
+      clientIdAliasEnabled: z.boolean().optional(),
+      metadata: z.nullable(z.array(Pair$inboundSchema)).optional(),
+      createdAt: z.number().int().optional(),
+      modifiedAt: z.number().int().optional(),
+      authenticationCallbackEndpoint: z.nullable(z.string()).optional(),
+      authenticationCallbackApiKey: z.nullable(z.string()).optional(),
+      authenticationCallbackApiSecret: z.nullable(z.string()).optional(),
+      supportedAcrs: z.nullable(z.array(z.string())).optional(),
+      supportedGrantTypes: z.nullable(z.array(GrantType$inboundSchema))
+        .optional(),
+      supportedResponseTypes: z.nullable(z.array(ResponseType$inboundSchema))
+        .optional(),
+      supportedAuthorizationDetailsTypes: z.nullable(z.array(z.string()))
+        .optional(),
+      supportedServiceProfiles: z.nullable(
+        z.array(ServiceProfile$inboundSchema),
+      ).optional(),
+      errorDescriptionOmitted: z.boolean().optional(),
+      errorUriOmitted: z.boolean().optional(),
+      authorizationEndpoint: z.nullable(z.string()).optional(),
+      directAuthorizationEndpointEnabled: z.boolean().optional(),
+      supportedUiLocales: z.nullable(z.array(z.string())).optional(),
+      supportedDisplays: z.nullable(z.array(Display$inboundSchema)).optional(),
+      pkceRequired: z.boolean().optional(),
+      pkceS256Required: z.boolean().optional(),
+      authorizationResponseDuration: z.number().int().optional(),
+      authorizationCodeDuration: z.number().int().optional(),
+      tokenEndpoint: z.nullable(z.string()).optional(),
+      directTokenEndpointEnabled: z.boolean().optional(),
+      supportedTokenAuthMethods: z.nullable(
+        z.array(ClientAuthMethod$inboundSchema),
+      ).optional(),
+      missingClientIdAllowed: z.boolean().optional(),
+      revocationEndpoint: z.nullable(z.string()).optional(),
+      directRevocationEndpointEnabled: z.boolean().optional(),
+      supportedRevocationAuthMethods: z.nullable(
+        z.array(ClientAuthMethod$inboundSchema),
+      ).optional(),
+      introspectionEndpoint: z.nullable(z.string()).optional(),
+      directIntrospectionEndpointEnabled: z.boolean().optional(),
+      supportedIntrospectionAuthMethods: z.nullable(
+        z.array(ClientAuthMethod$inboundSchema),
+      ).optional(),
+      pushedAuthReqEndpoint: z.nullable(z.string()).optional(),
+      pushedAuthReqDuration: z.number().int().optional(),
+      parRequired: z.boolean().optional(),
+      requestObjectRequired: z.boolean().optional(),
+      traditionalRequestObjectProcessingApplied: z.boolean().optional(),
+      mutualTlsValidatePkiCertChain: z.boolean().optional(),
+      trustedRootCertificates: z.nullable(z.array(z.string())).optional(),
+      mtlsEndpointAliases: z.nullable(z.array(NamedUri$inboundSchema))
+        .optional(),
+      accessTokenType: z.nullable(z.string()).optional(),
+      tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
+      accessTokenDuration: z.number().int().optional(),
+      singleAccessTokenPerSubject: z.boolean().optional(),
+      accessTokenSignAlg: z.nullable(JwsAlg$inboundSchema).optional(),
+      accessTokenSignatureKeyId: z.nullable(z.string()).optional(),
+      refreshTokenDuration: z.number().int().optional(),
+      refreshTokenDurationKept: z.boolean().optional(),
+      refreshTokenDurationReset: z.boolean().optional(),
+      refreshTokenKept: z.boolean().optional(),
+      supportedScopes: z.nullable(z.array(Scope$inboundSchema)).optional(),
+      scopeRequired: z.boolean().optional(),
+      idTokenDuration: z.number().int().optional(),
+      allowableClockSkew: z.number().int().optional(),
+      supportedClaimTypes: z.nullable(z.array(ClaimType$inboundSchema))
+        .optional(),
+      supportedClaimLocales: z.nullable(z.array(z.string())).optional(),
+      supportedClaims: z.nullable(z.array(z.string())).optional(),
+      claimShortcutRestrictive: z.boolean().optional(),
+      jwksUri: z.nullable(z.string()).optional(),
+      directJwksEndpointEnabled: z.boolean().optional(),
+      jwks: z.nullable(z.string()).optional(),
+      idTokenSignatureKeyId: z.nullable(z.string()).optional(),
+      userInfoSignatureKeyId: z.nullable(z.string()).optional(),
+      authorizationSignatureKeyId: z.nullable(z.string()).optional(),
+      userInfoEndpoint: z.nullable(z.string()).optional(),
+      directUserInfoEndpointEnabled: z.boolean().optional(),
+      dynamicRegistrationSupported: z.boolean().optional(),
+      registrationEndpoint: z.nullable(z.string()).optional(),
+      registrationManagementEndpoint: z.nullable(z.string()).optional(),
+      policyUri: z.nullable(z.string()).optional(),
+      tosUri: z.nullable(z.string()).optional(),
+      serviceDocumentation: z.nullable(z.string()).optional(),
+      backchannelAuthenticationEndpoint: z.nullable(z.string()).optional(),
+      supportedBackchannelTokenDeliveryModes: z.nullable(
+        z.array(DeliveryMode$inboundSchema),
+      ).optional(),
+      backchannelAuthReqIdDuration: z.number().int().optional(),
+      backchannelPollingInterval: z.number().int().optional(),
+      backchannelUserCodeParameterSupported: z.boolean().optional(),
+      backchannelBindingMessageRequiredInFapi: z.boolean().optional(),
+      deviceAuthorizationEndpoint: z.nullable(z.string()).optional(),
+      deviceVerificationUri: z.nullable(z.string()).optional(),
+      deviceVerificationUriComplete: z.nullable(z.string()).optional(),
+      deviceFlowCodeDuration: z.number().int().optional(),
+      deviceFlowPollingInterval: z.number().int().optional(),
+      userCodeCharset: z.nullable(UserCodeCharset$inboundSchema).optional(),
+      userCodeLength: z.number().int().optional(),
+      supportedTrustFrameworks: z.nullable(z.array(z.string())).optional(),
+      supportedEvidence: z.nullable(z.array(z.string())).optional(),
+      supportedIdentityDocuments: z.nullable(z.array(z.string())).optional(),
+      supportedVerificationMethods: z.nullable(z.array(z.string())).optional(),
+      supportedVerifiedClaims: z.nullable(z.array(z.string())).optional(),
+      verifiedClaimsValidationSchemaSet:
+        VerifiedClaimsValidationSchema$inboundSchema.optional(),
+      attributes: z.nullable(z.array(Pair$inboundSchema)).optional(),
+      nbfOptional: z.boolean().optional(),
+      issSuppressed: z.boolean().optional(),
+      supportedCustomClientMetadata: z.nullable(z.array(z.string())).optional(),
+      tokenExpirationLinked: z.boolean().optional(),
+      frontChannelRequestObjectEncryptionRequired: z.boolean().optional(),
+      requestObjectEncryptionAlgMatchRequired: z.boolean().optional(),
+      requestObjectEncryptionEncMatchRequired: z.boolean().optional(),
+      hsmEnabled: z.boolean().optional(),
+      hsks: z.nullable(z.array(Hsk$inboundSchema)).optional(),
+      grantManagementEndpoint: z.nullable(z.string()).optional(),
+      grantManagementActionRequired: z.boolean().optional(),
+      unauthorizedOnClientConfigSupported: z.boolean().optional(),
+      dcrScopeUsedAsRequestable: z.boolean().optional(),
+      endSessionEndpoint: z.nullable(z.string()).optional(),
+      challengeEndpoint: z.nullable(z.string()).optional(),
+      loopbackRedirectionUriVariable: z.boolean().optional(),
+      requestObjectAudienceChecked: z.boolean().optional(),
+      accessTokenForExternalAttachmentEmbedded: z.boolean().optional(),
+      authorityHints: z.nullable(z.array(z.string())).optional(),
+      federationEnabled: z.boolean().optional(),
+      federationJwks: z.nullable(z.string()).optional(),
+      federationSignatureKeyId: z.nullable(z.string()).optional(),
+      federationConfigurationDuration: z.number().int().optional(),
+      federationRegistrationEndpoint: z.nullable(z.string()).optional(),
+      organizationName: z.nullable(z.string()).optional(),
+      predefinedTransformedClaims: z.nullable(z.string()).optional(),
+      refreshTokenIdempotent: z.boolean().optional(),
+      signedJwksUri: z.nullable(z.string()).optional(),
+      supportedAttachments: z.nullable(z.array(AttachmentType$inboundSchema))
+        .optional(),
+      supportedDigestAlgorithms: z.nullable(z.array(z.string())).optional(),
+      supportedDocuments: z.nullable(z.array(z.string())).optional(),
+      supportedDocumentsMethods: z.nullable(z.array(z.string())).optional(),
+      supportedDocumentsValidationMethods: z.nullable(z.array(z.string()))
+        .optional(),
+      supportedDocumentsVerificationMethods: z.nullable(z.array(z.string()))
+        .optional(),
+      supportedElectronicRecords: z.nullable(z.array(z.string())).optional(),
+      supportedClientRegistrationTypes: z.nullable(
+        z.array(ClientRegistrationType$inboundSchema),
+      ).optional(),
+      tokenExchangeByIdentifiableClientsOnly: z.boolean().optional(),
+      tokenExchangeByConfidentialClientsOnly: z.boolean().optional(),
+      tokenExchangeByPermittedClientsOnly: z.boolean().optional(),
+      tokenExchangeEncryptedJwtRejected: z.boolean().optional(),
+      tokenExchangeUnsignedJwtRejected: z.boolean().optional(),
+      jwtGrantByIdentifiableClientsOnly: z.boolean().optional(),
+      jwtGrantEncryptedJwtRejected: z.boolean().optional(),
+      jwtGrantUnsignedJwtRejected: z.boolean().optional(),
+      dcrDuplicateSoftwareIdBlocked: z.boolean().optional(),
+      trustAnchors: z.nullable(z.array(TrustAnchor$inboundSchema)).optional(),
+      openidDroppedOnRefreshWithoutOfflineAccess: z.boolean().optional(),
+      idTokenDroppedOnIssueWithoutOpenid: z.boolean().optional(),
+      returnFullPayload: z.boolean().optional(),
+      supportedDocumentsCheckMethods: z.nullable(z.array(z.string()))
+        .optional(),
+      rsResponseSigned: z.boolean().optional(),
+      cnonceDuration: z.number().int().optional(),
+      dpopNonceRequired: z.boolean().optional(),
+      verifiableCredentialsEnabled: z.boolean().optional(),
+      credentialJwksUri: z.nullable(z.string()).optional(),
+      credentialOfferDuration: z.number().int().optional(),
+      dpopNonceDuration: z.number().int().optional(),
+      preAuthorizedGrantAnonymousAccessSupported: z.boolean().optional(),
+      credentialTransactionDuration: z.number().int().optional(),
+      introspectionSignatureKeyId: z.nullable(z.string()).optional(),
+      resourceSignatureKeyId: z.nullable(z.string()).optional(),
+      userPinLength: z.number().int().optional(),
+      supportedPromptValues: z.nullable(z.array(Prompt$inboundSchema))
+        .optional(),
+      idTokenReissuable: z.boolean().optional(),
+      credentialJwks: z.nullable(z.string()).optional(),
+      fapiModes: z.nullable(z.array(FapiMode$inboundSchema)).optional(),
+      credentialDuration: z.number().int().optional(),
+      credentialIssuerMetadata: z.nullable(
+        z.lazy(() => CredentialIssuerMetadata$inboundSchema),
+      ).optional(),
+      idTokenAudType: z.nullable(z.string()).optional(),
+      nativeSsoSupported: z.boolean().optional(),
+      oid4vciVersion: z.nullable(z.string()).optional(),
+      cimdMetadataPolicyEnabled: z.boolean().optional(),
+      clientIdMetadataDocumentSupported: z.boolean().optional(),
+      cimdAllowlistEnabled: z.boolean().optional(),
+      cimdAllowlist: z.nullable(z.array(z.string())).optional(),
+      cimdAlwaysRetrieved: z.boolean().optional(),
+      cimdHttpPermitted: z.boolean().optional(),
+      cimdQueryPermitted: z.boolean().optional(),
+      cimdMetadataPolicy: z.nullable(z.string()).optional(),
+      httpAliasProhibited: z.boolean().optional(),
+      attestationChallengeTimeWindow: z.number().int().optional(),
+      clientAttesterRootsEnabled: z.boolean().optional(),
+      clientAttesterRootsOnly: z.boolean().optional(),
+      keyAttesterRootsEnabled: z.boolean().optional(),
+      keyAttesterRootsOnly: z.boolean().optional(),
+      clientAttesterRoots: z.nullable(z.array(z.string())).optional(),
+      keyAttesterRoots: z.nullable(z.array(z.string())).optional(),
+      backchannelLogoutSupported: z.boolean().optional(),
+      backchannelLogoutSessionSupported: z.boolean().optional(),
+      haipVersion: z.nullable(z.string()).optional(),
+    })
+  );
 
 export function serviceFromJSON(
   jsonString: string,
@@ -3347,211 +3384,218 @@ export const ServiceInput$outboundSchema: z.ZodType<
   ServiceInput$Outbound,
   z.ZodTypeDef,
   ServiceInput
-> = z.object({
-  serviceName: z.nullable(z.string()).optional(),
-  issuer: z.nullable(z.string()).optional(),
-  description: z.nullable(z.string()).optional(),
-  clientAssertionAudRestrictedToIssuer: z.boolean().optional(),
-  clientsPerDeveloper: z.number().int().optional(),
-  snsCredentials: z.nullable(z.array(SnsCredentials$outboundSchema)).optional(),
-  supportedDeveloperSnses: z.nullable(
-    z.array(SupportedDeveloperSnse$outboundSchema),
-  ).optional(),
-  developerSnsCredentials: z.nullable(z.array(SnsCredentials$outboundSchema))
-    .optional(),
-  metadata: z.nullable(z.array(Pair$outboundSchema)).optional(),
-  authenticationCallbackEndpoint: z.nullable(z.string()).optional(),
-  authenticationCallbackApiKey: z.nullable(z.string()).optional(),
-  authenticationCallbackApiSecret: z.nullable(z.string()).optional(),
-  supportedAcrs: z.nullable(z.array(z.string())).optional(),
-  supportedGrantTypes: z.nullable(z.array(GrantType$outboundSchema)).optional(),
-  supportedResponseTypes: z.nullable(z.array(ResponseType$outboundSchema))
-    .optional(),
-  supportedAuthorizationDetailsTypes: z.nullable(z.array(z.string()))
-    .optional(),
-  supportedServiceProfiles: z.nullable(z.array(ServiceProfile$outboundSchema))
-    .optional(),
-  errorDescriptionOmitted: z.boolean().optional(),
-  errorUriOmitted: z.boolean().optional(),
-  authorizationEndpoint: z.nullable(z.string()).optional(),
-  supportedUiLocales: z.nullable(z.array(z.string())).optional(),
-  supportedDisplays: z.nullable(z.array(Display$outboundSchema)).optional(),
-  pkceRequired: z.boolean().optional(),
-  pkceS256Required: z.boolean().optional(),
-  authorizationResponseDuration: z.number().int().optional(),
-  authorizationCodeDuration: z.number().int().optional(),
-  tokenEndpoint: z.nullable(z.string()).optional(),
-  supportedTokenAuthMethods: z.nullable(
-    z.array(ClientAuthMethod$outboundSchema),
-  ).optional(),
-  missingClientIdAllowed: z.boolean().optional(),
-  revocationEndpoint: z.nullable(z.string()).optional(),
-  supportedRevocationAuthMethods: z.nullable(
-    z.array(ClientAuthMethod$outboundSchema),
-  ).optional(),
-  introspectionEndpoint: z.nullable(z.string()).optional(),
-  supportedIntrospectionAuthMethods: z.nullable(
-    z.array(ClientAuthMethod$outboundSchema),
-  ).optional(),
-  pushedAuthReqEndpoint: z.nullable(z.string()).optional(),
-  pushedAuthReqDuration: z.number().int().optional(),
-  parRequired: z.boolean().optional(),
-  requestObjectRequired: z.boolean().optional(),
-  traditionalRequestObjectProcessingApplied: z.boolean().optional(),
-  mutualTlsValidatePkiCertChain: z.boolean().optional(),
-  trustedRootCertificates: z.nullable(z.array(z.string())).optional(),
-  mtlsEndpointAliases: z.nullable(z.array(NamedUri$outboundSchema)).optional(),
-  accessTokenType: z.nullable(z.string()).optional(),
-  tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  singleAccessTokenPerSubject: z.boolean().optional(),
-  accessTokenSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
-  accessTokenSignatureKeyId: z.nullable(z.string()).optional(),
-  refreshTokenDuration: z.number().int().optional(),
-  refreshTokenDurationKept: z.boolean().optional(),
-  refreshTokenDurationReset: z.boolean().optional(),
-  refreshTokenKept: z.boolean().optional(),
-  supportedScopes: z.nullable(z.array(Scope$outboundSchema)).optional(),
-  scopeRequired: z.boolean().optional(),
-  idTokenDuration: z.number().int().optional(),
-  allowableClockSkew: z.number().int().optional(),
-  supportedClaimTypes: z.nullable(z.array(ClaimType$outboundSchema)).optional(),
-  supportedClaimLocales: z.nullable(z.array(z.string())).optional(),
-  supportedClaims: z.nullable(z.array(z.string())).optional(),
-  claimShortcutRestrictive: z.boolean().optional(),
-  jwksUri: z.nullable(z.string()).optional(),
-  jwks: z.nullable(z.string()).optional(),
-  idTokenSignatureKeyId: z.nullable(z.string()).optional(),
-  userInfoSignatureKeyId: z.nullable(z.string()).optional(),
-  authorizationSignatureKeyId: z.nullable(z.string()).optional(),
-  userInfoEndpoint: z.nullable(z.string()).optional(),
-  dynamicRegistrationSupported: z.boolean().optional(),
-  registrationEndpoint: z.nullable(z.string()).optional(),
-  registrationManagementEndpoint: z.nullable(z.string()).optional(),
-  policyUri: z.nullable(z.string()).optional(),
-  tosUri: z.nullable(z.string()).optional(),
-  serviceDocumentation: z.nullable(z.string()).optional(),
-  backchannelAuthenticationEndpoint: z.nullable(z.string()).optional(),
-  supportedBackchannelTokenDeliveryModes: z.nullable(
-    z.array(DeliveryMode$outboundSchema),
-  ).optional(),
-  backchannelAuthReqIdDuration: z.number().int().optional(),
-  backchannelPollingInterval: z.number().int().optional(),
-  backchannelUserCodeParameterSupported: z.boolean().optional(),
-  backchannelBindingMessageRequiredInFapi: z.boolean().optional(),
-  deviceAuthorizationEndpoint: z.nullable(z.string()).optional(),
-  deviceVerificationUri: z.nullable(z.string()).optional(),
-  deviceVerificationUriComplete: z.nullable(z.string()).optional(),
-  deviceFlowCodeDuration: z.number().int().optional(),
-  deviceFlowPollingInterval: z.number().int().optional(),
-  userCodeCharset: z.nullable(UserCodeCharset$outboundSchema).optional(),
-  userCodeLength: z.number().int().optional(),
-  supportedTrustFrameworks: z.nullable(z.array(z.string())).optional(),
-  supportedEvidence: z.nullable(z.array(z.string())).optional(),
-  supportedIdentityDocuments: z.nullable(z.array(z.string())).optional(),
-  supportedVerificationMethods: z.nullable(z.array(z.string())).optional(),
-  supportedVerifiedClaims: z.nullable(z.array(z.string())).optional(),
-  verifiedClaimsValidationSchemaSet:
-    VerifiedClaimsValidationSchema$outboundSchema.optional(),
-  attributes: z.nullable(z.array(Pair$outboundSchema)).optional(),
-  nbfOptional: z.boolean().optional(),
-  issSuppressed: z.boolean().optional(),
-  supportedCustomClientMetadata: z.nullable(z.array(z.string())).optional(),
-  tokenExpirationLinked: z.boolean().optional(),
-  frontChannelRequestObjectEncryptionRequired: z.boolean().optional(),
-  requestObjectEncryptionAlgMatchRequired: z.boolean().optional(),
-  requestObjectEncryptionEncMatchRequired: z.boolean().optional(),
-  hsmEnabled: z.boolean().optional(),
-  hsks: z.nullable(z.array(Hsk$outboundSchema)).optional(),
-  grantManagementEndpoint: z.nullable(z.string()).optional(),
-  grantManagementActionRequired: z.boolean().optional(),
-  unauthorizedOnClientConfigSupported: z.boolean().optional(),
-  dcrScopeUsedAsRequestable: z.boolean().optional(),
-  endSessionEndpoint: z.nullable(z.string()).optional(),
-  challengeEndpoint: z.nullable(z.string()).optional(),
-  loopbackRedirectionUriVariable: z.boolean().optional(),
-  requestObjectAudienceChecked: z.boolean().optional(),
-  accessTokenForExternalAttachmentEmbedded: z.boolean().optional(),
-  authorityHints: z.nullable(z.array(z.string())).optional(),
-  federationEnabled: z.boolean().optional(),
-  federationJwks: z.nullable(z.string()).optional(),
-  federationSignatureKeyId: z.nullable(z.string()).optional(),
-  federationConfigurationDuration: z.number().int().optional(),
-  federationRegistrationEndpoint: z.nullable(z.string()).optional(),
-  organizationName: z.nullable(z.string()).optional(),
-  predefinedTransformedClaims: z.nullable(z.string()).optional(),
-  refreshTokenIdempotent: z.boolean().optional(),
-  signedJwksUri: z.nullable(z.string()).optional(),
-  supportedAttachments: z.nullable(z.array(AttachmentType$outboundSchema))
-    .optional(),
-  supportedDigestAlgorithms: z.nullable(z.array(z.string())).optional(),
-  supportedDocuments: z.nullable(z.array(z.string())).optional(),
-  supportedDocumentsMethods: z.nullable(z.array(z.string())).optional(),
-  supportedDocumentsValidationMethods: z.nullable(z.array(z.string()))
-    .optional(),
-  supportedDocumentsVerificationMethods: z.nullable(z.array(z.string()))
-    .optional(),
-  supportedElectronicRecords: z.nullable(z.array(z.string())).optional(),
-  supportedClientRegistrationTypes: z.nullable(
-    z.array(ClientRegistrationType$outboundSchema),
-  ).optional(),
-  tokenExchangeByIdentifiableClientsOnly: z.boolean().optional(),
-  tokenExchangeByConfidentialClientsOnly: z.boolean().optional(),
-  tokenExchangeByPermittedClientsOnly: z.boolean().optional(),
-  tokenExchangeEncryptedJwtRejected: z.boolean().optional(),
-  tokenExchangeUnsignedJwtRejected: z.boolean().optional(),
-  jwtGrantByIdentifiableClientsOnly: z.boolean().optional(),
-  jwtGrantEncryptedJwtRejected: z.boolean().optional(),
-  jwtGrantUnsignedJwtRejected: z.boolean().optional(),
-  dcrDuplicateSoftwareIdBlocked: z.boolean().optional(),
-  trustAnchors: z.nullable(z.array(TrustAnchor$outboundSchema)).optional(),
-  openidDroppedOnRefreshWithoutOfflineAccess: z.boolean().optional(),
-  idTokenDroppedOnIssueWithoutOpenid: z.boolean().optional(),
-  returnFullPayload: z.boolean().optional(),
-  supportedDocumentsCheckMethods: z.nullable(z.array(z.string())).optional(),
-  rsResponseSigned: z.boolean().optional(),
-  cnonceDuration: z.number().int().optional(),
-  dpopNonceRequired: z.boolean().optional(),
-  verifiableCredentialsEnabled: z.boolean().optional(),
-  credentialJwksUri: z.nullable(z.string()).optional(),
-  credentialOfferDuration: z.number().int().optional(),
-  dpopNonceDuration: z.number().int().optional(),
-  preAuthorizedGrantAnonymousAccessSupported: z.boolean().optional(),
-  credentialTransactionDuration: z.number().int().optional(),
-  introspectionSignatureKeyId: z.nullable(z.string()).optional(),
-  resourceSignatureKeyId: z.nullable(z.string()).optional(),
-  userPinLength: z.number().int().optional(),
-  supportedPromptValues: z.nullable(z.array(Prompt$outboundSchema)).optional(),
-  idTokenReissuable: z.boolean().optional(),
-  credentialJwks: z.nullable(z.string()).optional(),
-  fapiModes: z.nullable(z.array(FapiMode$outboundSchema)).optional(),
-  credentialDuration: z.number().int().optional(),
-  credentialIssuerMetadata: z.nullable(
-    z.lazy(() => CredentialIssuerMetadata$outboundSchema),
-  ).optional(),
-  idTokenAudType: z.nullable(z.string()).optional(),
-  nativeSsoSupported: z.boolean().optional(),
-  oid4vciVersion: z.nullable(z.string()).optional(),
-  cimdMetadataPolicyEnabled: z.boolean().optional(),
-  clientIdMetadataDocumentSupported: z.boolean().optional(),
-  cimdAllowlistEnabled: z.boolean().optional(),
-  cimdAllowlist: z.nullable(z.array(z.string())).optional(),
-  cimdAlwaysRetrieved: z.boolean().optional(),
-  cimdHttpPermitted: z.boolean().optional(),
-  cimdQueryPermitted: z.boolean().optional(),
-  cimdMetadataPolicy: z.nullable(z.string()).optional(),
-  httpAliasProhibited: z.boolean().optional(),
-  attestationChallengeTimeWindow: z.number().int().optional(),
-  clientAttesterRootsEnabled: z.boolean().optional(),
-  clientAttesterRootsOnly: z.boolean().optional(),
-  keyAttesterRootsEnabled: z.boolean().optional(),
-  keyAttesterRootsOnly: z.boolean().optional(),
-  clientAttesterRoots: z.nullable(z.array(z.string())).optional(),
-  keyAttesterRoots: z.nullable(z.array(z.string())).optional(),
-  backchannelLogoutSupported: z.boolean().optional(),
-  backchannelLogoutSessionSupported: z.boolean().optional(),
-  haipVersion: z.nullable(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceName: z.nullable(z.string()).optional(),
+    issuer: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    clientAssertionAudRestrictedToIssuer: z.boolean().optional(),
+    clientsPerDeveloper: z.number().int().optional(),
+    snsCredentials: z.nullable(z.array(SnsCredentials$outboundSchema))
+      .optional(),
+    supportedDeveloperSnses: z.nullable(
+      z.array(SupportedDeveloperSnse$outboundSchema),
+    ).optional(),
+    developerSnsCredentials: z.nullable(z.array(SnsCredentials$outboundSchema))
+      .optional(),
+    metadata: z.nullable(z.array(Pair$outboundSchema)).optional(),
+    authenticationCallbackEndpoint: z.nullable(z.string()).optional(),
+    authenticationCallbackApiKey: z.nullable(z.string()).optional(),
+    authenticationCallbackApiSecret: z.nullable(z.string()).optional(),
+    supportedAcrs: z.nullable(z.array(z.string())).optional(),
+    supportedGrantTypes: z.nullable(z.array(GrantType$outboundSchema))
+      .optional(),
+    supportedResponseTypes: z.nullable(z.array(ResponseType$outboundSchema))
+      .optional(),
+    supportedAuthorizationDetailsTypes: z.nullable(z.array(z.string()))
+      .optional(),
+    supportedServiceProfiles: z.nullable(z.array(ServiceProfile$outboundSchema))
+      .optional(),
+    errorDescriptionOmitted: z.boolean().optional(),
+    errorUriOmitted: z.boolean().optional(),
+    authorizationEndpoint: z.nullable(z.string()).optional(),
+    supportedUiLocales: z.nullable(z.array(z.string())).optional(),
+    supportedDisplays: z.nullable(z.array(Display$outboundSchema)).optional(),
+    pkceRequired: z.boolean().optional(),
+    pkceS256Required: z.boolean().optional(),
+    authorizationResponseDuration: z.number().int().optional(),
+    authorizationCodeDuration: z.number().int().optional(),
+    tokenEndpoint: z.nullable(z.string()).optional(),
+    supportedTokenAuthMethods: z.nullable(
+      z.array(ClientAuthMethod$outboundSchema),
+    ).optional(),
+    missingClientIdAllowed: z.boolean().optional(),
+    revocationEndpoint: z.nullable(z.string()).optional(),
+    supportedRevocationAuthMethods: z.nullable(
+      z.array(ClientAuthMethod$outboundSchema),
+    ).optional(),
+    introspectionEndpoint: z.nullable(z.string()).optional(),
+    supportedIntrospectionAuthMethods: z.nullable(
+      z.array(ClientAuthMethod$outboundSchema),
+    ).optional(),
+    pushedAuthReqEndpoint: z.nullable(z.string()).optional(),
+    pushedAuthReqDuration: z.number().int().optional(),
+    parRequired: z.boolean().optional(),
+    requestObjectRequired: z.boolean().optional(),
+    traditionalRequestObjectProcessingApplied: z.boolean().optional(),
+    mutualTlsValidatePkiCertChain: z.boolean().optional(),
+    trustedRootCertificates: z.nullable(z.array(z.string())).optional(),
+    mtlsEndpointAliases: z.nullable(z.array(NamedUri$outboundSchema))
+      .optional(),
+    accessTokenType: z.nullable(z.string()).optional(),
+    tlsClientCertificateBoundAccessTokens: z.boolean().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    singleAccessTokenPerSubject: z.boolean().optional(),
+    accessTokenSignAlg: z.nullable(JwsAlg$outboundSchema).optional(),
+    accessTokenSignatureKeyId: z.nullable(z.string()).optional(),
+    refreshTokenDuration: z.number().int().optional(),
+    refreshTokenDurationKept: z.boolean().optional(),
+    refreshTokenDurationReset: z.boolean().optional(),
+    refreshTokenKept: z.boolean().optional(),
+    supportedScopes: z.nullable(z.array(Scope$outboundSchema)).optional(),
+    scopeRequired: z.boolean().optional(),
+    idTokenDuration: z.number().int().optional(),
+    allowableClockSkew: z.number().int().optional(),
+    supportedClaimTypes: z.nullable(z.array(ClaimType$outboundSchema))
+      .optional(),
+    supportedClaimLocales: z.nullable(z.array(z.string())).optional(),
+    supportedClaims: z.nullable(z.array(z.string())).optional(),
+    claimShortcutRestrictive: z.boolean().optional(),
+    jwksUri: z.nullable(z.string()).optional(),
+    jwks: z.nullable(z.string()).optional(),
+    idTokenSignatureKeyId: z.nullable(z.string()).optional(),
+    userInfoSignatureKeyId: z.nullable(z.string()).optional(),
+    authorizationSignatureKeyId: z.nullable(z.string()).optional(),
+    userInfoEndpoint: z.nullable(z.string()).optional(),
+    dynamicRegistrationSupported: z.boolean().optional(),
+    registrationEndpoint: z.nullable(z.string()).optional(),
+    registrationManagementEndpoint: z.nullable(z.string()).optional(),
+    policyUri: z.nullable(z.string()).optional(),
+    tosUri: z.nullable(z.string()).optional(),
+    serviceDocumentation: z.nullable(z.string()).optional(),
+    backchannelAuthenticationEndpoint: z.nullable(z.string()).optional(),
+    supportedBackchannelTokenDeliveryModes: z.nullable(
+      z.array(DeliveryMode$outboundSchema),
+    ).optional(),
+    backchannelAuthReqIdDuration: z.number().int().optional(),
+    backchannelPollingInterval: z.number().int().optional(),
+    backchannelUserCodeParameterSupported: z.boolean().optional(),
+    backchannelBindingMessageRequiredInFapi: z.boolean().optional(),
+    deviceAuthorizationEndpoint: z.nullable(z.string()).optional(),
+    deviceVerificationUri: z.nullable(z.string()).optional(),
+    deviceVerificationUriComplete: z.nullable(z.string()).optional(),
+    deviceFlowCodeDuration: z.number().int().optional(),
+    deviceFlowPollingInterval: z.number().int().optional(),
+    userCodeCharset: z.nullable(UserCodeCharset$outboundSchema).optional(),
+    userCodeLength: z.number().int().optional(),
+    supportedTrustFrameworks: z.nullable(z.array(z.string())).optional(),
+    supportedEvidence: z.nullable(z.array(z.string())).optional(),
+    supportedIdentityDocuments: z.nullable(z.array(z.string())).optional(),
+    supportedVerificationMethods: z.nullable(z.array(z.string())).optional(),
+    supportedVerifiedClaims: z.nullable(z.array(z.string())).optional(),
+    verifiedClaimsValidationSchemaSet:
+      VerifiedClaimsValidationSchema$outboundSchema.optional(),
+    attributes: z.nullable(z.array(Pair$outboundSchema)).optional(),
+    nbfOptional: z.boolean().optional(),
+    issSuppressed: z.boolean().optional(),
+    supportedCustomClientMetadata: z.nullable(z.array(z.string())).optional(),
+    tokenExpirationLinked: z.boolean().optional(),
+    frontChannelRequestObjectEncryptionRequired: z.boolean().optional(),
+    requestObjectEncryptionAlgMatchRequired: z.boolean().optional(),
+    requestObjectEncryptionEncMatchRequired: z.boolean().optional(),
+    hsmEnabled: z.boolean().optional(),
+    hsks: z.nullable(z.array(Hsk$outboundSchema)).optional(),
+    grantManagementEndpoint: z.nullable(z.string()).optional(),
+    grantManagementActionRequired: z.boolean().optional(),
+    unauthorizedOnClientConfigSupported: z.boolean().optional(),
+    dcrScopeUsedAsRequestable: z.boolean().optional(),
+    endSessionEndpoint: z.nullable(z.string()).optional(),
+    challengeEndpoint: z.nullable(z.string()).optional(),
+    loopbackRedirectionUriVariable: z.boolean().optional(),
+    requestObjectAudienceChecked: z.boolean().optional(),
+    accessTokenForExternalAttachmentEmbedded: z.boolean().optional(),
+    authorityHints: z.nullable(z.array(z.string())).optional(),
+    federationEnabled: z.boolean().optional(),
+    federationJwks: z.nullable(z.string()).optional(),
+    federationSignatureKeyId: z.nullable(z.string()).optional(),
+    federationConfigurationDuration: z.number().int().optional(),
+    federationRegistrationEndpoint: z.nullable(z.string()).optional(),
+    organizationName: z.nullable(z.string()).optional(),
+    predefinedTransformedClaims: z.nullable(z.string()).optional(),
+    refreshTokenIdempotent: z.boolean().optional(),
+    signedJwksUri: z.nullable(z.string()).optional(),
+    supportedAttachments: z.nullable(z.array(AttachmentType$outboundSchema))
+      .optional(),
+    supportedDigestAlgorithms: z.nullable(z.array(z.string())).optional(),
+    supportedDocuments: z.nullable(z.array(z.string())).optional(),
+    supportedDocumentsMethods: z.nullable(z.array(z.string())).optional(),
+    supportedDocumentsValidationMethods: z.nullable(z.array(z.string()))
+      .optional(),
+    supportedDocumentsVerificationMethods: z.nullable(z.array(z.string()))
+      .optional(),
+    supportedElectronicRecords: z.nullable(z.array(z.string())).optional(),
+    supportedClientRegistrationTypes: z.nullable(
+      z.array(ClientRegistrationType$outboundSchema),
+    ).optional(),
+    tokenExchangeByIdentifiableClientsOnly: z.boolean().optional(),
+    tokenExchangeByConfidentialClientsOnly: z.boolean().optional(),
+    tokenExchangeByPermittedClientsOnly: z.boolean().optional(),
+    tokenExchangeEncryptedJwtRejected: z.boolean().optional(),
+    tokenExchangeUnsignedJwtRejected: z.boolean().optional(),
+    jwtGrantByIdentifiableClientsOnly: z.boolean().optional(),
+    jwtGrantEncryptedJwtRejected: z.boolean().optional(),
+    jwtGrantUnsignedJwtRejected: z.boolean().optional(),
+    dcrDuplicateSoftwareIdBlocked: z.boolean().optional(),
+    trustAnchors: z.nullable(z.array(TrustAnchor$outboundSchema)).optional(),
+    openidDroppedOnRefreshWithoutOfflineAccess: z.boolean().optional(),
+    idTokenDroppedOnIssueWithoutOpenid: z.boolean().optional(),
+    returnFullPayload: z.boolean().optional(),
+    supportedDocumentsCheckMethods: z.nullable(z.array(z.string())).optional(),
+    rsResponseSigned: z.boolean().optional(),
+    cnonceDuration: z.number().int().optional(),
+    dpopNonceRequired: z.boolean().optional(),
+    verifiableCredentialsEnabled: z.boolean().optional(),
+    credentialJwksUri: z.nullable(z.string()).optional(),
+    credentialOfferDuration: z.number().int().optional(),
+    dpopNonceDuration: z.number().int().optional(),
+    preAuthorizedGrantAnonymousAccessSupported: z.boolean().optional(),
+    credentialTransactionDuration: z.number().int().optional(),
+    introspectionSignatureKeyId: z.nullable(z.string()).optional(),
+    resourceSignatureKeyId: z.nullable(z.string()).optional(),
+    userPinLength: z.number().int().optional(),
+    supportedPromptValues: z.nullable(z.array(Prompt$outboundSchema))
+      .optional(),
+    idTokenReissuable: z.boolean().optional(),
+    credentialJwks: z.nullable(z.string()).optional(),
+    fapiModes: z.nullable(z.array(FapiMode$outboundSchema)).optional(),
+    credentialDuration: z.number().int().optional(),
+    credentialIssuerMetadata: z.nullable(
+      z.lazy(() => CredentialIssuerMetadata$outboundSchema),
+    ).optional(),
+    idTokenAudType: z.nullable(z.string()).optional(),
+    nativeSsoSupported: z.boolean().optional(),
+    oid4vciVersion: z.nullable(z.string()).optional(),
+    cimdMetadataPolicyEnabled: z.boolean().optional(),
+    clientIdMetadataDocumentSupported: z.boolean().optional(),
+    cimdAllowlistEnabled: z.boolean().optional(),
+    cimdAllowlist: z.nullable(z.array(z.string())).optional(),
+    cimdAlwaysRetrieved: z.boolean().optional(),
+    cimdHttpPermitted: z.boolean().optional(),
+    cimdQueryPermitted: z.boolean().optional(),
+    cimdMetadataPolicy: z.nullable(z.string()).optional(),
+    httpAliasProhibited: z.boolean().optional(),
+    attestationChallengeTimeWindow: z.number().int().optional(),
+    clientAttesterRootsEnabled: z.boolean().optional(),
+    clientAttesterRootsOnly: z.boolean().optional(),
+    keyAttesterRootsEnabled: z.boolean().optional(),
+    keyAttesterRootsOnly: z.boolean().optional(),
+    clientAttesterRoots: z.nullable(z.array(z.string())).optional(),
+    keyAttesterRoots: z.nullable(z.array(z.string())).optional(),
+    backchannelLogoutSupported: z.boolean().optional(),
+    backchannelLogoutSessionSupported: z.boolean().optional(),
+    haipVersion: z.nullable(z.string()).optional(),
+  })
+);
 
 export function serviceInputToJSON(serviceInput: ServiceInput): string {
   return JSON.stringify(ServiceInput$outboundSchema.parse(serviceInput));

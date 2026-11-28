@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -49,11 +49,13 @@ export const ClientGrantedScopesDeleteApiRequest$outboundSchema: z.ZodType<
   ClientGrantedScopesDeleteApiRequest$Outbound,
   z.ZodTypeDef,
   ClientGrantedScopesDeleteApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  clientId: z.string(),
-  subject: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    clientId: z.string(),
+    subject: z.string(),
+  })
+);
 
 export function clientGrantedScopesDeleteApiRequestToJSON(
   clientGrantedScopesDeleteApiRequest: ClientGrantedScopesDeleteApiRequest,
@@ -70,15 +72,17 @@ export const ClientGrantedScopesDeleteApiResponse$inboundSchema: z.ZodType<
   ClientGrantedScopesDeleteApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.ClientGrantedScopesDeleteResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.ClientGrantedScopesDeleteResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function clientGrantedScopesDeleteApiResponseFromJSON(
   jsonString: string,

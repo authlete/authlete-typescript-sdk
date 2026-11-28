@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -72,14 +72,16 @@ export const AuditEntriesGetIdpApiRequest$outboundSchema: z.ZodType<
   AuditEntriesGetIdpApiRequest$Outbound,
   z.ZodTypeDef,
   AuditEntriesGetIdpApiRequest
-> = z.object({
-  after: z.date().transform(v => v.toISOString()).optional(),
-  before: z.date().transform(v => v.toISOString()).optional(),
-  types: z.array(z.string()).optional(),
-  organizationId: z.number().int().optional(),
-  limit: z.number().int().default(100),
-  cursor: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    after: z.date().transform(v => v.toISOString()).optional(),
+    before: z.date().transform(v => v.toISOString()).optional(),
+    types: z.array(z.string()).optional(),
+    organizationId: z.number().int().optional(),
+    limit: z.number().int().default(100),
+    cursor: z.string().optional(),
+  })
+);
 
 export function auditEntriesGetIdpApiRequestToJSON(
   auditEntriesGetIdpApiRequest: AuditEntriesGetIdpApiRequest,
@@ -96,13 +98,15 @@ export const AuditEntriesGetIdpApiResponse$inboundSchema: z.ZodType<
   AuditEntriesGetIdpApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Result: models.AuditEntriesGetResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Result: models.AuditEntriesGetResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Result": "result",
+    });
+  })
+);
 
 export function auditEntriesGetIdpApiResponseFromJSON(
   jsonString: string,

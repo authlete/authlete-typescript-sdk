@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type FederationRegistrationRequest = {
   /**
@@ -30,10 +31,12 @@ export const FederationRegistrationRequest$outboundSchema: z.ZodType<
   FederationRegistrationRequest$Outbound,
   z.ZodTypeDef,
   FederationRegistrationRequest
-> = z.object({
-  entityConfiguration: z.string().optional(),
-  trustChain: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    entityConfiguration: z.string().optional(),
+    trustChain: z.string().optional(),
+  })
+);
 
 export function federationRegistrationRequestToJSON(
   federationRegistrationRequest: FederationRegistrationRequest,

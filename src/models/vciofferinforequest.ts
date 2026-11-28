@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type VciOfferInfoRequest = {
   /**
@@ -21,9 +22,11 @@ export const VciOfferInfoRequest$outboundSchema: z.ZodType<
   VciOfferInfoRequest$Outbound,
   z.ZodTypeDef,
   VciOfferInfoRequest
-> = z.object({
-  identifier: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    identifier: z.string().optional(),
+  })
+);
 
 export function vciOfferInfoRequestToJSON(
   vciOfferInfoRequest: VciOfferInfoRequest,

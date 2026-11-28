@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
@@ -261,53 +261,57 @@ export type BackchannelAuthenticationResponse = {
 
 /** @internal */
 export const BackchannelAuthenticationResponseAction$inboundSchema:
-  z.ZodNativeEnum<typeof BackchannelAuthenticationResponseAction> = z
-    .nativeEnum(BackchannelAuthenticationResponseAction);
+  z.ZodNativeEnum<typeof BackchannelAuthenticationResponseAction> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(BackchannelAuthenticationResponseAction)
+    );
 
 /** @internal */
 export const BackchannelAuthenticationResponse$inboundSchema: z.ZodType<
   BackchannelAuthenticationResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: BackchannelAuthenticationResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  clientId: z.number().int().optional(),
-  clientIdAlias: z.string().optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  clientName: z.string().optional(),
-  scopes: z.array(Scope$inboundSchema).optional(),
-  claimNames: z.array(z.string()).optional(),
-  clientNotificationToken: z.string().optional(),
-  acrs: z.array(z.string()).optional(),
-  hintType: z.string().optional(),
-  hint: z.string().optional(),
-  sub: z.string().optional(),
-  bindingMessage: z.string().optional(),
-  userCode: z.string().optional(),
-  userCodeRequired: z.boolean().optional(),
-  requestedExpiry: z.number().int().optional(),
-  requestContext: z.string().optional(),
-  warnings: z.array(z.string()).optional(),
-  ticket: z.string().optional(),
-  resources: z.array(z.string()).optional(),
-  authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  serviceAttributes: z.array(Pair$inboundSchema).optional(),
-  clientAttributes: z.array(Pair$inboundSchema).optional(),
-  dynamicScopes: z.array(DynamicScope$inboundSchema).optional(),
-  deliveryMode: DeliveryMode$inboundSchema.optional(),
-  clientAuthMethod: z.string().optional(),
-  gmAction: GrantManagementAction$inboundSchema.optional(),
-  grantId: z.string().optional(),
-  grant: Grant$inboundSchema.optional(),
-  grantSubject: z.string().optional(),
-  clientEntityId: z.string().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  metadataDocumentLocation: z.string().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: BackchannelAuthenticationResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    clientId: z.number().int().optional(),
+    clientIdAlias: z.string().optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    clientName: z.string().optional(),
+    scopes: z.array(Scope$inboundSchema).optional(),
+    claimNames: z.array(z.string()).optional(),
+    clientNotificationToken: z.string().optional(),
+    acrs: z.array(z.string()).optional(),
+    hintType: z.string().optional(),
+    hint: z.string().optional(),
+    sub: z.string().optional(),
+    bindingMessage: z.string().optional(),
+    userCode: z.string().optional(),
+    userCodeRequired: z.boolean().optional(),
+    requestedExpiry: z.number().int().optional(),
+    requestContext: z.string().optional(),
+    warnings: z.array(z.string()).optional(),
+    ticket: z.string().optional(),
+    resources: z.array(z.string()).optional(),
+    authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    serviceAttributes: z.array(Pair$inboundSchema).optional(),
+    clientAttributes: z.array(Pair$inboundSchema).optional(),
+    dynamicScopes: z.array(DynamicScope$inboundSchema).optional(),
+    deliveryMode: DeliveryMode$inboundSchema.optional(),
+    clientAuthMethod: z.string().optional(),
+    gmAction: GrantManagementAction$inboundSchema.optional(),
+    grantId: z.string().optional(),
+    grant: Grant$inboundSchema.optional(),
+    grantSubject: z.string().optional(),
+    clientEntityId: z.string().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    metadataDocumentLocation: z.string().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+  })
+);
 
 export function backchannelAuthenticationResponseFromJSON(
   jsonString: string,

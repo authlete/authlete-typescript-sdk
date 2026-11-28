@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuditLogEntry, AuditLogEntry$inboundSchema } from "./auditlogentry.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -34,11 +34,13 @@ export const AuditEntriesGetResponse$inboundSchema: z.ZodType<
   AuditEntriesGetResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  entries: z.array(AuditLogEntry$inboundSchema).optional(),
-  nextCursor: z.nullable(z.string()).optional(),
-  limit: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    entries: z.array(AuditLogEntry$inboundSchema).optional(),
+    nextCursor: z.nullable(z.string()).optional(),
+    limit: z.number().int().optional(),
+  })
+);
 
 export function auditEntriesGetResponseFromJSON(
   jsonString: string,

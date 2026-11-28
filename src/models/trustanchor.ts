@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -27,10 +27,12 @@ export const TrustAnchor$inboundSchema: z.ZodType<
   TrustAnchor,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  entityId: z.string().optional(),
-  jwks: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    entityId: z.string().optional(),
+    jwks: z.string().optional(),
+  })
+);
 /** @internal */
 export type TrustAnchor$Outbound = {
   entityId?: string | undefined;
@@ -42,10 +44,12 @@ export const TrustAnchor$outboundSchema: z.ZodType<
   TrustAnchor$Outbound,
   z.ZodTypeDef,
   TrustAnchor
-> = z.object({
-  entityId: z.string().optional(),
-  jwks: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    entityId: z.string().optional(),
+    jwks: z.string().optional(),
+  })
+);
 
 export function trustAnchorToJSON(trustAnchor: TrustAnchor): string {
   return JSON.stringify(TrustAnchor$outboundSchema.parse(trustAnchor));

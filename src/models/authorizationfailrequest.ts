@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -61,7 +62,9 @@ export type AuthorizationFailRequest = {
 /** @internal */
 export const AuthorizationFailRequestReason$outboundSchema: z.ZodNativeEnum<
   typeof AuthorizationFailRequestReason
-> = z.nativeEnum(AuthorizationFailRequestReason);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(AuthorizationFailRequestReason)
+);
 
 /** @internal */
 export type AuthorizationFailRequest$Outbound = {
@@ -75,11 +78,13 @@ export const AuthorizationFailRequest$outboundSchema: z.ZodType<
   AuthorizationFailRequest$Outbound,
   z.ZodTypeDef,
   AuthorizationFailRequest
-> = z.object({
-  ticket: z.string(),
-  reason: AuthorizationFailRequestReason$outboundSchema,
-  description: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    ticket: z.string(),
+    reason: AuthorizationFailRequestReason$outboundSchema,
+    description: z.string().optional(),
+  })
+);
 
 export function authorizationFailRequestToJSON(
   authorizationFailRequest: AuthorizationFailRequest,

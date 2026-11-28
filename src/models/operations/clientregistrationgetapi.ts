@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -59,11 +59,13 @@ export const ClientRegistrationGetApiRequestBody$outboundSchema: z.ZodType<
   ClientRegistrationGetApiRequestBody$Outbound,
   z.ZodTypeDef,
   ClientRegistrationGetApiRequestBody
-> = z.object({
-  json: z.string().optional(),
-  token: z.string(),
-  clientId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    json: z.string().optional(),
+    token: z.string(),
+    clientId: z.string(),
+  })
+);
 
 export function clientRegistrationGetApiRequestBodyToJSON(
   clientRegistrationGetApiRequestBody: ClientRegistrationGetApiRequestBody,
@@ -86,14 +88,18 @@ export const ClientRegistrationGetApiRequest$outboundSchema: z.ZodType<
   ClientRegistrationGetApiRequest$Outbound,
   z.ZodTypeDef,
   ClientRegistrationGetApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  requestBody: z.lazy(() => ClientRegistrationGetApiRequestBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    requestBody: z.lazy(() =>
+      ClientRegistrationGetApiRequestBody$outboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function clientRegistrationGetApiRequestToJSON(
   clientRegistrationGetApiRequest: ClientRegistrationGetApiRequest,
@@ -110,15 +116,17 @@ export const ClientRegistrationGetApiResponse$inboundSchema: z.ZodType<
   ClientRegistrationGetApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.ClientRegistrationResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.ClientRegistrationResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function clientRegistrationGetApiResponseFromJSON(
   jsonString: string,

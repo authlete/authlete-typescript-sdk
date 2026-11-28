@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Pair, Pair$Outbound, Pair$outboundSchema } from "./pair.js";
 
 export type IntrospectionRequest = {
@@ -150,25 +151,27 @@ export const IntrospectionRequest$outboundSchema: z.ZodType<
   IntrospectionRequest$Outbound,
   z.ZodTypeDef,
   IntrospectionRequest
-> = z.object({
-  token: z.string(),
-  scopes: z.array(z.string()).optional(),
-  subject: z.string().optional(),
-  clientCertificate: z.string().optional(),
-  dpop: z.string().optional(),
-  htm: z.string().optional(),
-  htu: z.string().optional(),
-  resources: z.array(z.string()).optional(),
-  acrValues: z.array(z.string()).optional(),
-  maxAge: z.number().int().optional(),
-  requiredComponents: z.array(z.string()).optional(),
-  uri: z.string().optional(),
-  message: z.string().optional(),
-  headers: z.array(Pair$outboundSchema).optional(),
-  targetUri: z.string().optional(),
-  dpopNonceRequired: z.boolean().optional(),
-  requestBodyContained: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    token: z.string(),
+    scopes: z.array(z.string()).optional(),
+    subject: z.string().optional(),
+    clientCertificate: z.string().optional(),
+    dpop: z.string().optional(),
+    htm: z.string().optional(),
+    htu: z.string().optional(),
+    resources: z.array(z.string()).optional(),
+    acrValues: z.array(z.string()).optional(),
+    maxAge: z.number().int().optional(),
+    requiredComponents: z.array(z.string()).optional(),
+    uri: z.string().optional(),
+    message: z.string().optional(),
+    headers: z.array(Pair$outboundSchema).optional(),
+    targetUri: z.string().optional(),
+    dpopNonceRequired: z.boolean().optional(),
+    requestBodyContained: z.boolean().optional(),
+  })
+);
 
 export function introspectionRequestToJSON(
   introspectionRequest: IntrospectionRequest,

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Pair, Pair$Outbound, Pair$outboundSchema } from "./pair.js";
 
 export type UserinfoIssueRequest = {
@@ -66,15 +67,17 @@ export const UserinfoIssueRequest$outboundSchema: z.ZodType<
   UserinfoIssueRequest$Outbound,
   z.ZodTypeDef,
   UserinfoIssueRequest
-> = z.object({
-  token: z.string(),
-  claims: z.string().optional(),
-  sub: z.string().optional(),
-  claimsForTx: z.string().optional(),
-  requestSignature: z.string().optional(),
-  headers: z.array(Pair$outboundSchema).optional(),
-  verifiedClaimsForTx: z.array(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    token: z.string(),
+    claims: z.string().optional(),
+    sub: z.string().optional(),
+    claimsForTx: z.string().optional(),
+    requestSignature: z.string().optional(),
+    headers: z.array(Pair$outboundSchema).optional(),
+    verifiedClaimsForTx: z.array(z.string()).optional(),
+  })
+);
 
 export function userinfoIssueRequestToJSON(
   userinfoIssueRequest: UserinfoIssueRequest,

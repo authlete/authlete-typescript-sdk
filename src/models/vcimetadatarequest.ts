@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type VciMetadataRequest = {
   /**
@@ -23,9 +24,11 @@ export const VciMetadataRequest$outboundSchema: z.ZodType<
   VciMetadataRequest$Outbound,
   z.ZodTypeDef,
   VciMetadataRequest
-> = z.object({
-  pretty: z.boolean(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    pretty: z.boolean(),
+  })
+);
 
 export function vciMetadataRequestToJSON(
   vciMetadataRequest: VciMetadataRequest,

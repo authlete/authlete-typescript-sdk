@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
@@ -230,47 +230,51 @@ export type DeviceAuthorizationResponse = {
 /** @internal */
 export const DeviceAuthorizationResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof DeviceAuthorizationResponseAction
-> = z.nativeEnum(DeviceAuthorizationResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeviceAuthorizationResponseAction)
+);
 
 /** @internal */
 export const DeviceAuthorizationResponse$inboundSchema: z.ZodType<
   DeviceAuthorizationResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: DeviceAuthorizationResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  clientId: z.number().int().optional(),
-  clientIdAlias: z.string().optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  clientName: z.string().optional(),
-  clientAuthMethod: z.string().optional(),
-  scopes: z.array(Scope$inboundSchema).optional(),
-  claimNames: z.array(z.string()).optional(),
-  acrs: z.array(z.string()).optional(),
-  deviceCode: z.string().optional(),
-  userCode: z.string().optional(),
-  verificationUri: z.string().optional(),
-  verificationUriComplete: z.string().optional(),
-  expiresIn: z.number().int().optional(),
-  interval: z.number().int().optional(),
-  warnings: z.array(z.string()).optional(),
-  resources: z.array(z.string()).optional(),
-  authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  serviceAttributes: z.array(Pair$inboundSchema).optional(),
-  clientAttributes: z.array(Pair$inboundSchema).optional(),
-  dynamicScopes: z.array(DynamicScope$inboundSchema).optional(),
-  gmAction: GrantManagementAction$inboundSchema.optional(),
-  grantId: z.string().optional(),
-  grant: Grant$inboundSchema.optional(),
-  grantSubject: z.string().optional(),
-  clientEntityId: z.string().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  metadataDocumentLocation: z.string().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: DeviceAuthorizationResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    clientId: z.number().int().optional(),
+    clientIdAlias: z.string().optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    clientName: z.string().optional(),
+    clientAuthMethod: z.string().optional(),
+    scopes: z.array(Scope$inboundSchema).optional(),
+    claimNames: z.array(z.string()).optional(),
+    acrs: z.array(z.string()).optional(),
+    deviceCode: z.string().optional(),
+    userCode: z.string().optional(),
+    verificationUri: z.string().optional(),
+    verificationUriComplete: z.string().optional(),
+    expiresIn: z.number().int().optional(),
+    interval: z.number().int().optional(),
+    warnings: z.array(z.string()).optional(),
+    resources: z.array(z.string()).optional(),
+    authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    serviceAttributes: z.array(Pair$inboundSchema).optional(),
+    clientAttributes: z.array(Pair$inboundSchema).optional(),
+    dynamicScopes: z.array(DynamicScope$inboundSchema).optional(),
+    gmAction: GrantManagementAction$inboundSchema.optional(),
+    grantId: z.string().optional(),
+    grant: Grant$inboundSchema.optional(),
+    grantSubject: z.string().optional(),
+    clientEntityId: z.string().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    metadataDocumentLocation: z.string().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+  })
+);
 
 export function deviceAuthorizationResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -39,16 +39,18 @@ export const BackchannelAuthenticationFailApiRequest$outboundSchema: z.ZodType<
   BackchannelAuthenticationFailApiRequest$Outbound,
   z.ZodTypeDef,
   BackchannelAuthenticationFailApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  backchannelAuthenticationFailRequest:
-    models.BackchannelAuthenticationFailRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
     backchannelAuthenticationFailRequest:
-      "backchannel_authentication_fail_request",
-  });
-});
+      models.BackchannelAuthenticationFailRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      backchannelAuthenticationFailRequest:
+        "backchannel_authentication_fail_request",
+    });
+  })
+);
 
 export function backchannelAuthenticationFailApiRequestToJSON(
   backchannelAuthenticationFailApiRequest:
@@ -66,15 +68,17 @@ export const BackchannelAuthenticationFailApiResponse$inboundSchema: z.ZodType<
   BackchannelAuthenticationFailApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.BackchannelAuthenticationFailResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.BackchannelAuthenticationFailResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function backchannelAuthenticationFailApiResponseFromJSON(
   jsonString: string,

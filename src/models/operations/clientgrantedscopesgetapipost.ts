@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -49,9 +49,11 @@ export const ClientGrantedScopesGetApiPostRequestBody$outboundSchema: z.ZodType<
   ClientGrantedScopesGetApiPostRequestBody$Outbound,
   z.ZodTypeDef,
   ClientGrantedScopesGetApiPostRequestBody
-> = z.object({
-  subject: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    subject: z.string(),
+  })
+);
 
 export function clientGrantedScopesGetApiPostRequestBodyToJSON(
   clientGrantedScopesGetApiPostRequestBody:
@@ -76,17 +78,19 @@ export const ClientGrantedScopesGetApiPostRequest$outboundSchema: z.ZodType<
   ClientGrantedScopesGetApiPostRequest$Outbound,
   z.ZodTypeDef,
   ClientGrantedScopesGetApiPostRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  clientId: z.string(),
-  requestBody: z.lazy(() =>
-    ClientGrantedScopesGetApiPostRequestBody$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    clientId: z.string(),
+    requestBody: z.lazy(() =>
+      ClientGrantedScopesGetApiPostRequestBody$outboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function clientGrantedScopesGetApiPostRequestToJSON(
   clientGrantedScopesGetApiPostRequest: ClientGrantedScopesGetApiPostRequest,
@@ -103,15 +107,17 @@ export const ClientGrantedScopesGetApiPostResponse$inboundSchema: z.ZodType<
   ClientGrantedScopesGetApiPostResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.ClientAuthorizationDeleteResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.ClientAuthorizationDeleteResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function clientGrantedScopesGetApiPostResponseFromJSON(
   jsonString: string,

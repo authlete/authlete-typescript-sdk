@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -53,20 +53,24 @@ export type IdtokenReissueResponse = {
 /** @internal */
 export const IdtokenReissueResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof IdtokenReissueResponseAction
-> = z.nativeEnum(IdtokenReissueResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(IdtokenReissueResponseAction)
+);
 
 /** @internal */
 export const IdtokenReissueResponse$inboundSchema: z.ZodType<
   IdtokenReissueResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: IdtokenReissueResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  idToken: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: IdtokenReissueResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    idToken: z.string().optional(),
+  })
+);
 
 export function idtokenReissueResponseFromJSON(
   jsonString: string,

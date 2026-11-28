@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -45,9 +45,11 @@ export const FederationConfigurationApiRequestBody$outboundSchema: z.ZodType<
   FederationConfigurationApiRequestBody$Outbound,
   z.ZodTypeDef,
   FederationConfigurationApiRequestBody
-> = z.object({
-  entityTypes: z.array(models.EntityType$outboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    entityTypes: z.array(models.EntityType$outboundSchema).optional(),
+  })
+);
 
 export function federationConfigurationApiRequestBodyToJSON(
   federationConfigurationApiRequestBody: FederationConfigurationApiRequestBody,
@@ -70,16 +72,18 @@ export const FederationConfigurationApiRequest$outboundSchema: z.ZodType<
   FederationConfigurationApiRequest$Outbound,
   z.ZodTypeDef,
   FederationConfigurationApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  requestBody: z.lazy(() =>
-    FederationConfigurationApiRequestBody$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    requestBody: z.lazy(() =>
+      FederationConfigurationApiRequestBody$outboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function federationConfigurationApiRequestToJSON(
   federationConfigurationApiRequest: FederationConfigurationApiRequest,
@@ -96,15 +100,17 @@ export const FederationConfigurationApiResponse$inboundSchema: z.ZodType<
   FederationConfigurationApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.FederationConfigurationResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.FederationConfigurationResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function federationConfigurationApiResponseFromJSON(
   jsonString: string,

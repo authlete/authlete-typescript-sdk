@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -93,28 +93,34 @@ export type PushedAuthorizationResponse = {
 /** @internal */
 export const PushedAuthorizationResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof PushedAuthorizationResponseAction
-> = z.nativeEnum(PushedAuthorizationResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PushedAuthorizationResponseAction)
+);
 
 /** @internal */
 export const PushedAuthorizationResponseClientAuthMethod$inboundSchema:
-  z.ZodNativeEnum<typeof PushedAuthorizationResponseClientAuthMethod> = z
-    .nativeEnum(PushedAuthorizationResponseClientAuthMethod);
+  z.ZodNativeEnum<typeof PushedAuthorizationResponseClientAuthMethod> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PushedAuthorizationResponseClientAuthMethod)
+    );
 
 /** @internal */
 export const PushedAuthorizationResponse$inboundSchema: z.ZodType<
   PushedAuthorizationResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: PushedAuthorizationResponseAction$inboundSchema.optional(),
-  requestUri: z.string().optional(),
-  responseContent: z.string().optional(),
-  clientAuthMethod: PushedAuthorizationResponseClientAuthMethod$inboundSchema
-    .optional(),
-  dpopNonce: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: PushedAuthorizationResponseAction$inboundSchema.optional(),
+    requestUri: z.string().optional(),
+    responseContent: z.string().optional(),
+    clientAuthMethod: PushedAuthorizationResponseClientAuthMethod$inboundSchema
+      .optional(),
+    dpopNonce: z.string().optional(),
+  })
+);
 
 export function pushedAuthorizationResponseFromJSON(
   jsonString: string,

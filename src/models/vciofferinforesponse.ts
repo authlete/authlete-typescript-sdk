@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
@@ -48,19 +48,21 @@ export type VciOfferInfoResponse = {
 /** @internal */
 export const VciOfferInfoResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof VciOfferInfoResponseAction
-> = z.nativeEnum(VciOfferInfoResponseAction);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(VciOfferInfoResponseAction));
 
 /** @internal */
 export const VciOfferInfoResponse$inboundSchema: z.ZodType<
   VciOfferInfoResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: VciOfferInfoResponseAction$inboundSchema.optional(),
-  info: CredentialOfferInfo$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: VciOfferInfoResponseAction$inboundSchema.optional(),
+    info: CredentialOfferInfo$inboundSchema.optional(),
+  })
+);
 
 export function vciOfferInfoResponseFromJSON(
   jsonString: string,

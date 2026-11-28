@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const AuthUserinfoApiRequest$outboundSchema: z.ZodType<
   AuthUserinfoApiRequest$Outbound,
   z.ZodTypeDef,
   AuthUserinfoApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  userinfoRequest: models.UserinfoRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    userinfoRequest: "userinfo_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    userinfoRequest: models.UserinfoRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      userinfoRequest: "userinfo_request",
+    });
+  })
+);
 
 export function authUserinfoApiRequestToJSON(
   authUserinfoApiRequest: AuthUserinfoApiRequest,
@@ -59,15 +61,17 @@ export const AuthUserinfoApiResponse$inboundSchema: z.ZodType<
   AuthUserinfoApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.UserinfoResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.UserinfoResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function authUserinfoApiResponseFromJSON(
   jsonString: string,

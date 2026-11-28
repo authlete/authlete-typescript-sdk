@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AuthorizationDetailsElement,
@@ -82,21 +82,23 @@ export const TokenInfo$inboundSchema: z.ZodType<
   TokenInfo,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  clientId: z.number().int().optional(),
-  clientIdAlias: z.string().optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  subject: z.string().optional(),
-  scopes: z.array(Scope$inboundSchema).optional(),
-  expiresAt: z.number().int().optional(),
-  properties: z.array(Property$inboundSchema).optional(),
-  resources: z.array(z.string()).optional(),
-  authorizationDetails: AuthorizationDetailsElement$inboundSchema.optional(),
-  clientEntityId: z.string().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  metadataDocumentLocation: z.string().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    clientId: z.number().int().optional(),
+    clientIdAlias: z.string().optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    subject: z.string().optional(),
+    scopes: z.array(Scope$inboundSchema).optional(),
+    expiresAt: z.number().int().optional(),
+    properties: z.array(Property$inboundSchema).optional(),
+    resources: z.array(z.string()).optional(),
+    authorizationDetails: AuthorizationDetailsElement$inboundSchema.optional(),
+    clientEntityId: z.string().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    metadataDocumentLocation: z.string().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+  })
+);
 
 export function tokenInfoFromJSON(
   jsonString: string,

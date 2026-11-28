@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -41,10 +41,12 @@ export const ClientExtensionRequestablesScopesDeleteApiRequest$outboundSchema:
     ClientExtensionRequestablesScopesDeleteApiRequest$Outbound,
     z.ZodTypeDef,
     ClientExtensionRequestablesScopesDeleteApiRequest
-  > = z.object({
-    serviceId: z.string().optional(),
-    clientId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      serviceId: z.string().optional(),
+      clientId: z.string(),
+    })
+  );
 
 export function clientExtensionRequestablesScopesDeleteApiRequestToJSON(
   clientExtensionRequestablesScopesDeleteApiRequest:
@@ -63,13 +65,15 @@ export const ClientExtensionRequestablesScopesDeleteApiResponse$inboundSchema:
     ClientExtensionRequestablesScopesDeleteApiResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    Headers: z.record(z.array(z.string())).default({}),
-  }).transform((v) => {
-    return remap$(v, {
-      "Headers": "headers",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      Headers: z.record(z.array(z.string())).default({}),
+    }).transform((v) => {
+      return remap$(v, {
+        "Headers": "headers",
+      });
+    })
+  );
 
 export function clientExtensionRequestablesScopesDeleteApiResponseFromJSON(
   jsonString: string,

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AccessToken, AccessToken$inboundSchema } from "./accesstoken.js";
 import { Client, Client$inboundSchema } from "./client.js";
@@ -48,14 +48,16 @@ export const TokenGetListResponse$inboundSchema: z.ZodType<
   TokenGetListResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  start: z.number().int().optional(),
-  end: z.number().int().optional(),
-  totalCount: z.number().int().optional(),
-  client: Client$inboundSchema.optional(),
-  subject: z.string().optional(),
-  accessTokens: z.array(AccessToken$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    start: z.number().int().optional(),
+    end: z.number().int().optional(),
+    totalCount: z.number().int().optional(),
+    client: Client$inboundSchema.optional(),
+    subject: z.string().optional(),
+    accessTokens: z.array(AccessToken$inboundSchema).optional(),
+  })
+);
 
 export function tokenGetListResponseFromJSON(
   jsonString: string,

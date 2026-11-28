@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
@@ -57,20 +57,24 @@ export type VciBatchParseResponse = {
 /** @internal */
 export const VciBatchParseResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof VciBatchParseResponseAction
-> = z.nativeEnum(VciBatchParseResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(VciBatchParseResponseAction)
+);
 
 /** @internal */
 export const VciBatchParseResponse$inboundSchema: z.ZodType<
   VciBatchParseResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: VciBatchParseResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  info: z.array(CredentialRequestInfo$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: VciBatchParseResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    info: z.array(CredentialRequestInfo$inboundSchema).optional(),
+  })
+);
 
 export function vciBatchParseResponseFromJSON(
   jsonString: string,

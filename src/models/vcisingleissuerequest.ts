@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   CredentialIssuanceOrder,
   CredentialIssuanceOrder$Outbound,
@@ -40,12 +41,14 @@ export const VciSingleIssueRequest$outboundSchema: z.ZodType<
   VciSingleIssueRequest$Outbound,
   z.ZodTypeDef,
   VciSingleIssueRequest
-> = z.object({
-  accessToken: z.string().optional(),
-  order: CredentialIssuanceOrder$outboundSchema.optional(),
-  denied: z.boolean().optional(),
-  interval: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accessToken: z.string().optional(),
+    order: CredentialIssuanceOrder$outboundSchema.optional(),
+    denied: z.boolean().optional(),
+    interval: z.number().int().optional(),
+  })
+);
 
 export function vciSingleIssueRequestToJSON(
   vciSingleIssueRequest: VciSingleIssueRequest,

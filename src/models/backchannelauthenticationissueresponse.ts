@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -64,23 +64,28 @@ export type BackchannelAuthenticationIssueResponse = {
 
 /** @internal */
 export const BackchannelAuthenticationIssueResponseAction$inboundSchema:
-  z.ZodNativeEnum<typeof BackchannelAuthenticationIssueResponseAction> = z
-    .nativeEnum(BackchannelAuthenticationIssueResponseAction);
+  z.ZodNativeEnum<typeof BackchannelAuthenticationIssueResponseAction> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(BackchannelAuthenticationIssueResponseAction)
+    );
 
 /** @internal */
 export const BackchannelAuthenticationIssueResponse$inboundSchema: z.ZodType<
   BackchannelAuthenticationIssueResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: BackchannelAuthenticationIssueResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  authReqId: z.string().optional(),
-  expiresIn: z.number().int().optional(),
-  interval: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: BackchannelAuthenticationIssueResponseAction$inboundSchema
+      .optional(),
+    responseContent: z.string().optional(),
+    authReqId: z.string().optional(),
+    expiresIn: z.number().int().optional(),
+    interval: z.number().int().optional(),
+  })
+);
 
 export function backchannelAuthenticationIssueResponseFromJSON(
   jsonString: string,

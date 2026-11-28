@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type VciJwksRequest = {
   /**
@@ -23,9 +24,11 @@ export const VciJwksRequest$outboundSchema: z.ZodType<
   VciJwksRequest$Outbound,
   z.ZodTypeDef,
   VciJwksRequest
-> = z.object({
-  pretty: z.boolean(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    pretty: z.boolean(),
+  })
+);
 
 export function vciJwksRequestToJSON(vciJwksRequest: VciJwksRequest): string {
   return JSON.stringify(VciJwksRequest$outboundSchema.parse(vciJwksRequest));

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
@@ -328,68 +328,70 @@ export type TokenResponse = {
 /** @internal */
 export const TokenResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof TokenResponseAction
-> = z.nativeEnum(TokenResponseAction);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(TokenResponseAction));
 
 /** @internal */
 export const TokenResponse$inboundSchema: z.ZodType<
   TokenResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: TokenResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  ticket: z.string().optional(),
-  accessToken: z.string().optional(),
-  accessTokenExpiresAt: z.number().int().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  refreshToken: z.string().optional(),
-  refreshTokenExpiresAt: z.number().int().optional(),
-  refreshTokenDuration: z.number().int().optional(),
-  idToken: z.string().optional(),
-  grantType: z.string().optional(),
-  clientId: z.number().int().optional(),
-  clientIdAlias: z.string().optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  subject: z.string().optional(),
-  scopes: z.array(z.string()).optional(),
-  properties: z.array(Property$inboundSchema).optional(),
-  jwtAccessToken: z.string().optional(),
-  resources: z.array(z.string()).optional(),
-  accessTokenResources: z.array(z.string()).optional(),
-  authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  additionalClaims: z.string().optional(),
-  serviceAttributes: z.array(Pair$inboundSchema).optional(),
-  clientAttributes: z.array(Pair$inboundSchema).optional(),
-  clientAuthMethod: z.string().optional(),
-  grantId: z.string().optional(),
-  audiences: z.array(z.string()).optional(),
-  requestedTokenType: TokenType$inboundSchema.optional(),
-  subjectToken: z.string().optional(),
-  subjectTokenType: TokenType$inboundSchema.optional(),
-  subjectTokenInfo: TokenInfo$inboundSchema.optional(),
-  actorToken: z.string().optional(),
-  actorTokenType: TokenType$inboundSchema.optional(),
-  actorTokenInfo: TokenInfo$inboundSchema.optional(),
-  assertion: z.string().optional(),
-  previousRefreshTokenUsed: z.boolean().optional(),
-  clientEntityId: z.string().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  cnonceDuration: z.number().int().optional(),
-  dpopNonce: z.string().optional(),
-  cnonce: z.string().optional(),
-  cnonceExpiresAt: z.number().int().optional(),
-  requestedIdTokenClaims: z.array(z.string()).optional(),
-  refreshTokenScopes: z.array(z.string()).optional(),
-  sessionId: z.string().optional(),
-  deviceSecret: z.string().optional(),
-  deviceSecretHash: z.string().optional(),
-  metadataDocumentLocation: z.string().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: TokenResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    ticket: z.string().optional(),
+    accessToken: z.string().optional(),
+    accessTokenExpiresAt: z.number().int().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    refreshToken: z.string().optional(),
+    refreshTokenExpiresAt: z.number().int().optional(),
+    refreshTokenDuration: z.number().int().optional(),
+    idToken: z.string().optional(),
+    grantType: z.string().optional(),
+    clientId: z.number().int().optional(),
+    clientIdAlias: z.string().optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    subject: z.string().optional(),
+    scopes: z.array(z.string()).optional(),
+    properties: z.array(Property$inboundSchema).optional(),
+    jwtAccessToken: z.string().optional(),
+    resources: z.array(z.string()).optional(),
+    accessTokenResources: z.array(z.string()).optional(),
+    authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    additionalClaims: z.string().optional(),
+    serviceAttributes: z.array(Pair$inboundSchema).optional(),
+    clientAttributes: z.array(Pair$inboundSchema).optional(),
+    clientAuthMethod: z.string().optional(),
+    grantId: z.string().optional(),
+    audiences: z.array(z.string()).optional(),
+    requestedTokenType: TokenType$inboundSchema.optional(),
+    subjectToken: z.string().optional(),
+    subjectTokenType: TokenType$inboundSchema.optional(),
+    subjectTokenInfo: TokenInfo$inboundSchema.optional(),
+    actorToken: z.string().optional(),
+    actorTokenType: TokenType$inboundSchema.optional(),
+    actorTokenInfo: TokenInfo$inboundSchema.optional(),
+    assertion: z.string().optional(),
+    previousRefreshTokenUsed: z.boolean().optional(),
+    clientEntityId: z.string().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    cnonceDuration: z.number().int().optional(),
+    dpopNonce: z.string().optional(),
+    cnonce: z.string().optional(),
+    cnonceExpiresAt: z.number().int().optional(),
+    requestedIdTokenClaims: z.array(z.string()).optional(),
+    refreshTokenScopes: z.array(z.string()).optional(),
+    sessionId: z.string().optional(),
+    deviceSecret: z.string().optional(),
+    deviceSecretHash: z.string().optional(),
+    metadataDocumentLocation: z.string().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+  })
+);
 
 export function tokenResponseFromJSON(
   jsonString: string,

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -57,14 +57,16 @@ export const ClientExtension$inboundSchema: z.ZodType<
   ClientExtension,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  requestableScopes: z.array(z.string()).optional(),
-  requestableScopesEnabled: z.boolean().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  refreshTokenDuration: z.number().int().optional(),
-  idTokenDuration: z.number().int().optional(),
-  tokenExchangePermitted: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    requestableScopes: z.array(z.string()).optional(),
+    requestableScopesEnabled: z.boolean().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    refreshTokenDuration: z.number().int().optional(),
+    idTokenDuration: z.number().int().optional(),
+    tokenExchangePermitted: z.boolean().optional(),
+  })
+);
 /** @internal */
 export type ClientExtension$Outbound = {
   requestableScopes?: Array<string> | undefined;
@@ -80,14 +82,16 @@ export const ClientExtension$outboundSchema: z.ZodType<
   ClientExtension$Outbound,
   z.ZodTypeDef,
   ClientExtension
-> = z.object({
-  requestableScopes: z.array(z.string()).optional(),
-  requestableScopesEnabled: z.boolean().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  refreshTokenDuration: z.number().int().optional(),
-  idTokenDuration: z.number().int().optional(),
-  tokenExchangePermitted: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    requestableScopes: z.array(z.string()).optional(),
+    requestableScopesEnabled: z.boolean().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    refreshTokenDuration: z.number().int().optional(),
+    idTokenDuration: z.number().int().optional(),
+    tokenExchangePermitted: z.boolean().optional(),
+  })
+);
 
 export function clientExtensionToJSON(
   clientExtension: ClientExtension,

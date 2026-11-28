@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   Property,
   Property$Outbound,
@@ -74,15 +75,17 @@ export const TokenIssueRequest$outboundSchema: z.ZodType<
   TokenIssueRequest$Outbound,
   z.ZodTypeDef,
   TokenIssueRequest
-> = z.object({
-  ticket: z.string(),
-  subject: z.string(),
-  properties: z.array(Property$outboundSchema).optional(),
-  jwtAtClaims: z.string().optional(),
-  accessToken: z.string().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  refreshTokenDuration: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    ticket: z.string(),
+    subject: z.string(),
+    properties: z.array(Property$outboundSchema).optional(),
+    jwtAtClaims: z.string().optional(),
+    accessToken: z.string().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    refreshTokenDuration: z.number().int().optional(),
+  })
+);
 
 export function tokenIssueRequestToJSON(
   tokenIssueRequest: TokenIssueRequest,

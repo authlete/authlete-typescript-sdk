@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -21,9 +21,11 @@ export const AuthorizationTicketInfo$inboundSchema: z.ZodType<
   AuthorizationTicketInfo,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  context: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    context: z.string().optional(),
+  })
+);
 /** @internal */
 export type AuthorizationTicketInfo$Outbound = {
   context?: string | undefined;
@@ -34,9 +36,11 @@ export const AuthorizationTicketInfo$outboundSchema: z.ZodType<
   AuthorizationTicketInfo$Outbound,
   z.ZodTypeDef,
   AuthorizationTicketInfo
-> = z.object({
-  context: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    context: z.string().optional(),
+  })
+);
 
 export function authorizationTicketInfoToJSON(
   authorizationTicketInfo: AuthorizationTicketInfo,

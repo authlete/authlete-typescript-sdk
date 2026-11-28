@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type HskCreateRequest = {
   /**
@@ -53,13 +54,15 @@ export const HskCreateRequest$outboundSchema: z.ZodType<
   HskCreateRequest$Outbound,
   z.ZodTypeDef,
   HskCreateRequest
-> = z.object({
-  kty: z.string().optional(),
-  use: z.string().optional(),
-  kid: z.string().optional(),
-  hsmName: z.string().optional(),
-  alg: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    kty: z.string().optional(),
+    use: z.string().optional(),
+    kid: z.string().optional(),
+    hsmName: z.string().optional(),
+    alg: z.string().optional(),
+  })
+);
 
 export function hskCreateRequestToJSON(
   hskCreateRequest: HskCreateRequest,

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type BackchannelLogoutTokenRequest = {
   /**
@@ -37,11 +38,13 @@ export const BackchannelLogoutTokenRequest$outboundSchema: z.ZodType<
   BackchannelLogoutTokenRequest$Outbound,
   z.ZodTypeDef,
   BackchannelLogoutTokenRequest
-> = z.object({
-  clientIdentifier: z.string(),
-  subject: z.string().optional(),
-  sessionId: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    clientIdentifier: z.string(),
+    subject: z.string().optional(),
+    sessionId: z.string().optional(),
+  })
+);
 
 export function backchannelLogoutTokenRequestToJSON(
   backchannelLogoutTokenRequest: BackchannelLogoutTokenRequest,

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
@@ -146,35 +146,37 @@ export type TokenCreateResponse = {
 /** @internal */
 export const TokenCreateResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof TokenCreateResponseAction
-> = z.nativeEnum(TokenCreateResponseAction);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(TokenCreateResponseAction));
 
 /** @internal */
 export const TokenCreateResponse$inboundSchema: z.ZodType<
   TokenCreateResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: TokenCreateResponseAction$inboundSchema.optional(),
-  accessToken: z.string().optional(),
-  clientId: z.number().int().optional(),
-  expiresAt: z.number().int().optional(),
-  expiresIn: z.number().int().optional(),
-  grantType: z.string().optional(),
-  properties: z.array(Property$inboundSchema).optional(),
-  refreshToken: z.string().optional(),
-  scopes: z.array(z.string()).optional(),
-  subject: z.string().optional(),
-  tokenType: z.string().optional(),
-  jwtAccessToken: z.string().optional(),
-  authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  forExternalAttachment: z.boolean().optional(),
-  tokenId: z.string().optional(),
-  refreshTokenScopes: z.array(z.string()).optional(),
-  clientIdentifier: z.string().optional(),
-  sessionId: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: TokenCreateResponseAction$inboundSchema.optional(),
+    accessToken: z.string().optional(),
+    clientId: z.number().int().optional(),
+    expiresAt: z.number().int().optional(),
+    expiresIn: z.number().int().optional(),
+    grantType: z.string().optional(),
+    properties: z.array(Property$inboundSchema).optional(),
+    refreshToken: z.string().optional(),
+    scopes: z.array(z.string()).optional(),
+    subject: z.string().optional(),
+    tokenType: z.string().optional(),
+    jwtAccessToken: z.string().optional(),
+    authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    forExternalAttachment: z.boolean().optional(),
+    tokenId: z.string().optional(),
+    refreshTokenScopes: z.array(z.string()).optional(),
+    clientIdentifier: z.string().optional(),
+    sessionId: z.string().optional(),
+  })
+);
 
 export function tokenCreateResponseFromJSON(
   jsonString: string,

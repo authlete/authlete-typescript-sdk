@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const VciDeferredIssueApiRequest$outboundSchema: z.ZodType<
   VciDeferredIssueApiRequest$Outbound,
   z.ZodTypeDef,
   VciDeferredIssueApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  vciDeferredIssueRequest: models.VciDeferredIssueRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    vciDeferredIssueRequest: "vci_deferred_issue_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    vciDeferredIssueRequest: models.VciDeferredIssueRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      vciDeferredIssueRequest: "vci_deferred_issue_request",
+    });
+  })
+);
 
 export function vciDeferredIssueApiRequestToJSON(
   vciDeferredIssueApiRequest: VciDeferredIssueApiRequest,
@@ -59,15 +61,17 @@ export const VciDeferredIssueApiResponse$inboundSchema: z.ZodType<
   VciDeferredIssueApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.VciDeferredIssueResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.VciDeferredIssueResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function vciDeferredIssueApiResponseFromJSON(
   jsonString: string,

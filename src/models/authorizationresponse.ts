@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
@@ -332,55 +332,59 @@ export type AuthorizationResponse = {
 /** @internal */
 export const AuthorizationResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof AuthorizationResponseAction
-> = z.nativeEnum(AuthorizationResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(AuthorizationResponseAction)
+);
 
 /** @internal */
 export const AuthorizationResponse$inboundSchema: z.ZodType<
   AuthorizationResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: AuthorizationResponseAction$inboundSchema.optional(),
-  client: Client$inboundSchema.optional(),
-  display: Display$inboundSchema.optional(),
-  maxAge: z.number().int().optional(),
-  service: Service$inboundSchema.optional(),
-  scopes: z.array(Scope$inboundSchema).optional(),
-  uiLocales: z.array(z.string()).optional(),
-  claimsLocales: z.array(z.string()).optional(),
-  claims: z.array(z.string()).optional(),
-  acrEssential: z.boolean().optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  acrs: z.array(z.string()).optional(),
-  subject: z.string().optional(),
-  loginHint: z.string().optional(),
-  prompts: z.array(Prompt$inboundSchema).optional(),
-  lowestPrompt: Prompt$inboundSchema.optional(),
-  requestObjectPayload: z.string().optional(),
-  idTokenClaims: z.string().optional(),
-  userInfoClaims: z.string().optional(),
-  resources: z.array(z.string()).optional(),
-  authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  purpose: z.string().optional(),
-  responseContent: z.string().optional(),
-  ticket: z.string().optional(),
-  dynamicScopes: z.array(DynamicScope$inboundSchema).optional(),
-  gmAction: GrantManagementAction$inboundSchema.optional(),
-  grantId: z.string().optional(),
-  grant: Grant$inboundSchema.optional(),
-  grantSubject: z.string().optional(),
-  requestedClaimsForTx: z.array(z.string()).optional(),
-  requestedVerifiedClaimsForTx: z.array(z.array(z.string())).optional(),
-  transformedClaims: z.string().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  claimsAtUserInfo: z.array(z.string()).optional(),
-  credentialOfferInfo: CredentialOfferInfo$inboundSchema.optional(),
-  issuableCredentials: z.string().optional(),
-  nativeSsoRequested: z.boolean().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: AuthorizationResponseAction$inboundSchema.optional(),
+    client: Client$inboundSchema.optional(),
+    display: Display$inboundSchema.optional(),
+    maxAge: z.number().int().optional(),
+    service: Service$inboundSchema.optional(),
+    scopes: z.array(Scope$inboundSchema).optional(),
+    uiLocales: z.array(z.string()).optional(),
+    claimsLocales: z.array(z.string()).optional(),
+    claims: z.array(z.string()).optional(),
+    acrEssential: z.boolean().optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    acrs: z.array(z.string()).optional(),
+    subject: z.string().optional(),
+    loginHint: z.string().optional(),
+    prompts: z.array(Prompt$inboundSchema).optional(),
+    lowestPrompt: Prompt$inboundSchema.optional(),
+    requestObjectPayload: z.string().optional(),
+    idTokenClaims: z.string().optional(),
+    userInfoClaims: z.string().optional(),
+    resources: z.array(z.string()).optional(),
+    authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    purpose: z.string().optional(),
+    responseContent: z.string().optional(),
+    ticket: z.string().optional(),
+    dynamicScopes: z.array(DynamicScope$inboundSchema).optional(),
+    gmAction: GrantManagementAction$inboundSchema.optional(),
+    grantId: z.string().optional(),
+    grant: Grant$inboundSchema.optional(),
+    grantSubject: z.string().optional(),
+    requestedClaimsForTx: z.array(z.string()).optional(),
+    requestedVerifiedClaimsForTx: z.array(z.array(z.string())).optional(),
+    transformedClaims: z.string().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    claimsAtUserInfo: z.array(z.string()).optional(),
+    credentialOfferInfo: CredentialOfferInfo$inboundSchema.optional(),
+    issuableCredentials: z.string().optional(),
+    nativeSsoRequested: z.boolean().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+  })
+);
 
 export function authorizationResponseFromJSON(
   jsonString: string,

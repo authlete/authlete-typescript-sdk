@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -23,10 +23,12 @@ export const TaggedValue$inboundSchema: z.ZodType<
   TaggedValue,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  tag: z.string().optional(),
-  value: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    tag: z.string().optional(),
+    value: z.string().optional(),
+  })
+);
 /** @internal */
 export type TaggedValue$Outbound = {
   tag?: string | undefined;
@@ -38,10 +40,12 @@ export const TaggedValue$outboundSchema: z.ZodType<
   TaggedValue$Outbound,
   z.ZodTypeDef,
   TaggedValue
-> = z.object({
-  tag: z.string().optional(),
-  value: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    tag: z.string().optional(),
+    value: z.string().optional(),
+  })
+);
 
 export function taggedValueToJSON(taggedValue: TaggedValue): string {
   return JSON.stringify(TaggedValue$outboundSchema.parse(taggedValue));

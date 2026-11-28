@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -29,11 +29,13 @@ export const Property$inboundSchema: z.ZodType<
   Property,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  key: z.string().optional(),
-  value: z.string().optional(),
-  hidden: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    key: z.string().optional(),
+    value: z.string().optional(),
+    hidden: z.boolean().optional(),
+  })
+);
 /** @internal */
 export type Property$Outbound = {
   key?: string | undefined;
@@ -46,11 +48,13 @@ export const Property$outboundSchema: z.ZodType<
   Property$Outbound,
   z.ZodTypeDef,
   Property
-> = z.object({
-  key: z.string().optional(),
-  value: z.string().optional(),
-  hidden: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    key: z.string().optional(),
+    value: z.string().optional(),
+    hidden: z.boolean().optional(),
+  })
+);
 
 export function propertyToJSON(property: Property): string {
   return JSON.stringify(Property$outboundSchema.parse(property));

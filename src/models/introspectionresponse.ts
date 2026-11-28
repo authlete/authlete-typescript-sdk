@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
@@ -258,54 +258,58 @@ export type IntrospectionResponse = {
 /** @internal */
 export const IntrospectionResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof IntrospectionResponseAction
-> = z.nativeEnum(IntrospectionResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(IntrospectionResponseAction)
+);
 
 /** @internal */
 export const IntrospectionResponse$inboundSchema: z.ZodType<
   IntrospectionResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: IntrospectionResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  clientId: z.number().int().optional(),
-  clientIdAlias: z.string().optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  expiresAt: z.number().int().optional(),
-  subject: z.string().optional(),
-  scopes: z.array(z.string()).optional(),
-  existent: z.boolean().optional(),
-  usable: z.boolean().optional(),
-  sufficient: z.boolean().optional(),
-  refreshable: z.boolean().optional(),
-  properties: z.array(Property$inboundSchema).optional(),
-  certificateThumbprint: z.string().optional(),
-  resources: z.array(z.string()).optional(),
-  accessTokenResources: z.array(z.string()).optional(),
-  authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  serviceAttributes: z.array(Pair$inboundSchema).optional(),
-  clientAttributes: z.array(Pair$inboundSchema).optional(),
-  scopeDetails: z.array(Scope$inboundSchema).optional(),
-  grantId: z.string().optional(),
-  grant: Grant$inboundSchema.optional(),
-  forExternalAttachment: z.boolean().optional(),
-  consentedClaims: z.array(z.string()).optional(),
-  grantType: GrantType$inboundSchema.optional(),
-  acr: z.string().optional(),
-  authTime: z.number().int().optional(),
-  clientEntityId: z.string().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  forCredentialIssuance: z.boolean().optional(),
-  cnonce: z.string().optional(),
-  cnonceExpiresAt: z.number().int().optional(),
-  issuableCredentials: z.string().optional(),
-  dpopNonce: z.string().optional(),
-  responseSigningRequired: z.boolean().optional(),
-  metadataDocumentLocation: z.string().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: IntrospectionResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    clientId: z.number().int().optional(),
+    clientIdAlias: z.string().optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    expiresAt: z.number().int().optional(),
+    subject: z.string().optional(),
+    scopes: z.array(z.string()).optional(),
+    existent: z.boolean().optional(),
+    usable: z.boolean().optional(),
+    sufficient: z.boolean().optional(),
+    refreshable: z.boolean().optional(),
+    properties: z.array(Property$inboundSchema).optional(),
+    certificateThumbprint: z.string().optional(),
+    resources: z.array(z.string()).optional(),
+    accessTokenResources: z.array(z.string()).optional(),
+    authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    serviceAttributes: z.array(Pair$inboundSchema).optional(),
+    clientAttributes: z.array(Pair$inboundSchema).optional(),
+    scopeDetails: z.array(Scope$inboundSchema).optional(),
+    grantId: z.string().optional(),
+    grant: Grant$inboundSchema.optional(),
+    forExternalAttachment: z.boolean().optional(),
+    consentedClaims: z.array(z.string()).optional(),
+    grantType: GrantType$inboundSchema.optional(),
+    acr: z.string().optional(),
+    authTime: z.number().int().optional(),
+    clientEntityId: z.string().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    forCredentialIssuance: z.boolean().optional(),
+    cnonce: z.string().optional(),
+    cnonceExpiresAt: z.number().int().optional(),
+    issuableCredentials: z.string().optional(),
+    dpopNonce: z.string().optional(),
+    responseSigningRequired: z.boolean().optional(),
+    metadataDocumentLocation: z.string().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+  })
+);
 
 export function introspectionResponseFromJSON(
   jsonString: string,

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -59,8 +60,10 @@ export type BackchannelAuthenticationFailRequest = {
 
 /** @internal */
 export const BackchannelAuthenticationFailRequestReason$outboundSchema:
-  z.ZodNativeEnum<typeof BackchannelAuthenticationFailRequestReason> = z
-    .nativeEnum(BackchannelAuthenticationFailRequestReason);
+  z.ZodNativeEnum<typeof BackchannelAuthenticationFailRequestReason> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(BackchannelAuthenticationFailRequestReason)
+    );
 
 /** @internal */
 export type BackchannelAuthenticationFailRequest$Outbound = {
@@ -75,12 +78,14 @@ export const BackchannelAuthenticationFailRequest$outboundSchema: z.ZodType<
   BackchannelAuthenticationFailRequest$Outbound,
   z.ZodTypeDef,
   BackchannelAuthenticationFailRequest
-> = z.object({
-  ticket: z.string(),
-  reason: BackchannelAuthenticationFailRequestReason$outboundSchema,
-  errorDescription: z.string().optional(),
-  errorUri: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    ticket: z.string(),
+    reason: BackchannelAuthenticationFailRequestReason$outboundSchema,
+    errorDescription: z.string().optional(),
+    errorUri: z.string().optional(),
+  })
+);
 
 export function backchannelAuthenticationFailRequestToJSON(
   backchannelAuthenticationFailRequest: BackchannelAuthenticationFailRequest,

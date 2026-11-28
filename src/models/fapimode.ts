@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 export const FapiMode = {
@@ -17,8 +18,8 @@ export const FapiMode = {
 export type FapiMode = ClosedEnum<typeof FapiMode>;
 
 /** @internal */
-export const FapiMode$inboundSchema: z.ZodNativeEnum<typeof FapiMode> = z
-  .nativeEnum(FapiMode);
+export const FapiMode$inboundSchema: z.ZodNativeEnum<typeof FapiMode> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(FapiMode));
 /** @internal */
 export const FapiMode$outboundSchema: z.ZodNativeEnum<typeof FapiMode> =
   FapiMode$inboundSchema;

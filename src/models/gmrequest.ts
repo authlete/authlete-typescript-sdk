@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   GrantManagementAction,
   GrantManagementAction$outboundSchema,
@@ -84,16 +85,18 @@ export const GMRequest$outboundSchema: z.ZodType<
   GMRequest$Outbound,
   z.ZodTypeDef,
   GMRequest
-> = z.object({
-  accessToken: z.string().optional(),
-  clientCertificate: z.string().optional(),
-  dpop: z.string().optional(),
-  htm: z.string().optional(),
-  htu: z.string().optional(),
-  gmAction: GrantManagementAction$outboundSchema.optional(),
-  grantId: z.string().optional(),
-  dpopNonceRequired: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accessToken: z.string().optional(),
+    clientCertificate: z.string().optional(),
+    dpop: z.string().optional(),
+    htm: z.string().optional(),
+    htu: z.string().optional(),
+    gmAction: GrantManagementAction$outboundSchema.optional(),
+    grantId: z.string().optional(),
+    dpopNonceRequired: z.boolean().optional(),
+  })
+);
 
 export function gMRequestToJSON(gmRequest: GMRequest): string {
   return JSON.stringify(GMRequest$outboundSchema.parse(gmRequest));

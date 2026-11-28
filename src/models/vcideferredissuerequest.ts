@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   CredentialIssuanceOrder,
   CredentialIssuanceOrder$Outbound,
@@ -23,9 +24,11 @@ export const VciDeferredIssueRequest$outboundSchema: z.ZodType<
   VciDeferredIssueRequest$Outbound,
   z.ZodTypeDef,
   VciDeferredIssueRequest
-> = z.object({
-  order: CredentialIssuanceOrder$outboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    order: CredentialIssuanceOrder$outboundSchema.optional(),
+  })
+);
 
 export function vciDeferredIssueRequestToJSON(
   vciDeferredIssueRequest: VciDeferredIssueRequest,

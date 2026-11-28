@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const VciOfferInfoApiRequest$outboundSchema: z.ZodType<
   VciOfferInfoApiRequest$Outbound,
   z.ZodTypeDef,
   VciOfferInfoApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  vciOfferInfoRequest: models.VciOfferInfoRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    vciOfferInfoRequest: "vci_offer_info_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    vciOfferInfoRequest: models.VciOfferInfoRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      vciOfferInfoRequest: "vci_offer_info_request",
+    });
+  })
+);
 
 export function vciOfferInfoApiRequestToJSON(
   vciOfferInfoApiRequest: VciOfferInfoApiRequest,
@@ -59,15 +61,17 @@ export const VciOfferInfoApiResponse$inboundSchema: z.ZodType<
   VciOfferInfoApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.VciOfferInfoResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.VciOfferInfoResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function vciOfferInfoApiResponseFromJSON(
   jsonString: string,

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type ClientExtensionRequestableScopesUpdateRequest = {
   /**
@@ -29,9 +30,11 @@ export const ClientExtensionRequestableScopesUpdateRequest$outboundSchema:
     ClientExtensionRequestableScopesUpdateRequest$Outbound,
     z.ZodTypeDef,
     ClientExtensionRequestableScopesUpdateRequest
-  > = z.object({
-    requestableScopes: z.array(z.string()).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      requestableScopes: z.array(z.string()).optional(),
+    })
+  );
 
 export function clientExtensionRequestableScopesUpdateRequestToJSON(
   clientExtensionRequestableScopesUpdateRequest:

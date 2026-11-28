@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -55,19 +55,23 @@ export type DeviceCompleteResponse = {
 /** @internal */
 export const DeviceCompleteResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof DeviceCompleteResponseAction
-> = z.nativeEnum(DeviceCompleteResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeviceCompleteResponseAction)
+);
 
 /** @internal */
 export const DeviceCompleteResponse$inboundSchema: z.ZodType<
   DeviceCompleteResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: DeviceCompleteResponseAction$inboundSchema.optional(),
-  consentedClaims: z.array(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: DeviceCompleteResponseAction$inboundSchema.optional(),
+    consentedClaims: z.array(z.string()).optional(),
+  })
+);
 
 export function deviceCompleteResponseFromJSON(
   jsonString: string,
