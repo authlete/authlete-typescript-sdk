@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -55,16 +55,18 @@ export const ClientAuthorizationDeleteResponse$inboundSchema: z.ZodType<
   ClientAuthorizationDeleteResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  serviceApiKey: z.number().int().optional(),
-  clientId: z.number().int().optional(),
-  subject: z.string().optional(),
-  latestGrantedScopes: z.array(z.string()).optional(),
-  mergedGrantedScopes: z.array(z.string()).optional(),
-  modifiedAt: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    serviceApiKey: z.number().int().optional(),
+    clientId: z.number().int().optional(),
+    subject: z.string().optional(),
+    latestGrantedScopes: z.array(z.string()).optional(),
+    mergedGrantedScopes: z.array(z.string()).optional(),
+    modifiedAt: z.number().int().optional(),
+  })
+);
 
 export function clientAuthorizationDeleteResponseFromJSON(
   jsonString: string,

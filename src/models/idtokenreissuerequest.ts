@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type IdtokenReissueRequest = {
   /**
@@ -59,14 +60,16 @@ export const IdtokenReissueRequest$outboundSchema: z.ZodType<
   IdtokenReissueRequest$Outbound,
   z.ZodTypeDef,
   IdtokenReissueRequest
-> = z.object({
-  accessToken: z.string(),
-  refreshToken: z.string().optional(),
-  sub: z.string().optional(),
-  claims: z.string().optional(),
-  idtHeaderParams: z.string().optional(),
-  idTokenAudType: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accessToken: z.string(),
+    refreshToken: z.string().optional(),
+    sub: z.string().optional(),
+    claims: z.string().optional(),
+    idtHeaderParams: z.string().optional(),
+    idTokenAudType: z.string().optional(),
+  })
+);
 
 export function idtokenReissueRequestToJSON(
   idtokenReissueRequest: IdtokenReissueRequest,

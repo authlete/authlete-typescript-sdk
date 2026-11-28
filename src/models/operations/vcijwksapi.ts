@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const VciJwksApiRequest$outboundSchema: z.ZodType<
   VciJwksApiRequest$Outbound,
   z.ZodTypeDef,
   VciJwksApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  vciJwksRequest: models.VciJwksRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    vciJwksRequest: "vci_jwks_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    vciJwksRequest: models.VciJwksRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      vciJwksRequest: "vci_jwks_request",
+    });
+  })
+);
 
 export function vciJwksApiRequestToJSON(
   vciJwksApiRequest: VciJwksApiRequest,
@@ -59,15 +61,17 @@ export const VciJwksApiResponse$inboundSchema: z.ZodType<
   VciJwksApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.VciJwksResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.VciJwksResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function vciJwksApiResponseFromJSON(
   jsonString: string,

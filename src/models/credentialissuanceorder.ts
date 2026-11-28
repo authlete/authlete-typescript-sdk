@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type CredentialIssuanceOrder = {
   /**
@@ -43,13 +44,15 @@ export const CredentialIssuanceOrder$outboundSchema: z.ZodType<
   CredentialIssuanceOrder$Outbound,
   z.ZodTypeDef,
   CredentialIssuanceOrder
-> = z.object({
-  requestIdentifier: z.string().optional(),
-  credentialPayload: z.string().optional(),
-  issuanceDeferred: z.boolean().optional(),
-  credentialDuration: z.number().int().optional(),
-  signingKeyId: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    requestIdentifier: z.string().optional(),
+    credentialPayload: z.string().optional(),
+    issuanceDeferred: z.boolean().optional(),
+    credentialDuration: z.number().int().optional(),
+    signingKeyId: z.string().optional(),
+  })
+);
 
 export function credentialIssuanceOrderToJSON(
   credentialIssuanceOrder: CredentialIssuanceOrder,

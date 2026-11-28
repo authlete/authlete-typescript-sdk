@@ -3,7 +3,10 @@
  */
 
 import * as z from "zod/v3";
-import { collectExtraKeys as collectExtraKeys$ } from "../../lib/schemas.js";
+import {
+  collectExtraKeys as collectExtraKeys$,
+  lazySchema as lazySchema$,
+} from "../../lib/schemas.js";
 import { AuthleteError } from "./authleteerror.js";
 
 /**
@@ -67,22 +70,26 @@ export const IdpError$inboundSchema: z.ZodType<
   IdpError,
   z.ZodTypeDef,
   unknown
-> = collectExtraKeys$(
-  z.object({
-    error: z.string().optional(),
-    errors: z.array(z.string()).optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .catchall(z.any()),
-  "additionalProperties",
-  false,
-)
-  .transform((v) => {
-    return new IdpError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+> = /* @__PURE__ */ lazySchema$(() =>
+  collectExtraKeys$(
+    z.object({
+      error: z.string().optional(),
+      errors: z.array(z.string()).optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .catchall(z.any()),
+    "additionalProperties",
+    false,
+  )
+    .transform((v) => {
+      const { request$, response$, body$, ...data } = v;
+
+      return new IdpError(data, {
+        request: request$,
+        response: response$,
+        body: body$,
+      });
+    })
+);

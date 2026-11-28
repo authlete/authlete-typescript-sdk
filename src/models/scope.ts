@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -43,14 +43,16 @@ export type Scope = {
 };
 
 /** @internal */
-export const Scope$inboundSchema: z.ZodType<Scope, z.ZodTypeDef, unknown> = z
-  .object({
-    name: z.string().optional(),
-    defaultEntry: z.boolean().optional(),
-    description: z.string().optional(),
-    descriptions: z.array(TaggedValue$inboundSchema).optional(),
-    attributes: z.nullable(z.array(Pair$inboundSchema)).optional(),
-  });
+export const Scope$inboundSchema: z.ZodType<Scope, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      name: z.string().optional(),
+      defaultEntry: z.boolean().optional(),
+      description: z.string().optional(),
+      descriptions: z.array(TaggedValue$inboundSchema).optional(),
+      attributes: z.nullable(z.array(Pair$inboundSchema)).optional(),
+    })
+  );
 /** @internal */
 export type Scope$Outbound = {
   name?: string | undefined;
@@ -65,13 +67,15 @@ export const Scope$outboundSchema: z.ZodType<
   Scope$Outbound,
   z.ZodTypeDef,
   Scope
-> = z.object({
-  name: z.string().optional(),
-  defaultEntry: z.boolean().optional(),
-  description: z.string().optional(),
-  descriptions: z.array(TaggedValue$outboundSchema).optional(),
-  attributes: z.nullable(z.array(Pair$outboundSchema)).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    defaultEntry: z.boolean().optional(),
+    description: z.string().optional(),
+    descriptions: z.array(TaggedValue$outboundSchema).optional(),
+    attributes: z.nullable(z.array(Pair$outboundSchema)).optional(),
+  })
+);
 
 export function scopeToJSON(scope: Scope): string {
   return JSON.stringify(Scope$outboundSchema.parse(scope));

@@ -8,9 +8,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import { AuthleteError } from "../models/errors/authleteerror.js";
 import {
   ConnectionError,
@@ -111,7 +110,11 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-  const path = pathToFunc("/api/{serviceId}/client")(pathParams);
+  const pathResult = encodePath("/api/{serviceId}/client", pathParams);
+  if (!pathResult.ok) {
+    return [haltIterator(pathResult), { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const query = encodeFormQuery({
     "cursor": payload?.cursor,

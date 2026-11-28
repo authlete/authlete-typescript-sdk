@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
@@ -46,20 +46,24 @@ export type AuthorizationTicketUpdateResponse = {
 
 /** @internal */
 export const AuthorizationTicketUpdateResponseAction$inboundSchema:
-  z.ZodNativeEnum<typeof AuthorizationTicketUpdateResponseAction> = z
-    .nativeEnum(AuthorizationTicketUpdateResponseAction);
+  z.ZodNativeEnum<typeof AuthorizationTicketUpdateResponseAction> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(AuthorizationTicketUpdateResponseAction)
+    );
 
 /** @internal */
 export const AuthorizationTicketUpdateResponse$inboundSchema: z.ZodType<
   AuthorizationTicketUpdateResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  info: AuthorizationTicketInfo$inboundSchema.optional(),
-  action: AuthorizationTicketUpdateResponseAction$inboundSchema.optional(),
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    info: AuthorizationTicketInfo$inboundSchema.optional(),
+    action: AuthorizationTicketUpdateResponseAction$inboundSchema.optional(),
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+  })
+);
 
 export function authorizationTicketUpdateResponseFromJSON(
   jsonString: string,

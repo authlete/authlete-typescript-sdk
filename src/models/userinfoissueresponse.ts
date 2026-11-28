@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -68,22 +68,26 @@ export type UserinfoIssueResponse = {
 /** @internal */
 export const UserinfoIssueResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof UserinfoIssueResponseAction
-> = z.nativeEnum(UserinfoIssueResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(UserinfoIssueResponseAction)
+);
 
 /** @internal */
 export const UserinfoIssueResponse$inboundSchema: z.ZodType<
   UserinfoIssueResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: UserinfoIssueResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  signature: z.string().optional(),
-  signatureInput: z.string().optional(),
-  contentDigest: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: UserinfoIssueResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    signature: z.string().optional(),
+    signatureInput: z.string().optional(),
+    contentDigest: z.string().optional(),
+  })
+);
 
 export function userinfoIssueResponseFromJSON(
   jsonString: string,

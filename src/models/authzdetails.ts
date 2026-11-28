@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AuthorizationDetailsElement,
@@ -32,9 +32,11 @@ export const AuthzDetails$inboundSchema: z.ZodType<
   AuthzDetails,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  elements: z.array(AuthorizationDetailsElement$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    elements: z.array(AuthorizationDetailsElement$inboundSchema).optional(),
+  })
+);
 /** @internal */
 export type AuthzDetails$Outbound = {
   elements?: Array<AuthorizationDetailsElement$Outbound> | undefined;
@@ -45,9 +47,11 @@ export const AuthzDetails$outboundSchema: z.ZodType<
   AuthzDetails$Outbound,
   z.ZodTypeDef,
   AuthzDetails
-> = z.object({
-  elements: z.array(AuthorizationDetailsElement$outboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    elements: z.array(AuthorizationDetailsElement$outboundSchema).optional(),
+  })
+);
 
 export function authzDetailsToJSON(authzDetails: AuthzDetails): string {
   return JSON.stringify(AuthzDetails$outboundSchema.parse(authzDetails));

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type ClientSecretUpdateRequest = {
   /**
@@ -23,9 +24,11 @@ export const ClientSecretUpdateRequest$outboundSchema: z.ZodType<
   ClientSecretUpdateRequest$Outbound,
   z.ZodTypeDef,
   ClientSecretUpdateRequest
-> = z.object({
-  clientSecret: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    clientSecret: z.string(),
+  })
+);
 
 export function clientSecretUpdateRequestToJSON(
   clientSecretUpdateRequest: ClientSecretUpdateRequest,

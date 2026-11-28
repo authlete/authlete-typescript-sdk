@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { GrantType, GrantType$inboundSchema } from "./granttype.js";
@@ -81,20 +81,22 @@ export const AccessToken$inboundSchema: z.ZodType<
   AccessToken,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  accessTokenHash: z.string().optional(),
-  accessTokenExpiresAt: z.number().int().optional(),
-  refreshTokenHash: z.string().optional(),
-  refreshTokenExpiresAt: z.number().int().optional(),
-  createdAt: z.number().int().optional(),
-  lastRefreshedAt: z.number().int().optional(),
-  clientId: z.number().int().optional(),
-  subject: z.string().optional(),
-  grantType: GrantType$inboundSchema.optional(),
-  scopes: z.array(z.string()).optional(),
-  properties: z.array(Property$inboundSchema).optional(),
-  refreshTokenScopes: z.array(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accessTokenHash: z.string().optional(),
+    accessTokenExpiresAt: z.number().int().optional(),
+    refreshTokenHash: z.string().optional(),
+    refreshTokenExpiresAt: z.number().int().optional(),
+    createdAt: z.number().int().optional(),
+    lastRefreshedAt: z.number().int().optional(),
+    clientId: z.number().int().optional(),
+    subject: z.string().optional(),
+    grantType: GrantType$inboundSchema.optional(),
+    scopes: z.array(z.string()).optional(),
+    properties: z.array(Property$inboundSchema).optional(),
+    refreshTokenScopes: z.array(z.string()).optional(),
+  })
+);
 
 export function accessTokenFromJSON(
   jsonString: string,

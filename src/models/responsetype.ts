@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 export const ResponseType = {
@@ -19,7 +20,7 @@ export type ResponseType = ClosedEnum<typeof ResponseType>;
 
 /** @internal */
 export const ResponseType$inboundSchema: z.ZodNativeEnum<typeof ResponseType> =
-  z.nativeEnum(ResponseType);
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(ResponseType));
 /** @internal */
 export const ResponseType$outboundSchema: z.ZodNativeEnum<typeof ResponseType> =
   ResponseType$inboundSchema;

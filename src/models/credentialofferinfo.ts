@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Property, Property$inboundSchema } from "./property.js";
@@ -116,27 +116,29 @@ export const CredentialOfferInfo$inboundSchema: z.ZodType<
   CredentialOfferInfo,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  identifier: z.string().optional(),
-  credentialOffer: z.string().optional(),
-  credentialIssuer: z.string().optional(),
-  authorizationCodeGrantIncluded: z.boolean().optional(),
-  issuerStateIncluded: z.boolean().optional(),
-  issuerState: z.string().optional(),
-  preAuthorizedCodeGrantIncluded: z.boolean().optional(),
-  preAuthorizedCode: z.string().optional(),
-  subject: z.string().optional(),
-  expiresAt: z.number().int().optional(),
-  context: z.string().optional(),
-  properties: z.array(Property$inboundSchema).optional(),
-  jwtAtClaims: z.string().optional(),
-  authTime: z.number().int().optional(),
-  acr: z.string().optional(),
-  credentialConfigurationIds: z.array(z.string()).optional(),
-  txCode: z.string().optional(),
-  txCodeInputMode: z.string().optional(),
-  txCodeDescription: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    identifier: z.string().optional(),
+    credentialOffer: z.string().optional(),
+    credentialIssuer: z.string().optional(),
+    authorizationCodeGrantIncluded: z.boolean().optional(),
+    issuerStateIncluded: z.boolean().optional(),
+    issuerState: z.string().optional(),
+    preAuthorizedCodeGrantIncluded: z.boolean().optional(),
+    preAuthorizedCode: z.string().optional(),
+    subject: z.string().optional(),
+    expiresAt: z.number().int().optional(),
+    context: z.string().optional(),
+    properties: z.array(Property$inboundSchema).optional(),
+    jwtAtClaims: z.string().optional(),
+    authTime: z.number().int().optional(),
+    acr: z.string().optional(),
+    credentialConfigurationIds: z.array(z.string()).optional(),
+    txCode: z.string().optional(),
+    txCodeInputMode: z.string().optional(),
+    txCodeDescription: z.string().optional(),
+  })
+);
 
 export function credentialOfferInfoFromJSON(
   jsonString: string,

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
@@ -184,39 +184,43 @@ export type DeviceVerificationResponse = {
 /** @internal */
 export const DeviceVerificationResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof DeviceVerificationResponseAction
-> = z.nativeEnum(DeviceVerificationResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeviceVerificationResponseAction)
+);
 
 /** @internal */
 export const DeviceVerificationResponse$inboundSchema: z.ZodType<
   DeviceVerificationResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: DeviceVerificationResponseAction$inboundSchema.optional(),
-  clientId: z.number().int().optional(),
-  clientIdAlias: z.string().optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  clientName: z.string().optional(),
-  scopes: z.array(Scope$inboundSchema).optional(),
-  claimNames: z.array(z.string()).optional(),
-  acrs: z.array(z.string()).optional(),
-  resources: z.array(z.string()).optional(),
-  authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  serviceAttributes: z.array(Pair$inboundSchema).optional(),
-  clientAttributes: z.array(Pair$inboundSchema).optional(),
-  dynamicScopes: z.array(DynamicScope$inboundSchema).optional(),
-  expiresAt: z.number().int().optional(),
-  gmAction: GrantManagementAction$inboundSchema.optional(),
-  grantId: z.string().optional(),
-  grant: Grant$inboundSchema.optional(),
-  grantSubject: z.string().optional(),
-  clientEntityId: z.string().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  metadataDocumentLocation: z.string().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: DeviceVerificationResponseAction$inboundSchema.optional(),
+    clientId: z.number().int().optional(),
+    clientIdAlias: z.string().optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    clientName: z.string().optional(),
+    scopes: z.array(Scope$inboundSchema).optional(),
+    claimNames: z.array(z.string()).optional(),
+    acrs: z.array(z.string()).optional(),
+    resources: z.array(z.string()).optional(),
+    authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    serviceAttributes: z.array(Pair$inboundSchema).optional(),
+    clientAttributes: z.array(Pair$inboundSchema).optional(),
+    dynamicScopes: z.array(DynamicScope$inboundSchema).optional(),
+    expiresAt: z.number().int().optional(),
+    gmAction: GrantManagementAction$inboundSchema.optional(),
+    grantId: z.string().optional(),
+    grant: Grant$inboundSchema.optional(),
+    grantSubject: z.string().optional(),
+    clientEntityId: z.string().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    metadataDocumentLocation: z.string().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+  })
+);
 
 export function deviceVerificationResponseFromJSON(
   jsonString: string,

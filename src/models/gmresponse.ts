@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -55,20 +55,22 @@ export type GMResponse = {
 /** @internal */
 export const GMResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof GMResponseAction
-> = z.nativeEnum(GMResponseAction);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GMResponseAction));
 
 /** @internal */
 export const GMResponse$inboundSchema: z.ZodType<
   GMResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: GMResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  dpopNonce: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: GMResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    dpopNonce: z.string().optional(),
+  })
+);
 
 export function gMResponseFromJSON(
   jsonString: string,

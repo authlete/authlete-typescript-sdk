@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -48,19 +48,23 @@ export type StandardIntrospectionResponse = {
 /** @internal */
 export const StandardIntrospectionResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof StandardIntrospectionResponseAction
-> = z.nativeEnum(StandardIntrospectionResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(StandardIntrospectionResponseAction)
+);
 
 /** @internal */
 export const StandardIntrospectionResponse$inboundSchema: z.ZodType<
   StandardIntrospectionResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: StandardIntrospectionResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: StandardIntrospectionResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+  })
+);
 
 export function standardIntrospectionResponseFromJSON(
   jsonString: string,

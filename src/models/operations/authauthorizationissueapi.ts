@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const AuthAuthorizationIssueApiRequest$outboundSchema: z.ZodType<
   AuthAuthorizationIssueApiRequest$Outbound,
   z.ZodTypeDef,
   AuthAuthorizationIssueApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  authorizationIssueRequest: models.AuthorizationIssueRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    authorizationIssueRequest: "authorization_issue_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    authorizationIssueRequest: models.AuthorizationIssueRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      authorizationIssueRequest: "authorization_issue_request",
+    });
+  })
+);
 
 export function authAuthorizationIssueApiRequestToJSON(
   authAuthorizationIssueApiRequest: AuthAuthorizationIssueApiRequest,
@@ -61,15 +63,17 @@ export const AuthAuthorizationIssueApiResponse$inboundSchema: z.ZodType<
   AuthAuthorizationIssueApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.AuthorizationIssueResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.AuthorizationIssueResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function authAuthorizationIssueApiResponseFromJSON(
   jsonString: string,

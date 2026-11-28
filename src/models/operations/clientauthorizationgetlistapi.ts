@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -61,13 +61,15 @@ export const ClientAuthorizationGetListApiRequest$outboundSchema: z.ZodType<
   ClientAuthorizationGetListApiRequest$Outbound,
   z.ZodTypeDef,
   ClientAuthorizationGetListApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  subject: z.string(),
-  developer: z.string().optional(),
-  start: z.number().int().optional(),
-  end: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    subject: z.string(),
+    developer: z.string().optional(),
+    start: z.number().int().optional(),
+    end: z.number().int().optional(),
+  })
+);
 
 export function clientAuthorizationGetListApiRequestToJSON(
   clientAuthorizationGetListApiRequest: ClientAuthorizationGetListApiRequest,
@@ -84,15 +86,17 @@ export const ClientAuthorizationGetListApiResponse$inboundSchema: z.ZodType<
   ClientAuthorizationGetListApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.ClientAuthorizationGetListResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.ClientAuthorizationGetListResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function clientAuthorizationGetListApiResponseFromJSON(
   jsonString: string,

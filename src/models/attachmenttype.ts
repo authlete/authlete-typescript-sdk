@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -24,7 +25,7 @@ export type AttachmentType = ClosedEnum<typeof AttachmentType>;
 /** @internal */
 export const AttachmentType$inboundSchema: z.ZodNativeEnum<
   typeof AttachmentType
-> = z.nativeEnum(AttachmentType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(AttachmentType));
 /** @internal */
 export const AttachmentType$outboundSchema: z.ZodNativeEnum<
   typeof AttachmentType

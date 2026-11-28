@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
@@ -52,20 +52,24 @@ export type VciSingleParseResponse = {
 /** @internal */
 export const VciSingleParseResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof VciSingleParseResponseAction
-> = z.nativeEnum(VciSingleParseResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(VciSingleParseResponseAction)
+);
 
 /** @internal */
 export const VciSingleParseResponse$inboundSchema: z.ZodType<
   VciSingleParseResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: VciSingleParseResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  info: CredentialRequestInfo$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: VciSingleParseResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    info: CredentialRequestInfo$inboundSchema.optional(),
+  })
+);
 
 export function vciSingleParseResponseFromJSON(
   jsonString: string,

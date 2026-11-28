@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const VciSingleIssueApiRequest$outboundSchema: z.ZodType<
   VciSingleIssueApiRequest$Outbound,
   z.ZodTypeDef,
   VciSingleIssueApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  vciSingleIssueRequest: models.VciSingleIssueRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    vciSingleIssueRequest: "vci_single_issue_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    vciSingleIssueRequest: models.VciSingleIssueRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      vciSingleIssueRequest: "vci_single_issue_request",
+    });
+  })
+);
 
 export function vciSingleIssueApiRequestToJSON(
   vciSingleIssueApiRequest: VciSingleIssueApiRequest,
@@ -59,15 +61,17 @@ export const VciSingleIssueApiResponse$inboundSchema: z.ZodType<
   VciSingleIssueApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.VciSingleIssueResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.VciSingleIssueResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function vciSingleIssueApiResponseFromJSON(
   jsonString: string,

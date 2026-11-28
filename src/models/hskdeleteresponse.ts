@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -49,19 +49,21 @@ export type HskDeleteResponse = {
 /** @internal */
 export const HskDeleteResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof HskDeleteResponseAction
-> = z.nativeEnum(HskDeleteResponseAction);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(HskDeleteResponseAction));
 
 /** @internal */
 export const HskDeleteResponse$inboundSchema: z.ZodType<
   HskDeleteResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: HskDeleteResponseAction$inboundSchema.optional(),
-  hsk: Hsk$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: HskDeleteResponseAction$inboundSchema.optional(),
+    hsk: Hsk$inboundSchema.optional(),
+  })
+);
 
 export function hskDeleteResponseFromJSON(
   jsonString: string,

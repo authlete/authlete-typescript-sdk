@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import {
   Property,
@@ -154,8 +155,10 @@ export type BackchannelAuthenticationCompleteRequest = {
 
 /** @internal */
 export const BackchannelAuthenticationCompleteRequestResult$outboundSchema:
-  z.ZodNativeEnum<typeof BackchannelAuthenticationCompleteRequestResult> = z
-    .nativeEnum(BackchannelAuthenticationCompleteRequestResult);
+  z.ZodNativeEnum<typeof BackchannelAuthenticationCompleteRequestResult> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(BackchannelAuthenticationCompleteRequestResult)
+    );
 
 /** @internal */
 export type BackchannelAuthenticationCompleteRequest$Outbound = {
@@ -184,26 +187,28 @@ export const BackchannelAuthenticationCompleteRequest$outboundSchema: z.ZodType<
   BackchannelAuthenticationCompleteRequest$Outbound,
   z.ZodTypeDef,
   BackchannelAuthenticationCompleteRequest
-> = z.object({
-  ticket: z.string(),
-  result: BackchannelAuthenticationCompleteRequestResult$outboundSchema,
-  subject: z.string(),
-  sub: z.string().optional(),
-  authTime: z.number().int().optional(),
-  acr: z.string().optional(),
-  claims: z.string().optional(),
-  properties: z.array(Property$outboundSchema).optional(),
-  scopes: z.array(z.string()).optional(),
-  idtHeaderParams: z.string().optional(),
-  errorDescription: z.string().optional(),
-  errorUri: z.string().optional(),
-  consentedClaims: z.array(z.string()).optional(),
-  jwtAtClaims: z.string().optional(),
-  accessToken: z.string().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  refreshTokenDuration: z.number().int().optional(),
-  idTokenAudType: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    ticket: z.string(),
+    result: BackchannelAuthenticationCompleteRequestResult$outboundSchema,
+    subject: z.string(),
+    sub: z.string().optional(),
+    authTime: z.number().int().optional(),
+    acr: z.string().optional(),
+    claims: z.string().optional(),
+    properties: z.array(Property$outboundSchema).optional(),
+    scopes: z.array(z.string()).optional(),
+    idtHeaderParams: z.string().optional(),
+    errorDescription: z.string().optional(),
+    errorUri: z.string().optional(),
+    consentedClaims: z.array(z.string()).optional(),
+    jwtAtClaims: z.string().optional(),
+    accessToken: z.string().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    refreshTokenDuration: z.number().int().optional(),
+    idTokenAudType: z.string().optional(),
+  })
+);
 
 export function backchannelAuthenticationCompleteRequestToJSON(
   backchannelAuthenticationCompleteRequest:

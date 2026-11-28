@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -48,16 +48,18 @@ export const ClientAuthorizationUpdateApiRequest$outboundSchema: z.ZodType<
   ClientAuthorizationUpdateApiRequest$Outbound,
   z.ZodTypeDef,
   ClientAuthorizationUpdateApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  clientId: z.string(),
-  clientAuthorizationUpdateRequest: models
-    .ClientAuthorizationUpdateRequest$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    clientAuthorizationUpdateRequest: "client_authorization_update_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    clientId: z.string(),
+    clientAuthorizationUpdateRequest: models
+      .ClientAuthorizationUpdateRequest$outboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      clientAuthorizationUpdateRequest: "client_authorization_update_request",
+    });
+  })
+);
 
 export function clientAuthorizationUpdateApiRequestToJSON(
   clientAuthorizationUpdateApiRequest: ClientAuthorizationUpdateApiRequest,
@@ -74,15 +76,17 @@ export const ClientAuthorizationUpdateApiResponse$inboundSchema: z.ZodType<
   ClientAuthorizationUpdateApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.ClientAuthorizationUpdateResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.ClientAuthorizationUpdateResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function clientAuthorizationUpdateApiResponseFromJSON(
   jsonString: string,

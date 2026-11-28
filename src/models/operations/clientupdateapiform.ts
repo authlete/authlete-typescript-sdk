@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -42,15 +42,17 @@ export const ClientUpdateApiFormRequest$outboundSchema: z.ZodType<
   ClientUpdateApiFormRequest$Outbound,
   z.ZodTypeDef,
   ClientUpdateApiFormRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  clientId: z.string(),
-  requestBody: z.record(z.any()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    clientId: z.string(),
+    requestBody: z.record(z.any()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function clientUpdateApiFormRequestToJSON(
   clientUpdateApiFormRequest: ClientUpdateApiFormRequest,
@@ -65,15 +67,17 @@ export const ClientUpdateApiFormResponse$inboundSchema: z.ZodType<
   ClientUpdateApiFormResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.Client$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.Client$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function clientUpdateApiFormResponseFromJSON(
   jsonString: string,

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -19,11 +19,13 @@ export type Pair = {
 };
 
 /** @internal */
-export const Pair$inboundSchema: z.ZodType<Pair, z.ZodTypeDef, unknown> = z
-  .object({
-    key: z.string().optional(),
-    value: z.string().optional(),
-  });
+export const Pair$inboundSchema: z.ZodType<Pair, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      key: z.string().optional(),
+      value: z.string().optional(),
+    })
+  );
 /** @internal */
 export type Pair$Outbound = {
   key?: string | undefined;
@@ -32,10 +34,12 @@ export type Pair$Outbound = {
 
 /** @internal */
 export const Pair$outboundSchema: z.ZodType<Pair$Outbound, z.ZodTypeDef, Pair> =
-  z.object({
-    key: z.string().optional(),
-    value: z.string().optional(),
-  });
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      key: z.string().optional(),
+      value: z.string().optional(),
+    })
+  );
 
 export function pairToJSON(pair: Pair): string {
   return JSON.stringify(Pair$outboundSchema.parse(pair));

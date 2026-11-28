@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const AuthAuthorizationApiRequest$outboundSchema: z.ZodType<
   AuthAuthorizationApiRequest$Outbound,
   z.ZodTypeDef,
   AuthAuthorizationApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  authorizationRequest: models.AuthorizationRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    authorizationRequest: "authorization_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    authorizationRequest: models.AuthorizationRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      authorizationRequest: "authorization_request",
+    });
+  })
+);
 
 export function authAuthorizationApiRequestToJSON(
   authAuthorizationApiRequest: AuthAuthorizationApiRequest,
@@ -61,15 +63,17 @@ export const AuthAuthorizationApiResponse$inboundSchema: z.ZodType<
   AuthAuthorizationApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.AuthorizationResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.AuthorizationResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function authAuthorizationApiResponseFromJSON(
   jsonString: string,

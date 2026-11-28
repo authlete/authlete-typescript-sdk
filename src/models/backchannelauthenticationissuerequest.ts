@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type BackchannelAuthenticationIssueRequest = {
   /**
@@ -23,9 +24,11 @@ export const BackchannelAuthenticationIssueRequest$outboundSchema: z.ZodType<
   BackchannelAuthenticationIssueRequest$Outbound,
   z.ZodTypeDef,
   BackchannelAuthenticationIssueRequest
-> = z.object({
-  ticket: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    ticket: z.string(),
+  })
+);
 
 export function backchannelAuthenticationIssueRequestToJSON(
   backchannelAuthenticationIssueRequest: BackchannelAuthenticationIssueRequest,

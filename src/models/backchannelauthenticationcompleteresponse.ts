@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
@@ -206,46 +206,50 @@ export type BackchannelAuthenticationCompleteResponse = {
 
 /** @internal */
 export const BackchannelAuthenticationCompleteResponseAction$inboundSchema:
-  z.ZodNativeEnum<typeof BackchannelAuthenticationCompleteResponseAction> = z
-    .nativeEnum(BackchannelAuthenticationCompleteResponseAction);
+  z.ZodNativeEnum<typeof BackchannelAuthenticationCompleteResponseAction> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(BackchannelAuthenticationCompleteResponseAction)
+    );
 
 /** @internal */
 export const BackchannelAuthenticationCompleteResponse$inboundSchema: z.ZodType<
   BackchannelAuthenticationCompleteResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: BackchannelAuthenticationCompleteResponseAction$inboundSchema
-    .optional(),
-  responseContent: z.string().optional(),
-  clientId: z.number().int().optional(),
-  clientIdAlias: z.string().optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  clientName: z.string().optional(),
-  deliveryMode: DeliveryMode$inboundSchema.optional(),
-  clientNotificationEndpoint: z.string().optional(),
-  clientNotificationToken: z.string().optional(),
-  authReqId: z.string().optional(),
-  accessToken: z.string().optional(),
-  refreshToken: z.string().optional(),
-  idToken: z.string().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  refreshTokenDuration: z.number().int().optional(),
-  idTokenDuration: z.number().int().optional(),
-  jwtAccessToken: z.string().optional(),
-  resources: z.array(z.string()).optional(),
-  authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  serviceAttributes: z.array(Pair$inboundSchema).optional(),
-  clientAttributes: z.array(Pair$inboundSchema).optional(),
-  grantId: z.string().optional(),
-  clientEntityId: z.string().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  metadataDocumentLocation: z.string().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-  consentedClaims: z.array(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: BackchannelAuthenticationCompleteResponseAction$inboundSchema
+      .optional(),
+    responseContent: z.string().optional(),
+    clientId: z.number().int().optional(),
+    clientIdAlias: z.string().optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    clientName: z.string().optional(),
+    deliveryMode: DeliveryMode$inboundSchema.optional(),
+    clientNotificationEndpoint: z.string().optional(),
+    clientNotificationToken: z.string().optional(),
+    authReqId: z.string().optional(),
+    accessToken: z.string().optional(),
+    refreshToken: z.string().optional(),
+    idToken: z.string().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    refreshTokenDuration: z.number().int().optional(),
+    idTokenDuration: z.number().int().optional(),
+    jwtAccessToken: z.string().optional(),
+    resources: z.array(z.string()).optional(),
+    authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    serviceAttributes: z.array(Pair$inboundSchema).optional(),
+    clientAttributes: z.array(Pair$inboundSchema).optional(),
+    grantId: z.string().optional(),
+    clientEntityId: z.string().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    metadataDocumentLocation: z.string().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+    consentedClaims: z.array(z.string()).optional(),
+  })
+);
 
 export function backchannelAuthenticationCompleteResponseFromJSON(
   jsonString: string,

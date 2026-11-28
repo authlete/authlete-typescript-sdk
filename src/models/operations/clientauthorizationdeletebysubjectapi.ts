@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -50,11 +50,13 @@ export const ClientAuthorizationDeleteBySubjectApiRequest$outboundSchema:
     ClientAuthorizationDeleteBySubjectApiRequest$Outbound,
     z.ZodTypeDef,
     ClientAuthorizationDeleteBySubjectApiRequest
-  > = z.object({
-    serviceId: z.string().optional(),
-    clientId: z.string(),
-    subject: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      serviceId: z.string().optional(),
+      clientId: z.string(),
+      subject: z.string(),
+    })
+  );
 
 export function clientAuthorizationDeleteBySubjectApiRequestToJSON(
   clientAuthorizationDeleteBySubjectApiRequest:
@@ -73,15 +75,17 @@ export const ClientAuthorizationDeleteBySubjectApiResponse$inboundSchema:
     ClientAuthorizationDeleteBySubjectApiResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    Headers: z.record(z.array(z.string())).default({}),
-    Result: models.ClientAuthorizationDeleteResponse$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "Headers": "headers",
-      "Result": "result",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      Headers: z.record(z.array(z.string())).default({}),
+      Result: models.ClientAuthorizationDeleteResponse$inboundSchema,
+    }).transform((v) => {
+      return remap$(v, {
+        "Headers": "headers",
+        "Result": "result",
+      });
+    })
+  );
 
 export function clientAuthorizationDeleteBySubjectApiResponseFromJSON(
   jsonString: string,

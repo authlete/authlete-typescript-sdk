@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -69,13 +69,15 @@ export const ClientSearchApiRequest$outboundSchema: z.ZodType<
   ClientSearchApiRequest$Outbound,
   z.ZodTypeDef,
   ClientSearchApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  q: z.string().optional(),
-  cursor: z.string().optional(),
-  limit: z.number().int().optional(),
-  includeTotalCount: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    q: z.string().optional(),
+    cursor: z.string().optional(),
+    limit: z.number().int().optional(),
+    includeTotalCount: z.boolean().optional(),
+  })
+);
 
 export function clientSearchApiRequestToJSON(
   clientSearchApiRequest: ClientSearchApiRequest,
@@ -90,7 +92,9 @@ export const ClientSearchApiResponseBody$inboundSchema: z.ZodType<
   ClientSearchApiResponseBody,
   z.ZodTypeDef,
   unknown
-> = models.ClientSearchResponse$inboundSchema;
+> = /* @__PURE__ */ lazySchema$(() =>
+  models.ClientSearchResponse$inboundSchema
+);
 
 export function clientSearchApiResponseBodyFromJSON(
   jsonString: string,
@@ -107,15 +111,17 @@ export const ClientSearchApiResponse$inboundSchema: z.ZodType<
   ClientSearchApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.ClientSearchResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.ClientSearchResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function clientSearchApiResponseFromJSON(
   jsonString: string,

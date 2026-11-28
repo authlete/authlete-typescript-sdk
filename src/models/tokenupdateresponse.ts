@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
@@ -97,27 +97,29 @@ export type TokenUpdateResponse = {
 /** @internal */
 export const TokenUpdateResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof TokenUpdateResponseAction
-> = z.nativeEnum(TokenUpdateResponseAction);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(TokenUpdateResponseAction));
 
 /** @internal */
 export const TokenUpdateResponse$inboundSchema: z.ZodType<
   TokenUpdateResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: TokenUpdateResponseAction$inboundSchema.optional(),
-  accessToken: z.string().optional(),
-  accessTokenExpiresAt: z.number().int().optional(),
-  properties: z.array(Property$inboundSchema).optional(),
-  scopes: z.array(z.string()).optional(),
-  authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  tokenType: z.string().optional(),
-  forExternalAttachment: z.boolean().optional(),
-  tokenId: z.string().optional(),
-  refreshTokenExpiresAt: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: TokenUpdateResponseAction$inboundSchema.optional(),
+    accessToken: z.string().optional(),
+    accessTokenExpiresAt: z.number().int().optional(),
+    properties: z.array(Property$inboundSchema).optional(),
+    scopes: z.array(z.string()).optional(),
+    authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    tokenType: z.string().optional(),
+    forExternalAttachment: z.boolean().optional(),
+    tokenId: z.string().optional(),
+    refreshTokenExpiresAt: z.number().int().optional(),
+  })
+);
 
 export function tokenUpdateResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const VciJwtissuerApiRequest$outboundSchema: z.ZodType<
   VciJwtissuerApiRequest$Outbound,
   z.ZodTypeDef,
   VciJwtissuerApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  vciJwtissuerRequest: models.VciJwtissuerRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    vciJwtissuerRequest: "vci_jwtissuer_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    vciJwtissuerRequest: models.VciJwtissuerRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      vciJwtissuerRequest: "vci_jwtissuer_request",
+    });
+  })
+);
 
 export function vciJwtissuerApiRequestToJSON(
   vciJwtissuerApiRequest: VciJwtissuerApiRequest,
@@ -59,15 +61,17 @@ export const VciJwtissuerApiResponse$inboundSchema: z.ZodType<
   VciJwtissuerApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.VciJwtissuerResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.VciJwtissuerResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function vciJwtissuerApiResponseFromJSON(
   jsonString: string,

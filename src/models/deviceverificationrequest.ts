@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type DeviceVerificationRequest = {
   /**
@@ -23,9 +24,11 @@ export const DeviceVerificationRequest$outboundSchema: z.ZodType<
   DeviceVerificationRequest$Outbound,
   z.ZodTypeDef,
   DeviceVerificationRequest
-> = z.object({
-  userCode: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    userCode: z.string(),
+  })
+);
 
 export function deviceVerificationRequestToJSON(
   deviceVerificationRequest: DeviceVerificationRequest,

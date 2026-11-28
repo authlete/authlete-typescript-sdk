@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { AuthzDetails, AuthzDetails$inboundSchema } from "./authzdetails.js";
@@ -175,41 +175,43 @@ export type TokenIssueResponse = {
 /** @internal */
 export const TokenIssueResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof TokenIssueResponseAction
-> = z.nativeEnum(TokenIssueResponseAction);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(TokenIssueResponseAction));
 
 /** @internal */
 export const TokenIssueResponse$inboundSchema: z.ZodType<
   TokenIssueResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: TokenIssueResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  accessToken: z.string().optional(),
-  accessTokenExpiresAt: z.number().int().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  refreshToken: z.string().optional(),
-  refreshTokenExpiresAt: z.number().int().optional(),
-  refreshTokenDuration: z.number().int().optional(),
-  clientId: z.number().int().optional(),
-  clientIdAlias: z.string().optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  subject: z.string().optional(),
-  scopes: z.array(z.string()).optional(),
-  properties: z.array(Property$inboundSchema).optional(),
-  jwtAccessToken: z.string().optional(),
-  accessTokenResources: z.array(z.string()).optional(),
-  authorizationDetails: AuthzDetails$inboundSchema.optional(),
-  serviceAttributes: z.array(Pair$inboundSchema).optional(),
-  clientAttributes: z.array(Pair$inboundSchema).optional(),
-  clientEntityId: z.string().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  refreshTokenScopes: z.array(z.string()).optional(),
-  metadataDocumentLocation: z.string().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: TokenIssueResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    accessToken: z.string().optional(),
+    accessTokenExpiresAt: z.number().int().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    refreshToken: z.string().optional(),
+    refreshTokenExpiresAt: z.number().int().optional(),
+    refreshTokenDuration: z.number().int().optional(),
+    clientId: z.number().int().optional(),
+    clientIdAlias: z.string().optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    subject: z.string().optional(),
+    scopes: z.array(z.string()).optional(),
+    properties: z.array(Property$inboundSchema).optional(),
+    jwtAccessToken: z.string().optional(),
+    accessTokenResources: z.array(z.string()).optional(),
+    authorizationDetails: AuthzDetails$inboundSchema.optional(),
+    serviceAttributes: z.array(Pair$inboundSchema).optional(),
+    clientAttributes: z.array(Pair$inboundSchema).optional(),
+    clientEntityId: z.string().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    refreshTokenScopes: z.array(z.string()).optional(),
+    metadataDocumentLocation: z.string().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+  })
+);
 
 export function tokenIssueResponseFromJSON(
   jsonString: string,

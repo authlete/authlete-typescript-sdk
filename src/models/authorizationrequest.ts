@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   CimdOptions,
   CimdOptions$Outbound,
@@ -50,11 +51,13 @@ export const AuthorizationRequest$outboundSchema: z.ZodType<
   AuthorizationRequest$Outbound,
   z.ZodTypeDef,
   AuthorizationRequest
-> = z.object({
-  parameters: z.string(),
-  context: z.string().optional(),
-  cimdOptions: CimdOptions$outboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameters: z.string(),
+    context: z.string().optional(),
+    cimdOptions: CimdOptions$outboundSchema.optional(),
+  })
+);
 
 export function authorizationRequestToJSON(
   authorizationRequest: AuthorizationRequest,

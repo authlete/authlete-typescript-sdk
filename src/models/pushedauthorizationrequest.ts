@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type PushedAuthorizationRequest = {
   /**
@@ -93,19 +94,21 @@ export const PushedAuthorizationRequest$outboundSchema: z.ZodType<
   PushedAuthorizationRequest$Outbound,
   z.ZodTypeDef,
   PushedAuthorizationRequest
-> = z.object({
-  parameters: z.string(),
-  clientId: z.string().optional(),
-  clientSecret: z.string().optional(),
-  clientCertificate: z.string().optional(),
-  clientCertificatePath: z.array(z.string()).optional(),
-  dpop: z.string().optional(),
-  htm: z.string().optional(),
-  htu: z.string().optional(),
-  oauthClientAttestation: z.string().optional(),
-  oauthClientAttestationPop: z.string().optional(),
-  dpopNonceRequired: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameters: z.string(),
+    clientId: z.string().optional(),
+    clientSecret: z.string().optional(),
+    clientCertificate: z.string().optional(),
+    clientCertificatePath: z.array(z.string()).optional(),
+    dpop: z.string().optional(),
+    htm: z.string().optional(),
+    htu: z.string().optional(),
+    oauthClientAttestation: z.string().optional(),
+    oauthClientAttestationPop: z.string().optional(),
+    dpopNonceRequired: z.boolean().optional(),
+  })
+);
 
 export function pushedAuthorizationRequestToJSON(
   pushedAuthorizationRequest: PushedAuthorizationRequest,

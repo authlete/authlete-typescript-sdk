@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type NativeSsoLogoutRequest = {
   /**
@@ -23,9 +24,11 @@ export const NativeSsoLogoutRequest$outboundSchema: z.ZodType<
   NativeSsoLogoutRequest$Outbound,
   z.ZodTypeDef,
   NativeSsoLogoutRequest
-> = z.object({
-  sessionId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    sessionId: z.string(),
+  })
+);
 
 export function nativeSsoLogoutRequestToJSON(
   nativeSsoLogoutRequest: NativeSsoLogoutRequest,

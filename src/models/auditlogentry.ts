@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -62,27 +62,29 @@ export type AuditLogEntry = {
 };
 
 /** @internal */
-export const Status$inboundSchema: z.ZodNativeEnum<typeof Status> = z
-  .nativeEnum(Status);
+export const Status$inboundSchema: z.ZodNativeEnum<typeof Status> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(Status));
 
 /** @internal */
 export const AuditLogEntry$inboundSchema: z.ZodType<
   AuditLogEntry,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  event: z.string().optional(),
-  status: Status$inboundSchema.optional(),
-  timestamp: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  cluster: z.string().optional(),
-  path: z.string().optional(),
-  remoteAddr: z.string().optional(),
-  userAgent: z.string().optional(),
-  user: z.string().optional(),
-  details: z.record(z.any()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    event: z.string().optional(),
+    status: Status$inboundSchema.optional(),
+    timestamp: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ).optional(),
+    cluster: z.string().optional(),
+    path: z.string().optional(),
+    remoteAddr: z.string().optional(),
+    userAgent: z.string().optional(),
+    user: z.string().optional(),
+    details: z.record(z.any()).optional(),
+  })
+);
 
 export function auditLogEntryFromJSON(
   jsonString: string,

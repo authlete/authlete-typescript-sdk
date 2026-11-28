@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   AuthzDetails,
   AuthzDetails$Outbound,
@@ -133,23 +134,25 @@ export const TokenUpdateRequest$outboundSchema: z.ZodType<
   TokenUpdateRequest$Outbound,
   z.ZodTypeDef,
   TokenUpdateRequest
-> = z.object({
-  accessToken: z.string().optional(),
-  accessTokenExpiresAt: z.number().int().optional(),
-  scopes: z.array(z.string()).optional(),
-  properties: z.array(Property$outboundSchema).optional(),
-  accessTokenExpiresAtUpdatedOnScopeUpdate: z.boolean().optional(),
-  accessTokenHash: z.string().optional(),
-  accessTokenValueUpdated: z.boolean().optional(),
-  accessTokenPersistent: z.boolean().optional(),
-  certificateThumbprint: z.string().optional(),
-  dpopKeyThumbprint: z.string().optional(),
-  authorizationDetails: AuthzDetails$outboundSchema.optional(),
-  forExternalAttachment: z.boolean().optional(),
-  refreshTokenExpiresAt: z.number().int().optional(),
-  refreshTokenExpiresAtUpdatedOnScopeUpdate: z.boolean().optional(),
-  tokenId: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accessToken: z.string().optional(),
+    accessTokenExpiresAt: z.number().int().optional(),
+    scopes: z.array(z.string()).optional(),
+    properties: z.array(Property$outboundSchema).optional(),
+    accessTokenExpiresAtUpdatedOnScopeUpdate: z.boolean().optional(),
+    accessTokenHash: z.string().optional(),
+    accessTokenValueUpdated: z.boolean().optional(),
+    accessTokenPersistent: z.boolean().optional(),
+    certificateThumbprint: z.string().optional(),
+    dpopKeyThumbprint: z.string().optional(),
+    authorizationDetails: AuthzDetails$outboundSchema.optional(),
+    forExternalAttachment: z.boolean().optional(),
+    refreshTokenExpiresAt: z.number().int().optional(),
+    refreshTokenExpiresAtUpdatedOnScopeUpdate: z.boolean().optional(),
+    tokenId: z.string().optional(),
+  })
+);
 
 export function tokenUpdateRequestToJSON(
   tokenUpdateRequest: TokenUpdateRequest,

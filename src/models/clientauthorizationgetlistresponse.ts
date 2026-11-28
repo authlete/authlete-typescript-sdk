@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Client, Client$inboundSchema } from "./client.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -52,14 +52,16 @@ export const ClientAuthorizationGetListResponse$inboundSchema: z.ZodType<
   ClientAuthorizationGetListResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  start: z.number().int().optional(),
-  end: z.number().int().optional(),
-  developer: z.string().optional(),
-  subject: z.string().optional(),
-  totalCount: z.number().int().optional(),
-  clients: z.array(Client$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    start: z.number().int().optional(),
+    end: z.number().int().optional(),
+    developer: z.string().optional(),
+    subject: z.string().optional(),
+    totalCount: z.number().int().optional(),
+    clients: z.array(Client$inboundSchema).optional(),
+  })
+);
 
 export function clientAuthorizationGetListResponseFromJSON(
   jsonString: string,

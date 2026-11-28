@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type NativeSsoRequest = {
   /**
@@ -72,16 +73,18 @@ export const NativeSsoRequest$outboundSchema: z.ZodType<
   NativeSsoRequest$Outbound,
   z.ZodTypeDef,
   NativeSsoRequest
-> = z.object({
-  accessToken: z.string(),
-  refreshToken: z.string().optional(),
-  sub: z.string().optional(),
-  claims: z.string().optional(),
-  idtHeaderParams: z.string().optional(),
-  idTokenAudType: z.string().optional(),
-  deviceSecret: z.string(),
-  deviceSecretHash: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accessToken: z.string(),
+    refreshToken: z.string().optional(),
+    sub: z.string().optional(),
+    claims: z.string().optional(),
+    idtHeaderParams: z.string().optional(),
+    idTokenAudType: z.string().optional(),
+    deviceSecret: z.string(),
+    deviceSecretHash: z.string().optional(),
+  })
+);
 
 export function nativeSsoRequestToJSON(
   nativeSsoRequest: NativeSsoRequest,

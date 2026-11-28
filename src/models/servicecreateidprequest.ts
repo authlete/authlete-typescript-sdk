@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   ServiceInput,
   ServiceInput$Outbound,
@@ -35,11 +36,13 @@ export const ServiceCreateIdpRequest$outboundSchema: z.ZodType<
   ServiceCreateIdpRequest$Outbound,
   z.ZodTypeDef,
   ServiceCreateIdpRequest
-> = z.object({
-  apiServerId: z.number().int().optional(),
-  organizationId: z.number().int(),
-  service: ServiceInput$outboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    apiServerId: z.number().int().optional(),
+    organizationId: z.number().int(),
+    service: ServiceInput$outboundSchema.optional(),
+  })
+);
 
 export function serviceCreateIdpRequestToJSON(
   serviceCreateIdpRequest: ServiceCreateIdpRequest,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const NativeSsoLogoutApiRequest$outboundSchema: z.ZodType<
   NativeSsoLogoutApiRequest$Outbound,
   z.ZodTypeDef,
   NativeSsoLogoutApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  nativeSsoLogoutRequest: models.NativeSsoLogoutRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    nativeSsoLogoutRequest: "native_sso_logout_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    nativeSsoLogoutRequest: models.NativeSsoLogoutRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      nativeSsoLogoutRequest: "native_sso_logout_request",
+    });
+  })
+);
 
 export function nativeSsoLogoutApiRequestToJSON(
   nativeSsoLogoutApiRequest: NativeSsoLogoutApiRequest,
@@ -59,15 +61,17 @@ export const NativeSsoLogoutApiResponse$inboundSchema: z.ZodType<
   NativeSsoLogoutApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.NativeSsoLogoutResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.NativeSsoLogoutResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function nativeSsoLogoutApiResponseFromJSON(
   jsonString: string,

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import {
   Property,
@@ -149,7 +150,9 @@ export type DeviceCompleteRequest = {
 /** @internal */
 export const DeviceCompleteRequestResult$outboundSchema: z.ZodNativeEnum<
   typeof DeviceCompleteRequestResult
-> = z.nativeEnum(DeviceCompleteRequestResult);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeviceCompleteRequestResult)
+);
 
 /** @internal */
 export type DeviceCompleteRequest$Outbound = {
@@ -177,25 +180,27 @@ export const DeviceCompleteRequest$outboundSchema: z.ZodType<
   DeviceCompleteRequest$Outbound,
   z.ZodTypeDef,
   DeviceCompleteRequest
-> = z.object({
-  userCode: z.string(),
-  result: DeviceCompleteRequestResult$outboundSchema,
-  subject: z.string(),
-  sub: z.string().optional(),
-  authTime: z.number().int().optional(),
-  acr: z.string().optional(),
-  claims: z.string().optional(),
-  properties: z.array(Property$outboundSchema).optional(),
-  scopes: z.array(z.string()).optional(),
-  errorDescription: z.string().optional(),
-  errorUri: z.string().optional(),
-  idtHeaderParams: z.string().optional(),
-  consentedClaims: z.array(z.string()).optional(),
-  jwtAtClaims: z.string().optional(),
-  accessTokenDuration: z.number().int().optional(),
-  refreshTokenDuration: z.number().int().optional(),
-  idTokenAudType: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    userCode: z.string(),
+    result: DeviceCompleteRequestResult$outboundSchema,
+    subject: z.string(),
+    sub: z.string().optional(),
+    authTime: z.number().int().optional(),
+    acr: z.string().optional(),
+    claims: z.string().optional(),
+    properties: z.array(Property$outboundSchema).optional(),
+    scopes: z.array(z.string()).optional(),
+    errorDescription: z.string().optional(),
+    errorUri: z.string().optional(),
+    idtHeaderParams: z.string().optional(),
+    consentedClaims: z.array(z.string()).optional(),
+    jwtAtClaims: z.string().optional(),
+    accessTokenDuration: z.number().int().optional(),
+    refreshTokenDuration: z.number().int().optional(),
+    idTokenAudType: z.string().optional(),
+  })
+);
 
 export function deviceCompleteRequestToJSON(
   deviceCompleteRequest: DeviceCompleteRequest,

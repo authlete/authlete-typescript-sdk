@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { Client, Client$inboundSchema } from "./client.js";
@@ -49,22 +49,25 @@ export type FederationRegistrationResponse = {
 
 /** @internal */
 export const FederationRegistrationResponseAction$inboundSchema:
-  z.ZodNativeEnum<typeof FederationRegistrationResponseAction> = z.nativeEnum(
-    FederationRegistrationResponseAction,
-  );
+  z.ZodNativeEnum<typeof FederationRegistrationResponseAction> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(FederationRegistrationResponseAction)
+    );
 
 /** @internal */
 export const FederationRegistrationResponse$inboundSchema: z.ZodType<
   FederationRegistrationResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: FederationRegistrationResponseAction$inboundSchema.optional(),
-  responseContent: z.string().optional(),
-  client: Client$inboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: FederationRegistrationResponseAction$inboundSchema.optional(),
+    responseContent: z.string().optional(),
+    client: Client$inboundSchema.optional(),
+  })
+);
 
 export function federationRegistrationResponseFromJSON(
   jsonString: string,

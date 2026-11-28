@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { Pair, Pair$Outbound, Pair$outboundSchema } from "./pair.js";
 
 export type UserinfoRequest = {
@@ -102,19 +103,21 @@ export const UserinfoRequest$outboundSchema: z.ZodType<
   UserinfoRequest$Outbound,
   z.ZodTypeDef,
   UserinfoRequest
-> = z.object({
-  token: z.string(),
-  clientCertificate: z.string().optional(),
-  dpop: z.string().optional(),
-  htm: z.string().optional(),
-  htu: z.string().optional(),
-  uri: z.string().optional(),
-  message: z.string().optional(),
-  headers: z.array(Pair$outboundSchema).optional(),
-  targetUri: z.string().optional(),
-  dpopNonceRequired: z.boolean().optional(),
-  requestBodyContained: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    token: z.string(),
+    clientCertificate: z.string().optional(),
+    dpop: z.string().optional(),
+    htm: z.string().optional(),
+    htu: z.string().optional(),
+    uri: z.string().optional(),
+    message: z.string().optional(),
+    headers: z.array(Pair$outboundSchema).optional(),
+    targetUri: z.string().optional(),
+    dpopNonceRequired: z.boolean().optional(),
+    requestBodyContained: z.boolean().optional(),
+  })
+);
 
 export function userinfoRequestToJSON(
   userinfoRequest: UserinfoRequest,

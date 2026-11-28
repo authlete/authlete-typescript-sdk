@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -40,16 +40,18 @@ export const BackchannelAuthenticationCompleteApiRequest$outboundSchema:
     BackchannelAuthenticationCompleteApiRequest$Outbound,
     z.ZodTypeDef,
     BackchannelAuthenticationCompleteApiRequest
-  > = z.object({
-    serviceId: z.string().optional(),
-    backchannelAuthenticationCompleteRequest:
-      models.BackchannelAuthenticationCompleteRequest$outboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      serviceId: z.string().optional(),
       backchannelAuthenticationCompleteRequest:
-        "backchannel_authentication_complete_request",
-    });
-  });
+        models.BackchannelAuthenticationCompleteRequest$outboundSchema,
+    }).transform((v) => {
+      return remap$(v, {
+        backchannelAuthenticationCompleteRequest:
+          "backchannel_authentication_complete_request",
+      });
+    })
+  );
 
 export function backchannelAuthenticationCompleteApiRequestToJSON(
   backchannelAuthenticationCompleteApiRequest:
@@ -68,15 +70,17 @@ export const BackchannelAuthenticationCompleteApiResponse$inboundSchema:
     BackchannelAuthenticationCompleteApiResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    Headers: z.record(z.array(z.string())).default({}),
-    Result: models.BackchannelAuthenticationCompleteResponse$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "Headers": "headers",
-      "Result": "result",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      Headers: z.record(z.array(z.string())).default({}),
+      Result: models.BackchannelAuthenticationCompleteResponse$inboundSchema,
+    }).transform((v) => {
+      return remap$(v, {
+        "Headers": "headers",
+        "Result": "result",
+      });
+    })
+  );
 
 export function backchannelAuthenticationCompleteApiResponseFromJSON(
   jsonString: string,

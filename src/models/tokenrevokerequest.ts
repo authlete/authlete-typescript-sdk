@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type TokenRevokeRequest = {
   /**
@@ -54,12 +55,14 @@ export const TokenRevokeRequest$outboundSchema: z.ZodType<
   TokenRevokeRequest$Outbound,
   z.ZodTypeDef,
   TokenRevokeRequest
-> = z.object({
-  accessTokenIdentifier: z.string().optional(),
-  refreshTokenIdentifier: z.string().optional(),
-  clientIdentifier: z.string().optional(),
-  subject: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accessTokenIdentifier: z.string().optional(),
+    refreshTokenIdentifier: z.string().optional(),
+    clientIdentifier: z.string().optional(),
+    subject: z.string().optional(),
+  })
+);
 
 export function tokenRevokeRequestToJSON(
   tokenRevokeRequest: TokenRevokeRequest,

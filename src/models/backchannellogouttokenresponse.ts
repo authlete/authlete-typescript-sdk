@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -58,22 +58,25 @@ export type BackchannelLogoutTokenResponse = {
 
 /** @internal */
 export const BackchannelLogoutTokenResponseAction$inboundSchema:
-  z.ZodNativeEnum<typeof BackchannelLogoutTokenResponseAction> = z.nativeEnum(
-    BackchannelLogoutTokenResponseAction,
-  );
+  z.ZodNativeEnum<typeof BackchannelLogoutTokenResponseAction> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(BackchannelLogoutTokenResponseAction)
+    );
 
 /** @internal */
 export const BackchannelLogoutTokenResponse$inboundSchema: z.ZodType<
   BackchannelLogoutTokenResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: BackchannelLogoutTokenResponseAction$inboundSchema.optional(),
-  logoutToken: z.string().optional(),
-  backchannelLogoutUri: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: BackchannelLogoutTokenResponseAction$inboundSchema.optional(),
+    logoutToken: z.string().optional(),
+    backchannelLogoutUri: z.string().optional(),
+  })
+);
 
 export function backchannelLogoutTokenResponseFromJSON(
   jsonString: string,

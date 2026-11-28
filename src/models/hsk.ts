@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -58,16 +58,18 @@ export type Hsk = {
 };
 
 /** @internal */
-export const Hsk$inboundSchema: z.ZodType<Hsk, z.ZodTypeDef, unknown> = z
-  .object({
-    kty: z.string().optional(),
-    use: z.string().optional(),
-    kid: z.string().optional(),
-    hsmName: z.string().optional(),
-    handle: z.string().optional(),
-    publicKey: z.string().optional(),
-    alg: z.string().optional(),
-  });
+export const Hsk$inboundSchema: z.ZodType<Hsk, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      kty: z.string().optional(),
+      use: z.string().optional(),
+      kid: z.string().optional(),
+      hsmName: z.string().optional(),
+      handle: z.string().optional(),
+      publicKey: z.string().optional(),
+      alg: z.string().optional(),
+    })
+  );
 /** @internal */
 export type Hsk$Outbound = {
   kty?: string | undefined;
@@ -80,16 +82,18 @@ export type Hsk$Outbound = {
 };
 
 /** @internal */
-export const Hsk$outboundSchema: z.ZodType<Hsk$Outbound, z.ZodTypeDef, Hsk> = z
-  .object({
-    kty: z.string().optional(),
-    use: z.string().optional(),
-    kid: z.string().optional(),
-    hsmName: z.string().optional(),
-    handle: z.string().optional(),
-    publicKey: z.string().optional(),
-    alg: z.string().optional(),
-  });
+export const Hsk$outboundSchema: z.ZodType<Hsk$Outbound, z.ZodTypeDef, Hsk> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      kty: z.string().optional(),
+      use: z.string().optional(),
+      kid: z.string().optional(),
+      hsmName: z.string().optional(),
+      handle: z.string().optional(),
+      publicKey: z.string().optional(),
+      alg: z.string().optional(),
+    })
+  );
 
 export function hskToJSON(hsk: Hsk): string {
   return JSON.stringify(Hsk$outboundSchema.parse(hsk));

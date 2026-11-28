@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -53,19 +53,23 @@ export type NativeSsoLogoutResponse = {
 /** @internal */
 export const NativeSsoLogoutResponseAction$inboundSchema: z.ZodNativeEnum<
   typeof NativeSsoLogoutResponseAction
-> = z.nativeEnum(NativeSsoLogoutResponseAction);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(NativeSsoLogoutResponseAction)
+);
 
 /** @internal */
 export const NativeSsoLogoutResponse$inboundSchema: z.ZodType<
   NativeSsoLogoutResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resultCode: z.string().optional(),
-  resultMessage: z.string().optional(),
-  action: NativeSsoLogoutResponseAction$inboundSchema.optional(),
-  count: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    resultCode: z.string().optional(),
+    resultMessage: z.string().optional(),
+    action: NativeSsoLogoutResponseAction$inboundSchema.optional(),
+    count: z.number().int().optional(),
+  })
+);
 
 export function nativeSsoLogoutResponseFromJSON(
   jsonString: string,

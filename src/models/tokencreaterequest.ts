@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   AuthzDetails,
   AuthzDetails$Outbound,
@@ -194,31 +195,33 @@ export const TokenCreateRequest$outboundSchema: z.ZodType<
   TokenCreateRequest$Outbound,
   z.ZodTypeDef,
   TokenCreateRequest
-> = z.object({
-  grantType: GrantType$outboundSchema,
-  clientId: z.number().int().optional(),
-  subject: z.string().optional(),
-  scopes: z.array(z.string()).optional(),
-  accessTokenDuration: z.number().int().optional(),
-  refreshTokenDuration: z.number().int().optional(),
-  properties: z.array(Property$outboundSchema).optional(),
-  clientIdAliasUsed: z.boolean().optional(),
-  accessToken: z.string().optional(),
-  refreshToken: z.string().optional(),
-  accessTokenPersistent: z.boolean().optional(),
-  certificateThumbprint: z.string().optional(),
-  dpopKeyThumbprint: z.string().optional(),
-  authorizationDetails: AuthzDetails$outboundSchema.optional(),
-  resources: z.array(z.string()).optional(),
-  forExternalAttachment: z.boolean().optional(),
-  jwtAtClaims: z.string().optional(),
-  acr: z.string().optional(),
-  authTime: z.number().int().optional(),
-  clientEntityIdUsed: z.boolean().optional(),
-  clientIdentifier: z.string().optional(),
-  sessionId: z.string().optional(),
-  metadataDocumentUsed: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    grantType: GrantType$outboundSchema,
+    clientId: z.number().int().optional(),
+    subject: z.string().optional(),
+    scopes: z.array(z.string()).optional(),
+    accessTokenDuration: z.number().int().optional(),
+    refreshTokenDuration: z.number().int().optional(),
+    properties: z.array(Property$outboundSchema).optional(),
+    clientIdAliasUsed: z.boolean().optional(),
+    accessToken: z.string().optional(),
+    refreshToken: z.string().optional(),
+    accessTokenPersistent: z.boolean().optional(),
+    certificateThumbprint: z.string().optional(),
+    dpopKeyThumbprint: z.string().optional(),
+    authorizationDetails: AuthzDetails$outboundSchema.optional(),
+    resources: z.array(z.string()).optional(),
+    forExternalAttachment: z.boolean().optional(),
+    jwtAtClaims: z.string().optional(),
+    acr: z.string().optional(),
+    authTime: z.number().int().optional(),
+    clientEntityIdUsed: z.boolean().optional(),
+    clientIdentifier: z.string().optional(),
+    sessionId: z.string().optional(),
+    metadataDocumentUsed: z.boolean().optional(),
+  })
+);
 
 export function tokenCreateRequestToJSON(
   tokenCreateRequest: TokenCreateRequest,

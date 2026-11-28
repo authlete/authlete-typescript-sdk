@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -37,14 +37,16 @@ export const GrantMApiRequest$outboundSchema: z.ZodType<
   GrantMApiRequest$Outbound,
   z.ZodTypeDef,
   GrantMApiRequest
-> = z.object({
-  serviceId: z.string().optional(),
-  gMRequest: models.GMRequest$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    gMRequest: "g_m_request",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    serviceId: z.string().optional(),
+    gMRequest: models.GMRequest$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      gMRequest: "g_m_request",
+    });
+  })
+);
 
 export function grantMApiRequestToJSON(
   grantMApiRequest: GrantMApiRequest,
@@ -59,15 +61,17 @@ export const GrantMApiResponse$inboundSchema: z.ZodType<
   GrantMApiResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: models.GMResponse$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: models.GMResponse$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function grantMApiResponseFromJSON(
   jsonString: string,
